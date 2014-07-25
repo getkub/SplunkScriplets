@@ -26,7 +26,7 @@ FWD_PORT=9997
 SPLUNK_PKG_RPM="splunkforwarder-latest-x86-64.rpm"
 
 # Set the new Splunk admin password
-FWD_PASS="changeme"
+FWD_PASS="changeme_new"
 
 SPLUNK_USER="splunk"
 SPLUNK_HOME="/opt/splunkforwarder"
