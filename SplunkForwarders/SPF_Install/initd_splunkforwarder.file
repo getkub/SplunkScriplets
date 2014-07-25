@@ -10,14 +10,25 @@
 # Required-Stop: $local_fs $remote_fs
 # Default-Start: 3 5
 # Default-Stop: 0 1 2 6
-# Short-Description: Start splunk
-# Description: Splunk indexer service
+# Short-Description: Start/stop/status splunk
+# Description: Splunk service
 ### END INIT INFO
 #
 RETVAL=0
 
+# Inorder for Splunk to start automatically
+chkconfig splunk off   # To unset run level  in /etc/init.d/rc2.d/
+# chkconfig splunk     # Check current level
+chkconfig splunk 2     # to set run level
+
 splunk_start() {
   echo Starting Splunk...
+  # Redirect Port 8000 to 443 for end users to login normally
+  # To display run: iptables -t nat -L -n -v
+  iptables -t nat -D PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 8000
+  iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 8000
+  iptables-save > /etc/iptables.rules
+
   /bin/su splunk -c "\"/opt/splunkforwarder/bin/splunk\" start --no-prompt --answer-yes"
   RETVAL=$?
 }
