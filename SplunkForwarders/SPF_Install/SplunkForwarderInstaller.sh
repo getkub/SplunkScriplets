@@ -2,17 +2,30 @@
 
 # ============================================================================
 # Basic Script to Unsintall+Install Splunk Universal Forwarder in LINUX environments
-# Version : 0.8 
+# Version : 1.02
 # ============================================================================
 
 # ============================================================================
 # #<Identify Relevant Environment> and Service
 # ============================================================================
+ENVTYPE=`hostname | cut -c 7-8`
+OSTYPE=`uname`
+SITE=`hostname | cut -c 5-6`
 
-# Dynamically find CLIENT_ENV
-# your code here
+if [ $OSTYPE != "Linux" ]
+then
+    echo "Unable to determine OSTYPE to be LINUX. Exiting without any changes"
+    exit 0
+fi
+
+# ============================================================================
+# Deployment Server Configuration
+# ============================================================================
+# Specify the Parent Splunk Deployment Server
+# your code here to dynamically find  or from facter is installed add to facter?
 # Deployment Server IP below
 DEP_SERVER_IP="10.1.2.3"
+
 # ============================================================================
 # Constant values for Splunk
 # ============================================================================
@@ -20,26 +33,19 @@ DEP_SERVER_IP="10.1.2.3"
 # PORTS 
 DEP_PORT=8089
 FWD_PORT=9997
+DEPLOY_SERVER="${DEP_SERVER_IP}:${DEP_PORT}"
 
 # SPLUNK Installable 
-# Link this to the correct version at OS level
+# Soft Link this to the correct version if you require
 SPLUNK_PKG_RPM="splunkforwarder-latest-x86-64.rpm"
 
 # Set the new Splunk admin password
 FWD_PASS="changeme_new"
-
 SPLUNK_USER="splunk"
 SPLUNK_HOME="/opt/splunkforwarder"
 SPLUNK_ROOT="${SPLUNK_HOME}/../"
 SPLUNKFWD_INITD="initd_splunkforwarder.file"
 
-# ============================================================================
-# Evaluate ${CLIENT_ENV}_SERVER_IP
-# Find the equivalent Server IP from Destination Master Splunk IP List 
-# ============================================================================
-
-
-DEPLOY_SERVER="${DEP_SERVER_IP}:${DEP_PORT}"
 
 # Check if the correct user is used
 currentUser=`whoami`
@@ -54,77 +60,69 @@ fi
 DEPLOYMENT_CONFIG_DESTINATION="${SPLUNK_HOME}/etc/apps/deployclient/local"
 DEPLOYMENT_CONFIG_FILE="${DEPLOYMENT_CONFIG_DESTINATION}/deploymentclient.conf"
 
-# ========================= Uninstall Start =========================
+# ========================= Upgrade Start =========================
 
-# Remove Previous Splunk Fowarder Installation
-rpm -q splunkforwarder | grep -vq "not installed" && isInstalled="TRUE" || isInstalled="FALSE" 
-if [ $isInstalled == "TRUE" ]
-then
-    SPLUNKFWDVERSION=`rpm -q splunkforwarder`
-    rpm -e $SPLUNKFWDVERSION
-    rc=$?
-fi
-
-if [ $rc != "0" ]
-then
-    echo "Error occured during Uninstall. Please manually remove any directories created.. "
-    echo "Quitting.. "
-    exit 100
-fi
-
-# Delete any splunkforwarder Directories
-if [ -d "$SPLUNK_HOME" ]; 
-then
-   rm -rf $SPLUNK_HOME
-fi
-# ========================= Uninstall End      =========================
-
-# ========================= Installation Start =========================
-# Copy init.d script too for automatic start/stop functionality
-if [ -f "$SPLUNKFWD_INITD" ]; 
-then
-   cp $SPLUNKFWD_INITD /etc/init.d/splunk
-   chmod 744 /etc/init.d/splunk
-fi
-
-# Actual Installation 
-rpm -i $SPLUNK_PKG_RPM
-
+# Actual Upgrade 
+rpm -U $SPLUNK_PKG_RPM
 rc=$?
 
 if [ $rc != "0" ]
 then
+    echo "========================= ERROR ERROR ERROR ========================= "
     echo "Error occured during installation. Please manually remove any directories created.. "
     echo "Quitting.. "
+    echo "========================= ERROR ERROR ERROR ========================= "
     exit 100
 fi
 # ========================= Installation End    =========================
 
 # ========================= Configuration Start =========================
 /bin/su $SPLUNK_USER -c "mkdir -p ${DEPLOYMENT_CONFIG_DESTINATION} "
-/bin/su $SPLUNK_USER -c "touch ${DEPLOYMENT_CONFIG_FILE}"
+/bin/su $SPLUNK_USER -c "> ${DEPLOYMENT_CONFIG_FILE}"
+/bin/su $SPLUNK_USER -c "touch ${LOCALSYSTEM_CONFIG_FILE}"
 rc=$?
 
-# Build Deployment config or build it externally
+
+# Build Deployment config
 echo '[deployment-client]' >> ${DEPLOYMENT_CONFIG_FILE}
 echo '' >> ${DEPLOYMENT_CONFIG_FILE}
 echo '[target-broker:deploymentServer]' >> ${DEPLOYMENT_CONFIG_FILE}
 echo "targetUri = ${DEPLOY_SERVER}"  >> ${DEPLOYMENT_CONFIG_FILE}
 
-# Disable defaults and start splunk
-/bin/su $SPLUNK_USER -c "${SPLUNK_HOME}/bin/splunk edit user admin -password $FWD_PASS -auth admin:changeme --accept-license"
-/bin/su $SPLUNK_USER -c "${SPLUNK_HOME}/bin/splunk set  splunkd-port $DEP_PORT "
-/bin/su $SPLUNK_USER -c "${SPLUNK_HOME}/bin/splunk start "
-# ========================= Configuration End =========================
+# If the $DEP_PORT is not available SPLUNK falls back to 8089. We don't want this. So forcing to $DEP_PORT else fail
+echo '[settings]' > ${LOCALSYSTEM_CONFIG_FILE}
+echo "mgmtHostPort = 127.0.0.1:${DEP_PORT}" >> ${LOCALSYSTEM_CONFIG_FILE}
 
+# Disable defaults and start splunk
+/bin/su $SPLUNK_USER -c "${SPLUNK_HOME}/bin/splunk edit user admin -password $FWD_PASS -auth admin:changeme --accept-license --answer-yes --no-prompt"
+/bin/su $SPLUNK_USER -c "${SPLUNK_HOME}/bin/splunk set  splunkd-port $DEP_PORT "
+/bin/su $SPLUNK_USER -c "${SPLUNK_HOME}/bin/splunk start --accept-license --answer-yes --no-prompt"
+rc=$?
+
+if [ $rc != "0" ]
+then
+    echo "========================= ERROR ERROR ERROR ========================= "
+    echo "Error occured during starting Splunk. Please manually remove any directories created.. "
+    echo "Quitting.. "
+    echo "========================= ERROR ERROR ERROR ========================= "
+    exit 100
+fi
 # enable boot-start should need to be done in init
-echo "**** ===================================================================== ****"
-echo "**** Ensure /etc/init.d/splunk entry is present and contains valid entries ****"
-echo "**** ===================================================================== ****"
+# Copy init.d script too for automatic start/stop functionality
+if [ -f "$SPLUNKFWD_INITD" ]; 
+then
+   cp $SPLUNKFWD_INITD /etc/init.d/splunk
+   chmod 744 /etc/init.d/splunk
+   chkconfig splunk on
+else
+   echo "***** init.d splunk entry not made. Splunk auto-start may NOT WORK *********"
+fi
 
 echo ""
 echo "**** Splunk Fowarders Successfully Installed ****"
 echo ""
+# ========================= Configuration End =========================
+
 # ============================================================================
 # End of Script
 # ============================================================================
