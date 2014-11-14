@@ -1,3 +1,0 @@
-Severity,Message,AlertGroup,event_id,hostname,component,subcomponent,time
-WARNING,This is a test5 Alert,App_Error,12345,serverA,COMPONENT1,TestSubCom,1393944559
-CRITICAL,This is a test6 Alert,App_Error,56789,serverA,COMPONENT1,TestSubCom,1393944559
