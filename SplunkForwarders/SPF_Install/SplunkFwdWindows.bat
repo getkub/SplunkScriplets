@@ -11,3 +11,7 @@ set installDir="E:\Program Files\SplunkUniversalForwarder"
 set SPLUNKD_PORT="8089"
 
 msiexec.exe /I  %installable% AGREETOLICENSE=Yes INSTALLDIR=%installDir% DEPLOYMENT_SERVER=%dep_server% SPLUNKD_PORT=%SPLUNKD_PORT%  SERVICESTARTTYPE=auto  LAUNCHSPLUNK=1 /quiet
+
+REM # The command prompt will return quickly, but it might be still installing
+REM # Wait for 5 minutes
+REM # Later verify by running "E:\Program Files\SplunkUniversalForwarder\bin\splunk -version"
