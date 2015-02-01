@@ -2,13 +2,15 @@ search factor  - The number of searchable copies of data that an indexer cluster
 On a multisite indexer cluster, a special version of the search factor, known as the site search factor, determines not only the number of searchable copies that the entire cluster maintains but also the number of copies that each site maintains.
 http://docs.splunk.com/Documentation/Splunk/6.2.0/Indexer/Bucketsandclusters
 If SF>1, the master also tells the peer which of its target peers should make its copy of the data searchable
+ search factor determines the number of searchable copies of each bucket. (Default 2) .Also SF <= RF.
 
 Replication Factor
 - In the case of an indexer cluster, the number of copies of data that the cluster maintains. A cluster can tolerate a failure of (replication factor - 1) peer nodes.
 - On a multisite indexer cluster, a special version of the replication factor, known as the site replication factor, determines not only the number of copies that the entire cluster maintains but also the number of copies that each site maintains.
 - In the case of a search head cluster, the number of copies of each search artifact that the cluster maintains.
  
- search factor determines the number of searchable copies of each bucket. The default value for the search factor is 2, meaning that the cluster maintains two searchable copies of all data. The search factor must be less than or equal to the replication factor.
+ The peer begins streaming the processed rawdata to the target peers specified by the master. 
+ It does not wait until its rawdata file is complete to start streaming its contents; rather, it streams the rawdata in blocks, as it processes the incoming data. It also tells any target peers if they need to make their copies searchable
  ====================================
 1. Restart the master node, as you would any instance. For example, run this CLI command on the master:  "splunk restart"
 2. Once the master restarts, wait until all the peers re-register with the master, and the master dashboard indicates that all peers and indexes are searchable.
@@ -22,6 +24,8 @@ There are two ways that you can safely restart a single peer:
 - Through Splunk Web (Settings>Server Controls).
 - With the CLI command offline, followed by start.  (splunk offline ; splunk edit cluster-config -restart_timeout <seconds> # Extend restart period)
 Do not use the CLI restart command to restart the peer, the master will not be aware that the peer is restarting
+The offline command removes a peer from the cluster and then stops the peer. 
+It takes the peer down gracefully, allowing any in-progress searches to complete while quickly returning the cluster to a fully searchable state.
 =======================================
 Remove a peer from the master's list
 ./splunk remove cluster-peers -peers <guid>,<guid>,<guid>,...
@@ -36,5 +40,28 @@ The peers continue to stream data to other peers based on the list of target pee
 Restart indexing after master restart or site failure 
 # command on the master to unblock indexing when replication factor number of peers are not available
 splunk set indexing-ready -auth admin:changeme
+
+When the master comes back up, it waits for a quiet period of 60 seconds, so that all peers have an opportunity to re-register
+After the master has a complete view of the state of the cluster, including the state of peer nodes and buckets.
 =======================================
+http://docs.splunk.com/Documentation/Splunk/latest/Indexer/Clusterdeploymentoverview
  in a clustering environment, you should ordinarily enable indexer acknowledgment for each forwarder sending data to a peer
+Search across a single-site cluster
+- The search head contacts the master node.
+- The master node gives the SH the current generation ID and a list of the peers in that generation
+- The search head communicates with the search peers
+For Multi-site, - Search affinity is always enabled with multisite clusters
+=======================================
+configuration bundle  (On the master)
+$SPLUNK_HOME/etc/master-apps/
+     _cluster/
+          default/
+          local/
+     <app-name>/
+     <app-name>/
+     
+On the peers -> (same Structure) $SPLUNK_HOME/etc/slave-apps/
+
+Apply the bundle to the peers (via Web -> Distribute Configuration Bundle option)
+CLI -> splunk apply cluster-bundle --answer-yes ; splunk show cluster-bundle-status
+=======================================
