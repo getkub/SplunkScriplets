@@ -1,10 +1,12 @@
 search factor  - The number of searchable copies of data that an indexer cluster maintains.
 On a multisite indexer cluster, a special version of the search factor, known as the site search factor, determines not only the number of searchable copies that the entire cluster maintains but also the number of copies that each site maintains.
+http://docs.splunk.com/Documentation/Splunk/6.2.0/Indexer/Bucketsandclusters
+If SF>1, the master also tells the peer which of its target peers should make its copy of the data searchable
 
-Replication Factor - 
-In the case of an indexer cluster, the number of copies of data that the cluster maintains. A cluster can tolerate a failure of (replication factor - 1) peer nodes.
-	On a multisite indexer cluster, a special version of the replication factor, known as the site replication factor, determines not only the number of copies that the entire cluster maintains but also the number of copies that each site maintains.
-In the case of a search head cluster, the number of copies of each search artifact that the cluster maintains.
+Replication Factor
+- In the case of an indexer cluster, the number of copies of data that the cluster maintains. A cluster can tolerate a failure of (replication factor - 1) peer nodes.
+- On a multisite indexer cluster, a special version of the replication factor, known as the site replication factor, determines not only the number of copies that the entire cluster maintains but also the number of copies that each site maintains.
+- In the case of a search head cluster, the number of copies of each search artifact that the cluster maintains.
  
  search factor determines the number of searchable copies of each bucket. The default value for the search factor is 2, meaning that the cluster maintains two searchable copies of all data. The search factor must be less than or equal to the replication factor.
  ====================================
@@ -20,3 +22,19 @@ There are two ways that you can safely restart a single peer:
 - Through Splunk Web (Settings>Server Controls).
 - With the CLI command offline, followed by start.  (splunk offline ; splunk edit cluster-config -restart_timeout <seconds> # Extend restart period)
 Do not use the CLI restart command to restart the peer, the master will not be aware that the peer is restarting
+=======================================
+Remove a peer from the master's list
+./splunk remove cluster-peers -peers <guid>,<guid>,<guid>,...
+The GUIDs can be specified with or without hyphens. For example: 4EB4D230-CB8B-4DEB-AD68-CF9209A6868A and 4EB4D230CB8B4DEBAD68CF9209A6868A are both valid.
+If any GUID on the list is invalid, because one of the GUIDs does not correlate to a downed peer, the master aborts the entire operation.
+=======================================
+Handle master site failure (Configure a stand-by master preparatory step)
+If the site holding the master node fails, you can bring up a new master on one of the remaining sites. 
+In the meantime, the cluster continues to function as best it can. 
+The peers continue to stream data to other peers based on the list of target peers they were using at the time the master went down.
+
+Restart indexing after master restart or site failure 
+# command on the master to unblock indexing when replication factor number of peers are not available
+splunk set indexing-ready -auth admin:changeme
+=======================================
+ in a clustering environment, you should ordinarily enable indexer acknowledgment for each forwarder sending data to a peer
