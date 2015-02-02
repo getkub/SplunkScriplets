@@ -11,6 +11,17 @@ Replication Factor
  
  The peer begins streaming the processed rawdata to the target peers specified by the master. 
  It does not wait until its rawdata file is complete to start streaming its contents; rather, it streams the rawdata in blocks, as it processes the incoming data. It also tells any target peers if they need to make their copies searchable
+ 
+##### master's server.conf   - http://docs.splunk.com/Documentation/Splunk/latest/Indexer/Sitereplicationfactor
+[clustering]
+mode = master
+multisite=true
+available_sites=site1,site2
+site_replication_factor = origin:2,total:3
+site_search_factor = origin:1,total:2
+
+ # site_replication_factor = origin:2, site1:1, site2:1, site3:1, total:4
+A peer in site1 ingests the data, it will stream one copy of the data to another peer in site1 (to fulfill the origin setting of 2), one copy to a peer in site2, and one copy to a peer in site3.
  ====================================
 1. Restart the master node, as you would any instance. For example, run this CLI command on the master:  "splunk restart"
 2. Once the master restarts, wait until all the peers re-register with the master, and the master dashboard indicates that all peers and indexes are searchable.
@@ -19,7 +30,7 @@ splunk rolling-restart cluster-peers
 
 -- The rolling restart works like this: The master issues a restart message to approximately 10% (by default) of the peer nodes at a time. (If there are less than 10 peers in the cluster, it issues the restart to one peer at a time.) Once those peers restart and contact the master, the master then issues a restart message to another 10% of the peers, and so on, until all the peers have restarted. master restarts the peers in random order. In the case of multsite clusters, this operation is not site-aware.
 =======================================
-Restart a single peer
+Restart a single peer - All peers must use the same set of indexes.conf files
 There are two ways that you can safely restart a single peer:
 - Through Splunk Web (Settings>Server Controls).
 - With the CLI command offline, followed by start.  (splunk offline ; splunk edit cluster-config -restart_timeout <seconds> # Extend restart period)
