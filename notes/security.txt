@@ -1,5 +1,5 @@
 Mask sensitive Data - Anonymize data with a regular expression transform (SessionId=###########7BEA&Ticket=############96EE)
-$SPLUNK_HOME/etc/system/local/props.conf
+$SPLUNK_HOME/etc/system/local/props.conf    (or pure SEDCMD-<class> = s/<regex>/<replacement>/flags)
   [<spec>]  # sourcetype, host , source
   TRANSFORMS-anonymize = session-anonymizer, ticket-anonymizer
 
