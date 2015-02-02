@@ -1,0 +1,15 @@
+Mask sensitive Data - Anonymize data with a regular expression transform (SessionId=###########7BEA&Ticket=############96EE)
+$SPLUNK_HOME/etc/system/local/props.conf
+  [<spec>]  # sourcetype, host , source
+  TRANSFORMS-anonymize = session-anonymizer, ticket-anonymizer
+
+$SPLUNK_HOME/etc/system/local/transforms.conf
+[session-anonymizer]
+REGEX = (?m)^(.*)SessionId=\w+(\w{4}[&"].*)$
+FORMAT = $1SessionId=########$2
+DEST_KEY = _raw
+[ticket-anonymizer]
+REGEX = (?m)^(.*)Ticket=\w+(\w{4}&.*)$
+FORMAT = $1Ticket=########$2
+DEST_KEY = _raw
+==============================================
