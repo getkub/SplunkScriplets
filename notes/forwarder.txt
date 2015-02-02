@@ -1,0 +1,33 @@
+#Load Balancing
+Static list target  -> outputs.conf
+[tcpout: my_LB_indexers]
+server=10.10.10.1:9997,10.10.10.2:9996,10.10.10.3:9995
+
+DNS list target
+[tcpout]
+defaultGroup=my_LB_indexers
+
+[tcpout:my_LB_indexers]
+disabled=false
+autoLBFrequency=40
+server=splunkreceiver.mycompany.com:9997
+==========================================
+Filter and route event data to target groups
+#### props.conf
+[default]
+TRANSFORMS-routing=errorRouting
+
+[syslog]
+TRANSFORMS-routing=syslogRouting
+
+#### transforms.conf
+[errorRouting]
+REGEX=error
+DEST_KEY=_TCP_ROUTING
+FORMAT=errorGroup
+
+[syslogRouting]
+REGEX=.
+DEST_KEY=_TCP_ROUTING
+FORMAT=syslogGroup
+==========================================
