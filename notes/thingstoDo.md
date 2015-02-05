@@ -7,9 +7,11 @@
   * inputs.conf - main forwarder input
   * server.conf - [license] master_uri with port
 * Base_SH
-  * Front page notifications - web.conf
-  * LDAP/AD integration - authentication.conf
-* 
+  * web.conf - Front page notifications, ports
+  * authentication.conf - LDAP/AD integration
+* Base_SHARE  (100% sharable KIs)
+  * transforms.conf - Sharable lookups
+  * 
 
 
 
