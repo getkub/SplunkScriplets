@@ -1,17 +1,9 @@
 # Enterprise Deploy - Things to Remember
-1. item
-2. item
-3. item
-4. text
-5. five
-4. item
-5. item
 
-
-
-
-
-6. item
+* Index locations 
+* Base_SI
+* Base_SH
+* 
 
 
 
