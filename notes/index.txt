@@ -1,0 +1,6 @@
+An index is a collection of databases, which are subdirectories located in $SPLUNK_HOME/var/lib/splunk. 
+Indexes consist of two types of files: rawdata files and index files.
+
+$SPLUNK_HOME/etc/splunk-launch.conf   # $SPLUNK_DB=/foo/bar
+
+splunk add index foo -homePath /your/path/foo/db -coldPath /your/pat/foo/colddb -thawedPath /your/path/foo/thawedDb
