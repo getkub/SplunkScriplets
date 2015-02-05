@@ -3,4 +3,4 @@ Indexes consist of two types of files: rawdata files and index files.
 
 Edit $SPLUNK_HOME/etc/splunk-launch.conf 
 $SPLUNK_DB=/foo/bar
-# splunk add index foo -homePath /your/path/foo/db -coldPath /your/pat/foo/colddb -thawedPath /your/path/foo/thawedDb
+```splunk add index foo -homePath /your/path/foo/db -coldPath /your/pat/foo/colddb -thawedPath /your/path/foo/thawedDb```
