@@ -8,7 +8,7 @@
   * server.conf - [license] master_uri with port
 * Base_SH
   * Front page notifications - web.conf
-  * 
+  * LDAP/AD integration - authentication.conf
 * 
 
 
