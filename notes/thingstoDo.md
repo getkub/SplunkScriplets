@@ -3,6 +3,7 @@
 * Index locations 
 * Rules - Install or Uninstall rules
 * Deployment Server - serverclass.conf
+* Search Head Clustering reqd? 
 * Base_SI
   * outputs.conf - needs to send to other locations
   * inputs.conf - main forwarder input
