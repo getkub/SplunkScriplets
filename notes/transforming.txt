@@ -1,0 +1,23 @@
+# props.conf   # Modify tag1 to "new_tag" and then put the value to "host"
+[SPECIAL_EVENT]
+NO_BINARY_CHECK = 1
+TIME_PREFIX = "timestamp"
+pulldown_type = 1
+KV_MODE = JSON
+BREAK_ONLY_BEFORE = (^{)
+TRANSFORMS-tagTransform1 = tagTransform1
+SEDCMD-tagModify = s/(\"tag1\")/"new_tag"/g
+TRANSFORMS-sourcetypeTransform = sourcetypeTransform
+
+
+# transforms.conf
+[tagTransform1]
+REGEX = "new_tag"\s*:\s*"([^\"]+)
+FORMAT = host::$1
+DEST_KEY = MetaData:Host
+
+[sourcetypeTransform]
+REGEX = "name"\s*:\s*"([^\"]+)
+FORMAT = sourcetype::$1
+DEST_KEY = MetaData:Sourcetype
+=======================================================================
