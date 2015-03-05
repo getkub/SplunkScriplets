@@ -1,4 +1,8 @@
-# props.conf   # Modify tag1 to "new_tag" and then put the value to "host"
+#=======================================================================
+# EG-1 TModify tag1 to "new_tag" and then put the value to "host"
+#=======================================================================
+
+# props.conf   
 [SPECIAL_EVENT]
 NO_BINARY_CHECK = 1
 TIME_PREFIX = "timestamp"
@@ -20,4 +24,32 @@ DEST_KEY = MetaData:Host
 REGEX = "name"\s*:\s*"([^\"]+)
 FORMAT = sourcetype::$1
 DEST_KEY = MetaData:Sourcetype
+
+
+#=======================================================================
+# EG-2 To extract keyvalue fields during Search Time
+# Also a sample of lookup
+#=======================================================================
+
+[mysourcetype1]
+MAX_TIMESTAMP_LOOKAHEAD = 30
+NO_BINARY_CHECK = 1
+TIME_FORMAT = %d/%m/%y %H:%M:%S:%3N %Z
+TIME_PREFIX = ^\[
+pulldown_type = 1
+REPORT-uiServer = Tranform1,Tranform2,Tranform3
+LOOKUP-Member = xyz.csv name AS empName OUTPUT id,empSalary
+
+============
+[Tranform1]
+REGEX = aaaa bbbb (\d+)
+FORMAT = myFormat1::$1
+
+[Tranform2]
+REGEX = \bHow\b (\bare\b|\byou\b)\s([^\s]+)[^\:]+\:\s([^\s]+)    # How are you
+FORMAT = FirstName::$1 SeondName::$2 ThirdName::$3
+
+[Tranform3]
+REGEX = \bHow\b (\w+)\:(\d{4})
+FORMAT = EmpID::$1 EMP_ID::$2
 =======================================================================
