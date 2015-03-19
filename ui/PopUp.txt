@@ -1,0 +1,27 @@
+# Will Create PopUp Window and pass parameter
+
+		  <module name="HiddenPostProcess" layoutPanel="panel_row4_col1">
+			  <param name="search"><![CDATA[
+			  | convert num(someString) as "TRESHOLD" | appendpipe [ stats count | eval abc="No Results" | where count==0 | fields - count ]
+			  ]]></param>
+			  <module name="HTML">
+				<param name="html"><![CDATA[
+				  <h2>Grouped By abc</h2>
+				]]></param>
+			  </module>
+			  
+        
+				<module name="Pager">
+					<module name="Table">
+						<param name="rowClass">$row.fields.myClassField$</param>
+						<param name="hiddenFields">myClassField</param>
+						<module name="Redirector">
+							<param name="popup">True</param>
+							<param name="windowFeatures">width=800,height=400,resizable=yes,status=yes,scrollbars=yes,toolbar=yes</param>
+							<param name="url">someSavedSearch</param>
+							<param name="arg.series">$row.fields.XYZ$</param>
+							<param name="arg.title">My Title</param>
+						</module>
+					</module>	
+				</module>
+		  </module>
