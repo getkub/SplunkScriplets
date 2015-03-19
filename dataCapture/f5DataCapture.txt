@@ -19,3 +19,10 @@ RAM Cache Utilization -> Eviction Rate
 CPU Usage -> Global Host CPU Usage
 CPU Usage -> TMM CPU Usage
 SSL TPS -> SSL Transactions per second
+
+# inputs.conf
+[script:///opt/splunk/bin/scripts/snmpGet/snmpGet.sh]
+disabled = 0
+index = main
+interval = 300
+sourcetype = MY_F5_SNMP
