@@ -1,0 +1,12 @@
+    <module name="DynamicHiddenSavedSearch" layoutPanel="panel_row3_col1" autoRun="True">
+		  <param name="savedSearch">mySavedSearch</param>
+		  <param name="refreshInterval">60</param>
+		  <module name="HiddenPostProcess" layoutPanel="panel_row3_col1_grp1">
+			<param name="search">| stats sum(abc) as xyz | appendpipe [ stats count | eval abc=0 | where count==0 | fields - count ]</param>
+					  <module name="HTML">
+						<param name="html"><![CDATA[
+						  <h3>Total Connections: <span style="font-size:20px">$results[0].count_field$</span></h3>
+						]]></param>
+					  </module>
+		  </module>
+     </module>
