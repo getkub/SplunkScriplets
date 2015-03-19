@@ -1,0 +1,9 @@
+25 = SMTP
+21 = FTP
+22 = SSH
+23 = Telnet
+37 = Time
+79 = Finger
+80 = HTTP
+113 = Ident
+110 = POP3
