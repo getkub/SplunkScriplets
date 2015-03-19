@@ -1,0 +1,7 @@
+ # To capture all fields
+ # http://www.sans.org/reading-room/whitepapers/detection/security-analytics-fun-splunk-packet-capture-file-pcap-34580
+ 
+ inputFile="abc.pcapng"
+ tshark -2 -r ${inputFile} -T fields -E header=y -E separator=, -E occurrence=a -E quote=d -e frame.time -e ip.version -e ip.id -e ip.len -e ip.proto -e ip.ttl -e ip.flags -e ip.src -e ip.dst -e icmp.code -e icmp.type -e icmp.resptime -e udp.srcport -e udp.dstport -e dns.id -e dns.qry.type -e dns.resp.type -e dns.qry.name -e tcp.stream -e tcp.seq -e tcp.flags -e tcp.srcport -e tcp.dstport -e http.request.method -e http.host -e http.request.version -e http.user_agent -e http.server -e http.response.code -e http.response.phrase "ip.version==4" > out.csv
+ 
+ #------------------------------------------------------------------------------------
