@@ -1,0 +1,21 @@
+# http://support.f5.com/kb/en-us/products/big-ip_ltm/manuals/product/tmos_management_guide_10_1/tmos_snmp.html
+
+New Connections -> Client Accepts
+New Connections -> Server Connects
+Total New Connections -> Client Connects
+New PVA Connections -> pva client
+New PVA Connections -> pva server
+New SSL Connections -> SSL Client
+New SSL Connections -> SSL Server
+New Accepts Connects -> Server TcpConnects
+Throughput -> Client Bits In
+Throughput -> Client Bits Out
+Throughput -> Server Bits In
+Throughput -> Server Bits Out
+HTTP Requests -> HTTP Requests
+RAM Cache Utilization -> Hit Rate
+RAM Cache Utilization -> Byte Rate
+RAM Cache Utilization -> Eviction Rate
+CPU Usage -> Global Host CPU Usage
+CPU Usage -> TMM CPU Usage
+SSL TPS -> SSL Transactions per second
