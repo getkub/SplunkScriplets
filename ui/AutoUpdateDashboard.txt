@@ -1,4 +1,4 @@
-# Download class 
+# Download class DynamicHiddenSavedSearch. Copy Stored in SplunkScriptlets/thirdparty/AutoUpdateDashboard.tar
 # into <app>/appserver/modules/DynamicHiddenSavedSearch/
 # http://answers.splunk.com/answers/136065/autorefresh-postprocess-savedsearch-not-working.html
     <module name="DynamicHiddenSavedSearch" layoutPanel="panel_row3_col1" autoRun="True">
