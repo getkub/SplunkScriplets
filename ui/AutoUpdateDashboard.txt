@@ -1,3 +1,6 @@
+# Download class 
+# into <app>/appserver/modules/DynamicHiddenSavedSearch/
+# http://answers.splunk.com/answers/136065/autorefresh-postprocess-savedsearch-not-working.html
     <module name="DynamicHiddenSavedSearch" layoutPanel="panel_row3_col1" autoRun="True">
 		  <param name="savedSearch">mySavedSearch</param>
 		  <param name="refreshInterval">60</param>
