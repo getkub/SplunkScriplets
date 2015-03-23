@@ -63,7 +63,7 @@ echo "Info: Stopping Splunk if its already running"
 # Copy required files
 # ============================================================================
 echo "Info: Copying required files"
-${install_path}/VEenvironment/scripts/copyFiles.py ${install_path}/VEenvironment/configs/csv/INITIAL_Deploy_Files.csv
+${install_path}/myEnv/scripts/copyFiles.py ${install_path}/myEnv/configs/csv/INITIAL_Deploy_Files.csv
 
 # ============================================================================
 # Install Default Apps
@@ -96,7 +96,7 @@ done
 # ============================================================================
 # Configure Search Peers
 # ============================================================================
-SearchPeers=`${install_path}/VEenvironment/scripts/getEnv.py | grep getSearchPeers| awk -F'=' '{print $2}'`
+SearchPeers=`${install_path}/myEnv/scripts/getEnv.py | grep getSearchPeers| awk -F'=' '{print $2}'`
 
 if [ "$SearchPeers" == "NA" ]
 then
