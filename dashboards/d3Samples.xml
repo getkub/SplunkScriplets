@@ -1,0 +1,60 @@
+<dashboard script="autodiscover.js">
+    <label>Management View</label>
+
+    <row>
+        <html>
+            <h2>Average CPU Usage for Processes</h2>
+
+            <div id="bubbleSearch"
+                 class="splunk-manager"
+                 data-require="splunkjs/mvc/searchmanager"
+                 data-options='{
+                    "search": "index=_internal earliest=-2h@h latest=now| stats count by sourcetype,user",
+                    "earliest_time": "-7d",
+                    "status_buckets": 0,
+                    "cancelOnUnload": true,
+                    "auto_cancel": 90,
+                    "preview": true
+                 }'>
+            </div>
+
+            <div id="bubbleChart"
+                 class="splunk-view"
+                 data-require="app/myCustomApp/components/bubblechart/bubblechart"
+                 data-options='{
+                    "managerid": "bubbleSearch",
+                    "nameField": "sourcetype",
+                    "categoryField": "user",
+                    "valueField": "count",
+                    "height": 450
+                 }'>
+            </div>
+        </html>
+        <html>
+            <h2>Sankey Chart 2</h2>
+
+            <div id="sankey_search"
+                 class="splunk-manager"
+                 data-require="splunkjs/mvc/searchmanager"
+                 data-options='{
+                    "search": "index=_internal earliest=-2h@h latest=now| stats count by sourcetype,user | rename sourcetype as source, user as target",
+                    "earliest_time": "-7d",
+                    "status_buckets": 0,
+                    "cancelOnUnload": true,
+                    "auto_cancel": 90,
+                    "preview": true
+                 }'>
+            </div>
+
+            <div id="bubbleChart2"
+                 class="splunk-view"
+                 data-require="app/myCustomApp/components/sankey/sankey"
+                 data-options='{
+                    "managerid": "sankey_search",
+                    "height": 450
+                 }'>
+            </div>
+        </html>
+    </row>
+
+</dashboard>
