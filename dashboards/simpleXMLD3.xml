@@ -1,0 +1,56 @@
+<form script="autodiscover.js">
+    <label>D3 Charts in SimpleXML</label>
+
+    <fieldset autoRun="true" submitButton="false">
+        <input type="time">
+            <default>
+                <earliest>-24h@h</earliest>
+                <latest>now</latest>
+            </default>
+        </input>
+    </fieldset>
+    
+    <row>
+        <panel>
+            <search id="bubbleSearch">
+                <query><![CDATA[
+                    index=_internal| stats count by sourcetype,user 
+                ]]></query>
+                <earliest>$earliest$</earliest>
+                <latest>$latest$</latest>
+            </search>
+            <html>
+                <div id="bubbleChart"
+                     class="splunk-view"
+                     data-require="app/myApp/components/bubblechart/bubblechart"
+                     data-options='{
+						"managerid": "bubbleSearch",
+						"nameField": "sourcetype",
+						"categoryField": "user",
+						"valueField": "count",
+						"height": 450
+					}'>
+                </div>
+            </html>
+        </panel>
+        <panel>
+            <search id="sankey_search">
+                <query><![CDATA[
+                    index=_internal| stats count by sourcetype,user | rename sourcetype as source, user as target
+                ]]></query>
+                <earliest>$earliest$</earliest>
+                <latest>$latest$</latest>
+            </search>
+            <html>
+                <div id="sankey"
+                     class="splunk-view"
+                     data-require="app/myApp/components/sankey/sankey"
+                     data-options='{
+                            "managerid": "sankey_search",
+                            "height": 400
+                         }'>
+                </div>
+            </html>
+        </panel>
+	</row>
+</form>
