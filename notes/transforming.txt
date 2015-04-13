@@ -52,4 +52,25 @@ FORMAT = FirstName::$1 SeondName::$2 ThirdName::$3
 [Tranform3]
 REGEX = \bHow\b (\w+)\:(\d{4})
 FORMAT = EmpID::$1 EMP_ID::$2
-=======================================================================
+## =======================================================================
+
+#=======================================================================
+# EG-3 To extract JSON keyvalue from mixed data
+# http://answers.splunk.com/answers/61235/kv-mode-json-with-combined-json-textual-loglines.html
+# The 1st Transform will extract "json1" and then subsequently do more transforms
+#=======================================================================
+# props.conf
+[source::tcp:10514]
+REPORT-json = report-json,report-json-kv
+
+#transforms.conf
+[report-json]
+REGEX = (?P<json1>{.+)
+
+[report-json-kv]
+SOURCE_KEY = json1
+REGEX = \"(\w+)\":[\s]*\"([^\,\}\"]+)
+FORMAT = $1::$2
+MV_ADD = true
+
+## =======================================================================
