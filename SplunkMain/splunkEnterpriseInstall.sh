@@ -11,8 +11,9 @@
 # ============================================================================
 splunkInstallable="splunk-latest-linux-x86_64"
 SPLUNK_HOME="/opt/splunk"
-SPLUNKFWD_INITD="initd_splunkforwarder.file"
-
+SPLUNKFWD_INITD="initd_splunkEnterprise.file"
+SPLUNK_USER="splunk"
+NEW_PASS="changeme_new"
 # ============================================================================
 # Checks
 # ============================================================================
@@ -41,12 +42,14 @@ rc=$?
 if [[ -n "$INSTALLEDCHECK" ]]
 then
     ISINSTALLED="True"
+    ACTION = "UPGRADE"
     echo "Splunk version : $INSTALLEDCHECK installed. Will upgrade if possible"
     rpm -Uvh $splunkInstallable
     rc=$?
 
 else
     ISINSTALLED="False"
+    ACTION = "INSTALL"
     echo "Installing Splunk for first Time"
     rpm -ivh $splunkInstallable
     rc=$?
@@ -56,13 +59,16 @@ fi
 if [ $rc != "0" ]
 then
     echo "========================= ERROR ERROR ERROR ========================= "
-    echo "Error occured during upgrade or installation. Please manually remove any directories created.. "
+    echo "Error occured during $ACTION of Splunk"
     echo "Quitting.. "
     echo "========================= ERROR ERROR ERROR ========================= "
     exit 100
 
 else
-    /bin/su - splunk -c "${SPLUNK_HOME}/bin/splunk start --no-prompt --answer-yes --accept-license"
+        # Disable defaults and start splunk
+    /bin/su $SPLUNK_USER -c "touch  ${SPLUNK_HOME}/etc/.ui_login "
+    /bin/su $SPLUNK_USER -c "${SPLUNK_HOME}/bin/splunk edit user admin -password $NEW_PASS -auth admin:changeme --accept-license --answer-yes --no-prompt"
+    /bin/su $SPLUNK_USER -c "${SPLUNK_HOME}/bin/splunk start --no-prompt --answer-yes --accept-license"
     echo "Info: Successfully Configured Splunk"
 
 fi
