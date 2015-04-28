@@ -13,3 +13,10 @@ REGEX = (?m)^(.*)Ticket=\w+(\w{4}&.*)$
 FORMAT = $1Ticket=########$2
 DEST_KEY = _raw
 ==============================================
+
+# TO make splunk TLS 1.2 only
+# TLS Settings 
+web.conf
+inputs.conf
+server.conf
+==============================================
