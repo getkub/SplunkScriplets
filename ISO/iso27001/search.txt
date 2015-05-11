@@ -1,0 +1,1 @@
+| inputlookup 3.27001.csv| eval GroupId_2=substr(GroupId_3,0,7) | lookup 2.27001.csv GroupId_2| eval GroupId_1=substr(GroupId_2,0,4)| lookup 1.27001.csv GroupId_1
