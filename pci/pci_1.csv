@@ -1,0 +1,13 @@
+pci_1,description
+"P01","Install and maintain a firewall configuration to protect cardholder data"
+"P02","Do not use vendor-supplied defaults for system passwords and other security parameters"
+"P03","Protect stored cardholder data"
+"P04","Encrypt transmission of cardholder data across open, public networks"
+"P05","Use and regularly update anti-virus software or programs "
+"P06","Develop and maintain secure systems and applications"
+"P07","Restrict access to cardholder data by business need to know"
+"P08","Assign a unique ID to each person with computer access"
+"P09","Restrict physical access to cardholder data"
+"P10","Track and monitor all access to network resources and cardholder data"
+"P11","Regularly test security systems and processes"
+"P12","Maintain a policy that addresses information security for all personnel"
