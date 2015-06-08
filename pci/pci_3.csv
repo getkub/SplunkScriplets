@@ -18,7 +18,7 @@ pci_3,description
 "P01.03.07","Place system components that store cardholder data"
 "P01.03.08","Do not disclose private IP addresses and routing information to unauthorized partie"
 "P02.01.01","For wireless environments connected to the cardholder data environment or transmitting cardholder data, change wireless vendor defaults, including but not limited to default wireless encryption keys, passwords, and SNMP community strings"
-"P02.02.01, Implement only one primary function per server to prevent functions that require different security levels from co-existing on the same server"
+"P02.02.01","Implement only one primary function per server to prevent functions that require different security levels from co-existing on the same server"
 "P02.02.02","Enable only necessary services,  protocols, daemons, etc., as required for the function of the system"
 "P02.02.03","Implement additional security features for any required services, protocols, or daemons that are considered to be insecure—for example, use secured technologies such as SSH, S-FTP, SSL, or IPSec VPN to protect insecure services such as NetBIOS, file-sharing, Telnet, FTP, etc"
 "P02.02.04","Configure system security parameters to prevent misus"
