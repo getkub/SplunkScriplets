@@ -1,4 +1,4 @@
-pci_3,description
+pci_3,description_3
 "P01.01.01","A formal process for approving and testing all network connections and changes to the firewall and router configuration"
 "P01.01.02","Current network diagram that identifies all connections between the cardholder data environment and other networks, including any wireless networks"
 "P01.01.03","Current diagram that shows all cardholder data flows across systems and network"
