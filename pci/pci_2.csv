@@ -1,4 +1,4 @@
-pci_2,description
+pci_2,description_2
 "P01.01","Establish and implement firewall and router configuration standards"
 "P01.02","Build firewall and router configurations that restrict connections between untrusted networks and any system components in the cardholder data environment"
 "P01.03","Prohibit direct public access between the Internet and any system component in the cardholder data environment"
@@ -21,6 +21,7 @@ pci_2,description
 "P04.02","Never send unprotected PANs by end-user messaging technologies (for example, e-mail, instant messaging, chat, etc.)"
 "P04.03","Ensure that security policies and operational procedures for encrypting transmissions of cardholder data are documented, in use, and known to all affected parties"
 "P05.01","Deploy anti-virus software on all systems commonly affected by malicious software (particularly personal computers and servers)"
+"P05.02","Ensure that all anti-virus mechanisms are maintained as follows: ;Are kept current; Perform periodic scans; Generate audit logs which are retained per PCI DSS Requirement 10.7."
 "P05.03","Ensure that anti-virus mechanisms are actively running and cannot be disabled or altered by users, unless "
 "P05.04","Ensure that security policies and operational procedures for protecting systems against malware are documented, in use, and known to all affected parties"
 "P06.01","Establish a process to identify security vulnerabilities, using reputable outside sources for security vulnerability information, and assign a risk ranking (for example, as “high,” “medium,” or “low”) to newly discovered security vulnerabilities"
@@ -53,7 +54,6 @@ pci_2,description
 "P09.10","Ensure that security policies and operational procedures for restricting physical access to cardholder data are "
 "P10.01","Implement audit trails to link all access to system components to each individual user"
 "P10.02","Implement automated audit trails for all system components to reconstruct the following events"
-"P10.02","5 Use of and changes to identification and authentication "
 "P10.03","Record at least the following audit trail entries for all system components for each event:"
 "P10.04","Using time synchronization technology, synchronize all critical system clocks and times and ensure that the following is implemented for acquiring, distributing, and storing time"
 "P10.05","Secure audit trails so they cannot be altered"
