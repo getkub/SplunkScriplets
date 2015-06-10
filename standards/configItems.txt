@@ -1,0 +1,10 @@
+Naming convention Standards
+
+- All Knowledge item names (eg Ip address, host), we will stick to  "Splunk Common Information Model Add-on" standards
+- All object names in "small case"  (eg: thisisavariable)
+- Reports (<yourOrganisation>_<group>_rp_<Platform/Device/Service>_<Category>_<TimeInterval>_<Description>) 
+		eg: abc_siem_rp_firewall_packetfiltering_15m_breaches
+- Alerts (<yourOrganisation>_<group>_al_<Platform/Device/Service>_<Category>_<TimeInterval>_<Description>)
+- Dashboards/Views (<yourOrganisation>_<Group>_db_<Platform/Device/Service>_<Category>_<Description>)
+		eg: abc_siem_db_os_windows_memoryusage.xml
+- SavedSearches (<yourOrganisation>_<Group>_ss_<Platform/Device/Service>_<Category>_<Description>)
