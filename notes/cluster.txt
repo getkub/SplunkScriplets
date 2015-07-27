@@ -64,6 +64,16 @@ Search across a single-site cluster
 For Multi-site, - Search affinity is always enabled with multisite clusters
 =======================================
 configuration bundle  (On the master)
+Structure looks like
+$SPLUNK_HOME/etc/apps/
+    cluster_define_apps1
+    cluster_define_apps2
+    
+$SPLUNK_HOME/etc/licenses/
+$SPLUNK_HOME/etc/deployment-apps/     # if cluster manager is used as deployment manager
+    normal_apps2
+    normal_apps3
+
 $SPLUNK_HOME/etc/master-apps/
      _cluster/
           default/
