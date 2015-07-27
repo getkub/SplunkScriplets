@@ -11,6 +11,10 @@ defaultGroup=my_LB_indexers
 disabled=false
 autoLBFrequency=40
 server=splunkreceiver.mycompany.com:9997
+sslCertPath = $SPLUNK_HOME/etc/auth/server.pem
+sslPassword = $23Hcir89
+sslRootCAPath = $SPLUNK_HOME/etc/auth/ca.pem
+sslVerifyServerCert = true
 ==========================================
 Filter and route event data to target groups
 #### props.conf
