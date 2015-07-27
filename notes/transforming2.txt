@@ -11,4 +11,10 @@ EVAL-vendor = "newVendor"
 FIELDALIAS-dvc = host as dvc
 FIELDALIAS-file_path = object as file_path
 
+LOOKUP-vendor_info = vendor_info_lookup sourcetype OUTPUT vendor,product
+
+REPORT-auto_kv_abc = auto_kv_abc  # in props.conf
+[auto_kv_abc]   # transforms.conf
+DELIMS = " "
+
 # ======================================================
