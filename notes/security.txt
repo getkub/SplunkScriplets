@@ -19,4 +19,8 @@ DEST_KEY = _raw
 web.conf
 inputs.conf
 server.conf
+
+# Make an entry like
+[settings]
+sslVersions = tls1.2
 ==============================================
