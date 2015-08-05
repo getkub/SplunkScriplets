@@ -1,3 +1,5 @@
+Sizing App - https://splunk-sizing.appspot.com
+
 search factor  - The number of searchable copies of data that an indexer cluster maintains.
 On a multisite indexer cluster, a special version of the search factor, known as the site search factor, determines not only the number of searchable copies that the entire cluster maintains but also the number of copies that each site maintains.
 http://docs.splunk.com/Documentation/Splunk/6.2.0/Indexer/Bucketsandclusters
