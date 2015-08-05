@@ -24,6 +24,9 @@ site_search_factor = origin:1,total:2
 
  # site_replication_factor = origin:2, site1:1, site2:1, site3:1, total:4
 A peer in site1 ingests the data, it will stream one copy of the data to another peer in site1 (to fulfill the origin setting of 2), one copy to a peer in site2, and one copy to a peer in site3.
+
+# ERROR if not properly configured
+ERROR ClusteringMgr - Failure to load cluster config (server.conf) Error = site_replication_factor={ origin:1, total:2 } is less than replication_factor=3.
  ====================================
 1. Restart the master node, as you would any instance. For example, run this CLI command on the master:  "splunk restart"
 2. Once the master restarts, wait until all the peers re-register with the master, and the master dashboard indicates that all peers and indexes are searchable.
