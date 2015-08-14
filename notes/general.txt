@@ -1,0 +1,71 @@
+##############
+
+SPLUNK_HOME="/opt/splunk"
+/bin/su - splunk -c "$SPLUNK_HOME/bin/splunk start --answer-yes --no-prompt --accept-license"
+
+# AD commands
+#
+ldapsearch -Z -v -x -H ldaps://host21myCompanydc02.myCompany.com:636 -D "myCompany\splunksvc" -w '123;fQ7q' -b "OU=Groups,OU=Europe Region,DC=myCompany,DC=com" "(CN=ABC Splunk*)" | grep 'member|sAMName'
+ldapsearch -Z -v -x -H ldaps://host21myCompanydc02.myCompany.com:636 -D "myCompany\splunksvc" -w '123;fQ7q' -b "OU=Users,OU=Europe Region,DC=myCompany,DC=com" "(CN=myname*)"
+
+# Check if Splunk replication is going on
+* | stats count by splunk_server
+# Search internal index. splunk-alert is script located at: /opt/splunk/bin/scripts
+##########################
+# Search automatically
+# http://answers.splunk.com/answers/104062/running-same-search-for-different-time-periods-in-an-automated-way
+| gentimes start=-3 | map search="search  sourcetype=IOSTAT0100 host=*qa* starttimeu=$starttime$ endtimeu=$endtime$"
+
+#################
+# Find difference between 2 legs of transactions
+MID="someID" |  transaction messageID, IP maxspan=2m mvlist=RUNTIMEEPOCH | eval LEG1RUNTIMEEPOCH=mvindex(RUNTIMEEPOCH , -1) | eval LEG2RUNTIMEEPOCH=mvindex(RUNTIMEEPOCH , 0) | eval RUNTIMEEPOCH_DIFF=LEG2RUNTIMEEPOCH - LEG1RUNTIMEEPOCH| table messageID,IP,RUNTIMEEPOCH_DIFF
+
+#################
+# Run a saved Searched and then run a script  commands.conf should match with script name and put in ~/etc/apps/myApp/local
+| savedsearch DP_CategoryCount_byDomain_Pie | script samplePython
+########################
+# Delete index . Stop Splunk first (Remove)
+splunk clean eventdata -index <index_name> -f
+/opt/splunk/bin/splunk clean eventdata -index sample -f
+======
+# Transaction and concurrency
+sourcetype=throttlefeed  | rex "id=(?<id>[^\;]+);"   | transaction TNID  | concurrency duration=duration output=concurrent
+=====================
+# Example 1: Loads the results of the latest scheduled execution of savedsearch MySavedSearch in the 'search' application owned by admin
+| loadjob savedsearch="admin:search:MySavedSearch"
+===================================
+# XML event search
+index="XML" | rex "\?>(?<myXML>[^\*]+)"| fields myXML | xmlkv | chart count by SourceHost
+###########
+# To view metadata fields etc..
+| metadata  type=hosts index=mobile
+# meta information about indexes
+| tstats count where index=sample
+#################
+# To pair up indexer to Search Head
+/bin/su - splunk -c "\"/opt/splunk/bin/splunk\" add search-server -host ${SERVER}:$PORT -auth splunk:$SPLUNK_CRED -remoteUsername splunk -remotePassword $SPLUNK_CRED"
+#######################################################################################################################################
+curl -k -u ${USER}:${PASS} --data-urlencode search="search index=_internal earliest=-1m| stats count by sourcetype" -d "output_mode=json" https://${HOST}:${sPORT}/servicesNS/${USER}/search/search/jobs/export
+###################################
+=================
+#Reload commands  REST
+https://10.165.93.43:8000/en-US/debug/refresh?entity=admin%2Fviews
+https://localhost:8089/services/apps/local?refresh=true (replace with your host and Splunkd management port)
+#Reload a specific view:
+https://localhost:8089/services/apps/local/?refresh=true (replace with your host and Splunkd management port)
+# Reload Views only
+curl -k -u splunk:pass https://`hostname`:8091/servicesNS/nobody/app/data/ui/views/_reload
+# Reload SavedSearches only
+curl -k -u splunk:pass https://`hostname`:8091/servicesNS/nobody/app/saved/searches/_reload
+#######################################################################################################################################
+# History
+index=_audit user=useridk  action=search earliest=-7d search='search*' | table _time,search,savedsearch_name
+#################
+# Splunk Web-Development Django tags/views  (searchbar ,timerange ,searchcontrols , eventsviewer ,table ,chart ,single ,textinput ,checkbox ,checkboxgroup ,radiogroup ,dropdown ,multidropdown )
+http://dev.splunk.com/view/webframework-codeexamples/SP-CAAAEVB
+#################
+# syslog
+/var/log/syslog/local1-514/
+####################
+# Windows Audit Policy 
+Console Root|Local Computer Policy\Computer Configuration\Windows Settings\Security Settings\local policies\Audit Policy
