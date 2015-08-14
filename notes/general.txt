@@ -57,6 +57,11 @@ https://localhost:8089/services/apps/local/?refresh=true (replace with your host
 curl -k -u splunk:pass https://`hostname`:8091/servicesNS/nobody/app/data/ui/views/_reload
 # Reload SavedSearches only
 curl -k -u splunk:pass https://`hostname`:8091/servicesNS/nobody/app/saved/searches/_reload
+
+Bump Splunk on this URI 
+http://yourhost:yourport/en-GB/_bump
+Restart Splunkweb 
+$SPLUNK_HOME/bin/splunk restart splunkweb # this will not end the user session
 #######################################################################################################################################
 # History
 index=_audit user=useridk  action=search earliest=-7d search='search*' | table _time,search,savedsearch_name
