@@ -16,5 +16,7 @@ $RuleSet myCustomNetworkDeviceRule
 # myCustomNetworkDeviceRule Ruleset
 $InputTCPServerBindRuleset myCustomNetworkDevice
 $InputTCPServerRun 20054
+local1.*  ?myCustomNetworkDevice
+
 
 # EOF
