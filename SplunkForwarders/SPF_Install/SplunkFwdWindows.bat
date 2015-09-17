@@ -1,17 +1,43 @@
-REM #################################################################
-REM # If possible Install SplunkForwarders with admin permissions
-REM # "Splunk Fowarder" Command Line installation for Windows Server
-REM # The script aims to install forwarders and point to a deployment server
-REM # All configuration is then done at Master deployment server
-REM #################################################################
+@echo off
+setlocal
 
-set installable="E:\installables\splunkforwarder-6.2-x64-release.msi"
-set dep_server="1.2.3.4:8089"
-set installDir="E:\Program Files\SplunkUniversalForwarder"
-set SPLUNKD_PORT="8089"
+REM : User Configurable Variables
+set SplunkUFBuild="6.2.6"
+set LogPath="C:\BuildLogs\SplunkUniversalForwarderInstall.log"
 
-msiexec.exe /I  %installable% AGREETOLICENSE=Yes INSTALLDIR=%installDir% DEPLOYMENT_SERVER=%dep_server% SPLUNKD_PORT=%SPLUNKD_PORT%  SERVICESTARTTYPE=auto  LAUNCHSPLUNK=1 /quiet
+REM : ================================= ======================================
+REM : DO NOT Amend anything below 
+IF "%PROCESSOR_ARCHITECTURE%" == "AMD64" goto b64
+IF "%PROCESSOR_ARCHITEW6432%" == "AMD64" goto b64
 
-REM # The command prompt will return quickly, but it might be still installing
-REM # Wait for 5 minutes
-REM # Later verify by running "E:\Program Files\SplunkUniversalForwarder\bin\splunk -version"
+:b32
+set SPLUNK_MSI=%~dp0\splunkforwarder-%SplunkUFBuild%-x86-release.msi
+REM set above path to 32-bit version
+goto endb6432
+ 
+:b64
+set SPLUNK_MSI=%~dp0\splunkforwarder-%SplunkUFBuild%-x64-release.msi
+REM set above path to 64-bit version
+ 
+:endb6432
+ 
+if not defined ProgramFilesW6432 (
+    set LOC=%ProgramFiles%\SplunkUniversalForwarder
+) else (
+    set LOC=%ProgramFilesW6432%\SplunkUniversalForwarder
+)
+ 
+echo Installing Splunk...
+echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Action=Install_Started" >> "%LogPath%"
+msiexec.exe /i "%SPLUNK_MSI%" INSTALLDIR="%LOC%" AGREETOLICENSE=Yes LAUNCHSPLUNK=0 /QUIET
+
+echo Copying over custom configuration...
+echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Action=Copying_configuration" >> "%LogPath%"
+xcopy "%~dp0\etc" "%LOC%\etc" /s /f /y /r
+pushd "%LOC%\bin"
+echo Starting Splunk...
+echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Action=Starting_SplunkUF" >> "%LogPath%"
+splunk start splunkd --accept-license --no-prompt --answer-yes
+@echo on
+popd
+endlocal
