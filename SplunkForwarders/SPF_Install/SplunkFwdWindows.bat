@@ -4,6 +4,7 @@ setlocal
 REM : User Configurable Variables
 set SplunkUFBuild="6.2.6"
 set LogPath="C:\BuildLogs\SplunkUniversalForwarderInstall.log"
+set productSN="SplunkUF"
 
 REM : ================================= ======================================
 REM : DO NOT Amend anything below 
@@ -28,7 +29,7 @@ if not defined ProgramFilesW6432 (
 )
  
 echo Installing Splunk...
-echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=MSI_Install_STARTED" >> "%LogPath%"
+echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=MSI_Install_STARTED" >> "%LogPath%"
 msiexec.exe /i "%SPLUNK_MSI%" INSTALLDIR="%LOC%" AGREETOLICENSE=Yes LAUNCHSPLUNK=0 /QUIET
 
 set msierror=%errorlevel%
@@ -39,22 +40,26 @@ if %msierror%==3010 goto :InstallSuccess
 goto :InstallError
  
 :InstallSuccess
-echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=MSI_Install_COMPLETED" >> "%LogPath%"
-goto :EndInstall
+echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=MSI_Install_COMPLETED" ErrorCode=%msierror%" >> "%LogPath%"
+goto :StartConfig
  
 :InstallError
-echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=MSI_Install_ERROR ErrorCode=%msierror%" >> "%LogPath%"
-Exit %msierror%
+echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=MSI_Install_ERROR ErrorCode=%msierror%" >> "%LogPath%"
+goto :EndScript
 
-:EndInstall
+:StartConfig
+
 echo Copying over custom configuration...
-echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=Copy_configuration_STARTED" >> "%LogPath%"
+echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=Copy_configuration_STARTED" >> "%LogPath%"
 xcopy "%~dp0\etc" "%LOC%\etc" /s /f /y /r
 pushd "%LOC%\bin"
 echo Starting Splunk...
-echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=SplunkUF_Starting_STARTED" >> "%LogPath%"
+echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=SplunkUF_Starting_STARTED" >> "%LogPath%"
 splunk start splunkd --accept-license --no-prompt --answer-yes
-echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=Started_SplunkUF" >> "%LogPath%"
+echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=Started_SplunkUF" >> "%LogPath%"
 @echo on
 popd
 endlocal
+
+:EndScript
+Exit %msierror%
