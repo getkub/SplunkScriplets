@@ -28,16 +28,33 @@ if not defined ProgramFilesW6432 (
 )
  
 echo Installing Splunk...
-echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Action=Install_Started" >> "%LogPath%"
+echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=MSI_Install_STARTED" >> "%LogPath%"
 msiexec.exe /i "%SPLUNK_MSI%" INSTALLDIR="%LOC%" AGREETOLICENSE=Yes LAUNCHSPLUNK=0 /QUIET
 
+set msierror=%errorlevel%
+if %msierror%==0 goto :InstallSuccess
+if %msierror%==1641 goto :InstallSuccess
+if %msierror%==3010 goto :InstallSuccess
+ 
+goto :InstallError
+ 
+:InstallSuccess
+echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=MSI_Install_COMPLETED" >> "%LogPath%"
+goto :EndInstall
+ 
+:InstallError
+echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=MSI_Install_ERROR ErrorCode=%msierror%" >> "%LogPath%"
+Exit %msierror%
+
+:EndInstall
 echo Copying over custom configuration...
-echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Action=Copying_configuration" >> "%LogPath%"
+echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=Copy_configuration_STARTED" >> "%LogPath%"
 xcopy "%~dp0\etc" "%LOC%\etc" /s /f /y /r
 pushd "%LOC%\bin"
 echo Starting Splunk...
-echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Action=Starting_SplunkUF" >> "%LogPath%"
+echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=SplunkUF_Starting_STARTED" >> "%LogPath%"
 splunk start splunkd --accept-license --no-prompt --answer-yes
+echo "%date%-%time% Product=SplunkUF Build=%SplunkUFBuild% Status=Started_SplunkUF" >> "%LogPath%"
 @echo on
 popd
 endlocal
