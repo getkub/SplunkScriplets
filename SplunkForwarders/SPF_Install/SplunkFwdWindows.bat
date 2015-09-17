@@ -54,9 +54,9 @@ echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=Copy_config
 xcopy "%~dp0\etc" "%LOC%\etc" /s /f /y /r
 pushd "%LOC%\bin"
 echo Starting Splunk...
-echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=SplunkUF_Starting_STARTED" >> "%LogPath%"
+echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=SplunkUF_Start_STARTED" >> "%LogPath%"
 splunk start splunkd --accept-license --no-prompt --answer-yes
-echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=Started_SplunkUF" >> "%LogPath%"
+echo "%date%-%time% Product=%productSN% Build=%SplunkUFBuild% Status=SplunkUF_Start_COMPLETED" >> "%LogPath%"
 @echo on
 popd
 endlocal
