@@ -34,9 +34,9 @@ if not defined ProgramFilesW6432 (
     set LOC=%ProgramFilesW6432%\SplunkUniversalForwarder
 )
 
-echo %date%-%time% Product="%productSN%" Build="%SplunkUFVersion%" Message="File Validation" Status="VALIDATE" FileName="%SPLUNK_MSI%" >> "%LogPath%"
+echo %date%-%time% Product="%productSN%" Ver="%SplunkUFVersion%" Message="File Validation" Status="VALIDATE" FileName="%SPLUNK_MSI%" >> "%LogPath%"
 echo Installing Splunk...
-echo %date%-%time% Product="%productSN%" Build="%SplunkUFVersion%" Message="MSI_Install" Status="START" >> "%LogPath%"
+echo %date%-%time% Product="%productSN%" Ver="%SplunkUFVersion%" Message="MSI_Install" Status="START" >> "%LogPath%"
 msiexec.exe /i "%SPLUNK_MSI%" INSTALLDIR="%LOC%" AGREETOLICENSE=Yes LAUNCHSPLUNK=0 /QUIET
 
 set msierror=%errorlevel%
