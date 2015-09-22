@@ -1,0 +1,2 @@
+# To find keys in a pem key
+openssl rsa -in /opt/splunk/etc/auth/server.pem -text
