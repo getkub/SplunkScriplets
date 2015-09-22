@@ -1,0 +1,7 @@
+/opt/splunk/bin/splunk init shcluster-config -mgmt_uri https://SH01:8099 -replication_port 8098 -replication_factor 2 -conf_deploy_fetch_url https://cssplclm.omosowon.com:9001 -secret changeme 
+
+/opt/splunk/bin/splunk init shcluster-config -mgmt_uri https://SH02:8099 -replication_port 8098 -replication_factor 2 -conf_deploy_fetch_url https://cssplclm.omosowon.com:9001 -secret changeme
+
+# Immediately select the captain
+su - splunk
+/opt/splunk/bin/splunk bootstrap shcluster-captain -servers_list "https://SH01:8099,https://SH02:8099"
