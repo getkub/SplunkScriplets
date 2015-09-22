@@ -5,3 +5,7 @@
 # Immediately select the captain
 su - splunk
 /opt/splunk/bin/splunk bootstrap shcluster-captain -servers_list "https://SH01:8099,https://SH02:8099"
+
+# To restart
+/opt/splunk/bin/splunk rolling-restart shcluster-members
+
