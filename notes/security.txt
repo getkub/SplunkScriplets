@@ -13,7 +13,10 @@ REGEX = (?m)^(.*)Ticket=\w+(\w{4}&.*)$
 FORMAT = $1Ticket=########$2
 DEST_KEY = _raw
 ==============================================
+# Verify TLS settings between two servers
+/opt/splunk/bin/splunk cmd openssl s_client -connect serverip:8099
 
+==============================================
 # TO make splunk TLS 1.2 only
 # TLS Settings 
 web.conf
@@ -23,4 +26,26 @@ server.conf
 # Make an entry like
 [settings]
 sslVersions = tls1.2
+
+#############
+#cat server.conf 
+
+[sslConfig]
+sslVersions = tls1.2
+cipherSuite = TLSv1.2:!eNULL:!aNULL
+useClientSSLCompression = true
+useSplunkdClientSSLCompression = true
+
+#cat web.conf 
+
+[settings]
+sslVersions = tls1.2
+cipherSuite = TLSv1.2:!eNULL:!aNULL
+
+# cat inputs.conf 
+
+[SSL]
+sslVersions = tls1.2
+cipherSuite = TLSv1.2:!eNULL:!aNULL
+
 ==============================================
