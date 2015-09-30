@@ -1,10 +1,5 @@
 #!/bin/sh
 
-#------------------------------------------------
-# Custom Script to install multi instances of 
-# SPLUNK in specificied physical machines
-#
-#------------------------------------------------
 # ============================================================================
 # Checks
 # ============================================================================
@@ -23,16 +18,16 @@ if [[ ! -f ${splunk_es} || ! -f ${splunk_uf} ]]; then
     exit 1
 fi
 
-thisHost=`hostname`
+thisHost=`hostname -s`
 # ============================================================================
 
 # List of machine hostnames and instances required
-machine1=myhostname1
-SPLUNK_ES1="splunkAUX splunkSI"
+machine1=myhost1
+SPLUNK_ES1="splunkDEP splunkIDX"
 SPLUNK_UF1="splunkUF"
 
-machine2=myhostname2
-SPLUNK_ES2="splunkSH splunkSI"
+machine2=myhost2
+SPLUNK_ES2="splunkSH splunkIDX"
 SPLUNK_UF2="splunkUF"
 
 # Validate hostname to installation 
@@ -52,20 +47,28 @@ fi
 # ===========================================================================
 for i in `echo $listES`
 do
-echo "==========================================================================="
-echo " ---- Installing ${i} ----------"
-echo "==========================================================================="
-rpm --force -Uvh --prefix /opt/${i} ${splunk_es} 
-/opt/${i}/splunk/bin/splunk enable boot-start -user splunk --accept-license --answer-yes --no-prompt
+ 
+  echo "==========================================================================="
+  echo " ---- Upgrading/Installing ${i} ----------"
+  echo "==========================================================================="
+   rpm --force -Uvh --prefix /opt/${i} ${splunk_es} 
+   rc=$?
+   echo "Upgrade/Install of $i Return Code = $rc"
+   /opt/${i}/splunk/bin/splunk enable boot-start -user splunk --accept-license --answer-yes --no-prompt > /dev/null 2>&1 
+
 done
 
 for i in `echo $listUF`
 do
-echo "==========================================================================="
-echo " ---- Installing ${i} ----------"
-echo "==========================================================================="
-rpm --force -Uvh --prefix /opt/${i} ${splunk_uf}
-/opt/${i}/splunkforwarder/bin/splunk enable boot-start -user splunk --accept-license --answer-yes --no-prompt
+
+  echo "==========================================================================="
+  echo " ---- Upgrading/Installing ${i} ----------"
+  echo "==========================================================================="
+   rpm --force -Uvh --prefix /opt/${i} ${splunk_uf}
+   rc=$?
+   echo "Upgrade/Install of $i Return Code = $rc"
+   /opt/${i}/splunkforwarder/bin/splunk enable boot-start -user splunk --accept-license --answer-yes --no-prompt > /dev/null 2>&1 
+
 done
 
 ####  End of Script #############
