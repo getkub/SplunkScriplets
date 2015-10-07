@@ -4,7 +4,7 @@ setlocal
 REM : User Configurable Variables
 set SplunkUFVersion=6.2.6
 set SplunkUFBuild=274160
-set LogDir=C:\BuildLogs\
+set LogDir=C:\myLogs\
 set LogFile=SplunkUniversalForwarderInstall.log
 set LogPath=%LogDir%%LogFile%
 set productSN=SplunkUF
@@ -27,7 +27,11 @@ set SPLUNK_MSI=splunkforwarder-%SplunkUFVersion%-%SplunkUFBuild%-x64-release.msi
 REM set above path to 64-bit version
  
 :endb6432
- 
+
+REM : Extra Verification if required
+REM : for /f "tokens=2 delims==" %%g IN ('wmic.exe COMPUTERSYSTEM GET DOMAIN /Value ^| find /i "domain"') DO set Domn=%%g
+REM : if /I %Domn%==github.com  set thisHost=DEV
+
 if not defined ProgramFilesW6432 (
     set LOC=%ProgramFiles%\SplunkUniversalForwarder
 ) else (
