@@ -1,2 +1,5 @@
 # To find keys in a pem key . Also good to check/verify the passphrase supplied
 openssl rsa -in /opt/splunk/etc/auth/server.pem -text
+
+# TO Check connectivity similar to Curl
+openssl s_client -connect  <remoteServer>:<port>
