@@ -1,0 +1,2 @@
+# API Integrations
+http://wiki.servicenow.com/index.php?title=Table_API_Curl_Examples
