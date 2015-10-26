@@ -91,3 +91,13 @@ On the peers -> (same Structure) $SPLUNK_HOME/etc/slave-apps/
 Apply the bundle to the peers (via Web -> Distribute Configuration Bundle option)
 CLI -> splunk apply cluster-bundle --answer-yes ; splunk show cluster-bundle-status
 =======================================
+# All commands from CLM
+
+# apply/push apps from cluster master
+splunk apply cluster-bundle
+
+# status of index cluster
+splunk list cluster-peers
+
+# restart indexes in cluster
+splunk rolling-restart cluster-peers
