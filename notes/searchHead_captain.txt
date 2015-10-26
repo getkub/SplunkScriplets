@@ -6,6 +6,13 @@
 su - splunk
 /opt/splunk/bin/splunk bootstrap shcluster-captain -servers_list "https://SH01:8099,https://SH02:8099"
 
+# OR
+splunk add shcluster-member -current_member_uri "https://SH01:8099"
+splunk show shcluster-status
+
 # To restart
 /opt/splunk/bin/splunk rolling-restart shcluster-members
+
+# Apply cluster bundle
+splunk apply shcluster-bundle
 
