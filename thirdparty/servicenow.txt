@@ -1,2 +1,11 @@
 # API Integrations
 http://wiki.servicenow.com/index.php?title=Table_API_Curl_Examples
+
+# In built API
+snowIp=
+tabName=sys_user
+curl --user userid:pass --header "Accept: application/json" https://${snowIp}/api/now/table/${tabName} | grep }| python -mson.tool >/tmp/${tabName}.json
+
+# Within TA
+inputs.conf => [snow://sys_user]
+service_now.conf => url
