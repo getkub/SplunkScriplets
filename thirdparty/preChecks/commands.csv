@@ -1,0 +1,2 @@
+#group,validate,command
+version,SplunkES,grep VERSION /opt/splunk/etc/splunk.version
