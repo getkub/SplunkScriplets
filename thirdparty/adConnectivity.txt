@@ -1,5 +1,6 @@
 # AD connectivity test
 echo 1>/dev/null 2>/dev/null < /dev/tcp/2012myLdap.company.com/636; echo $?
+# for timeout use: timeout 1 bash -c 'cat < /dev/null > /dev/tcp/google.com/80'
 # Try 636 & 389
 # 0 means success, 1 means failure
 
