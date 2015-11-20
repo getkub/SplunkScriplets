@@ -2,3 +2,7 @@
 echo 1>/dev/null 2>/dev/null < /dev/tcp/2012myLdap.company.com/636; echo $?
 # Try 636 & 389
 # 0 means success, 1 means failure
+
+# AD test using CURL
+curl "ldap://ldap.uninett.no/dc=uninett,dc=no??sub?(&(cn=peop*)(objectClass=room))" 
+#http://www.idevelopment.info/data/LDAP/LDAP_Resources/SEARCH_Setting_the_SCOPE_Parameter.shtml
