@@ -16,3 +16,6 @@ splunk show shcluster-status
 # Apply cluster bundle
 splunk apply shcluster-bundle
 
+# Error : splunk instance appears to have no search head cluster label set
+# Do below command in each Search Head
+$SPLUNK_HOME/bin/splunk edit cluster-config-cluster_label  <sh_label>
