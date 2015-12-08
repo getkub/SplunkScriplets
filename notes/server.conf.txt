@@ -1,0 +1,7 @@
+# ---------------------------------------------------
+# For SH clustering to manually enable replication files
+[shclustering]
+conf_replication_include.identities = true
+
+# identities.conf should be a file in the "local" directory
+# ---------------------------------------------------
