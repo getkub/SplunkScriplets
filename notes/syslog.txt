@@ -1,3 +1,0 @@
-rsyslog always uses hostnames (or falls back to IP address)
-from devices, rsyslog assigns hostname automatically
-# ================================
