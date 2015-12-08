@@ -1,6 +1,6 @@
-/opt/splunk/bin/splunk init shcluster-config -mgmt_uri https://SH01:8099 -replication_port 8098 -replication_factor 2 -conf_deploy_fetch_url https://cssplclm.omosowon.com:9001 -secret changeme 
+/opt/splunk/bin/splunk init shcluster-config -mgmt_uri https://SH01:8099 -replication_port 8098 -replication_factor 2 -conf_deploy_fetch_url https://<someServer>.com:9001 -secret changeme 
 
-/opt/splunk/bin/splunk init shcluster-config -mgmt_uri https://SH02:8099 -replication_port 8098 -replication_factor 2 -conf_deploy_fetch_url https://cssplclm.omosowon.com:9001 -secret changeme
+/opt/splunk/bin/splunk init shcluster-config -mgmt_uri https://SH02:8099 -replication_port 8098 -replication_factor 2 -conf_deploy_fetch_url https://<someServer>.com:9001 -secret changeme
 
 # Immediately select the captain
 su - splunk
@@ -15,6 +15,7 @@ splunk show shcluster-status
 
 # Apply cluster bundle
 splunk apply shcluster-bundle
+splunk apply shcluster-bundle -target <mgmt_ip_port_sh>
 
 # Error : splunk instance appears to have no search head cluster label set
 # Do below command in each Search Head
