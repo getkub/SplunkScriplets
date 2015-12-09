@@ -1,0 +1,2 @@
+# Grepping large files
+tail -f <filename> | egrep <searchSTring> --line-buffered
