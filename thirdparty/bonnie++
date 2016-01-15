@@ -1,0 +1,2 @@
+# Running sample
+nohup /usr/sbin/bonnie++ -d /splunk/indexfilesystem  -s 115000 -u splunk:splunk -fq -n 50 >> outputfile &
