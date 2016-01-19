@@ -1,0 +1,29 @@
+#Remove SH and add it back in
+##Run this from any other search head in cluster
+$SPLUNK_HOME/bin/splunk remove shcluster-member -mgmt_uri https://clusterSH.mycompany.co.jp:8001
+ 
+##Stop
+$SPLUNK_HOME/bin/splunk stop
+$SPLUNK_HOME/bin/splunk clean all
+ 
+##Remove apps
+cd $SPLUNK_HOME/etc/apps
+rm -rf nbs_* SA-* TA-* Splunk_TA_* Splunk_SA* DA-ESS-* SplunkEnterpriseSecuritySuite splunk_app_db_connect
+ 
+# Remove all [sslConfig] and [shclustering] stanzas, and all encrypted passwords from etc/system/local/
+ 
+#Run on REPO
+# Copy SH apps
+ 
+# start splunk
+$SPLUNK_HOME/bin/splunk start
+ 
+$SPLUNK_HOME/bin/splunk init shcluster-config -mgmt_uri https://clusterSH.mycompany.co.jp:8001 -replication_port 8066 -replication_factor 3 -conf_deploy_fetch_url
+ 
+https://clusterMaster.mycompany.co.jp:8001 -secret mySecret
+ 
+$SPLUNK_HOME/bin/splunk restart
+ 
+ 
+#Run on other splunk search head - maybe captain
+$SPLUNK_HOME/bin/splunk add shcluster-member -new_member_uri https://clusterSH.mycompany.co.jp:8001
