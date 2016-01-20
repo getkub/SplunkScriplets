@@ -12,6 +12,7 @@ splunk show shcluster-status
 
 # To restart
 /opt/splunk/bin/splunk rolling-restart shcluster-members
+/opt/splunk/bin/splunk rolling-restart shcluster-members -status 1
 
 # Apply cluster bundle
 splunk apply shcluster-bundle
