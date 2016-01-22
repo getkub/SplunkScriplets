@@ -1,5 +1,7 @@
 #Remove SH and add it back in
 ##Run this from any other search head in cluster
+$SPLUNK_HOME/bin/splunk show shcluster-status
+
 $SPLUNK_HOME/bin/splunk remove shcluster-member -mgmt_uri https://clusterSH.mycompany.co.jp:8001
  
 ##Stop
