@@ -1,0 +1,1 @@
+/opt/splunk/bin/splunk diag --exclue "*/passwd" --exclude "*/*.log.*" --log-age=1
