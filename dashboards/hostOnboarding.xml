@@ -1,0 +1,81 @@
+<form>
+  <label>Hosts Onboarding</label>
+  <description>Testing Hosts Onboarding</description>
+  <fieldset autoRun="false">
+    <input type="dropdown" token="SourceType">
+      <default>*</default>
+      <choice value="*">All</choice>
+      <populatingSearch fieldForLabel="sourcetype" fieldForValue="sourcetype">
+        <![CDATA[|metadata type=sourcetypes index=* | fields sourcetype | sort sourcetype]]>
+      </populatingSearch>
+    </input>
+    <input type="dropdown" token="Host">
+      <default>*</default>
+      <choice value="*">All</choice>
+      <populatingSearch fieldForLabel="host" fieldForValue="host">
+        <![CDATA[|tstats list where index=* sourcetype=$SourceType$ by host]]>
+      </populatingSearch>
+    </input>
+    <input type="time" token="timeSpan">
+      <label>Time Picker</label>
+      <default>
+        <earliest>-15m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <title>Host List</title>
+        <search>
+          <query>|tstats list where index=* sourcetype=$SourceType$ host=$Host$  by sourcetype,host | join host [|metadata type=hosts | search host=$Host$ ] | convert timeformat="%F:%T" ctime(firstTime) ctime(recentTime)  | table host, firstTime, recentTime, totalCount</query>
+          <earliest>$timeSpan.earliest$</earliest>
+          <latest>$timeSpan.latest$</latest>
+        </search>
+        <option name="wrap">undefined</option>
+        <option name="rowNumbers">undefined</option>
+        <option name="drilldown">row</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+    <panel>
+      <table>
+        <title>Sourcetype to Host Mapping</title>
+        <search>
+          <query>|tstats list where index=* sourcetype=$SourceType$ host=$Host$  by sourcetype,host| sort sourcetype</query>
+          <earliest>$timeSpan.earliest$</earliest>
+          <latest>$timeSpan.latest$</latest>
+        </search>
+        <option name="wrap">undefined</option>
+        <option name="rowNumbers">undefined</option>
+        <option name="drilldown">row</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <event>
+        <title>Last 10 Events from the specified SourceType and Host</title>
+        <search>
+          <query>index=* sourcetype=$SourceType$ host=$Host$ | head 10 | table sourcetype,_time,_raw</query>
+          <earliest>$timeSpan.earliest$</earliest>
+          <latest>$timeSpan.latest$</latest>
+        </search>
+        <option name="list.drilldown">full</option>
+        <option name="list.wrap">1</option>
+        <option name="maxLines">5</option>
+        <option name="raw.drilldown">full</option>
+        <option name="rowNumbers">0</option>
+        <option name="table.drilldown">all</option>
+        <option name="table.wrap">1</option>
+        <option name="type">list</option>
+        <option name="count">10</option>
+        <fields>["host","source","sourcetype"]</fields>
+      </event>
+    </panel>
+  </row>
+</form>
