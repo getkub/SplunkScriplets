@@ -22,13 +22,13 @@ $SPLUNK_HOME/bin/splunk start
  
 $SPLUNK_HOME/bin/splunk init shcluster-config -mgmt_uri https://clusterSH.mycompany.co.jp:8001 -replication_port 8066 -replication_factor 3 -conf_deploy_fetch_url https://clusterMaster.mycompany.co.jp:8001 -secret mySecret
 
-
 # Adding back to cluster
 $SPLUNK_HOME/bin/splunk add shcluster-member -new_member_uri https://clusterSH.mycompany.co.jp:8001
-
- 
 $SPLUNK_HOME/bin/splunk restart
- 
  
 #Run on other splunk search head - maybe captain
 $SPLUNK_HOME/bin/splunk add shcluster-member -new_member_uri https://clusterSH.mycompany.co.jp:8001
+
+# 
+$SPLUNK_HOME/bin/splunk apply shcluster-bundle -preserve_lookups true -target https://clusterSH.mycompany.co.jp:8001
+$SPLUNK_HOME/bin/splunk apply shcluster-bundle stage
