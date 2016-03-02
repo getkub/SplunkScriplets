@@ -1,0 +1,2 @@
+# To put dynamic variable into a search
+| gentimes start=-1 | eval myVar=stuff | map search="| dbquery source \"select * from tble where timestamp >= $myVar$ \" "
