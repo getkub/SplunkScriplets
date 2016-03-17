@@ -1,0 +1,9 @@
+#Write this for all types of generic datasets
+[mydatatype]
+SHOULD_LINEMERGE = false
+TIME_FORMAT = %Y-%m-%dT%H:%M:%S.%6N%:z
+TIME_PREFIX = ^
+LINE_BREAKER = ([\r\n]+)
+MAX_TIMESTAMP_LOOKAHEAD = 30
+TRANSFORMS-host = xxxxxxxx
+TRUNCATE = 500000
