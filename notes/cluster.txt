@@ -98,6 +98,8 @@ splunk apply cluster-bundle
 
 # status of index cluster
 splunk list cluster-peers
+OR
+splunk show cluster-bundle-status
 
 # restart indexes in cluster
 splunk rolling-restart cluster-peers
