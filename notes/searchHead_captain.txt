@@ -21,3 +21,6 @@ splunk apply shcluster-bundle -target <mgmt_ip_port_sh>
 # Error : splunk instance appears to have no search head cluster label set
 # Do below command in each Search Head
 $SPLUNK_HOME/bin/splunk edit cluster-config-cluster_label  <sh_label>
+
+# After a major crash
+splunk resync shcluster-replicated-config
