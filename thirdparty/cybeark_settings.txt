@@ -1,0 +1,12 @@
+The Translator file neds to be placed : “%ProgramFiles%\PrivateArk\Server\Syslog”
+ 
+#In DBparam.ini file below entry & restart CyberArk Vault Server
+[Syslog]
+SyslogTranslatorFile=Syslog\SplunkCIM.xsl
+SyslogServerPort=514
+SyslogServerIP=
+SyslogServerProtocol=UDP
+SyslogMessageCodeFilter=0-999
+SyslogSendBOMPrefix=No
+
+http://docs.splunk.com/Documentation/AddOns/latest/CyberArk/Setup
