@@ -1,6 +1,4 @@
 #!/bin/sh
-# Sample Script Testing Ports v0.4
-# Author KK, ECS
 # Script goes through all port sets and do a huge matrix test 
 
 #Please run this script from /tmp/
