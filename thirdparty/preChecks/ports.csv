@@ -1,0 +1,8 @@
+#Port,Description,FWD,SH,IND,CM,DEP
+8089,Splunk_Management,No,Yes,Yes,Yes,Yes
+9997,Splunk_Receiver,Yes,No,Yes,No,No
+8065,APP_Server,No,Yes,No,No,No
+8066,Cluster_Replication,No,Yes,Yes,No,No
+8000,Splunk_Web,No,Yes,No,Yes,No
+8191,KV_Store,No,Yes,No,No,No
+514,Rsyslog,Yes,No,No,No,No
