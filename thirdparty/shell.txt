@@ -1,2 +1,5 @@
 # Grepping large files
 tail -f <filename> | egrep <searchSTring> --line-buffered
+
+# Linux kernel settings
+sysctl vm.zone_reclaim_mode
