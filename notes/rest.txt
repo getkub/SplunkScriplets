@@ -1,0 +1,5 @@
+# On Cluster Master: to check any buckets are primary within a server
+| REST splunk_server=local /services/cluster/master/buckets/
+
+# Check any buckets being replicated to/from after enabling maintenace mode
+index=_internal sourcetype=splunkd (component=S2S* OR component=BucketReplicator)
