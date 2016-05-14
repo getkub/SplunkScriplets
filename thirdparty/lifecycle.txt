@@ -1,0 +1,10 @@
+Application life-cycle
+code -> build -> integrate -> test -> release -> deploy -> Operate 
+
+Code : git
+Build: 
+Integrate: 
+Test: 
+release: 
+deploy:
+Operate:
