@@ -16,9 +16,13 @@
 - COnfigure dbconnect - By putting java location, save
 
 # Configure ES/ Fine tune
+- Merge any local and default to deployers local
 - UI -> datainputs -> app import of data -> Edit update_es -> app_regex = | (A_MYCOMPANY_ess_.*)
 - Data Inputs -> Data Model Acceleration Enforcement Settings -> Click on Item -> Disable Acceleration
 - CIM network_traffic is using relevant indexes only ( Setup via Manage apps)
 - Disable Threat intel download (Configure -> All configs -> Threat Intelligence dwnlods -> Disable all http/https)
 - Audit search might require changing (eg cores)
 - Finally add any custom apps  # (copy A_MYCOMPANY_ess*  to $DEPLOYER/apps/)
+- Now generate Splunk_TA_forIndexers (Configure -> General -> Distributed Config management -> Download)
+- tar.gz all  from $DEPLOYER/etc/apps  and make it to  $DEPLOYER/shcluster/
+
