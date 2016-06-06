@@ -3,4 +3,22 @@
 - copy passwd  to $DEPLOYER/etc/
 - Copy base apps to $DEPLOYER/etc/apps # (eg ports, enable_web, ldap, tls client, tls server, certs, license slave, mail configs, fwd_to_indexers)
 - Copy other important apps # (eg db connect, db connect jar files etc)
-- 
+- Start DEPLOYER
+
+# ES install
+- Install Splunk ES via UI
+- apps -> manage apps -> install app from file -> Upload -> setup now
+- Exclude addons which are not required  # (eg TA_flowfix, nessus, plaoalto, fireeye)
+- Override any TA's with latest version 
+- Restart splunk
+
+# Configure 3rd party apps
+- COnfigure dbconnect - By putting java location, save
+
+# Configure ES/ Fine tune
+- UI -> datainputs -> app import of data -> Edit update_es -> app_regex = | (A_MYCOMPANY_ess_.*)
+- Data Inputs -> Data Model Acceleration Enforcement Settings -> Click on Item -> Disable Acceleration
+- CIM network_traffic is using relevant indexes only ( Setup via Manage apps)
+- Disable Threat intel download (Configure -> All configs -> Threat Intelligence dwnlods -> Disable all http/https)
+- Audit search might require changing (eg cores)
+- Finally add any custom apps  # (copy A_MYCOMPANY_ess*  to $DEPLOYER/apps/)
