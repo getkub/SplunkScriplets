@@ -1,0 +1,6 @@
+- Create Deployer (new server or another instance)
+- Copy auth/splunk.secret
+- copy passwd  to $DEPLOYER/etc/
+- Copy base apps to $DEPLOYER/etc/apps # (eg ports, enable_web, ldap, tls client, tls server, certs, license slave, mail configs, fwd_to_indexers)
+- Copy other important apps # (eg db connect, db connect jar files etc)
+- 
