@@ -10,3 +10,6 @@ Fix is to
 2. Remove sslKeysfilePassword and pass4SymmKey  from system/local/server.conf
 3. Remove password from  "outputs.conf"  of tls_client
 #######################
+
+# Denied Session token for user: splunk-system-user
+Normally happens after Search Head rebuild. Has to re-authenticate via Cluster Master with admin user and password
