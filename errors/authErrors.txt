@@ -1,0 +1,12 @@
+#### SSL errors. Mostly happen when admin forget to copy passwd and secret
+
+ERROR SSLCommon - Can't read key file /opt/splunk/etc/apps/app_name/bin/auth/prod_splunk-input.pem errno=101077092 error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt.
+ERROR TcpInputConfig - SSL server certificate not found, or password is wrong - SSL ports will not be opened
+ERROR KVStoreConfigurationProvider - Could not get pint from mongod.
+ 
+ 
+Fix is to
+1. Remove password from  "inputs.conf"  of tls_client
+2. Remove sslKeysfilePassword and pass4SymmKey  from system/local/server.conf
+3. Remove password from  "outputs.conf"  of tls_client
+#######################
