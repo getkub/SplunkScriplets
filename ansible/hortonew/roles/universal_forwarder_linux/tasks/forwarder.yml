@@ -1,0 +1,87 @@
+---
+  - name: Checking if splunk is installed
+    tags: install
+    stat: path=/opt/splunkforwarder
+    register: splunk_path
+
+  - name: Checking if installer already copied over
+    tags: install
+    stat: path={{splunk_working_directory}}{{splunk_uf_binary_linux}}
+    when: splunk_path.stat.exists == false
+    register: splunk_installer
+
+  - name: splunk is installed
+    tags: install
+    debug: msg='splunk is already installed under /opt/splunkforwarder'
+    when: splunk_path.stat.exists == true
+
+  - name: Checking if deployment server set
+    tags: install
+    stat: path=/opt/splunkforwarder/etc/system/local/deploymentclient.conf
+    register: splunkds
+
+  - name: Splunk deployment server set
+    tags: install
+    debug: msg='Splunk Deployment Server is set'
+    when: splunkds.stat.exists == true
+
+  - name: Assures {{splunk_working_directory}} exists
+    tags: install
+    file: path={{splunk_working_directory}} state=directory
+    when: splunk_path.stat.exists == false
+
+  - name: Push RPM package to server
+    tags: install
+    become: yes
+    become_method: sudo
+    copy: src=splunk_binaries/{{splunk_uf_binary_linux}} dest={{splunk_working_directory}}{{splunk_uf_binary_linux}} owner=hortone group=hortone mode=0644
+    when: splunk_path.stat.exists == false and splunk_installer.stat.exists == false
+
+  - name: Install RPM
+    tags: install
+    become: yes
+    become_method: sudo
+    command: rpm -ivh {{splunk_working_directory}}{{splunk_uf_binary_linux}}
+    when: splunk_path.stat.exists == false
+
+  - name: CHOWN Directory
+    tags: install
+    become: yes
+    become_method: sudo
+    shell: chown -R splunk:splunk /opt/splunkforwarder
+    when: splunk_path.stat.exists == false
+
+  - name: Start splunk
+    tags: install
+    become_user: splunk
+    become_method: sudo
+    shell: /opt/splunkforwarder/bin/splunk start --accept-license
+    when: splunk_path.stat.exists == false
+
+  - name: Enable boot-start
+    tags: install
+    become: yes
+    become_method: sudo
+    shell: /opt/splunkforwarder/bin/splunk enable boot-start -user splunk
+    when: splunk_path.stat.exists == false
+
+  - name: Splunk set deploy-poll and Restart splunkd
+    tags: install
+    become_user: splunk
+    become_method: sudo
+    shell: /opt/splunkforwarder/bin/splunk set deploy-poll {{splunk_deployment_server}}:{{splunk_deployment_server_port}} -auth {{splunk_user}}:{{splunk_password}} & /opt/splunkforwarder/bin/splunk restart
+    when: splunkds.stat.exists == false
+
+  - name: Check if DS App for deploymentclient.conf has been pulled
+    tags: install
+    become_user: splunk
+    become_method: sudo
+    stat: path=/opt/splunkforwarder/etc/apps/deploymentclient_two/local/deploymentclient.conf
+    register: splunk_ds_settings
+
+  - name: Delete deployment client settings in etc/system/local
+    tags: install
+    become_user: splunk
+    become_method: sudo
+    shell: rm -f /opt/splunkforwarder/etc/system/local/deploymentclient.conf & /opt/splunkforwarder/bin/splunk restart
+    when: splunk_ds_settings.stat.exists == true
