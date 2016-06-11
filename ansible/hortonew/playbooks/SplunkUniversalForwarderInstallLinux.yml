@@ -1,0 +1,14 @@
+---
+  - name: Linux Universal Forwarder Install
+    hosts: install-splunk-linux
+    remote_user: your-user-here
+    sudo: yes
+    vars:
+      splunk_working_directory: '/tmp/Splunk/'
+      splunk_deployment_server: 'your-deployment-server.yourdomain.com'
+      splunk_deployment_server_port: '8089'
+      splunk_user: 'admin'
+      splunk_password: 'changeme'
+      splunk_uf_binary_linux: 'splunkforwarder-6.3.0-aa7d4b1ccb80-linux-2.6-x86_64.rpm'
+    roles:
+      - universal_forwarder_linux
