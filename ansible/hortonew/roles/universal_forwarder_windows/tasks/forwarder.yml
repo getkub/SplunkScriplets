@@ -1,0 +1,38 @@
+---
+    - name: Checking if splunk is installed
+      tags: install
+      win_stat: path='{{splunk_install_path}}etc\splunk.version'
+      register: splunk_path
+
+    - name: splunk is installed
+      tags: install
+      debug: msg='splunk is already installed under {{splunk_install_path}}.'
+      when: splunk_path.stat.exists
+
+    - name: Assures {{splunk_working_directory}} exists
+      tags: install
+      win_file: path={{splunk_working_directory}} state=directory
+      when: splunk_path.stat.exists == False
+
+    - name: Checking if installer already copied over
+      tags: install
+      win_stat: path={{splunk_working_directory}}{{splunk_uf_binary}}
+      when: splunk_path.stat.exists == False
+      register: splunk_installer
+
+    - name: Installer on server
+      tags: install
+      debug: msg='installer already copied over'
+      when: (splunk_path.stat.exists == False) and (splunk_installer.stat.exists)
+
+    - name: Push package to server
+      tags: install
+      win_get_url:
+        url: '{{splunk_remote_file_share}}{{splunk_uf_binary}}'
+        dest: '{{splunk_working_directory}}{{splunk_uf_binary}}'
+      when: (splunk_path.stat.exists == False) and (splunk_installer.stat.exists == False)
+
+    - name: Install Splunk
+      tags: install
+      script: install-splunk.ps1 -site '{{splunk_site}}' -installer '{{splunk_working_directory}}{{splunk_uf_binary}}'
+      when: splunk_path.stat.exists == False    
