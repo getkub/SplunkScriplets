@@ -1,0 +1,25 @@
+# http://blog.hortonew.com/ansible-splunk-forwarder-deployment
+/etc/ansible/
+ ansible.cfg  (ansible specific settings)
+ hosts  (where you can store groups of hosts for ease of management)
+ group_vars/
+   windows.yml
+ playbooks/  (where you should store .yml playbooks)
+   SplunkUniversalForwarderInstallWindows.yml
+   SplunkUniversalForwarderInstallLinux.yml
+
+   splunk_binaries/  (where you should store installers)
+     splunkforwarder-6.3.0-aa7d4b1ccb80-x64-release.msi
+     splunkforwarder-6.3.0-aa7d4b1ccb80-linux-2.6-x86_64.rpm
+
+  roles/  (where you can group tasks by Linux/Windows)
+    universal_forwarder_linux/
+      tasks/
+        main.yml
+        forwarder.yml
+    universal_forwarder_windows/
+      files/
+        install-splunk.ps1
+      tasks/
+        main.yml
+        forwarder.yml
