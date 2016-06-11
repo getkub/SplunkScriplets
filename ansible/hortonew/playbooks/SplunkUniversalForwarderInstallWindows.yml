@@ -1,0 +1,15 @@
+---
+  - name: Windows x64 Universal Forwarder Install
+    hosts: install-splunk-windows
+    vars:
+      splunk_working_directory: 'c:\Temp\Splunk\'
+      splunk_remote_file_share: '\\server-name.yourdomain.com\c$\Distribute\'
+      splunk_site: 'CORPORATE'
+      splunk_install_path: 'c:\Program Files\SplunkUniversalForwarder\'
+      splunk_deployment_server: 'your-deployment-server.yourdomain.com'
+      splunk_deployment_server_port: '8089'
+      splunk_user: 'admin'
+      splunk_password: 'changeme'
+      splunk_uf_binary: 'splunkforwarder-6.3.0-aa7d4b1ccb80-x64-release.msi'
+    roles:
+      - universal_forwarder_windows
