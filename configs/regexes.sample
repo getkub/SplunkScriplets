@@ -1,0 +1,4 @@
+# For any json
+[httpevent_kvp]
+KV_MODE=json
+EXTRACT-KVPS = (?:\\[rnt])?(?<_KEY_1>[^="\\]+)=(?:\\")?(?<_VAL_1>[^="\\]+)
