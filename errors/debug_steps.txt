@@ -1,0 +1,9 @@
+# Use pstack linux utility to dump the pid details
+DATA_DIR=$HOME/splunk_data
+PID=$(head -n1 $SPLUNK_HOME/var/run/splunk/splunkd.pid)
+nohup bash -c "while ps -p $PID > /dev/null; do date --rfc-3339=ns >> $DATA_DIR/pstack.pid; sleep 5; done " &
+
+$SPLUNK_HOME/bin/splunk diag
+
+=============
+XZ_OPT=-3 tar cJF jemmalloc-$(hostname)-$(date +%Y%m%d%H%M).tar.gz $DATA_DIR
