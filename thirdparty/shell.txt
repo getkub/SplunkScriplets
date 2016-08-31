@@ -6,3 +6,7 @@ sysctl vm.zone_reclaim_mode
 
 # scp alternative
 rsync -avz --remove-source-fiels -e ssh /this/dir remoteuser@remotehost:/remote/dir
+
+# Some good options with grep
+# Below will show key-value with s=
+grep -Poi "s=.*?\s"  filename.txt | uniq 
