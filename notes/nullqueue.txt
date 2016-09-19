@@ -1,0 +1,11 @@
+# To make data null and not to index
+
+# props.conf
+[nullqueue]
+TRANSFORMS-t1=send_to_nullqueue
+
+# transforms.conf
+[send_to_nullqueue]
+DEST_KEY= queue
+FORMAT = nullQueue
+REGEX = .
