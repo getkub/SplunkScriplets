@@ -1,4 +1,5 @@
-# Stitch documents with Javascript & CSS
+# Stitch documents with Javascript & CSS 
+# Pre-req: marked.js , strapdown.js , strapdown.css, jquery.js, themes
 # Present working directory where script is running
 function Get-ScriptDirectory
 {
