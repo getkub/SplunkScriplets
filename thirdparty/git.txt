@@ -1,0 +1,2 @@
+# git logging 
+git log --stat --date=iso --pretty=format:"%cd hash=%H abbr_hash=%h author_name=\"%an\" commit_msg=\"%s\" "
