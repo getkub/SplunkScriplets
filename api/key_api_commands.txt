@@ -1,0 +1,5 @@
+ user="admin"
+ pass="changeme"
+ 
+ #  Destructive resync via REST
+ curl -k -u ${user}:${pass} https://127.0.0.1:8089/services/replication/configuration/commits
