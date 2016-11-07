@@ -1,0 +1,20 @@
+# $SPLUNK_HOME/etc/system/static/splunkrc_cmds.xml
+<!--
+    This is the xml file containing all info about cli commands, sent to us by splunkd
+    The description of the tags are as follows:
+        item             each group of related commands is within this tag. The cli object which this item represents is indicated by the 'obj' attribute. 
+                         If this item is typically a command eg. add, list, edit, remove, display then set the attribute 'verb' to true(Only used for help)
+        common           metadata common to everything under 'item'
+        common:help      the help that will be displayed for this object. the help is dynamically constructed from common:header + common:syntax + cmd:required + cmd:optional + common:examples:ex + footer(some hardcoded text) 
+                         if this is empty, then it means that there is 'no extended help' for this.
+                         if not empty but no associated cms sections, then it is probably a string that appears as a command in most places eg. splunk help add. In that case display what we have and then iterate through
+                         and append all the help sections present whereever the cmd is 'add'
+        common:uri       the uri to post to
+        common:argsmap   cli name to eai name mapping
+        cmd:help         help specific to this command
+        cmd:default      default args that are always sent in to the endpoint
+        cmd:app_context  In some cases, an app context is required. But having the user to specify it via the -app argument always is a pain. The UI gets around this by doing a GET, getting the app
+                         context and using this info for a second POST. Use the app_context tag to specify the uri to hit and provide a helper function to parse the response and return the namespace.
+        cmd:initial      for some commands, we need some initial values set. eg. deployment server tenants have a initial value of 'default' until overriden by the user by -tenant args.
+                         In order to accomodate such this, we will use the initial values for the args mentioned within this tag, and override this with whatever the user types in.
+-->
