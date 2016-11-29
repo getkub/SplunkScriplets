@@ -1,0 +1,2 @@
+# To specify key and host with user
+ansible all -i centos.vm, --private-key /sshkeylocation/id_rsa -u root -m ping -vvvv
