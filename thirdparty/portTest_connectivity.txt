@@ -2,3 +2,11 @@ http://stackoverflow.com/questions/9566052/how-to-check-network-port-access-and-
 # For powershell without telnet
 new-object Net.Sockets.TcpClient ("10.45.23.109", 443)
 
+#=========================================
+# Sylog sending
+# Using netcat
+echo "<14> ${timeForSysLog} test message" | nc -u -w1 10.10.20.30 514
+
+# Worse case if NO tools are present
+echo "<14> ${timeForSysLog} test message" > /dev/udp/10.10.20.30/514
+#=========================================
