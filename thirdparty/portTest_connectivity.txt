@@ -1,0 +1,4 @@
+http://stackoverflow.com/questions/9566052/how-to-check-network-port-access-and-display-useful-message
+# For powershell without telnet
+new-object Net.Sockets.TcpClient ("10.45.23.109", 443)
+
