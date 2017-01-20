@@ -1,0 +1,4 @@
+# http://unix.stackexchange.com/questions/155805/sed-replace-first-k-instances-of-a-word-in-the-file/155810
+# To replace the "k"th occurence , below example k=4
+# change 4th occurence to \x00 . Change everything to something new and replace \x00 back to original
+sed -E -e 'H;1h;$!d;x; s/\<old\>/\x00/g4; s/\<old\>/new/g; s/\x00/old/g'
