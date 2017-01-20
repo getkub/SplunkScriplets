@@ -1,0 +1,1 @@
+| tstats count where index=* by host,sourcetype
