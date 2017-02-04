@@ -2,6 +2,7 @@
 # vagrant global-status
 # vagrant up --provider virtualbox
 # vagrant destroy -f ${id}
+# vagrant global-status | grep diaryfolio | cut -d' ' -f1| while read line; do vagrant destroy -f $line; done
 # vagrant box list
 Vagrant.configure(2) do |config|
        # Specifying the box we wish to use
