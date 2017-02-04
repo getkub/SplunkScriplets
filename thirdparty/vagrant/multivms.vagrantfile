@@ -10,8 +10,8 @@ Vagrant.configure(2) do |config|
        config.vm.usable_port_range = 2200..2250
        # Adding Bridged Network Adapter. Put your name here as it might differ from mine
        config.vm.network "public_network", bridge: "wlp2s0"  
-       # Iterating the loop for three times
-       (1..2).each do |i|
+       # Iterating the loop for 4 times and will create 4 VM nodes
+       (1..4).each do |i|
        config.vm.hostname = "diaryfolio-node#{i}"
                config.vm.define "diaryfolio_vm#{i}" do |node|
                end
