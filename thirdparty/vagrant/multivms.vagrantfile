@@ -6,6 +6,7 @@
 Vagrant.configure(2) do |config|
        # Specifying the box we wish to use
        config.vm.box = "centos/7"
+       # Default port ranges are 2200 to 2250. You can change here if you need
        config.vm.usable_port_range = 2200..2250
        # Adding Bridged Network Adapter. Put your name here as it might differ from mine
        config.vm.network "public_network", bridge: "wlp2s0"  
