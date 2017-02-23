@@ -1,0 +1,17 @@
+<core search>
+| rename _time as my_time
+| table eventtype, my_time, rule_id, status_label, urgency
+| convert timeformat="%H" ctime(my_time) as hr
+| convert timeformat="%M" ctime(my_time) as min
+| convert timeformat="%S" ctime(my_time) as sec
+| convert timeformat="%w" ctime(my_time) as wday
+| eval day=(my_time - (hr*60*60) - (min * 60) - sec)
+| eval secs=((hr*60*60)+(min*60)+sec)
+| eval adjTime = if((secs < (8*60*60)), (day + (8*60*60)), my_time)
+| eval adjTime = if((secs > (17*60*60)), (day + 86400 + (8*60*60)), adjTime)
+| eval adjTime = if(((secs > (17*60*60)) AND (wday=5)), (day + (3*86400) + (8*60*60)), adjTime)
+| eval adjTime = if((wday=0), (day + (1*86400) + (8*60*60)), adjTime)
+| eval adjTime = if((wday=6), (day + (2*86400) + (8*60*60)), adjTime)
+| convert timeformat="%H:%M %a %d/%m/%Y" ctime(my_time) as my_timeT
+| convert timeformat="%H:%M %a %d/%m/%Y" ctime(day) as dayT
+| convert timeformat="%H:%M %a %d/%m/%Y" ctime(adjTime) as CPD
