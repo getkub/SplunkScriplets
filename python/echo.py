@@ -8,14 +8,14 @@ def setup_logger(level,module):
     logger = logging.getLogger(module)
     logger.propagate = False # Prevent the log messages from being duplicated in the python.log file
     logger.setLevel(level)
-    file_handler = logging.handlers.RotatingFileHandler(os.environ['SPLUNK_HOME'] + '/var/log/splunk/' + 'df_' + module + '.log', maxBytes=25000000, backupCount=5)
+    file_handler = logging.handlers.RotatingFileHandler(os.environ['SPLUNK_HOME'] + '/var/log/splunk/' + 'isplunker_' + module + '.log', maxBytes=25000000, backupCount=5)
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
     return logger
 
 # Setup the handler with defaults
-thisModule="isplunker_echo_module"
+thisModule="echo"
 logger = setup_logger(logging.INFO,thisModule)
 runId = datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S')
 
