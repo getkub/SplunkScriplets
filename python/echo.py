@@ -15,7 +15,7 @@ def setup_logger(level,module):
     return logger
 
 # Setup the handler with defaults
-thisModule="diaryfolio_Module"
+thisModule="isplunker_echo_module"
 logger = setup_logger(logging.INFO,thisModule)
 runId = datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S')
 
