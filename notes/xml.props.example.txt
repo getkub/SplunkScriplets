@@ -1,0 +1,23 @@
+#https://answers.splunk.com/answers/187195/how-to-add-and-parse-xml-data-in-splunk.html
+Sample XML 
+ <photos>
+   <photo id="1231" title="Birthday" format="jpg">
+   <owner id="1112">Jason</owner>
+     <comments>
+       <comment ownerid="113">Good pic!</comment>
+       <comment ownerid="224">Happy birthday</comment>
+     <comments>
+   </photo>
+ </photos>
+ 
+ #props.conf
+ [yoursourcetype]
+ DATETIME_CONFIG = CURRENT
+ KV_MODE = xml
+ LINE_BREAKER = (<photos>)
+ MUST_BREAK_AFTER = \</photos\>
+ NO_BINARY_CHECK = 1
+ SHOULD_LINEMERGE = false
+ TRUNCATE = 0
+ pulldown_type = 1
+ FIELDALIAS-rootfields = photo.owner as Owner photo{@id} as PhotoID photo{@title} as PhotoTitle photo.owner{@id} as PhotoOwnerID photo{@format} as PhotoFormat photo.comments.comment{@ownerid} as CommentOwnerID photo.comments.comment as Comment
