@@ -1,0 +1,139 @@
+version: '2'
+services:
+
+  cluster-master:
+    image: ${SPLUNK_CLUSTER_DOCKER_IMAGE_PATH}/splunk:${SPLUNK_CLUSTER_VERSION}
+    container_name: cluster-master
+    hostname: cluster-master
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+    ports:
+      - 9000:8000
+    labels:
+      splunk.cluster: "cluster-master"
+    networks:
+      splunk:
+        aliases:
+          - cluster-master
+    restart: always
+
+  shc-member-01:
+    image: ${SPLUNK_CLUSTER_DOCKER_IMAGE_PATH}/splunk:${SPLUNK_CLUSTER_VERSION}
+    container_name: shc-member-01
+    hostname: shc-member-01
+    depends_on:
+      - cluster-master
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+    ports:
+      - 8001:8000
+    labels:
+      splunk.cluster: "shc-member"
+    networks:
+      splunk:
+        aliases:
+          - shc-member-01
+    restart: always
+
+  shc-member-02:
+    image: ${SPLUNK_CLUSTER_DOCKER_IMAGE_PATH}/splunk:${SPLUNK_CLUSTER_VERSION}
+    container_name: shc-member-02
+    hostname: shc-member-02
+    depends_on:
+      - cluster-master
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+    ports:
+      - 8002:8000
+    labels:
+      splunk.cluster: "shc-member"
+    networks:
+      splunk:
+        aliases:
+          - shc-member-02
+    restart: always
+
+  shc-member-03:
+    image: ${SPLUNK_CLUSTER_DOCKER_IMAGE_PATH}/splunk:${SPLUNK_CLUSTER_VERSION}
+    container_name: shc-member-03
+    hostname: shc-member-03
+    depends_on:
+      - cluster-master
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+    ports:
+      - 8003:8000
+    labels:
+      splunk.cluster: "shc-member"
+    networks:
+      splunk:
+        aliases:
+          - shc-member-03
+    restart: always
+
+  indexer-slave-01:
+    image: ${SPLUNK_CLUSTER_DOCKER_IMAGE_PATH}/splunk:${SPLUNK_CLUSTER_VERSION}
+    container_name: indexer-slave-01
+    hostname: indexer-slave-01
+    depends_on:
+      - cluster-master
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+    ports:
+      - 8081:8088
+    labels:
+      splunk.cluster: "indexer-slave"
+    networks:
+      - splunk
+    restart: always
+
+  indexer-slave-02:
+    image: ${SPLUNK_CLUSTER_DOCKER_IMAGE_PATH}/splunk:${SPLUNK_CLUSTER_VERSION}
+    container_name: indexer-slave-02
+    hostname: indexer-slave-02
+    depends_on:
+      - cluster-master
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+    ports:
+      - 8082:8088
+    labels:
+      splunk.cluster: "indexer-slave"
+    networks:
+      - splunk
+    restart: always
+
+  indexer-slave-03:
+    image: ${SPLUNK_CLUSTER_DOCKER_IMAGE_PATH}/splunk:${SPLUNK_CLUSTER_VERSION}
+    container_name: indexer-slave-03
+    hostname: indexer-slave-03
+    depends_on:
+      - cluster-master
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+    ports:
+      - 8083:8088
+    labels:
+      splunk.cluster: "indexer-slave"
+    networks:
+      - splunk
+    restart: always
+
+  indexer-slave-04:
+    image: ${SPLUNK_CLUSTER_DOCKER_IMAGE_PATH}/splunk:${SPLUNK_CLUSTER_VERSION}
+    container_name: indexer-slave-04
+    hostname: indexer-slave-04
+    depends_on:
+      - cluster-master
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+    ports:
+      - 8084:8088
+    labels:
+      splunk.cluster: "indexer-slave"
+    networks:
+      - splunk
+    restart: always
+
+networks:
+  splunk:
