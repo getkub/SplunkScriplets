@@ -1,0 +1,2 @@
+docker ps --format '{{.Names}}\t{{.Image}}'
+docker load < docker.abc.tar  
