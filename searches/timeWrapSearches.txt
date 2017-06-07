@@ -1,0 +1,2 @@
+# To compare two values continously
+index=_internal earliest=-8d@d latest=-7d@d| eval ReportKey="1weekBefore"|  timechart span=10m count by ReportKey | append [index=_internal earliest=-2d@d latest=-1d@d| eval ReportKey="yesterday"|  timechart span=10m count by ReportKey]
