@@ -1,0 +1,13 @@
+# forwarders 
+iptables -I INPUT -p udp -m multiport --dports 10514:10520 -j ACCEPT
+iptables -I INPUT -p tcp -m multiport --dports 10514:10520 -j ACCEPT
+iptables -I INPUT -p tcp --dport 514 -j ACCEPT
+# VRRP etc
+iptables -I INPUT -s 10.10.20.0/24 -d 224.0.0.18 -j ACCEPT
+iptables-save >/etc/sysconfig/iptables
+
+# for specific servers
+iptables -I INPUT -i eth0 -p tcp --dport ssh -j ACCEPT
+iptables -I INPUT -i eth0 -p 8089 --dport ssh -j ACCEPT
+iptables -I INPUT -i eth0 -p 8000 --dport ssh -j ACCEPT
+iptables-save >/etc/sysconfig/iptables
