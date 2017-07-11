@@ -8,9 +8,9 @@ iptables-save >/etc/sysconfig/iptables
 
 # for specific servers
 iptables -I INPUT -i eth0 -p tcp --dport ssh -j ACCEPT
-iptables -I INPUT -i eth0 -p 8089 --dport ssh -j ACCEPT
-iptables -I INPUT -i eth0 -p 8000 --dport ssh -j ACCEPT
-iptables -I INPUT -i eth0 -p 9065 --dport ssh -j ACCEPT
-iptables -I INPUT -i eth0 -p 9091 --dport ssh -j ACCEPT
+iptables -I INPUT -i eth0 -p tcp --dport 8089 -j ACCEPT
+iptables -I INPUT -i eth0 -p tcp --dport 8000 -j ACCEPT
+iptables -I INPUT -i eth0 -p tcp --dport 9065 -j ACCEPT
+iptables -I INPUT -i eth0 -p tcp --dport 9091 -j ACCEPT
 
 iptables-save >/etc/sysconfig/iptables
