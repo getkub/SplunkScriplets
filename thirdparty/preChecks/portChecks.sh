@@ -26,11 +26,11 @@ elif [ $ssite == "d" ]; then
     site="DEV"
    	grep -i DEV ${full_serverList} >> dev.mgmt.list
 	serverList=dev.mgmt.list
-elif [ $ssite == "n" ]; then 
+elif [ $ssite == "2" ]; then 
     site="SITE2"
    	grep -i ACT ${full_serverList} | grep -i W0 >> secondary.mgmt.list	
 	serverList=secondary.mgmt.list
-elif [ $ssite == "s" ]; then
+elif [ $ssite == "1" ]; then
     site="SITE1"
    	grep -i PASS ${full_serverList} | grep -i S0 >> primary.mgmt.list	
 	serverList=primary.mgmt.list
