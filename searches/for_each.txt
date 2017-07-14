@@ -1,0 +1,3 @@
+# For_each tricky searches
+
+... | foreach * [eval shouldAlert=shouldAlert+if(isnull('<<FIELD>>') OR '<<FIELD>>'="",1,0)] | whereshouldAlert>0
