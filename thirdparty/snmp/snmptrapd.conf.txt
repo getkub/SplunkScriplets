@@ -1,0 +1,8 @@
+# /etc/snmp/snmptrapd.conf
+authCommunity log public
+createUser -e 0x8000000001020304 traptest SHA mycred AES
+authuser log traptest
+
+
+# To test SNMPv3
+snmptrap -v 3 -c public -n "" -a SHA -A mypassword -x AES -X mycred -l authPriv -u traptest -e 0x8000000001020304 localhost 0 linkUp.1
