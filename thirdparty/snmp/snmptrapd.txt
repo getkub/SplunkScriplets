@@ -1,0 +1,2 @@
+# /etc/sysconfig/snmptrapd
+OPTIONS="-Ls6 -n -m ALL -M /usr/share/snmp/mibs -p /var/run/snmptrapd.pid -F \"%B Security: %P; EnterpriseOID: %N; TrapType: %W; TrapSubType: %q; Payload : %v\n\""
