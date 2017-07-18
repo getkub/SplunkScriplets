@@ -1,0 +1,39 @@
+# Create filesystem and mount it from Scratch
+# https://serverfault.com/questions/428815/cant-create-lvm-due-to-not-found-or-ignored-by-filtering
+
+# Ensure free disk 
+# fdisk : will show physical hardware , type p to display current devices, n to create new , w to write 
+fdisk /dev/sda
+
+
+# After writing, then create Physical Volume (pv)
+pvcreate /dev/sda3
+
+# DISPLAY PHYSICAL Volume
+pvdisplay
+
+#  Create OR attach to a Volume Group (vg) 
+vgcreate vg_test /dev/sda3
+
+# Diplay Volume Group
+vgdisplay
+
+# Create Logical Volume for 10GB
+lvcreate -nlv_test -L10G /dev/vg_test
+
+# Diplay Logical Volumes
+lvdisplay
+
+# Now Make filesystem using mkfs
+mkfs -t ext4 /dev/vg_test/lv_test
+
+# Create a directory
+mkdir /opt/test
+
+# now mount the filesystem to /opt/test
+mount /dev/vg_test/lv_test  /opt/test
+
+# To update permanently, the entry has to be made into fstab
+vi /etc/fstab
+# Append entry like below
+/dev/vg_test/lv_test   /opt/test         ext4 defaults             0 0
