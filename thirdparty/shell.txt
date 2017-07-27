@@ -7,6 +7,10 @@ sysctl vm.zone_reclaim_mode
 # scp alternative
 rsync -avz --remove-source-fiels -e ssh /this/dir remoteuser@remotehost:/remote/dir
 
+# From remote systems
+rsync -vtr --progress --exclude debug/ rsync://mirror.pnl.gov/epel/7/x86_64/ epel
+
+
 # Some good options with grep
 # Below will show key-value with s=
 grep -Poi "s=.*?\s"  filename.txt | uniq 
