@@ -1,0 +1,12 @@
+#jinja2: trim_blocks:False
+[tcpout]
+defaultGroup = docker_indexers
+
+[tcpout:docker_indexers]
+server = {{indexers_fwd_uri}}
+useACK = true
+autoLB = true
+
+{% for item in clustering_slaves %}
+[tcpout-server://{{ item }}:{{fwdPort}}]
+{%- endfor %}

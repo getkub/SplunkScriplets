@@ -1,0 +1,9 @@
+---
+# This playbook is to trigger splunk_apps creator
+
+- name: replace templates with values
+  hosts: dev
+  gather_facts: no
+
+  roles:
+    - splunk_apps

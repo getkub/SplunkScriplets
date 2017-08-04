@@ -1,0 +1,23 @@
+---
+# Playbook to create apps using templates
+#- name: Include concat files for cluster
+#  include_vars: concat.yml
+
+- name: Clean artifact path
+  file:
+    state: absent
+    path:  "{{ dest_base }}/"
+
+- name: Ensure App dir Exists
+  file:
+    path: "{{ dest_base }}/{{ item | basename | regex_replace('^(?P<appName>.+)__.*$', '\\g<appName>') }}/local"
+    state: directory
+  with_fileglob:
+    - "../templates/*.j2"
+
+- name: Create apps from template
+  template:
+    src={{ item }}
+    dest={{ dest_base }}/{{ item | basename | regex_replace('^(?P<appName>.+)__.*$', '\\g<appName>') }}/local/{{ item | basename | regex_replace('.*__(?P<confName>.+)\.j2', '\\g<confName>') }}
+  with_fileglob:
+    - "../templates/*.j2"

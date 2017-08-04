@@ -1,0 +1,38 @@
+---
+
+# Common variables for DEV
+dest_base: "/tmp/jinja"
+mgmtPort: 8089
+httpPort: 8000
+kvstorePort: 8191
+fwdPort: 9997
+replicationPort: 8080
+
+protocol: "https"
+phoneHomeIntervalInSecs: 60
+
+# Server specific
+deploymentServer:
+    - "deployment-server-01"
+
+clusterMaster:
+    - "cluster-master-01"
+
+licenseServer:
+    - "license-server-01"
+
+clustering_searchheads:
+    - "shc-member-01"
+    - "shc-member-02"
+    - "shc-member-03"
+
+clustering_slaves:
+    - "indexer-slave-01"
+    - "indexer-slave-02"
+    - "indexer-slave-03"
+    - "indexer-slave-04"
+
+# Concatenated values
+distributedSearch_uri:  '{% set comma = joiner(",") %} {% for host in clustering_searchheads %} {{comma()}} {{protocol}}://{{host}}:{{mgmtPort}}{% endfor %}'
+distributedIndexer_uri: '{% set comma = joiner(",") %} {% for host in clustering_slaves %} {{comma()}} {{protocol}}://{{host}}:{{mgmtPort}}{% endfor %}'
+indexers_fwd_uri: '{% set comma = joiner(",") %} {% for host in clustering_slaves %} {{comma()}} {{protocol}}://{{host}}:{{fwdPort}}{% endfor %}'
