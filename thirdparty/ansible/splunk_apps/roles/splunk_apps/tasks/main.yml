@@ -22,5 +22,8 @@
   with_fileglob:
     - "../templates/*.j2"
 
-#  Bootstrap Search Captain
+# add sh (one by one) from clm
+# /opt/splunk/bin/splunk add search-server https://shc-member-03:8089 -remoteUsername admin -remotePassword changed -auth admin
+
+#  Bootstrap Search Captain from a search-member
 # /opt/splunk/bin/splunk bootstrap shcluster-captain -servers_list "https://shc-member-01:8089,https://shc-member-02:8089,https://shc-member-03:8089" -auth admin
