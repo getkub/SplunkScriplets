@@ -32,7 +32,11 @@ clustering_slaves:
     - "indexer-slave-03"
     - "indexer-slave-04"
 
+# App Specific
+certApp: "MY_all_certs"
+certAppPass: "welcome"
+
 # Concatenated values
 distributedSearch_uri:  '{% set comma = joiner(",") %} {% for host in clustering_searchheads %} {{comma()}} {{protocol}}://{{host}}:{{mgmtPort}}{% endfor %}'
 distributedIndexer_uri: '{% set comma = joiner(",") %} {% for host in clustering_slaves %} {{comma()}} {{protocol}}://{{host}}:{{mgmtPort}}{% endfor %}'
-indexers_fwd_uri: '{% set comma = joiner(",") %} {% for host in clustering_slaves %} {{comma()}} {{protocol}}://{{host}}:{{fwdPort}}{% endfor %}'
+indexers_fwd_uri: '{% set comma = joiner(",") %} {% for host in clustering_slaves %} {{comma()}} {{host}}:{{fwdPort}}{% endfor %}'

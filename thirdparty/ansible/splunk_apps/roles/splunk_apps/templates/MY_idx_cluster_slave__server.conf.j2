@@ -7,3 +7,8 @@ cluster_label = my_idx_cluster1
 
 [replication_port://{{replicationPort}}]
 disabled = false
+rootCA = $SPLUNK_HOME/etc/apps/{{certApp}}/bin/auth/rootCA.pem
+serverCert = $SPLUNK_HOME/etc/apps/{{certApp}}/bin/auth/device.pem
+password = {{certAppPass}} 
+requireClientCert = false
+

@@ -6,6 +6,11 @@ defaultGroup = docker_indexers
 server = {{indexers_fwd_uri}}
 useACK = true
 autoLB = true
+sslVerifyServerCert = true
+sslCipher = TLSv1.2:!eNULL:!aNULL
+sslRootCAPath = $SPLUNK_HOME/etc/apps/{{certApp}}/bin/auth/rootCA.pem
+sslCertPath = $SPLUNK_HOME/etc/apps/{{certApp}}/bin/auth/device.pem
+sslPassword = {{certAppPass}}
 
 {% for item in clustering_slaves %}
 [tcpout-server://{{ item }}:{{fwdPort}}]
