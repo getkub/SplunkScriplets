@@ -21,3 +21,6 @@
     dest={{ dest_base }}/{{ item | basename | regex_replace('^(?P<appName>.+)__.*$', '\\g<appName>') }}/local/{{ item | basename | regex_replace('.*__(?P<confName>.+)\.j2', '\\g<confName>') }}
   with_fileglob:
     - "../templates/*.j2"
+
+#  Bootstrap Search Captain
+# /opt/splunk/bin/splunk bootstrap shcluster-captain -servers_list "https://shc-member-01:8089,https://shc-member-02:8089,https://shc-member-03:8089" -auth admin
