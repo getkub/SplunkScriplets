@@ -1,6 +1,0 @@
-# capture packets
-tcpdump -s 0 port 514 -i eth0 -w /tmp/mycap.pcap 
-
-# read pcap files 
-tcpdump -XX -r /tmp/mycap.pcap > /tmp/mycap.txt
-tshark -x -r /tmp/mycap.pcap > /tmp/mycap.txt
