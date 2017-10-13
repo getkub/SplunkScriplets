@@ -1,0 +1,26 @@
+product="splunk"       # values can be : splunk , universalforwarder
+version="6.6.3"        # Splunk product Version
+hash="e21ee54bc796"    # specific per Version
+arch="amd64"           # values can be : x86_64 (redhat, tgz), amd64 (ubuntu), x64 (Windows)
+os="linux"             # values can be : linux, windows
+pkg="deb"              # Values can be : tgz, rpm, deb, msi
+
+if [ $pkg = "tgz" ]; then
+   filename="${product}-${version}-${hash}-Linux-${arch}.${pkg}"
+elif [ $os = "windows" ]; then
+   filename="${product}-${version}-${hash}-${arch}-release.${pkg}"
+else 
+   filename="${product}-${version}-${hash}-${os}-2.6-${arch}.${pkg}"
+fi
+
+md5File="${filename}.md5"
+echo $filename         # Verify this is correct
+
+wget "https://download.splunk.com/products/splunk/releases/${version}/${os}/${md5File}"
+wget "https://download.splunk.com/products/splunk/releases/${version}/${os}/${filename}"
+
+
+# OR
+curl -o "$md5File" "https://download.splunk.com/products/splunk/releases/${version}/${os}/${md5File}"
+curl -o "$md5File" "https://download.splunk.com/products/splunk/releases/${version}/${os}/${filename}"
+
