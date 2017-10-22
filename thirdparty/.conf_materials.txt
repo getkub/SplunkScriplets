@@ -1,0 +1,2 @@
+# How to download all pdf's in one shot
+ curl --silent http://conf.splunk.com/sessions/2017-sessions.html 2>&1 | egrep -i speaker-file | egrep pdf| wget -B http://conf.splunk.com -F -i - --continue
