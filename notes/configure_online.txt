@@ -1,0 +1,4 @@
+# Configure Splunk online 
+# sizing, configurator
+
+https://splunk-sizing.appspot.com/
