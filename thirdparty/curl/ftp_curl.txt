@@ -1,0 +1,4 @@
+# Use curl for ftp tests
+curl -v --ftp-ssl ftp://<domain>\\<serviceUser>:<pwd>@hostname
+curl -v --ftp-ssl ftp://mydomain\\svcftpuser1:ftpuserpass@mysplunkServer.com
+
