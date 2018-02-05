@@ -1,0 +1,3 @@
+# Proxy user in the curl command
+
+curl -o test.csv -vk -x https://${proxyFQDN}:${proxyPort} --proxy-user ${proxyUser}:${proxyPass} -L ${destURL} -u ${destUser}:${destPass}
