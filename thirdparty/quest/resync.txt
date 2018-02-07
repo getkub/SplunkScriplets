@@ -1,0 +1,5 @@
+# VAS_ERR_NOT_FOUND  DN:Out of memory error  LDAP Error . LDAP could not resolve or connect to LDAP server
+
+/opt/quest/bin/vastool -u svcUserQuest@domain.company.com -k /root/svcUserQuest-ADMIN.keytab join -f -c ou=MYTEAM,ou=another,ou=servers,dc=mydomain,dc=mycompany,dc=com  admin.domain.com
+
+
