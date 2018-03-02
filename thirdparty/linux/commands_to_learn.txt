@@ -1,1 +1,2 @@
 fstrim
+# fstrim /proc/$(docker inspedct --format='{{ .State.Pid }}' <containerid>)/root
