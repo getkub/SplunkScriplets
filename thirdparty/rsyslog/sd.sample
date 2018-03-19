@@ -1,2 +1,4 @@
 # https://www.juniper.net/documentation/en_US/junos/topics/reference/general/syslog-interpreting-msg-generated-structured-data-format.html
+# <priority code>version timestamp hostname process processID TAG [junos@2636.platform variable-value-pairs] message-text
+
 <165>1 2017-02-15T09:17:15.719Z router1 mgd 3046 UI_DBASE_LOGOUT_EVENT [junos@2636.1.1.1.2.18 username="user"] User 'user' exiting configuration mode
