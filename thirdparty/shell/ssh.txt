@@ -1,0 +1,9 @@
+# bash script to ssh multiple servers in a Loop and issue commands
+# https://stackoverflow.com/questions/20254906/bash-script-to-ssh-multiple-servers-in-a-loop-and-issue-commands
+
+#!/bin/bash
+user="abc"
+while read hostLine
+do
+    ssh ${user}@${hostLine} "hostname; ls;" < /dev/null
+done < "$1"
