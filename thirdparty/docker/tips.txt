@@ -1,2 +1,9 @@
 docker ps --format '{{.Names}}\t{{.Image}}'
 docker load < docker.abc.tar  
+
+
+# For docker errors due to /var/lib/docker
+# stop docker
+rm -rf /var/lib/docker
+rm /etc/sysconfig/docker-storage
+docker-storage-setup
