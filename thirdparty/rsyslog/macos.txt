@@ -1,0 +1,7 @@
+# rsyslog launch in mac
+To have launchd start rsyslog now and restart at login:
+  brew services start rsyslog
+Or, if you don't want/need a background service you can just run:
+  rsyslogd -f /usr/local/etc/rsyslog.conf -i /usr/local/var/run/rsyslogd.pid
+
+/usr/local/Cellar/rsyslog/7.4.5: 30 files, 1.5MB
