@@ -1,0 +1,5 @@
+# To send to a VM : from host to Guest using scapy
+
+# src is vboxnet1 ether, dst is vm-guest ether
+packet = Ether(src="0a:00:27:00:00:01", dst="08:00:27:82:a3:dd")/IP(dst="10.10.2.3", src="10.10.2.1")/UDP(sport=333, dport=514)/"Scapy message"
+sendp(packet, iface="vboxnet1")
