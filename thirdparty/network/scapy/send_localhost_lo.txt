@@ -1,0 +1,7 @@
+# Sending to localhost
+
+conf.L3socket
+conf.L3socket=L3RawSocket
+
+packet = IP(dst="127.0.0.1", src="10.121.12.12")/UDP(sport=333, dport=514)/"<158> Apr 15 12:16:13 tag: load Scapy message"
+send(packet)
