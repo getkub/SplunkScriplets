@@ -1,9 +1,18 @@
 docker ps --format '{{.Names}}\t{{.Image}}'
 docker load < docker.abc.tar  
 
-
+# ------------------------------------------ #
 # For docker errors due to /var/lib/docker
-# stop docker
+# ------------------------------------------ #
+systemctl stop docker
+lvdisplay -v vg_root/docker-pool # This displays the volume
+
 rm -rf /var/lib/docker
 rm /etc/sysconfig/docker-storage
 docker-storage-setup
+systemctl status docker
+
+# ------------------------------------------ #
+# docker-compose issues
+# ------------------------------------------ #
+sudo mount /tmp -o remount,exec
