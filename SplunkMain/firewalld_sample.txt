@@ -1,0 +1,8 @@
+# stackoverflow 24729024
+firewall-cmd --get-active-zones
+firewall-cmd --list-all
+
+firewall-cmd --zone-public --add-port=9009/tcp --permanent
+firewall-cmd --reload
+
+# this can be add-port, add-service
