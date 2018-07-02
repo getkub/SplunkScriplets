@@ -1,0 +1,6 @@
+## Macos based disks
+# https://superuser.com/questions/527657/how-do-you-format-a-2-gb-sd-card-to-fat32-preferably-with-disk-utility
+diskutil list
+diskExternal="/dev/disk4"
+name="somdDiskName"
+sudo diskutil eraseDisk FAT32 $name MBRFormat $diskExternal
