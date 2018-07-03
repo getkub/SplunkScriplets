@@ -1,0 +1,18 @@
+***If using Conf files***
+If you are using "conf" files You could do completely avoid eval-CASE itself based based on lookup file with normal lookup and/or wildcard lookup (MATCH_TYPE)
+
+But the greatest problem is [precedence/sequence order of search-time Operations][1]
+Lookups come after the Calculated/aliasing operations sequence and hence  you **CANNOT** use the values extracted using LOOKUP for later Evaluations as EVAL executes **before** LOOKUP 
+
+I had put a feature request to have SPLUNK to have double iteration with  LOOKUP2 or EVAL2 option , so these issues can be sorted. I find it very hard to enrich data from lookup and then do eval on that 
+
+
+***If using UI search ***
+There is NO match option, but you can design your lookup in a clever manner.  For example, you can have an extra column in your csv to have group or category. So each type of granular items can be attached to a group and can output them
+
+  [1]: http://docs.splunk.com/Documentation/Splunk/7.1.1/Knowledge/Searchtimeoperationssequence
+
+
+
+
+
