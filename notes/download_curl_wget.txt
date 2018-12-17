@@ -1,4 +1,4 @@
-product="splunk"       # values can be : splunk , universalforwarder
+product="splunk"       # values can be : splunk , splunkforwarder
 version="6.6.3"        # Splunk product Version
 hash="e21ee54bc796"    # specific per Version
 arch="amd64"           # values can be : x86_64 (redhat, tgz), amd64 (ubuntu), x64 (Windows)
@@ -24,3 +24,6 @@ wget "https://download.splunk.com/products/splunk/releases/${version}/${os}/${fi
 curl -o "$md5File" "https://download.splunk.com/products/splunk/releases/${version}/${os}/${md5File}"
 curl -o "$md5File" "https://download.splunk.com/products/splunk/releases/${version}/${os}/${filename}"
 
+# for Universal Forwarder
+product="splunkforwarder"       # values can be : splunkforwarder
+curl -o "$filename" "https://download.splunk.com/products/universalforwarder/releases/${version}/${os}/${filename}"
