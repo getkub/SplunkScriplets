@@ -1,0 +1,8 @@
+# Using Docker
+docker run -v `pwd`:/data pandoc/docker -f markdown -t latex -H header.sty inputFileName.tsv -o outputFileName.pdf
+
+# contents of header.sty
+\usepackage{scrextend}
+\usepackage[brazil, brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,landscape,top=2.5cm,bottom=2.5cm,left=0.2cm, right=0.2cm] {geometry}
