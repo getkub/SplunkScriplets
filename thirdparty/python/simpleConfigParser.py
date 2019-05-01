@@ -1,12 +1,19 @@
+# Converts Splunk inputs.conf to CSV file
+
 import ConfigParser as configparser
+import csv
+
 config = configparser.ConfigParser()
 config.read('/tmp/inputs.btool')
+csv_columns = ['stanza', 'index', 'sourcetype' ]
 
-for each_section in config.sections():
-    for (each_key, each_val) in config.items(each_section):
-        print each_key , ':' , each_val
+f=open('/tmp/myoutput.csv', 'wb')
+w=csv.DictWriter(f,fieldnames=csv_columns, extrasaction='ignore')
+w.writeheader()
 
 for each_section in config.sections():
     mydict = dict(config.items(each_section))
     mydict['stanza'] = each_section
-    print mydict
+    w.writerow(mydict)
+    
+f.close()
