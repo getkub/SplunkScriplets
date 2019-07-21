@@ -6,3 +6,9 @@
  
  
  #------------------------------------------------------------------------------------
+
+# Remote logging of data into Wireshark. Need to add SSH keys for automated retrieval
+# https://www.commandlinefu.com/commands/view/4373/analyze-traffic-remotely-over-ssh-w-wireshark
+ssh root@192.168.2.1 tcpdump -U -s0 -w - 'not port 22' | wireshark -k -i - 
+
+#------------------------------------------------------------------------------------
