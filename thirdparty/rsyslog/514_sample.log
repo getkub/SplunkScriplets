@@ -1,0 +1,12 @@
+
+module(load="imtcp")
+module(load="imudp")
+
+template (name="dynfile_514" type="string" string="/var/log/rsyslog/514/%fromhost-ip%/%syslogfacility-text%.%syslogseverity-text%.log")
+
+ruleset(name="remote1"){
+     *.*   action(type="omfile" DynaFile="dynfile_514")
+}
+
+input(type="imtcp" port="514" ruleset="remote1")
+input(type="imudp" port="514" ruleset="remote1")
