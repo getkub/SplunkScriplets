@@ -2,6 +2,7 @@
 ### Various Splunk related scripts, tricks and notes .. All in ONE Place
 
 # Directory Structure
+```
 ├── devOps
 │   ├── SplunkEnterprise
 │   └── SplunkUF
@@ -35,7 +36,7 @@
     ├── snmp
     ├── standards
     └── vagrant
-
+```
 ## What does each Directory include
 - devOps => Splunk and Universal Forwarder installation Scripts
 - thirdPary => ThirdParty Scripts like python, shell scripts, connectivity tests etc.
