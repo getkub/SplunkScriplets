@@ -1,0 +1,5 @@
+https://stackoverflow.com/questions/977251/regular-expressions-and-negating-a-whole-character-group
+
+Use negative lookahead:  (This is quite good to say, find lines which does NOT contain a particular group/words)
+^(?!.*ab).*$
+
