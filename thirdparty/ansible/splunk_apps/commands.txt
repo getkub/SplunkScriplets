@@ -1,1 +1,0 @@
-ansible-playbook -i hosts -c local site.yml
