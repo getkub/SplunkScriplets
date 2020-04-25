@@ -1,0 +1,17 @@
+# VBoxManage common commands
+VBoxManage list vms
+VBoxManage list runningvms
+
+#Variable here fetched from runningvms
+myvm=centos_minimal
+
+# Start and get IP etc.
+VBoxManage startvm $myvm -type headless
+VBoxManage guestproperty enumerate $myvm
+VBoxManage guestproperty get $myvm "/VirtualBox/GuestInfo/Net/0/V4/IP"
+
+# to Shutdown softly
+VBoxManage controlvm $myvm poweroff soft
+
+# Restart VBox in case of network Adapter issue in Mac
+sudo /Library/Application\ Support/VirtualBox/LaunchDaemons/VirtualBoxStartup.sh restart
