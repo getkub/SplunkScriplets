@@ -14,3 +14,12 @@ ldapsearch -Z -v -x -H ldaps://host21myCompanydc02.myCompany.com:636 -D "myCompa
 
 # For groups
 |ldapsearch domain=ADMIN search="(&(objectClass=group)(&(cn=SPLNK*)(objectclass=Group)))" basedn="DC=admin,DC=mycmpny,DC=com"
+
+
+# Combine Groups and User, employeeID etc
+
+|ldapsearch search="(&(objectClass=group)(&(cn=SPLNK*)(objectclass=Group)))" basedn="DC=admin,DC=mycmpny,DC=com" attrs="member"
+| mvexpand member
+| ldapfilter search="(&(objectClass=user)(distinguishedName=$member$))" attrs="sAMAccountName,displayName"
+| table sAMAccountName,displayName
+
