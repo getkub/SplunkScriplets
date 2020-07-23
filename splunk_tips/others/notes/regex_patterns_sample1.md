@@ -1,3 +1,4 @@
+StackTrace Regex sample
 ```
 2013-02-28 09:57:56,668 ERROR SomeCallLogger - ESS10005 Cpc portalservices: Exception caught while writing log messege to MEA Call:  {}
 java.sql.SQLSyntaxErrorException: ORA-00942: table or view does not exist
