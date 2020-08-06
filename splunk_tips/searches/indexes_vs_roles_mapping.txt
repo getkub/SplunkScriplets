@@ -8,3 +8,8 @@
     | mvexpand srchIndexesAllowed
     | rename srchIndexesAllowed as index
     ]
+
+
+# To find AD/LDAP to roles
+| rest /servcies/admin/LDAP-groups splunk_server=local
+| table title, roles
