@@ -1,0 +1,8 @@
+---
+- name: Playbook
+  hosts: localhost 
+  gather_facts: no
+  tasks:
+    - name: Test message 
+      debug:
+        msg: "test message"
