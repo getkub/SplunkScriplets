@@ -1,0 +1,6 @@
+- name: "Check for duplicates and fail if present"
+  shell: awk -F',' '{print $1}' {{someInputFile}} | sort | uniq -d
+  register: my_input_file
+  failed_when:
+    my_input_file.stdout_lines | length > 0
+    
