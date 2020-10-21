@@ -1,0 +1,24 @@
+---
+- name: "Get Variables from YML"
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: "Read as list"
+      include_vars:
+        file: ./configs/05_lookup_file.config
+        name: stuff
+    - name: "Print variable"
+      debug:
+        msg: "{{stuff.varA}}"
+    - name: "Print array"
+      debug:
+        msg: "{{stuff.ArrayA}}"
+    - name: "Assign new array"
+      set_fact:
+        my_var: "{{stuff.ArrayA}}"
+    - name: "Insert into Array"
+      set_fact:
+        my_var: "{{my_var}} + ['4thFruit']"
+    - name: "Print array again"
+      debug:
+        msg: "{{my_var}}"
