@@ -22,3 +22,11 @@
     - name: "Print array again"
       debug:
         msg: "{{my_var}}"
+
+    - name: "Print nested key array"
+      debug:
+        msg: "{{stuff['country.state.district']}}"
+
+    - name: "Add to nested key array"
+      debug:
+        msg: "{{stuff['country.state.district']}} + ['newDistrict']"
