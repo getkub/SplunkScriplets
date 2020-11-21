@@ -1,0 +1,4 @@
+id,hostname,host_ip,country_code,country_name
+ID01,myhost1,10.2.3.4,US,United States
+ID02,correct_host1,10.2.3.4,US,United States
+ID03,myhost1,10.2.3.4,UK,United Kingdom

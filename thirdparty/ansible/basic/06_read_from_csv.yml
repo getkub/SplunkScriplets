@@ -1,0 +1,46 @@
+---
+- name: "Get Variables from YML"
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: "Read as a list"
+      read_csv:
+        path: ./configs/06_country_host_invalid.csv
+      register: hosts_list
+
+    - debug:
+        msg: '{{ hosts_list }}'
+
+    - name: "Read as a dictionary"
+      read_csv:
+        path: ./configs/06_country_host_valid.csv
+        key: id
+      register: hosts
+
+    - debug:
+        msg: '{{ hosts.dict.ID01.id}} =>  {{hosts.dict.ID01.hostname}},{{hosts.dict.ID01.host_ip}},{{hosts.dict.ID01.country_code}},{{hosts.dict.ID01.country_name}}'
+
+    - name: "Set some regex values"
+      set_fact: hostname_regex="^\w+$"
+
+    - name: "Validate CSV fields"
+      debug:
+        msg: '{{hostname}}'
+      loop: "{{ hosts.dict|dict2items }}"
+      vars:
+        - "hostname": "{{item.value.hostname}}"
+      when:
+        - hostname is not match(hostname_regex)
+
+    - name: "Validate CSV fields: Set fact"
+      set_fact: incorrect_line={{item}}
+      loop: "{{ hosts.dict|dict2items }}"
+      vars:
+        - "hostname": "{{item.value.hostname}}"
+      when:
+        - hostname is not match(hostname_regex)
+
+    - debug:
+        msg: '{{ incorrect_line }}'
+      when:  incorrect_line is defined
+
