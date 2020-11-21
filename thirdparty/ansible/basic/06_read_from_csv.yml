@@ -44,3 +44,18 @@
         msg: '{{ incorrect_line }}'
       when:  incorrect_line is defined
 
+    - name: "Validate CSV using awk"
+      shell: perl -lne 'print $1 if /(^(?!(?:^\w+\,\w+,(?:[0-9]{1,3}\.){3}[0-9]{1,3}\,\w\w\,.+$)).+$)/' ./configs/06_country_host_valid.csv | grep "^.*$" -c
+      register: awk_output
+
+    - name: "awk_output"
+      debug:
+        msg: '{{ awk_output }}'
+      when:  awk_output.stdout != "1"
+
+    - name: "END play"
+      meta: end_play
+      when:  awk_output.stdout != "1"
+ 
+    - debug:
+        msg: 'This message wont be printed if there is an ERROR'
