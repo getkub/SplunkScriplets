@@ -44,18 +44,23 @@
         msg: '{{ incorrect_line }}'
       when:  incorrect_line is defined
 
+    - name: "Set regex variable"
+      set_fact: regex_inverse_pattern=(^(?!(?:^\w+\,\w+,(?:[0-9]{1,3}\.){3}[0-9]{1,3}\,\w\w\,.+$)).+$)
+
     - name: "Validate CSV using awk"
-      shell: perl -lne 'print $1 if /(^(?!(?:^\w+\,\w+,(?:[0-9]{1,3}\.){3}[0-9]{1,3}\,\w\w\,.+$)).+$)/' ./configs/06_country_host_valid.csv | grep "^.*$" -c
+      shell: perl -lne 'print $1 if /{{regex_inverse_pattern}}/' ./configs/06_country_host_valid.csv | grep -v 'id,hostname'
       register: awk_output
+      failed_when: awk_output.rc == 0
+      ignore_errors: yes
 
     - name: "awk_output"
       debug:
         msg: '{{ awk_output }}'
-      when:  awk_output.stdout != "1"
+      when:  awk_output.rc == 0
 
     - name: "END play"
       meta: end_play
-      when:  awk_output.stdout != "1"
+      when:  awk_output.rc == 0
  
     - debug:
-        msg: 'This message wont be printed if there is an ERROR'
+        msg: 'Success. No errors found in CSV'
