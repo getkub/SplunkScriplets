@@ -53,17 +53,5 @@
     - name: "Validate CSV using awk"
       shell: perl -lne 'print $1 if /{{regex_inverse_pattern}}/' ./configs/06_country_host_invalid.csv | grep -v '{{csv_headers}}'
       register: awk_output
-      failed_when: awk_output.rc == 0
-      ignore_errors: yes
-
-    - name: "awk_output"
-      debug:
-        msg: '{{ awk_output }}'
-      when:  awk_output.rc == 0
-
-    - name: "END play"
-      meta: end_play
-      when:  awk_output.rc == 0
- 
-    - debug:
-        msg: 'Success. No errors found in CSV'
+      failed_when:
+         awk_output.stdout_lines | length > 0
