@@ -1,0 +1,8 @@
+---
+
+- name: "GIT clone a repo to TEMP"
+  git:
+    repo: "https://github.com/getkub/SplunkScriplets.git"
+    dest: "/tmp/my_clone"
+    force: "yes"
+    update: "yes"

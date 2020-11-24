@@ -1,0 +1,5 @@
+---
+
+- name: "GIT roles"
+  import_tasks: git_clone_a_repo.yml
+  tags: [git_clone_a_repo]

@@ -1,0 +1,9 @@
+---
+
+- name: "Dummy role"
+  debug: 
+    msg: "Inside trigger_git_role"
+
+- name: "Call another role"
+  include_role: 
+    name: '../roles/git'

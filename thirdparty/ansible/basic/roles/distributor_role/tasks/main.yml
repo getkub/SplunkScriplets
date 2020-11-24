@@ -1,0 +1,8 @@
+---
+- name: "Simple debug test"
+  import_tasks: simple_debug_test.yml
+  tags: [simple_debug_test]
+
+- name: "trigger_git_role"
+  import_tasks: trigger_git_role.yml
+  tags: [trigger_git_role]

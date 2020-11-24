@@ -1,0 +1,6 @@
+---
+
+- name: "simple_debug_test"
+  debug: 
+    msg: "Inside simple_debug_test"
+
