@@ -1,0 +1,3 @@
+github_base_url: "https://api.github.com"
+github_username: "getkub"
+github_list_api: "users/{{github_username}}/repos"

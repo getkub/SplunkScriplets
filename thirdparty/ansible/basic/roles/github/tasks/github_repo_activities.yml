@@ -1,0 +1,20 @@
+---
+
+- name: "GET list for {{github_username}}"
+  uri:
+    url: "{{github_base_url}}/{{github_list_api}}"
+    method: GET
+    #user: "{{gihub_user}}"
+    #password: "{{gihub_pass}}"
+    return_content: yes
+    validate_certs: no
+    force_basic_auth: yes
+    status_code: [200, 202, 204]
+    headers:
+      kbn-xsrf: true
+      Content-Type: application/json
+  register: github_repo_list_register
+
+- name: "Debug github_repo_list_register"
+  debug:
+    msg: "{{github_repo_list_register}}"

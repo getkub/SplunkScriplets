@@ -1,0 +1,8 @@
+---
+- name: URI playbook
+  hosts: localhost 
+  gather_facts: no
+  vars_files:
+    - group_vars/07_github_vars.yml
+  roles:
+    - github

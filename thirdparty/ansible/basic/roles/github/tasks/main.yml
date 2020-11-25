@@ -1,0 +1,5 @@
+---
+
+- name: "github_repo_activities"
+  import_tasks: github_repo_activities.yml
+  tags: [github_repo_activities]
