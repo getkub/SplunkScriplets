@@ -1,0 +1,48 @@
+# ---------------------------- #
+# Run container and act as a consumer
+# ---------------------------- #
+kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.20.0-kafka-2.6.0 --rm=true --restart=Never \
+-- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 \
+--topic my-topic --from-beginning
+
+kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.20.0-kafka-2.6.0 --rm=true --restart=Never \
+-- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 \
+--topic my-topic2 --from-beginning
+
+# ---------------------------- #
+#  run a container & List topics 
+# ---------------------------- #
+kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.20.0-kafka-2.6.0 --rm=true --restart=Never \
+-- bin/kafka-topics.sh --list --bootstrap-server my-cluster-kafka-bootstrap:9092
+
+# ---------------------------- #
+# List topics in a running container
+# ---------------------------- #
+kubectl exec -it kafka-consumer -n kafka -- bin/kafka-topics.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --list
+
+# ---------------------------- #
+# Get count of messages in a topic
+# ---------------------------- #
+kubectl exec -it kafka-consumer -n kafka -- bin/kafka-console-consumer.sh --from-beginning --bootstrap-server my-cluster-kafka-bootstrap:9092 \
+--property print.key=true  \
+--property print.value=false --property print.partition \
+--topic my-topic3 --timeout-ms 5000
+
+# Count in another way
+kubectl exec -it kafka-consumer -n kafka -- bin/kafka-run-class.sh kafka.tools.GetOffsetShell  \
+--broker-list my-cluster-kafka-bootstrap:9092 \
+--topic my-topic
+
+# ---------------------------- #
+# Create topic
+# ---------------------------- #
+kubectl exec -it kafka-consumer -n kafka -- bin/kafka-topics.sh --bootstrap-server my-cluster-kafka-bootstrap:9092  \
+--topic my-topic3 --create  \
+--replication-factor 1 --partitions 1
+
+
+# ---------------------------- #
+# Delete a topic
+# ---------------------------- #
+kubectl exec -it kafka-consumer -n kafka -- bin/kafka-topics.sh --bootstrap-server my-cluster-kafka-bootstrap:9092  --topic my-topic3 --describe
+kubectl exec -it kafka-consumer -n kafka -- bin/kafka-topics.sh --bootstrap-server my-cluster-kafka-bootstrap:9092  --topic my-topic3 --delete
