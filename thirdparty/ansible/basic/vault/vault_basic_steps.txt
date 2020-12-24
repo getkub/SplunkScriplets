@@ -1,5 +1,6 @@
 # key stored in another file ($my_key_file)
 my_key_file="/tmp/key.txt"
+echo "my_key" > $my_key_file
 
 # ------------------------------ #
 # Encrypt a string
