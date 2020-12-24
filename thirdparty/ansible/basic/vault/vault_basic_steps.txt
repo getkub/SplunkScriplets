@@ -1,0 +1,33 @@
+# key stored in another file ($my_key_file)
+my_key_file="/tmp/key.txt"
+
+# ------------------------------ #
+# Encrypt a string
+# ------------------------------ #
+secret_string="mypassword"
+secret_identifier="my_secret_1"
+encrypted_file_for_string="/tmp/myencrypted_file"
+ansible-vault encrypt_string ${secret_string} --vault-password-file ${my_key_file} --name ${secret_identifier} > ${encrypted_file_for_string}
+
+# ------------------------------ #
+# Encrypt a file
+# ------------------------------ #
+secret_file="/tmp/my_secret_file"
+encrypted_file_for_file="/tmp/myencrypted_file.encr"
+ansible-vault encrypt ${secret_file} --vault-password-file ${my_key_file} > ${encrypted_file_for_file}
+
+
+# ------------------------------ #
+# decrypt string
+# ------------------------------ #
+ansible localhost -m debug -a var=${secret_identifier} -e "@${encrypted_file_for_string}" --vault-password-file ${my_key_file}
+ 
+# ------------------------------ #
+# decrypted file view (and put to a new location if need be)
+# ------------------------------ #
+ansible-vault view ${encrypted_file_for_file} --vault-password-file ${my_key_file}
+
+# ------------------------------ #
+# Decrypt the file itself
+# ------------------------------ #
+ansible-vault decrypt ${encrypted_file_for_file} --vault-password-file ${my_key_file}
