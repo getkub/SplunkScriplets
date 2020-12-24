@@ -1,0 +1,23 @@
+---
+- name: "Get Variables from YML"
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: "Read as a dict"
+      read_csv:
+        path: ./configs/02_names_department.csv
+        key: id
+      register: hosts_list
+
+
+    - name: "setfact loop"
+      set_fact:
+        new: "{{ new | default([]) + [{ item.key : (item.value | default({}) | combine ({'departmentGroup': departmentGroup})) }]  }}"
+      loop: "{{hosts_list.dict|dict2items}}"
+      vars:
+        departmentGroup: "{{[item.value.department,item.value.subDepartment] | join('-')}}"
+
+    - debug:
+        msg: '{{ new }}'
+
+   
