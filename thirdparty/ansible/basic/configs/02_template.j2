@@ -1,5 +1,9 @@
   
-{% for item in hosts_list.list| groupby ('department') %}
-{{item}}
+{% for department in hosts_list.list| groupby ('department') %}
+if host = '{{department.0}}' ; do
+{% for item2 in department.1 %}
+{{item2}}
+{% endfor %}
+fi
 
 {% endfor %}
