@@ -7,17 +7,32 @@
       read_csv:
         path: ./configs/02_names_department.csv
         key: id
-      register: hosts_list
+      register: hosts_dict
 
+    - name: "Read as a list"
+      read_csv:
+        path: ./configs/02_names_department.csv
+      register: hosts_list
 
     - name: "setfact loop"
       set_fact:
         new: "{{ new | default([]) + [{ item.key : (item.value | default({}) | combine ({'departmentGroup': departmentGroup})) }]  }}"
-      loop: "{{hosts_list.dict|dict2items}}"
+      loop: "{{hosts_dict.dict|dict2items}}"
       vars:
         departmentGroup: "{{[item.value.department,item.value.subDepartment] | join('-')}}"
 
     - debug:
-        msg: '{{ new }}'
+        msg: "{{ hosts_list }}"
 
-   
+    # - name: Template a file
+    #   template:
+    #     src: ./configs/02_template.j2
+    #     dest: /tmp/02_template.txt
+    #     mode: '0644'
+
+    - name: "show templating results"
+      template:
+        src: ./configs/02_template.j2
+        dest: /tmp/02_template.txt
+        mode: '0644'
+

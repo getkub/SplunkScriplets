@@ -1,0 +1,5 @@
+  
+{% for item in hosts_list.list| groupby ('department') %}
+{{item}}
+
+{% endfor %}
