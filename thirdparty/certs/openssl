@@ -1,0 +1,14 @@
+# To find keys in a pem key . Also good to check/verify the passphrase supplied
+openssl rsa -in /opt/splunk/etc/auth/server.pem -text
+
+# TO Check connectivity similar to Curl
+openssl s_client -connect  <remoteServer>:<port>
+
+
+openssl x509 req -config <my_config_key> in <server.key> -out <my_cert.crt> - days 3650
+
+# Generate NEW CERT directly from config file (for self-signed)
+openssl req -x509  -new -config <my_config_key> in <server.key> -out <my_cert.crt> - days 3650
+
+# For existing
+openssl req -x509  -new -config <my_config_key> -key <server.key> -out <my_cert.crt> - days 3650

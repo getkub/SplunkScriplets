@@ -31,3 +31,14 @@ ansible-vault view ${secret_file} --vault-password-file ${my_key_file}
 # Decrypt the file itself
 # ------------------------------ #
 ansible-vault decrypt ${secret_file} --vault-password-file ${my_key_file}
+
+
+
+# To use within a playbook, ensure that the variable is imported within the playbook 
+# (RUN with ansible-playbook my_playbook --vault-password-file ~/.vault_pass.txt)
+
+- include_vars: "my_encrypted_variable_file.yml"
+
+- debug:
+    msg: "{{my_encrypted_var_within_the_file}}"
+    
