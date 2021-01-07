@@ -16,13 +16,43 @@
 
     - name: "setfact loop"
       set_fact:
-        new: "{{ new | default([]) + [{ item.key : (item.value | default({}) | combine ({'departmentGroup': departmentGroup})) }]  }}"
+        dict_new: "{{ dict_new | default([]) + [{ item.key : (item.value | default({}) | combine ({'departmentGroup': departmentGroup})) }]  }}"
       loop: "{{hosts_dict.dict|dict2items}}"
       vars:
         departmentGroup: "{{[item.value.department,item.value.subDepartment] | join('-')}}"
 
     - debug:
-        msg: "{{ hosts_list }}"
+        msg: "{{ dict_new }}"
+
+# https://stackoverflow.com/questions/65447303/ansible-dict-how-to-group-by-a-key-and-set-fact-to-be-re-used-later/65537910#65537910
+    # - name: "setfact list  group"
+    #   set_fact:
+    #     list_new: >-
+    #     {{ list_new | default({})  
+    #         | combine ({item.value.departmentGroup: []
+    #         + [{
+    #             'id': item.value.id,
+    #             'department': item.value.department,
+    #             'subDepartment': item.value.subDepartment
+    #           }]
+    #         + list_new[item.value.departmentGroup] | default([]) })  
+    #     }}
+    #   with_dict: "{{ dict_new.dict }}"
+
+    - name: Group by combination FIELD
+      set_fact:
+        combined_data: >-
+          {{ combined_data | default({})
+            | combine({departmentGroup: []
+            + [ item ]
+            + combined_data[departmentGroup] | default([]) })
+          }}
+      loop: "{{hosts_dict.dict|dict2items}}"
+      vars:
+        departmentGroup: "{{[item.value.department,item.value.subDepartment] | join('-')}}"
+
+    - debug:
+        msg: "{{ combined_data }}"
 
     # - name: Template a file
     #   template:
@@ -30,9 +60,9 @@
     #     dest: /tmp/02_template.txt
     #     mode: '0644'
 
-    - name: "show templating results"
-      template:
-        src: ./configs/02_template.j2
-        dest: /tmp/02_template.txt
-        mode: '0644'
+    # - name: "show templating results"
+    #   template:
+    #     src: ./configs/02_template.j2
+    #     dest: /tmp/02_template.txt
+    #     mode: '0644'
 
