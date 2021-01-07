@@ -44,7 +44,7 @@
         combined_data: >-
           {{ combined_data | default({})
             | combine({departmentGroup: []
-            + [ item ]
+            + [ item.value ]
             + combined_data[departmentGroup] | default([]) })
           }}
       loop: "{{hosts_dict.dict|dict2items}}"
@@ -60,9 +60,27 @@
     #     dest: /tmp/02_template.txt
     #     mode: '0644'
 
-    # - name: "show templating results"
-    #   template:
-    #     src: ./configs/02_template.j2
-    #     dest: /tmp/02_template.txt
-    #     mode: '0644'
 
+    - debug:
+        msg: "{{ item.key }} => {{ item.value }}"
+      with_dict: 
+        - "{{ combined_data }}"
+
+    - name: "show templating results"
+      template:
+        src: ./configs/02_dict_iteration.j2
+        dest: /tmp/02_dict_iteration_{{deptGroup}}.txt
+        mode: '0644'
+      with_dict: 
+        - "{{ combined_data }}"
+      vars:
+        deptGroup: "{{item.key}}"
+        deptValue: "{{item.value}}"
+
+    - name: "Print Filenames"
+      debug:
+        msg: "/tmp/02_dict_iteration_{{deptGroup}}.txt"
+      with_dict: 
+        - "{{ combined_data }}"
+      vars:
+        deptGroup: "{{item.key}}"
