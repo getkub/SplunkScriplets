@@ -1,9 +1,13 @@
 port=514
 eth="ens0"
+eth="any"
 outfile="tcpdump.${port}.${eth}"
 # capture packets
 # tcpdump -s 0 port 514 -i eth0 -w /tmp/mycap.pcap 
 tcpdump -vnn port $port -i $eth -w /tmp/${outfile}.pcap
+# or try below
+tcpdump -i any port $port -vnn -w /tmp/${outfile}.pcap
+
 
 # To print in plaintext
 #tcpdump -XX -r /tmp/mycap.pcap > /tmp/mycap.txt
