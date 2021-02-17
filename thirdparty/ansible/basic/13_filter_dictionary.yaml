@@ -5,7 +5,7 @@
     ing_collector_input: "veg"
   tasks:
     - read_csv:
-        path: "csv/fruits.csv"
+        path: "configs/13_fruits.csv"
         key: id
       register: fruits_csv_full
     - name: ": FILTER csv by type"
