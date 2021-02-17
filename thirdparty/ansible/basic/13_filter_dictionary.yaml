@@ -1,0 +1,20 @@
+- name: "Playbook for fruits csv"
+  hosts: localhost
+  gather_facts: no
+  vars:
+    ing_collector_input: "veg"
+  tasks:
+    - read_csv:
+        path: "csv/fruits.csv"
+        key: id
+      register: fruits_csv_full
+    - name: ": FILTER csv by type"
+      set_fact: 
+        fruits_csv:  '{{ fruits_csv_full.dict| dict2items | selectattr("value.type", "match", "^veg$")| list | items2dict  }}'
+    - name: ": non-filtered list"
+      debug:
+        msg: "{{fruits_csv_full}}"
+    - name: ": filtered list"
+      debug:
+        msg: "{{fruits_csv}}"
+  
