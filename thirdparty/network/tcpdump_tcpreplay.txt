@@ -22,4 +22,6 @@ tcprewrite --enet-vlan=del --infile=/tmp/${outfile}.pcap --outfile=/tmp/rewrite.
 tcpreplay --intf1=$eth  /tmp/rewrite.${outfile}.pcap
 
 
+# To grep directly
+tcpdump -nnAs0 -i any port $port | grep -i my_keyword  
 
