@@ -1,0 +1,2 @@
+# Logstash Ruby
+code => "require 'date'; d = DateTime.parse('3rd Feb 2001 04:05:06+03:30'); event.set('[event][b_hour]', d.hour)"
