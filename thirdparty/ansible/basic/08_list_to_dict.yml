@@ -1,0 +1,22 @@
+---
+- name: List to Dict Playbook
+  hosts: localhost 
+  gather_facts: no
+  vars:
+    object: "world|americas|USA|texas"
+  tasks:
+  - name: "Print Vars"
+    debug:
+      msg: "{{object.split('|')}}"
+  # - name: "items2list loop"
+  #   debug:
+  #     msg: "[{% for sub in object.split('|') %}{{loop.index}}:{{sub}}{{',' if not loop.last else ''}}{% endfor %}]"
+  - name: "Dict Vars"
+    set_fact:
+      mydict: "{{mydict | default({})| combine ({ my_idx: item })}}"
+    loop: "{{ object.split('|') }}"
+    loop_control:
+      index_var: my_idx
+  - name: "Print Vars"
+    debug:
+      msg: "{{mydict}}"
