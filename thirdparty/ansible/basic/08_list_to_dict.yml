@@ -15,5 +15,5 @@
         _out: |
           {% for i in range(_len|int) %}
           {{ 'obj_'|indent(width=(i*4),first=true) }}{{ i+1 }}:
-            {{ _list[i]|indent(width=(i*4),first=true) }}{{ ":" if not loop.last else "" }}
+            {{ _list[i]| indent(width=(i*4), indentfirst=True)  }}{{ ":" if not loop.last else "" }}
           {% endfor %}
