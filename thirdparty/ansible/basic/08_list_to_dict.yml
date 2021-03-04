@@ -1,28 +1,19 @@
----
-- name: List to Dict Playbook
-  hosts: localhost 
+- hosts: localhost
   gather_facts: no
   vars:
-    object: 
+    l1:
       - World|North_America|USA|Texas
       - World|Europe|UK|England|London
       - World|Australia
   tasks:
-  - name: "Print Vars"
-    debug:
-      msg: "{{object.split('|')}}"
-  # - name: "items2list loop"
-  #   debug:
-  #     msg: "[{% for sub in object.split('|') %}{{loop.index}}:{{sub}}{{',' if not loop.last else ''}}{% endfor %}]"
-  - name: "Dict Vars"
-    debug:
-      var: _out|from_yaml
-    loop: "{{ l1 }}"
-    vars:
-      _list: "{{ item.split('|') }}"
-      _len: "{{ _list|length }}"
-      _out: |
-        {% for i in range(_len|int) %}
-        {{ 'obj_'|indent(width=(i*4),first=true) }}{{ i+1 }}:
-          {{ _list[i]|indent(width=(i*4),first=true) }}{{ ":" if not loop.last else "" }}
-        {% endfor %}
+    - debug:
+        var: _out|from_yaml
+      loop: "{{ l1 }}"
+      vars:
+        _list: "{{ item.split('|') }}"
+        _len: "{{ _list|length }}"
+        _out: |
+          {% for i in range(_len|int) %}
+          {{ 'obj_'|indent(width=(i*4),first=true) }}{{ i+1 }}:
+            {{ _list[i]|indent(width=(i*4),first=true) }}{{ ":" if not loop.last else "" }}
+          {% endfor %}
