@@ -1,0 +1,42 @@
+---
+- name: Var evaluation demo
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    item_length: "{{ item | length }}"
+    item_double_length: "{{ item_length | int * 2 }}"
+    item_prefixed: "{{item_length}}-{{ item }}"
+
+    name_list:
+      - Margot
+      - John
+      - Zoe
+      - Jack
+    tree_list:
+      - mapple
+      - olive
+      - pine
+      - sequoia
+
+  tasks:
+    - name: make some other strange calculation on name list
+      set_fact:
+        name_length_sum: "{{ name_length_sum | default(0) | int + item_length | int }}"
+        name_double_length_sum: "{{ name_double_length_sum | default(0) | int + item_double_length | int }}"
+        name_prefix_concat: "{{ name_prefix_concat | default('') + item_prefixed + ',' }}"
+      loop: "{{ name_list }}"
+
+    - name: show result
+      vars:
+        msg: |-
+          Names have a total lenght of: {{ name_length_sum }}
+          Names have a total double length of: {{ name_double_length_sum }}
+          Names prefixed and concatenated gives: {{ name_prefix_concat }}
+      debug:
+        msg: "{{ msg.split('\n') }}"
+
+    - name: debug some info from tree list
+      debug:
+        msg: "name: {{ item }}, prefixed: {{ item_prefixed }}, length: {{ item_length }}, doubled: {{ item_double_length }}"
+      loop: "{{ tree_list }}"
