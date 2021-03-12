@@ -1,0 +1,39 @@
+---
+- name: Sum size of FS
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    FS:
+      - nom_FS: /appm/oracle/product
+        nom_LV: lv_product
+        size_FS: 5
+        owner_FS: oracle
+        group_FS: dba
+        vg_name: vgapplis
+
+      - nom_FS: /appm/oracle/product/12.1.0.2
+        nom_LV: lv_12102
+        size_FS: 15
+        owner_FS: oracle
+        group_FS: dba
+        vg_name: vgapplis
+
+      - nom_FS: /apps/oracle/logs
+        nom_LV: lvlogs
+        size_FS: 5
+        owner_FS: oracle
+        group_FS: dba
+        vg_name: vglogs
+
+  tasks:
+
+    - name: Calculate with selectattr, map and sum
+      debug:
+        msg: "{{ FS | selectattr('vg_name', 'equalto', 'vgapplis') | map(attribute='size_FS') | list | sum }}"
+
+    - name: Calculate with json_query
+      vars:
+        sum_query: "[?vg_name=='vgapplis'].size_FS | sum(@)"
+      debug:
+        msg: "{{ FS | json_query(sum_query) }}"
