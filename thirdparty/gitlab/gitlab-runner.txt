@@ -1,0 +1,5 @@
+
+### To register runner
+```
+gitlab-runner register --non-interactive --tls-ca-file /etc/my-cert-file.pem --url https://gitlab-server:444 --registration-token SOME2KXB5mH1f35d5 --executor shell --tag-list my-server --config /etc/gitlab-runner/config.toml
+```
