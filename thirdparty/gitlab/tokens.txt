@@ -1,0 +1,5 @@
+# Clone
+my_user="auto_user"
+git_token="4AsUgS132358k4xW"
+git_host="localhost:444"
+git clone https://${my_user}:${git_token}@${git_host}/my_user/my_repo.git
