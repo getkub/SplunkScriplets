@@ -1,0 +1,1 @@
+curl --silent -u $user:$pass -k "https://$splunk_host:8089/services/search/jobs/export" --data-urlencode search="search \`mymacro(param1,param2)\`"
