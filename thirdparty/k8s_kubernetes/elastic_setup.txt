@@ -21,7 +21,7 @@ PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data
 # To forward to custom api port
 kubectl port-forward service/quickstart-es-http ${elastic_port}:9200 &
 
-curl -u "elastic:$PASSWORD" -k "https://localhost:9200"
+curl -u "elastic:$PASSWORD" -k "https://localhost:${elastic_port}"
 
 # Now port forward to mylaptop via a session
 ssh -L ${elastic_port}:localhost:${elastic_port} ${sshUser}@${k8s_host}
@@ -52,4 +52,4 @@ sudo iptables-save >/etc/iptables/rules.v4
 kibana_port=5610
 ssh -L ${kibana_port}:localhost:${kibana_port} ${sshUser}@${k8s_host}
 
-https://localhost:5610
+https://localhost:${kibana_port}
