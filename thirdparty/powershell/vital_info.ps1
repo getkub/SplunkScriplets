@@ -8,6 +8,12 @@ $c = $env:computername #Use the current computer
 #Please adjust the variables below to suit your needs.#
 #######################################################
 
+# Send email as attachment
+# Send-MailMessage -from $mailfrom -to $mailrec -subject "Monitoring infomation for $c" -attachment $path -SmtpServer $smtpserver -usessl -credential $mycreds 
+
+# Send email as body & attach
+# Send-MailMessage -from $mailfrom -to $mailrec -subject "Monitoring infomation for $c" -attachment $path -body $body -SmtpServer $smtpserver -usessl -credential $mycreds 
+
 $path = "E:\mylocation\Reading.txt" #Output file path. Directory must exist, file doesn't matter. This is the file to be emailed.
 $path2 = "E:\mylocation\services.txt" #Services to be monitored. Shortnames only. File must exist. More info can be found in readme.
 $path3 = "E:\mylocation\drives.txt" #Drives to be monitored. Drive letters only. File must exist. More info can be found in readme.
