@@ -1,6 +1,6 @@
 ####################################################################################
 #                                                                                  #
-#                            System vitals monitor script (v1.1p)                  #
+#                            Collect important info about Windows system           #
 #                                                                                  #
 ####################################################################################
 $c = $env:computername #Use the current computer
@@ -8,12 +8,12 @@ $c = $env:computername #Use the current computer
 #Please adjust the variables below to suit your needs.#
 #######################################################
 
-$path = "E:\scripts\Reading.txt" #Output file path. Directory must exist, file doesn't matter. This is the file to be emailed.
-$path2 = "E:\scripts\services.txt" #Services to be monitored. Shortnames only. File must exist. More info can be found in readme.
-$path3 = "E:\scripts\drives.txt" #Drives to be monitored. Drive letters only. File must exist. More info can be found in readme.
-$mailfrom = "nsuguiadmin@vfl.vodafone.com" #From address on monitoring emails
-$mailrec = "tech@factoryinternet.co.uk" #Destination to send reports
-$smtpserver = "smtp.ad.plc.cwintra.com" #SMTP server to be used to send final output
+$path = "E:\mylocation\Reading.txt" #Output file path. Directory must exist, file doesn't matter. This is the file to be emailed.
+$path2 = "E:\mylocation\services.txt" #Services to be monitored. Shortnames only. File must exist. More info can be found in readme.
+$path3 = "E:\mylocation\drives.txt" #Drives to be monitored. Drive letters only. File must exist. More info can be found in readme.
+$mailfrom = "test1@myorg.com" #From address on monitoring emails
+$mailrec = "test2@test2.co.uk" #Destination to send reports
+$smtpserver = "smtp.blah.blah.com" #SMTP server to be used to send final output
 $smtpauthu = "user@requiredformat" #Username to authenticate against SMTP server with
 $smtpauthp = "passwordinplaintext" # Password to authenticate against SMTP server with
 
