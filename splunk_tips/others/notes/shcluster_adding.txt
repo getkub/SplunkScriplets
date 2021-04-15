@@ -10,7 +10,7 @@ $SPLUNK_HOME/bin/splunk clean all
  
 ##Remove apps
 cd $SPLUNK_HOME/etc/apps
-rm -rf nbs_* SA-* TA-* Splunk_TA_* Splunk_SA* DA-ESS-* SplunkEnterpriseSecuritySuite splunk_app_db_connect
+rm -rf SA-* TA-* Splunk_TA_* Splunk_SA* DA-ESS-* SplunkEnterpriseSecuritySuite splunk_app_db_connect
  
 # Remove all [sslConfig] and [shclustering] stanzas, and all encrypted passwords from etc/system/local/
  
