@@ -1,0 +1,2 @@
+# GitHub Pages for SplunkScriplets
+
