@@ -47,5 +47,9 @@ kubectl -n kubernetes-dashboard get secret
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 
 # In your laptop, port forward and access as localhost
-ssh -L 8001:localhost:8001 ${sshUser}@${k8s_host}
+mylan="192.168.2.1"
+k8s_host="192.168.2.73"
+api_port=8001
+sshUser=root
+ssh -L ${api_port}:localhost:${api_port} ${sshUser}@${k8s_host}
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
