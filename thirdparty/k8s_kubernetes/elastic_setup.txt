@@ -46,11 +46,13 @@ kubectl get service quickstart-kb-http
 kibana_port=5610
 kubectl port-forward service/quickstart-kb-http ${kibana_port}:5601 &
 
-KIBANA_PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo)
 
 ## Ensure IP tables are enabled eg for local LAN
 sudo iptables -I INPUT -s ${mylan}/24 -p tcp --dport ${kibana_port} -j ACCEPT
 sudo iptables-save >/etc/iptables/rules.v4
+
+KIBANA_PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode; echo)
+curl -u "elastic:${KIBANA_PASSWORD}" -k "https://localhost:${kibana_port}"
 
 # In mylaptop
 kibana_port=5610
