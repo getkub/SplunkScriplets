@@ -30,6 +30,9 @@ ssh -L ${elastic_port}:localhost:${elastic_port} ${sshUser}@${k8s_host}
 # Access Elastic using
 echo https://localhost:${elastic_port}
 
+# Check for CPU/memory constraints
+kubectl describe nodes
+
 # -------------------------------------------- #
 # Now deploy kibana
 # -------------------------------------------- #
@@ -54,3 +57,6 @@ kibana_port=5610
 ssh -L ${kibana_port}:localhost:${kibana_port} ${sshUser}@${k8s_host}
 
 https://localhost:${kibana_port}
+
+# Check for CPU/memory constraints
+kubectl describe nodes
