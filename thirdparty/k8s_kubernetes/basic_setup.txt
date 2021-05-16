@@ -6,6 +6,7 @@ sudo mkdir -p /usr/local/bin/
 sudo install minikube /usr/local/bin/
 
 # Ensure minikube starts with enough memory/cpu
+grep -E --color 'vmx|svm' /proc/cpuinfo
 minikube start --vm-driver=virtualbox --cpus 4 --memory 6144
 
 minikube status
