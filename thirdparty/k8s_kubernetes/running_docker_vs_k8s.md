@@ -1,3 +1,10 @@
+## Build & Push using docker to the repository
+```
+docker_image="server:1235/image_name:tag_id"
+docker build --no-cache  -t ${docker_image} .
+docker push ${docker_image}
+```
+
 ## Running a docker image
 ```
 pod_name="my_pod_name"
@@ -17,4 +24,7 @@ pod_name="my_pod_name"
 k8s_image="server:1235/image_name:tag_id"
 script_and_params="cat /tmp/myfile"
 kubectl -n $k8s_namespace run -i --attach $pod_name="my_pod_name" --image=${k8s_image} ${script_and_params}
+
+## Clean-up
+kubectl -n $k8s_namespace delete pod $pod_name
 ```
