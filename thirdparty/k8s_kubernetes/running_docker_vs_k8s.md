@@ -10,6 +10,7 @@ docker run --rm -it --name ${pod_name}  -w $work_dir -e https_proxy=${https_prox
 ```
 
 ## Running the above in k8s
+#### DockerFile is important and to ensure all proxy settings etc are done
 ```
 k8s_namespace="my_k8s_ns"
 pod_name="my_pod_name"
