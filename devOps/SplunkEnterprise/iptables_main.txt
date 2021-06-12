@@ -7,10 +7,14 @@ iptables -I INPUT -s 10.10.20.0/24 -d 224.0.0.18 -j ACCEPT
 iptables-save >/etc/sysconfig/iptables
 
 # for specific servers
-iptables -I INPUT -i eth0 -p tcp --dport ssh -j ACCEPT
-iptables -I INPUT -i eth0 -p tcp --dport 8089 -j ACCEPT
-iptables -I INPUT -i eth0 -p tcp --dport 8000 -j ACCEPT
-iptables -I INPUT -i eth0 -p tcp --dport 9065 -j ACCEPT
-iptables -I INPUT -i eth0 -p tcp --dport 9091 -j ACCEPT
+iptables -I INPUT -p tcp --dport ssh -j ACCEPT
+iptables -I INPUT -p tcp --dport 8089 -j ACCEPT
+iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
+iptables -I INPUT -p tcp --dport 9065 -j ACCEPT
+iptables -I INPUT -p tcp --dport 9091 -j ACCEPT
 
 iptables-save >/etc/sysconfig/iptables
+
+
+# List open 
+iptables -L -v -n
