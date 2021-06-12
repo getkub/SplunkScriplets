@@ -16,6 +16,8 @@ iptables -I INPUT -s ${mylan}/24 -p tcp --dport 9091 -j ACCEPT
 
 iptables-save >/etc/sysconfig/iptables
 
+#ubuntu
+iptables-save >/etc/iptables/rules.v4
 
 # List open 
 iptables -L -v -n
