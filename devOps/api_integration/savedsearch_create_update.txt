@@ -12,5 +12,5 @@ curl -k -u ${creds} https://${hostname}:8089/services/saved/searches \
 
 
 # Method2
-curl -k -u u ${creds} https://${hostname}:8089/servicesNS/nobody/search/configs/conf-savedsearches/ -d name=myblog
-curl -k -u u ${creds} https://${hostname}:8089/servicesNS/nobody/search/configs/conf-savedsearches/myblog -d "search=index=_internal|stats count"
+curl -k -u ${creds} https://${hostname}:8089/servicesNS/nobody/search/configs/conf-savedsearches/ -d name=myblog
+curl -k -u ${creds} https://${hostname}:8089/servicesNS/nobody/search/configs/conf-savedsearches/myblog -d "search=index=_internal|stats count"
