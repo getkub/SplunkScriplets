@@ -10,3 +10,7 @@ curl -k -u ${creds} https://${hostname}:8089/services/saved/searches \
 	-d dispatch.index_earliest=-1h \
 	-d dispatch.index_latestlatest=now
 
+
+# Method2
+curl -k -u u ${creds} https://${hostname}:8089/servicesNS/nobody/search/configs/conf-savedsearches/ -d name=myblog
+curl -k -u u ${creds} https://${hostname}:8089/servicesNS/nobody/search/configs/conf-savedsearches/myblog -d "search=index=_internal|stats count"
