@@ -1,0 +1,12 @@
+ss_name="firstApiTest"
+hostname="localhost"
+creds="admin:changeme"
+
+curl -k -u ${creds} https://${hostname}:8089/services/saved/searches \
+	-d name=${ss_name} \
+	-d disabled=1 \
+	-d description=descritionText \
+	-d search="index=_internal" \
+	-d dispatch.index_earliest=-1h \
+	-d dispatch.index_latestlatest=now
+
