@@ -12,5 +12,25 @@
       register: splunkConfParser_output
     - name: "print contents"
       debug:
-        msg: "{{ splunkConfParser_output.stdout_lines }}"    
-    
+        msg: "{{item}}"
+      with_items: "{{splunkConfParser_output.stdout_lines}}"
+        
+    # - name: "print contents"
+    #   debug:
+    #     msg: "{{item}}"
+    #   with_items:
+    #     - "{{ splunkConfParser_output.stdout_lines }}"  
+
+    # - name: "Deploy Config"
+    #   uri:
+    #     url: https://192.168.2.26:8089/servicesNS/nobody/search/configs/conf-savedsearches
+    #     user: admin
+    #     password: welcome2ibm
+    #     method: POST
+    #     body:
+    #     - [ name, "{{item}} "]
+    #     force_basic_auth: yes
+    #     status_code: 201
+    #   loop:
+    #     - "{{ splunkConfParser_output.stdout_lines }}"
+        
