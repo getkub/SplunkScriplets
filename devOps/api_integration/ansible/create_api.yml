@@ -1,0 +1,13 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    splunk:
+      ss_file: "./ss.conf"
+  tasks:
+    - name: "print filename"
+      debug:
+        msg: "{{ splunk.ss_file }}"
+    - name: "eval key"
+      debug:
+        msg: "{{ lookup('ini', 'search section=test file=./ss.conf') }}"
+    
