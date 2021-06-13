@@ -29,10 +29,13 @@ def ConfigSectionMap(configFile):
         return dict1
 
 # https://wiki.python.org/moin/ConfigParserExamples
-inFile = sys.argv[1]
-if os.path.isfile(inFile) and os.access(inFile, os.R_OK):
-    splunkConfJSON = ConfigSectionMap(inFile)
+if len(sys.argv) > 1:
+    inFile = sys.argv[1]
+    if os.path.isfile(inFile) and os.access(inFile, os.R_OK):
+        splunkConfJSON = ConfigSectionMap(inFile)
+    else:
+        splunkConfJSON['error_type'] = "fileError"
 else:
-    splunkConfJSON['error_type'] = "fileError"
+    splunkConfJSON['error_type'] = "NoInputArgumentError"
 
 print(splunkConfJSON)

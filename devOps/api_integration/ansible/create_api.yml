@@ -2,12 +2,15 @@
   gather_facts: no
   vars:
     splunk:
-      ss_file: "./ss.conf"
+      ss_file: "sampleSavedSearch.conf"
   tasks:
     - name: "print filename"
       debug:
         msg: "{{ splunk.ss_file }}"
-    - name: "eval key"
+    - name: "Execute splunkConfParser"
+      script: /usr/bin/python lib/splunkConfParser.py {{ splunk.ss_file }}
+      register: splunkConfParser_output
+    - name: "print contents"
       debug:
-        msg: "{{ lookup('ini', 'search section=test file=./ss.conf') }}"
+        msg: "{{ splunkConfParser_output.stdout_lines }}"    
     
