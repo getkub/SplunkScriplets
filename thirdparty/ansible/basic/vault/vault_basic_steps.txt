@@ -14,7 +14,7 @@ ansible-vault encrypt_string ${secret_string} --vault-password-file ${my_key_fil
 # Encrypt a file (Remember the file itself get's encrypted)
 # ------------------------------ #
 secret_file="/tmp/my_secret_file"
-ansible-vault encrypt ${secret_file} --vault-password-file ${my_key_file} 
+ansible-vault encrypt ${secret_file} --vault-password-file ${my_key_file} --encrypt-vault-id default
 
 
 # ------------------------------ #
@@ -25,7 +25,7 @@ ansible localhost -m debug -a var=${secret_identifier} -e "@${encrypted_file_for
 # ------------------------------ #
 # decrypted file view (and put to a new location if need be)
 # ------------------------------ #
-ansible-vault view ${secret_file} --vault-password-file ${my_key_file}
+ansible-vault view ${secret_file} --vault-password-file ${my_key_file} 
 
 # ------------------------------ #
 # Decrypt the file itself
