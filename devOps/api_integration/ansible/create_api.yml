@@ -10,27 +10,56 @@
     - name: "Execute splunkConfParser"
       script: /usr/bin/python lib/splunkConfParser.py {{ splunk.ss_file }}
       register: splunkConfParser_output
-    - name: "print contents"
-      debug:
-        msg: "{{item}}"
-      with_items: "{{splunkConfParser_output.stdout_lines}}"
-        
+    - name: "set variables for json keys"
+      set_fact:
+        splunkConfParser_json_keys: "{{ splunkConfParser_json_keys|default([]) + [ item.key ] }}"
+      with_dict:
+        - "{{ splunkConfParser_output.stdout }}"
+      no_log: true
+
     # - name: "print contents"
     #   debug:
     #     msg: "{{item}}"
-    #   with_items:
-    #     - "{{ splunkConfParser_output.stdout_lines }}"  
-
-    # - name: "Deploy Config"
-    #   uri:
-    #     url: https://192.168.2.26:8089/servicesNS/nobody/search/configs/conf-savedsearches
-    #     user: admin
-    #     password: welcome2ibm
-    #     method: POST
-    #     body:
-    #     - [ name, "{{item}} "]
-    #     force_basic_auth: yes
-    #     status_code: 201
     #   loop:
-    #     - "{{ splunkConfParser_output.stdout_lines }}"
-        
+    #     - "{{ splunkConfParser_output }}" 
+
+    - name: "Deploy Config - DELETE"
+      uri:
+        url: https://192.168.2.26:8089/servicesNS/nobody/search/configs/conf-savedsearches/{{item}}
+        user: api_user
+        password: 12345678
+        validate_certs: false
+        method: DELETE
+        force_basic_auth: yes
+        status_code: [200, 201,400,404,409]
+      with_items:
+        - "{{ splunkConfParser_json_keys }}"
+
+    - name: "Deploy Config - POST"
+      uri:
+        url: "https://192.168.2.26:8089/servicesNS/nobody/search/configs/conf-savedsearches"
+        user: api_user
+        password: 12345678
+        validate_certs: false
+        method: POST
+        body: 
+          - [ name, "{{item}}" ]
+        body_format: form-urlencoded
+        force_basic_auth: yes
+        status_code: [200, 201,409]
+      with_items:
+        - "{{ splunkConfParser_json_keys }}"
+
+    - name: "Deploy Config - details"
+      uri:
+        url: https://192.168.2.26:8089/servicesNS/nobody/search/configs/conf-savedsearches/{{item.key}}
+        user: api_user
+        password: 12345678
+        validate_certs: false
+        method: POST
+        body: "{{item.value}}"
+        body_format: form-urlencoded
+        force_basic_auth: yes
+        status_code: [200,201]
+      with_dict:
+        - "{{ splunkConfParser_output.stdout }}"

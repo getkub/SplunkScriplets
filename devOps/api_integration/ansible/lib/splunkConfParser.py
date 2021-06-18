@@ -6,6 +6,7 @@ splunkConfJSON =  {}
 def ConfigSectionMap(configFile):
     dict1 = {}
     config = configparser.ConfigParser(interpolation=None)
+    config.optionxform=str
     try:
         config.read(configFile)
         for cs in config.sections():
