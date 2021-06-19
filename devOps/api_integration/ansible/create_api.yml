@@ -2,13 +2,20 @@
   gather_facts: no
   vars:
     splunk:
-      ss_file: "sampleSavedSearch.conf"
+      ss_file: "savedsearches.conf"
+      api_host: "https://192.168.2.26:8089"
+      api_ep: "servicesNS"
+      app_user: "nobody"
+      app: "mysearch"
+      api_user: "api_user"
+      api_pass: "12345678"
+    s_url: "{{splunk.api_host}}/{{splunk.api_ep}}/{{splunk.app_user}}"
   tasks:
-    - name: "print filename"
-      debug:
-        msg: "{{ splunk.ss_file }}"
+    # - name: "print filename"
+    #   debug:
+    #     msg: "apps/{{ splunk.app }}/{{ splunk.ss_file }}"
     - name: "Execute splunkConfParser"
-      script: /usr/bin/python lib/splunkConfParser.py {{ splunk.ss_file }}
+      script: /usr/bin/python lib/splunkConfParser.py  "apps/{{ splunk.app }}/{{ splunk.ss_file }}"
       register: splunkConfParser_output
     - name: "set variables for json keys"
       set_fact:
@@ -22,12 +29,29 @@
     #     msg: "{{item}}"
     #   loop:
     #     - "{{ splunkConfParser_output }}" 
+    - name: "List  Apps"
+      uri:
+        url: "{{splunk.api_host}}/services/apps/local"
+        user: "{{splunk.api_user}}"
+        password: "{{splunk.api_pass}}"
+        validate_certs: false
+        method: POST
+        body: 
+          - [ name, "{{item}}" ]
+        body_format: form-urlencoded
+        force_basic_auth: yes
+        status_code: [200, 201,400,404,409]
+        return_content: yes
+      loop:
+        - "{{ splunk.app }}"
+
+    # - meta: end_play
 
     - name: "Deploy Config - DELETE"
       uri:
-        url: https://192.168.2.26:8089/servicesNS/nobody/search/configs/conf-savedsearches/{{item}}
-        user: api_user
-        password: 12345678
+        url: "{{s_url}}/{{splunk.app}}/configs/conf-savedsearches/{{item}}"
+        user: "{{splunk.api_user}}"
+        password: "{{splunk.api_pass}}"
         validate_certs: false
         method: DELETE
         force_basic_auth: yes
@@ -37,9 +61,9 @@
 
     - name: "Deploy Config - POST"
       uri:
-        url: "https://192.168.2.26:8089/servicesNS/nobody/search/configs/conf-savedsearches"
-        user: api_user
-        password: 12345678
+        url: "{{s_url}}/{{splunk.app}}/configs/conf-savedsearches"
+        user: "{{splunk.api_user}}"
+        password: "{{splunk.api_pass}}"
         validate_certs: false
         method: POST
         body: 
@@ -52,9 +76,9 @@
 
     - name: "Deploy Config - details"
       uri:
-        url: https://192.168.2.26:8089/servicesNS/nobody/search/configs/conf-savedsearches/{{item.key}}
-        user: api_user
-        password: 12345678
+        url: "{{s_url}}/{{splunk.app}}/configs/conf-savedsearches/{{item.key}}"
+        user: "{{splunk.api_user}}"
+        password: "{{splunk.api_pass}}"
         validate_certs: false
         method: POST
         body: "{{item.value}}"
