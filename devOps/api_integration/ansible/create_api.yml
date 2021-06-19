@@ -10,13 +10,21 @@
       api_user: "api_user"
       api_pass: "12345678"
     s_url: "{{splunk.api_host}}/{{splunk.api_ep}}/{{splunk.app_user}}"
+    s_app: "apps/{{ splunk.app }}"
   tasks:
     # - name: "print filename"
     #   debug:
     #     msg: "apps/{{ splunk.app }}/{{ splunk.ss_file }}"
+    -name: "Get config files per app"
+      set_fact: 
+        s_app_configs: "{{ s_app_configs|default([]) + [ item.key ] }}"
+      with_fileglob:
+        - "{{s_app}}/local/*.conf"
+
     - name: "Execute splunkConfParser"
-      script: /usr/bin/python lib/splunkConfParser.py  "apps/{{ splunk.app }}/{{ splunk.ss_file }}"
+      script: /usr/bin/python lib/splunkConfParser.py  "apps/{{ splunk.app }}/{{ s_app_configs }}"
       register: splunkConfParser_output
+      
     - name: "set variables for json keys"
       set_fact:
         splunkConfParser_json_keys: "{{ splunkConfParser_json_keys|default([]) + [ item.key ] }}"
