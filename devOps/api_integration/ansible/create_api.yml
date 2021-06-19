@@ -15,22 +15,23 @@
     # - name: "print filename"
     #   debug:
     #     msg: "apps/{{ splunk.app }}/{{ splunk.ss_file }}"
-    -name: "Get config files per app"
+
+    - name: "Get config files per app"
       set_fact: 
-        s_app_configs: "{{ s_app_configs|default([]) + [ item.key ] }}"
+        s_app_configs: "{{ s_app_configs|default([]) + [ item ] }}"
       with_fileglob:
         - "{{s_app}}/local/*.conf"
 
     - name: "Execute splunkConfParser"
-      script: /usr/bin/python lib/splunkConfParser.py  "apps/{{ splunk.app }}/{{ s_app_configs }}"
+      script: /usr/bin/python lib/splunkConfParser.py  "{{ item }}"
+      loop: "{{ s_app_configs }}"
       register: splunkConfParser_output
-      
+
     - name: "set variables for json keys"
       set_fact:
         splunkConfParser_json_keys: "{{ splunkConfParser_json_keys|default([]) + [ item.key ] }}"
       with_dict:
-        - "{{ splunkConfParser_output.stdout }}"
-      no_log: true
+        - "{{ splunkConfParser_output.results[0].stdout }}"
 
     # - name: "print contents"
     #   debug:
@@ -94,4 +95,4 @@
         force_basic_auth: yes
         status_code: [200,201]
       with_dict:
-        - "{{ splunkConfParser_output.stdout }}"
+        - "{{ splunkConfParser_output.results[0].stdout }}"
