@@ -19,6 +19,7 @@
     - name: "Get config files per app"
       set_fact: 
         s_app_configs: "{{ s_app_configs|default([]) + [ item ] }}"
+        s_app_confName: "{{ item| basename | splitext | first  }}"
       with_fileglob:
         - "{{s_app}}/local/*.conf"
 
@@ -58,7 +59,7 @@
 
     - name: "Deploy Config - DELETE"
       uri:
-        url: "{{s_url}}/{{splunk.app}}/configs/conf-savedsearches/{{item}}"
+        url: "{{s_url}}/{{splunk.app}}/configs/conf-{{s_app_confName}}/{{item}}"
         user: "{{splunk.api_user}}"
         password: "{{splunk.api_pass}}"
         validate_certs: false
@@ -70,7 +71,7 @@
 
     - name: "Deploy Config - POST"
       uri:
-        url: "{{s_url}}/{{splunk.app}}/configs/conf-savedsearches"
+        url: "{{s_url}}/{{splunk.app}}/configs/conf-{{s_app_confName}}"
         user: "{{splunk.api_user}}"
         password: "{{splunk.api_pass}}"
         validate_certs: false
@@ -85,7 +86,7 @@
 
     - name: "Deploy Config - details"
       uri:
-        url: "{{s_url}}/{{splunk.app}}/configs/conf-savedsearches/{{item.key}}"
+        url: "{{s_url}}/{{splunk.app}}/configs/conf-{{s_app_confName}}/{{item.key}}"
         user: "{{splunk.api_user}}"
         password: "{{splunk.api_pass}}"
         validate_certs: false
