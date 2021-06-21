@@ -1,0 +1,150 @@
+
+  AI and Machine Learning
+      ai                      Manage entities in Vertex AI.
+      ai-platform             Manage AI Platform jobs and models.
+      ml                      Use Google Cloud machine learning capabilities.
+      ml-engine               Manage AI Platform jobs and models.
+      notebooks               Notebooks Command Group.
+
+  API Platform and Ecosystems
+      api-gateway             Manage Cloud API Gateway resources.
+      apigee                  Manage Apigee resources.
+      endpoints               Create, enable and manage API services.
+      recommender             Manage Cloud recommendations and recommendation
+                              rules.
+      services                List, enable and disable APIs and services.
+
+  Anthos CLI
+      anthos                  Anthos command Group.
+
+  Billing
+      billing                 Manage billing accounts and associate them with
+                              projects.
+
+  CI/CD
+      artifacts               Manage Artifact Registry resources.
+      builds                  Create and manage builds for Google Cloud Build.
+      scheduler               Manage Cloud Scheduler jobs and schedules.
+      tasks                   Manage Cloud Tasks queues and tasks.
+
+  Compute
+      app                     Manage your App Engine deployments.
+      compute                 Create and manipulate Compute Engine resources.
+      container               Deploy and manage clusters of machines for running
+                              containers.
+      functions               Manage Google Cloud Functions.
+      run                     Manage your Cloud Run applications.
+
+  Data Analytics
+      composer                Create and manage Cloud Composer Environments.
+      data-catalog            Manage Cloud Data Catalog resources.
+      dataflow                Manage Google Cloud Dataflow resources.
+      dataproc                Create and manage Google Cloud Dataproc clusters
+                              and jobs.
+      metastore               Manage Dataproc Metastore resources.
+      pubsub                  Manage Cloud Pub/Sub topics, subscriptions, and
+                              snapshots.
+
+  Databases
+      bigtable                Manage your Cloud Bigtable storage.
+      database-migration      Manage Database Migration Service resources.
+      datastore               Manage your Cloud Datastore resources.
+      firestore               Manage your Cloud Firestore resources.
+      spanner                 Command groups for Cloud Spanner.
+      sql                     Create and manage Google Cloud SQL databases.
+
+  Identity
+      active-directory        Manage Managed Microsoft AD resources.
+      identity                Manage Cloud Identity Groups and Memberships
+                              resources.
+
+  Identity and Security
+      access-context-manager  Manage Access Context Manager resources.
+      auth                    Manage oauth2 credentials for the Google Cloud
+                              SDK.
+      iam                     Manage IAM service accounts and keys.
+      iap                     Manage IAP policies.
+      kms                     Manage cryptographic keys in the cloud.
+      org-policies            Create and manage Organization Policies.
+      policy-troubleshoot     Troubleshoot Google Cloud Platform policies.
+      resource-manager        Manage Cloud Resources.
+      resource-settings       Create and manage Resource Settings.
+      secrets                 Manage secrets on Google Cloud.
+
+  Internet of Things
+      iot                     Manage Cloud IoT resources.
+
+  Management Tools
+      cloud-shell             Manage Google Cloud Shell.
+      debug                   Commands for interacting with the Cloud Debugger.
+      deployment-manager      Manage deployments of cloud resources.
+      logging                 Manage Cloud Logging.
+      organizations           Create and manage Google Cloud Platform
+                              Organizations.
+      projects                Create and manage project access policies.
+
+  Mobile
+      firebase                Work with Google Firebase.
+
+  Monitoring
+      monitoring              Manage Cloud Monitoring dashboards.
+
+  Networking
+      dns                     Manage your Cloud DNS managed-zones and
+                              record-sets.
+      domains                 Manage domains for your Google Cloud projects.
+      network-management      Manage Network Management resources.
+      service-directory       Command groups for Service Directory.
+
+  Other
+      workspace-add-ons       Manage Google Workspace Add-ons resources.
+
+  SDK Tools
+      alpha                   Alpha versions of gcloud commands.
+      beta                    Beta versions of gcloud commands.
+      components              List, install, update, or remove Google Cloud SDK
+                              components.
+      config                  View and edit Cloud SDK properties.
+      emulators               Set up your local development environment using
+                              emulators.
+      source                  Cloud git repository commands.
+      topic                   gcloud supplementary help.
+
+  Security
+      asset                   Manage the Cloud Asset Inventory.
+      assured                 Read and manipulate Assured Workloads data
+                              controls.
+      scc                     Manage Cloud SCC resources.
+
+  Serverless
+      eventarc                Manage Eventarc resources.
+
+  Solutions
+      game                    Managed Cloud Game Services.
+      healthcare              Manage Cloud Healthcare resources.
+
+  Storage
+      filestore               Create and manipulate Cloud Filestore resources.
+      memcache                Manage Cloud Memorystore Memcached resources.
+      redis                   Manage Cloud Memorystore Redis resources.
+
+  Tools
+      workflows               Manage your Cloud Workflows resources.
+
+Available commands for gcloud:
+
+  Other
+      cheat-sheet             Display gcloud cheat sheet.
+      docker                  *(DEPRECATED)*  Enable Docker CLI access to Google
+                              Container Registry.
+      survey                  Invoke a customer satisfaction survey for Cloud
+                              SDK.
+
+  SDK Tools
+      feedback                Provide feedback to the Google Cloud SDK team.
+      help                    Search gcloud help text.
+      info                    Display information about the current gcloud
+                              environment.
+      init                    Initialize or reinitialize gcloud.
+      version                 Print version information for Cloud SDK
+                              components.
