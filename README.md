@@ -3,53 +3,63 @@
 
 # Directory Structure
 ```
+.
 ├── devOps
-│   ├── SplunkEnterprise
-│   │   └── archive
-│   └── SplunkUF
-│       └── SPF_Install
+│   ├── SplunkEnterprise
+│   │   └── archive
+│   ├── SplunkUF
+│   │   └── SPF_Install
+│   └── api_integration
+│       └── ansible
+│           ├── apps
+│           │   └── mysearch
+│           │       └── local
+│           └── lib
 ├── docs
-│   └── splunk_tips
-│       ├── answers
-│       ├── api
-│       ├── apps
-│       │   └── A_prod_ldap_auth
-│       │       └── local
-│       ├── configs
-│       │   └── sample_app
-│       │       └── local
-│       ├── dashboards
-│       │   └── dashboard_samples
-│       ├── others
-│       │   ├── errors
-│       │   │   └── memoryLeak
-│       │   └── notes
-│       └── searches
+│   └── splunk_tips
+│       ├── answers
+│       ├── api
+│       ├── apps
+│       │   └── A_prod_ldap_auth
+│       │       └── local
+│       ├── configs
+│       │   └── sample_app
+│       │       └── local
+│       ├── dashboards
+│       │   └── dashboard_samples
+│       ├── others
+│       │   ├── errors
+│       │   │   └── memoryLeak
+│       │   └── notes
+│       ├── searches
+│       └── stanza
 ├── sampleData
 └── thirdparty
     ├── ansible
-    │   ├── basic
-    │   │   ├── configs
-    │   │   ├── group_vars
-    │   │   ├── roles
-    │   │   │   ├── distributor_role
-    │   │   │   │   └── tasks
-    │   │   │   ├── git
-    │   │   │   │   └── tasks
-    │   │   │   └── github
-    │   │   │       └── tasks
-    │   │   ├── templates
-    │   │   └── vault
-    │   ├── hortonew
-    │   │   ├── group_vars
-    │   │   ├── playbooks
-    │   │   └── roles
-    │   │       ├── universal_forwarder_linux
-    │   │       │   └── tasks
-    │   │       └── universal_forwarder_windows
-    │   │           ├── files
-    │   │           └── tasks
-    │   └── splunk_apps
+    │   ├── basic
+    │   │   ├── configs
+    │   │   ├── group_vars
+    │   │   ├── roles
+    │   │   │   ├── distributor_role
+    │   │   │   │   └── tasks
+    │   │   │   ├── git
+    │   │   │   │   └── tasks
+    │   │   │   └── github
+    │   │   │       └── tasks
+    │   │   ├── templates
+    │   │   └── vault
+    │   ├── hortonew
+    │   │   ├── group_vars
+    │   │   ├── playbooks
+    │   │   └── roles
+    │   │       ├── universal_forwarder_linux
+    │   │       │   └── tasks
+    │   │       └── universal_forwarder_windows
+    │   │           ├── files
+    │   │           └── tasks
+    │   └── splunk_apps
+    ├── applescript
+    │   └── mouse
     ├── arcsight
     ├── certs
     ├── curl
@@ -57,7 +67,9 @@
     ├── disk
     ├── docker
     ├── encode_decode
+    ├── esxi
     ├── eventgen
+    ├── gcp
     ├── git
     ├── gitlab
     ├── k8s_kubernetes
@@ -66,27 +78,33 @@
     ├── logrotate
     ├── mouse
     ├── network
-    │   └── scapy
+    ├── nginx
+    ├── nodejs
+    │   └── dropdown
     ├── openldap
     ├── openssl
     ├── pandoc
     ├── perl
+    ├── php
+    │   └── shellScriptTrigger
     ├── powershell
-    │   └── user_bulk
+    │   └── user_bulk
     ├── preChecks
     ├── python
-    │   └── scapy
     ├── quest
     ├── regexes
     ├── rsyslog
     ├── ruby
+    ├── scapy
     ├── shell
     ├── snmp
     ├── soc_usecases
     ├── standards
-    │   ├── ISO
-    │   │   └── iso27001
-    │   └── pci
+    │   ├── ISO
+    │   │   └── iso27001
+    │   └── pci
+    ├── terraform
+    │   └── terraformer
     ├── vagrant
     └── virtualbox
 
