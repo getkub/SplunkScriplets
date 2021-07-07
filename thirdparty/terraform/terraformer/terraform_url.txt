@@ -1,0 +1,4 @@
+https://faultbucket.ca/2020/07/terraform-handling-list-of-maps/
+https://medium.com/datamindedbe/how-to-conditionally-disable-modules-in-terraform-f38fdbe34f1b
+https://dilani-alwis.medium.com/terraform-tips-tricks-de8bc46dde13
+https://tothecloud.dev/terraform-loop-through-nested-map/
