@@ -86,3 +86,8 @@ sshUser=root
 ssh -L ${api_port}:localhost:${api_port} ${sshUser}@${k8s_host}
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
 ```
+
+```
+# To show all services  running within minikube
+minikube service  list
+```
