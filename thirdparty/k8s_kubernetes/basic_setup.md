@@ -27,7 +27,7 @@ minikube status
 ```
 
 ```
-kubectl get node minikube -o jsonpath='{.status.capacity}'
+kubectl get node minikube -o jsonpath='{.status.capacity}' && echo
 
 # GUI
 mylan="192.168.1.1"
