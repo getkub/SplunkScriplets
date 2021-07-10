@@ -20,13 +20,14 @@ minikube start
 ```
 # First time setup
 grep -E --color 'vmx|svm' /proc/cpuinfo
-minikube start --vm-driver=virtualbox --cpus 4 --memory 6144
-```
-
-```
-# kubectl get node minikube -o jsonpath='{.status.capacity}'
-
+cpus=4
+mem=6144
+minikube start --vm-driver=virtualbox --cpus $cpus --memory $memory
 minikube status
+```
+
+```
+kubectl get node minikube -o jsonpath='{.status.capacity}'
 
 # GUI
 mylan="192.168.1.1"
