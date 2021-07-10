@@ -1,13 +1,30 @@
 # For Linux
+```
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
   && chmod +x minikube
 
 sudo mkdir -p /usr/local/bin/
 sudo install minikube /usr/local/bin/
+```
+### Ensure minikube starts with enough memory/cpu
 
-# Ensure minikube starts with enough memory/cpu
+```
+# Check status of already existing minikube
+# vboxmanage showvminfo minikube | grep "Memory size\|Number of CPUs"
+minikube stop
+minikube config set memory 8192
+minikube config set cpus 4
+minikube start
+```
+
+```
+# First time setup
 grep -E --color 'vmx|svm' /proc/cpuinfo
 minikube start --vm-driver=virtualbox --cpus 4 --memory 6144
+```
+
+```
+# kubectl get node minikube -o jsonpath='{.status.capacity}'
 
 minikube status
 
@@ -53,3 +70,4 @@ api_port=8001
 sshUser=root
 ssh -L ${api_port}:localhost:${api_port} ${sshUser}@${k8s_host}
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
+```
