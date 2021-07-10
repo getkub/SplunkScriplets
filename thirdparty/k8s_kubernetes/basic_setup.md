@@ -27,28 +27,35 @@ cpus=4
 mem=6144
 minikube start --vm-driver=virtualbox --cpus $cpus --memory $memory
 minikube status
-```
-
-```
 kubectl get node minikube -o jsonpath='{.status.capacity}' && echo
 
+```
+
+## Below settings are env variables
+```
 # GUI
 mylan="192.168.1.1"
 k8s_host="192.168.1.10"
 mylaptop="192.168.1.10"
 api_port=8001
 sshUser=root
+```
 
 ## Ensure IP tables are enabled eg for local LAN
+```
 sudo iptables -I INPUT -s ${mylan}/24 -p tcp --dport ${api_port} -j ACCEPT
 sudo iptables -I INPUT -s ${mylan}/24 -p tcp --dport 8443 -j ACCEPT
 sudo iptables-save >/etc/iptables/rules.v4
+```
 
-
-# Check settings of context
+### Check settings of context
+```
 kubectl config view
+```
+
 
 ## Apply GUI package
+```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/aio/deploy/recommended.yaml
 # Change If necessary to host which is not blocked. NOT necessary mostly as we are enabling 8443 access for LAN
 # kubectl config set-cluster minikube --server=https://<samehost>:8443
@@ -58,16 +65,20 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/a
 ### Start with localLan and how the address needs exposing
 # kubectl proxy --accept-hosts='^localhost$,^192\.168\.+\..+$' --address="${k8s_host}" &
 kubectl proxy &   # This is just enough if you are port fowarding
+```
 
+### Ensure you have an admin account in the dashboard
 
-# Ensure you have an admin account in the dashboard
+```
 ### Tokens (will take some time)
 https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
 kubectl -n kubernetes-dashboard get secret
 
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+```
 
-# In your laptop, port forward and access as localhost
+### In your laptop, port forward and access as localhost
+```
 mylan="192.168.2.1"
 k8s_host="192.168.2.73"
 api_port=8001
