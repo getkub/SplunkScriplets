@@ -10,7 +10,7 @@ sudo install minikube /usr/local/bin/
 
 ```
 # Check status of already existing minikube
-# vboxmanage showvminfo minikube | grep "Memory size\|Number of CPUs"
+vboxmanage showvminfo minikube | grep "Memory size\|Number of CPUs"
 minikube stop
 minikube config set memory 8192
 minikube config set cpus 4
