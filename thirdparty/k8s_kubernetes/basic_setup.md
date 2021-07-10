@@ -87,7 +87,11 @@ ssh -L ${api_port}:localhost:${api_port} ${sshUser}@${k8s_host}
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
 ```
 
+
+### Debug network issues
 ```
-# To show all services  running within minikube
-minikube service  list
+https://stackoverflow.com/questions/55462654/access-minikube-loadbalancer-service-from-host-machine
+ns=gitlab
+kubectl -n $ns get service
+
 ```
