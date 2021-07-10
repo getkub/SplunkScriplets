@@ -15,6 +15,9 @@ minikube stop
 minikube config set memory 8192
 minikube config set cpus 4
 minikube start
+
+# or alternatively
+vboxmanage modifyvm "minikube" --cpus 4 --memory 8192
 ```
 
 ```
