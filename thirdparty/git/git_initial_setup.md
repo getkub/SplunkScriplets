@@ -1,10 +1,10 @@
 ## Requires proxy, email, user.name, pull strategy
 ```
-proxy=
+proxy=mysite.company.com:8080
 myemail=myemail@example.com
 myuserid=my_user
 
-git config --global http.proxy http://mysite.company.com:8080
+git config --global http.proxy http://${proxy}
 git config --global user.email $myemail
 git config --global user.name $myuserid
 git config --global pull.rebase false
