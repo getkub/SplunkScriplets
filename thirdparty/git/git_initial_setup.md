@@ -23,4 +23,6 @@ repo=myrepo
 domain=gitlab.xyz.nip.io
 url="https://${myuserid}:${token}@${domain}/${proj}/${repo}.git"
 
+git clone $url
+cd $repo
 ```
