@@ -38,3 +38,12 @@ UPDATE ci_runners SET token = null, token_encrypted = null;
 kubectl -n gitlab create secret generic gitlab-gitlab-runner-secret --from-literal=runner-registration-token=xyzVt16P234mynRT --from-literal=runner-token=""
 
 ```
+
+### Reset root password
+```
+pod="gitlab-task-runner-7d65759bc6-jp5s8"
+kubectl -n gitlab exec -it $pod  -- /bin/bash
+
+gitlab-rake "gitlab:password:reset[root]"
+
+```
