@@ -10,7 +10,8 @@ gitlab-runner register --non-interactive --tls-ca-file /etc/my-cert-file.pem --u
 https://stackoverflow.com/a/58207518
 ```
 ## Delete token
-kubectl -n gitlab delete secret generic gitlab-gitlab-runner-secret
+k8s_secret="gitlab-gitlab-runner-secret"
+kubectl -n gitlab delete secret generic $k8s_secret
 
 
 ## Now have to clear from PostGres DB
@@ -35,7 +36,8 @@ UPDATE ci_runners SET token = null, token_encrypted = null;
 
 
 ## Register token again
-kubectl -n gitlab create secret generic gitlab-gitlab-runner-secret --from-literal=runner-registration-token=xyzVt16P234mynRT --from-literal=runner-token=""
+reg_token="xyzVt16P234mynRT"
+kubectl -n gitlab create secret generic $k8s_secret --from-literal=runner-registration-token=$reg_token --from-literal=runner-token=""
 
 ```
 
