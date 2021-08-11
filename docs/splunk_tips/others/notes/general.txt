@@ -62,6 +62,8 @@ Bump Splunk on this URI
 http://yourhost:yourport/en-GB/_bump
 Restart Splunkweb 
 $SPLUNK_HOME/bin/splunk restart splunkweb # this will not end the user session
+
+http://localhost:8000/en-US/debug/refresh
 #######################################################################################################################################
 # History
 index=_audit user=useridk  action=search earliest=-7d search='search*' | table _time,search,savedsearch_name
