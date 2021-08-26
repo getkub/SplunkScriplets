@@ -5,7 +5,7 @@ metadata:
   name: quickstart
   namespace: elk
 spec:
-  version: 7.12.0
+  version: 7.14.0
   nodeSets:
   - name: default
     count: 2
