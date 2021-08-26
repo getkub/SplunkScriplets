@@ -1,9 +1,9 @@
----
-cat <<EOF | kubectl apply -f -
+
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
   name: quickstart
+  namespace: elk
 spec:
   version: 7.12.0
   nodeSets:
@@ -21,5 +21,3 @@ spec:
           requests:
             storage: 15Gi
         storageClassName: standard
-EOF
----
