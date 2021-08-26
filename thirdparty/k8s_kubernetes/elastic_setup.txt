@@ -13,6 +13,9 @@ sudo iptables-save >/etc/iptables/rules.v4
 - Apply the operator
 - Deploy Elasticsearch
 
+# Shift to relevant namespace
+kubectl config set-context --current --namespace=elk
+
 kubectl get elasticsearch
 kubectl get pods --selector='elasticsearch.k8s.elastic.co/cluster-name=quickstart'
 # kubectl logs -f quickstart-es-default-0
