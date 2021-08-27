@@ -10,3 +10,6 @@ echo "<14> ${timeForSysLog} test message" | nc -u -w1 10.10.20.30 514
 # Worse case if NO tools are present
 echo "<14> ${timeForSysLog} test message" > /dev/udp/10.10.20.30/514
 #=========================================
+
+# Using lsof
+lsof -i tcp:8001
