@@ -1,0 +1,9 @@
+empid,department,salary,organisation
+bob,IT,50000,org1
+joe,IT,52000,org1
+foo,HR,45000,org1
+bar,FIN,51000,org1
+bob2,IT,50000,org2
+joe2,IT,52000,org2
+foo2,HR,45000,org2
+bar2,FIN,51000,org2
