@@ -2,3 +2,10 @@
 git config --global http.proxy http://myproxy.mycompany.com:8080
 git config --global https.proxy http://myproxy.mycompany.com:8080
 
+# Unset at global level
+git config --global --unset https.proxy
+git config --global --unset http.proxy
+
+# Unset at local level
+git config --unset http.proxy
+git config --unset https.proxy
