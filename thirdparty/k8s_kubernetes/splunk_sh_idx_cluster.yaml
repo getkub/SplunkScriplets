@@ -1,0 +1,49 @@
+apiVersion: enterprise.splunk.com/v2
+kind: LicenseMaster
+metadata:
+  name: lm-example
+  namespace: splunk
+  finalizers:
+  - enterprise.splunk.com/delete-pvc
+spec:
+  volumes:
+    - name: licenses
+      configMap:
+        name: splunk-licenses
+  licenseUrl: /tmp/k8s/splunk/licenses/enterprise.lic
+---
+apiVersion: enterprise.splunk.com/v2
+kind: ClusterMaster
+metadata:
+  namespace: splunk
+  name: cm
+  finalizers:
+  - enterprise.splunk.com/delete-pvc
+---
+apiVersion: enterprise.splunk.com/v2
+kind: IndexerCluster
+metadata:
+  name: idxc-example
+  namespace: splunk
+  finalizers:
+  - enterprise.splunk.com/delete-pvc
+spec:
+  replicas: 4
+  clusterMasterRef:
+    name: cm-example
+  licenseMasterRef:
+    name: lm-example
+---
+apiVersion: enterprise.splunk.com/v2
+kind: Standalone
+metadata:
+  name: standalone-sh
+  namespace: splunk
+  finalizers:
+  - enterprise.splunk.com/delete-pvc
+spec:
+  clusterMasterRef:
+    name: cm-example
+  licenseMasterRef:
+    name: lm-example
+---
