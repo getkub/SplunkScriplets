@@ -1,0 +1,23 @@
+{
+	"data": [{
+		"empname": "bob",
+		"empSalary": 12000,
+		"reports": [{
+			"date": "2021-07-20",
+			"schedule": "daily"
+		}, {
+			"date": "2021-07-21",
+			"schedule": "weekly"
+		}]
+	}, {
+		"empname": "joe",
+		"empSalary": 13000,
+		"reports ": [{
+			"date": "2021-07-20",
+			"schedule": "daily"
+		}, {
+			"date": "2021-07-21",
+			"schedule": "weekly"
+		}]
+	}]
+}
