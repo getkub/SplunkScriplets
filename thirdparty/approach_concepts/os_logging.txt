@@ -1,0 +1,18 @@
+Futuristic
+-	OS logging as files nor locally within the host, but rather centrally logged to analytics solution.
+-	The log/analytics aggregation tools should Fetch relevant data and centralise it and the SRE/Administrator team should be doing search centrally.
+-	The approach is to make use of systemd services (eg journald) to ensure ALL logs can be FETCHED/QUERIED by automated tools and shipped outside
+-	The relevant tools can then fetch what they need (Eg Security team can fetch security & audit messages while  Operational team can take operational/metrics data)
+-	This approach means we don’t need to worry of which format the logs should be logged and location etc.
+-	There are lot of advantages including reduction of Privileged access for daily routines, disk savings, Retention and security of logs is outsourced, Performance improvement of not writing to disk, Data Access permissions are controlled etc.
+
+Legacy
+-	Logging of OS should be done specifically to OS Only files and should NOT be mixed with the other applications hosted (Currently lot of apache/web-servers/vendor products are logging to operating system log files)
+-	WHAT to log
+o	Relevant Audit Information – User Activity, logons and user switching etc. The dataset is normally huge & organisation should up with compromise (and NOT all the audit) based on audit & security requirements. I’ve attached some sample auditD configs
+o	Relevant Context Information – This is mostly to say who have logged in and not just the system internal digits/numbers. This could be enriched externally or be centrally driven by Single sign-on systems
+o	Relevant operational  & Metrics Information  - This mostly for operational purposes and should say the resource details & metrics information. 
+o	Relevant Local OS Firewall rules info – What is being blocked local host firewalld etc.
+-	FORMAT of log
+o	Preferred format of logging is JSON as it can be read by humans and automated tools
+o	Precision Timestamp is a must and should be expressed with timezone  (eg of good formats include ISO8601 standards & Epoch modes)
