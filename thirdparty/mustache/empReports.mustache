@@ -1,0 +1,19 @@
+<table border="2" cellpadding="5px" cellspacing="1px">
+<tr>
+  <th>empname</th>
+  <th>empSalary</th>
+  <th>reports</th>
+</tr>
+{{#data}}
+<tr>
+<td>{{empname}}</td>
+<td>{{empSalary}}</td>
+<td>
+ <table border="1" cellpadding="1px" cellspacing="1px">
+ {{#reports}}
+  <tr>
+    <td>{{date}}</td>
+    <td>{{schedule}}</td>
+  </tr>
+ {{/reports}}
+</td>
