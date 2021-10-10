@@ -1,0 +1,184 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubemq-view
+  namespace: kubemq
+  labels:
+    app: kubemq-view
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubemq-view
+  template:
+    metadata:
+      name: kubemq-view
+      labels:
+        app: kubemq-view
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/prometheus:latest
+          args:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus/"
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - name: kubemq-view-config-prometheus
+              mountPath: /etc/prometheus/prometheus.yml
+              subPath: prometheus.yml
+            - name: prometheus-storage-volume
+              mountPath: /prometheus/
+            - mountPath: /etc/prometheus/kubemq.rule.yaml
+              name: kubemq-view-kubemq-rule
+              subPath: kubemq.rule.yaml
+        - name: grafana
+          image: grafana/grafana:latest
+          ports:
+            - name: grafana
+              containerPort: 3000
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-storage
+            - mountPath: /etc/grafana/provisioning/datasources/prometheus.yaml
+              name: kubemq-view-data-source-grafana
+              subPath: prometheus.yaml
+            - mountPath: /etc/grafana/grafana.ini
+              name: kubemq-view-config-grafana
+              subPath: grafana.ini
+            - mountPath: /etc/grafana/provisioning/dashboards/all.yaml
+              name: kubemq-view-dashboard-provision-grafana
+              subPath: all.yaml
+            - mountPath: /etc/grafana/dashboards/kubemq_dashboard.json
+              name: kubemq-view-dashboard-grafana
+              subPath: kubemq_dashboard.json
+      volumes:
+        - name: prometheus-storage-volume
+          emptyDir: {}
+        - name: grafana-storage
+          emptyDir: {}
+        - name: kubemq-view-config-grafana
+          configMap:
+            name: kubemq-view
+            items:
+              - key: config_grafana.ini
+                path: grafana.ini
+        - name: kubemq-view-data-source-grafana
+          configMap:
+            name: kubemq-view
+            items:
+              - key: data_source_prometheus.yaml
+                path: prometheus.yaml
+        - name: kubemq-view-config-prometheus
+          configMap:
+            defaultMode: 420
+            name: kubemq-view
+            items:
+              - key: config_prometheus.yml
+                path: prometheus.yml
+        - name: kubemq-view-dashboard-provision-grafana
+          configMap:
+            name: kubemq-view
+            items:
+              - key: dashboard_provision.yaml
+                path: all.yaml
+        - name: kubemq-view-dashboard-grafana
+          configMap:
+            name: kubemq-view
+            items:
+              - key: kubemq_dashboard.json
+                path: kubemq_dashboard.json
+        - name: kubemq-view-kubemq-rule
+          configMap:
+            name: kubemq-view
+            items:
+              - key: kubemq.rule.yaml
+                path: kubemq.rule.yaml
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubemq-view
+  namespace: kubemq
+data:
+  config_prometheus.yml: |-
+    global:
+      scrape_interval: 5s
+      evaluation_interval: 5s
+    rule_files:
+    - "/etc/prometheus/kubemq.rule.yaml"
+    scrape_configs:
+    - job_name: scrape_kubemq
+      kubernetes_sd_configs:
+        - role: pod
+          namespaces:
+            names:
+              - "{{.Namespace}}"
+      relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_container_port_number]
+          action: keep
+          regex: 8\d{3}
+  config_grafana.ini: |-
+    [auth.anonymous]
+    # enable anonymous access
+    enabled = true
+    org_role = Admin
+  data_source_prometheus.yaml: |-
+    {
+        "apiVersion": 1,
+        "datasources": [
+            {
+               "access":"proxy",
+                "editable": false,
+                "name": "prometheus",
+                "isDefault": true,
+                "orgId": 1,
+                "type": "prometheus",
+                "url": "http://localhost:9090",
+                "version": 1
+            }
+        ]
+    }
+  kubemq.rule.yaml: |-
+    groups:
+      - name: aggrigating
+        rules:
+          - record: kubemq:messages:count:side:type
+            expr: sum(kubemq_messages_count{}) by (side,type)
+          - record: kubemq:messages:volume:side:type
+            expr: sum(kubemq_messages_volume{}*8)  by (side,type)
+          - record: kubemq:errors:count:side:type
+            expr: sum(kubemq_errors_count{}) by (side,type)
+  dashboard_provision.yaml: |-
+    - name: 'default'
+      org_id: 1
+      folder: ''
+      type: 'file'
+      options:
+        folder: '/etc/grafana/dashboards'
+  kubemq_dashboard.json: |-
+   {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubemq-view
+  namespace: kubemq
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '3000'
+spec:
+  selector:
+    app: kubemq-view
+  type: NodePort
+  ports:
+    - port: 3000
+      name: grafana
+      targetPort: 3000
+      nodePort: 32000
+    - port: 8080
+      name: prometheus
+      targetPort: 9090
+      nodePort: 30000
+---
