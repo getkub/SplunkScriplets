@@ -1,0 +1,33 @@
+<38>Apr 21 16:05:38 sshd[4810]: [ID 800047 auth.info] Accepted publickey for UserA from 194.211.333.134 port 62299 ssh2: RSA SHA256:aaaaaaaaaaaaaaaaaaaaaa
+<38>Apr 21 15:05:37 HOST01 HOST01: sshd[59244]: Accepted keyboard-interactive/pam for UserA from 112.111.2.28 port 61175 ssh2
+<38>Apr 21 16:05:35 sshd[762]: [ID 800047 auth.info] Accepted publickey for UserA from 194.211.333.134 port 62289 ssh2
+<35>Apr 21 16:10:51 sshd[26301]: [ID 800047 auth.error] error: kex_exchange_identification: Connection closed by remote host
+<38>Apr 21 16:10:48 sshd[4174]: [ID 800047 auth.info] Did not receive identification string from 204.71.333.66
+<38>Apr 21 16:11:33 sshd[25520]: [ID 800047 auth.info] rexec line 61: Deprecated option KeyRegenerationInterval
+<37>Apr 21 16:11:18 sshd[20504]: [ID 800047 auth.notice] Failed none for UserA from 10.196.147.115 port 64003 ssh2
+<38>Apr 21 16:11:15 sshd[16290]: [ID 800047 auth.info] Connection closed by 195.21.123.254 port 48525 [preauth]
+<38>Apr 21 16:11:06 sshd[26357]: [ID 800047 auth.info] Received disconnect from 195.21.333.222 port 43208:11: disconnected by user
+<38>Apr 21 16:11:06 sshd[26357]: [ID 800047 auth.info] Disconnected from user scripts 195.21.333.222 port 43208
+<38>Apr 21 15:11:05 sshd[12113]: [ID 800047 auth.info] Connection closed by 194.211.123.29
+<38>Apr 21 15:12:32 su: [ID 366847 auth.info] 'su wheel' succeeded for UserA on /dev/pts/18h
+<38>Apr 21 15:12:14 sshd[28374]: [ID 800047 auth.info] subsystem request for sftp
+<38>Apr 21 15:12:14 sshd[28374]: [ID 800047 auth.info] Accepted password for root from 10.202.222.1 port 45770 ssh2
+<38>Apr 21 16:12:09 sshd[1159]: [ID 800047 auth.info] Disconnecting: Protocol error: expected packet type 32, got 254
+<34>Apr 21 16:12:09 sshd[1160]: [ID 800047 auth.crit] fatal: Protocol error in privilege separation; expected packet type 254, got 31
+<35>Apr 21 15:07:51 HOST01 HOST01: sshd: detected authentication server problem
+<35>Apr 21 15:07:51 HOST01 HOST01: sshd: will attempt local password authentication
+<35>Apr 21 16:05:33 sshd[16425]: [ID 800047 auth.error] error: key_read: uudecode AAAAB3NzaC1yc2EAAAABIwAAAQEAtYpB6txQ0l+ToBqrIqhvL7UVnYRDGKpUO/G/YMmAfW4LZJ/K0Y5jyh6Az6dknuPLF6tiW7sgBRESpOBdonpCNzlnaP2MvLDuKF2L+UeH9rl2Exb/gwMt3dFbN
+<37>Apr 21 16:04:23 sshd[19529]: [ID 800047 auth.notice] Failed password for UserA from 10.11.11.130 port 52334 ssh2
+<35>Apr 21 15:20:24 HOST2 sshd[48078]: error: PAM: authentication error for UserA from 85.205.247.117
+<37>Apr 21 15:20:24 HOST2 sshd: SSHD_LOGIN_FAILED: Login failed for user 'UserA' from host '85.205.247.117'
+<38>Apr 21 16:20:58 sshd[22328]: [ID 800047 auth.info] Disconnecting: Too many authentication failures for  UserA
+<38>Apr 21 16:20:50 sshd[22328]: [ID 800047 auth.info] input_userauth_request: illegal user  UserA
+<38>Apr 21 16:20:50 sshd[22328]: [ID 800047 auth.info] Illegal user  UserA from 10.196.37.238
+<37>Apr 21 16:04:23 sshd[19529]: [ID 903112 auth.notice] Excessive (5) login failures for UserA: locking account.
+<37>Apr 21 15:52:36 sudo:     root : TTY=pts/0 ; PWD=/ ; USER=root ; TSID=0000QJ ; COMMAND=/usr/bin/ls -l /etc/shadow
+<34>Apr 21 14:49:18 HOST-01 HOST-01: sshd[20006]: fatal: packet_write_poll: Connection to 112.111.2.28: Broken pipe
+<37>Apr 21 14:46:12 sshd[15243]: [ID 211524 auth.notice] pam_authtok_get: sshd-kbdint: empty password not allowed for USERB from 10.202.222.1.
+<34>Apr 21 15:29:23 sshd[12220]: [ID 800047 auth.crit] monitor fatal: Timeout before authentication for 10.196.147.111
+<35>Apr 21 15:08:00 sshd[8953]: [ID 833554 auth.error] crypt(3c): /etc/security/policy.conf contains both CRYPT_ALGORITHMS_ALLOW and CRYPT_ALGORITHMS_DEPRECATE; only one may be specified, using first entry in file.
+<38>Apr 21 14:18:10 sshd[7020]: Invalid user root from 10.196.140.157
+<38>Apr 21 14:12:17 sshd[26751]: [ID 800047 auth.info] PAM changed the SSH username
