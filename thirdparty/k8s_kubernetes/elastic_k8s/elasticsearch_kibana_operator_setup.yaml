@@ -6,7 +6,7 @@ metadata:
   name: elasticsearch
   namespace: elk
 spec:
-  version: ${ELK_VERSION}
+  version: 7.15.1
   nodeSets:
   - name: default
     count: 2
@@ -29,7 +29,7 @@ metadata:
   name: kibana
   namespace: elk
 spec:
-  version: ${ELK_VERSION}
+  version: 7.15.1
   count: 1
   elasticsearchRef:
     name: elasticsearch
