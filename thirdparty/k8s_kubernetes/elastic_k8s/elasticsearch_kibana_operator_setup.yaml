@@ -3,10 +3,10 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: quickstart
+  name: elasticsearch
   namespace: elk
 spec:
-  version: 7.14.0
+  version: ${ELK_VERSION}
   nodeSets:
   - name: default
     count: 2
@@ -26,11 +26,11 @@ spec:
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
-  name: quickstart
+  name: kibana
   namespace: elk
 spec:
-  version: 7.14.0
+  version: ${ELK_VERSION}
   count: 1
   elasticsearchRef:
-    name: quickstart
+    name: elasticsearch
 ---
