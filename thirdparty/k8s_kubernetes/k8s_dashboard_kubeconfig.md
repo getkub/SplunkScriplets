@@ -19,7 +19,11 @@ export CLUSTER_SERVER=$(kubectl config view --raw -o=go-template='{{range .clust
 
 ### Now generate the kubeconfig file
 ```
+# Changing to a temp directory would be good
 cd /tmp/
+```
+
+```
 cat << EOF > k8s_dashboard
 apiVersion: v1
 kind: Config
