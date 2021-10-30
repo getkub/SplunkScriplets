@@ -3,7 +3,7 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: elasticsearch
+  name: quickstart
   namespace: elk
 spec:
   version: 7.15.1
@@ -26,11 +26,11 @@ spec:
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
-  name: kibana
+  name: quickstart
   namespace: elk
 spec:
   version: 7.15.1
   count: 1
   elasticsearchRef:
-    name: elasticsearch
+    name: quickstart
 ---
