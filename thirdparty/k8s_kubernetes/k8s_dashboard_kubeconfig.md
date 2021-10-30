@@ -41,8 +41,8 @@ contexts:
     cluster: ${CURRENT_CONTEXT}
     user: ${K8S_NS}
     namespace: ${K8S_NS}
-  name: svcs-dashboard-context
-current-context: svcs-dashboard-context
+  name: ${CURRENT_CONTEXT}
+current-context: ${CURRENT_CONTEXT}
 EOF
 ```
 
