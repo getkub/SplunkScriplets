@@ -106,3 +106,7 @@ ns=gitlab
 kubectl -n $ns get service
 
 ```
+
+### Create kubeconfig for Dashboard
+- See k8s_dashboard_kubeconfig.md
+- 
