@@ -7,6 +7,6 @@ helm upgrade --install gitlab gitlab/gitlab \
   --timeout 600s \
   --set global.hosts.domain=${host_domain) \
   --set global.hosts.externalIP=${external_ip} \
-  --set certmanager-issuer.email=kinbsk@gmail.com \
+  --set certmanager-issuer.email=myemail@df.com \
   --namespace gitlab
   ```
