@@ -56,27 +56,12 @@ spec:
   selector:
     app.kubernetes.io/name: openldap
 ---
+# kubectl create secret generic openldap --from-literal=adminpassword=adminpassword --from-literal=users=user01,user02 --from-literal=passwords=password01,password02
 apiVersion: v1
 data:
-  adminpassword: adminpassword
-kind: Secret
-metadata:
-  name: openldap
-type: Opaque
----
-apiVersion: v1
-data:
-  passwords: password01
-  users: user01
-kind: Secret
-metadata:
-  name: openldap
-type: Opaque
----
-apiVersion: v1
-data:
-  passwords: password02
-  users: user02
+  adminpassword: YWRtaW5wYXNzd29yZA==
+  passwords: cGFzc3dvcmQwMSxwYXNzd29yZDAy
+  users: dXNlcjAxLHVzZXIwMg==
 kind: Secret
 metadata:
   name: openldap
