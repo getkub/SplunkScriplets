@@ -4,6 +4,7 @@
 ### Vars which are setup as part of the dashboard
 ```
 export K8S_DB_USER=admin-user
+#export K8S_DB_USER=kubernetes-dashboard
 export K8S_NS=kubernetes-dashboard
 ```
 
