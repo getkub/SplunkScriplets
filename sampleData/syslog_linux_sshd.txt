@@ -25,6 +25,7 @@
 <38>Apr 21 16:20:50 sshd[22328]: [ID 800047 auth.info] Illegal user  UserA from 10.196.37.238
 <37>Apr 21 16:04:23 sshd[19529]: [ID 903112 auth.notice] Excessive (5) login failures for UserA: locking account.
 <37>Apr 21 15:52:36 sudo:     root : TTY=pts/0 ; PWD=/ ; USER=root ; TSID=0000QJ ; COMMAND=/usr/bin/ls -l /etc/shadow
+<37>Apr 21 15:52:36 sudo: root: TTY=pts/0 ; PWD=/ ; USER=root ; TSID=0000QJ ; COMMAND=/usr/bin/ls -l /etc/shadow
 <34>Apr 21 14:49:18 HOST-01 HOST-01: sshd[20006]: fatal: packet_write_poll: Connection to 112.111.2.28: Broken pipe
 <37>Apr 21 14:46:12 sshd[15243]: [ID 211524 auth.notice] pam_authtok_get: sshd-kbdint: empty password not allowed for USERB from 10.202.222.1.
 <34>Apr 21 15:29:23 sshd[12220]: [ID 800047 auth.crit] monitor fatal: Timeout before authentication for 10.196.147.111
