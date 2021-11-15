@@ -1,0 +1,5 @@
+- Regex: Give a Sample regular expression to validate an email address. Doesn't have to be perfect, but a near sample would do 
+- Python or Java:  How to handle errors/exceptions. Give an example in one of the flavour. Give some samples
+- Difference between runtime exception & Compile Time Exception. Give an example
+- Give an example of JSON to represent a data for  "EmployeeID", "EmployeeName", "EmployeeSalary"
+- I've two list  [ 'a', 'b', 'd', 'c'] & ['x','z','y'] . Please can you write a simple program (Python or Java preferred) to merge these two list and sort it?
