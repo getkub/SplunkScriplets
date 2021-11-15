@@ -1,0 +1,9 @@
+Q) How much is your Understanding of Splunk or Elastic Search Stack? What are the components of Splunk/Elastic Stack? What they used for
+
+Q) What is an API (especially REST API). What are the 4 common/standard HTTP methods to interact with web-services
+
+Q) How much is your understanding of SIEM? Concept of use-cases
+
+Q) Windows & Linux OS - What are the normal type of dataset present in Windows & Linux Operating System? Where is it normally stored
+
+Q) Give an example of International Time standard/format? What are the main components to represent a precise time?
