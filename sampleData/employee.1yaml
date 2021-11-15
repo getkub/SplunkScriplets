@@ -1,0 +1,13 @@
+department: IT
+employees:
+   - empName: emp1
+     position: manager
+     reportees:
+        - emp11
+        - emp12
+   - empName: emp2
+     position: manager
+     reportees:
+        - emp22
+        - emp24
+ 
