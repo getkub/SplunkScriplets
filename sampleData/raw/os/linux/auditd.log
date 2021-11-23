@@ -1,0 +1,4 @@
+type=SYSCALL msg=audit(1522927552.749:917): arch=c000003e syscall=2 success=yes exit=3 a0=7ffe2ce05793 a1=0 a2=1fffffffffff0000 a3=7ffe2ce043a0 items=1 ppid=2906 pid=4668 auid=1000 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0 tty=pts4 ses=1 comm="cat" exe="/bin/cat" key="passwd"
+type=CWD msg=audit(1522927552.749:917):  cwd="/root"
+type=PATH msg=audit(1522927552.749:917): item=0 name="/etc/passwd" inode=3147443 dev=08:01 mode=0100644 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL
+type=UNKNOWN[1327] msg=audit(1522927552.749:917): proctitle=636174002F6574632F706173737764
