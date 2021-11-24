@@ -1,21 +1,20 @@
-https://community.splunk.com/t5/Archive/generate-dummy-data-eventgen/m-p/454849
-
-https://splunkbase.splunk.com/app/1924/
+# Run eventgen without Splunk
 
 ### Copy ONLY relevant parts to a temporary location
 ```
-tempLocation="/tmp"
-cp -r SA-Eventgen/lib/splunk_eventgen ${tempLocation}
-cp -r SA-Eventgen/lib/markupsafe ${tempLocation}/splunk_eventgen/lib/
-cp -r SA-Eventgen/lib/jinja2 ${tempLocation}/splunk_eventgen/lib/
-```
-
-```
-cp ${tempLocation}/splunk_eventgen/README/eventgen.conf.tutorial1 ${tempLocation}/splunk_eventgen/README/mytest.tutorial
+tempLocation="/tmp/ev_code"
+mkdir -p $tempLocation
+eventGenDir="/opt/splunk/etc/apps/SA-Eventgen"
+cp -r ${eventGenDir}/lib/splunk_eventgen ${tempLocation}
+cp -r ${eventGenDir}/lib/splunk_eventgen/__main__.py ${tempLocation}
+cp -r ${eventGenDir}/bin/markupsafe ${tempLocation}/splunk_eventgen/lib/
+cp -r ${eventGenDir}/bin/jinja2 ${tempLocation}/splunk_eventgen/lib/
 ```
 
 
 ```
 cd ${tempLocation}/splunk_eventgen 
-/opt/splunk/bin/splunk cmd python __main_.py generate README/mytest.tutorial
+/opt/splunk/bin/splunk cmd python __main__.py generate splunk_eventgen/README/eventgen.conf.tutorial2
+
+# depending on the conf, it will be created. Above example will create in /tmp/ciscosample.log
 ```
