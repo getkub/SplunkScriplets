@@ -1,1 +1,6 @@
 http://ossec-docs.readthedocs.io/en/latest/log_samples/#
+
+# Various parsing formats
+https://docs.microsoft.com/en-us/azure/sentinel/data-connectors-reference
+https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/azure-sentinel-the-connectors-grand-cef-syslog-direct-agent/ba-p/803891
+
