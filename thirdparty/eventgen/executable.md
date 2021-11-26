@@ -21,6 +21,12 @@ mkdir -p $tempLocation
 eventGenDir="/tmp/eventgen-7.2.1"
 cp -r ${eventGenDir}/splunk_eventgen ${tempLocation}
 cp -r ${tempLocation}/splunk_eventgen/__main__.py ${tempLocation}
+
+# SA-Eventgen
+sa_gen="/tmp/SA-Eventgen"
+cp -r ${sa_gen}/bin/jinja2 ${tempLocation}/splunk_eventgen/lib/plugins/generator/
+cp -r ${sa_gen}/bin/requests* ${tempLocation}/splunk_eventgen/lib/plugins/output/
+
 ```
 
 ```
