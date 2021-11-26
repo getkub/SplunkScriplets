@@ -6,6 +6,9 @@ journalctl -u <service name> -n <number of lines> -f
 journalctl -u SERVICE_NAME -e
 journalctl --unit=my.service --since "1 hour ago" -p err
 
+# To reverse 100 lines
+journalctl -u <service name> -r -n 100
+
 
 # slow
 journalctl --unit=my.service | tail -n 300
