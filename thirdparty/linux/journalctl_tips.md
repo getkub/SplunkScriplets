@@ -15,3 +15,31 @@ journalctl --unit=my.service | tail -n 300
 journalctl --unit=my.service | sed -e :a -e '$q;N;301,$D;ba' 
 
 ```
+
+
+## Time based filters
+```
+journalctl _UID=33 --since today
+journalctl --since 09:00 --until "1 hour ago"
+journalctl --since "2015-01-10 17:15:00"
+journalctl --since "2015-01-10" --until "2015-01-11 03:00"
+```
+
+
+### Other tips
+```
+# group IDs the systemd journal has entries for
+journalctl -F _GID
+
+# entries that involve the bash executable
+journalctl /usr/bin/bash
+
+# messages from five boots ago
+journalctl -k -b -5
+
+# logged at the error level or above
+journalctl -p err -b
+
+# Formatting to json
+journalctl -b -u nginx -o json
+```
