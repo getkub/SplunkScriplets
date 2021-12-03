@@ -1,0 +1,20 @@
+---
+
+- name: Network Getting Started First Playbook
+  gather_facts: false
+  hosts: localhost
+  tasks:
+    - name: "pipeline_skeleton: Update KAFKA INPUT/FILTER/OUTPUT template with values"
+      debug:
+        msg: "{{item.0}}, {{item.1}}, {{item.2}}"
+      with_nested:
+        - "{{ os }}"
+        - "{{ locations | dictsort }}"
+      vars:
+        locations:
+           01_inputs: "01_inputs-principal"
+           02_filter: "02_filter-principal"
+           03_outputs: "03_outputs-principal"
+        os:
+           - windows
+           - linux
