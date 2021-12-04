@@ -5,6 +5,7 @@ metadata:
   name: openldap
   labels:
     app.kubernetes.io/name: openldap
+  namespace: ldap
 spec:
   selector:
     matchLabels:
@@ -47,6 +48,7 @@ metadata:
   name: openldap
   labels:
     app.kubernetes.io/name: openldap
+  namespace: ldap
 spec:
   type: ClusterIP
   ports:
@@ -65,5 +67,6 @@ data:
 kind: Secret
 metadata:
   name: openldap
+  namespace: ldap
 type: Opaque
 ---
