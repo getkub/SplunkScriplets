@@ -2,19 +2,20 @@
 
 ### K8s commands
 ```
-namepsace="default"
+ns="default"
+kubectl config set-context $(kubectl config current-context) --namespace=${ns}
 podname=""
-kubectl get deployment -n ${namepsace}
-kubectl get pods -n ${namepsace}
+kubectl get deployment -n ${ns}
+kubectl get pods -n ${ns}
 kubectl get pods --all-namespaces
-kubectl get pod ${podname} -n ${namepsace} -o yaml
+kubectl get pod ${podname} -n ${ns} -o yaml
 ```
 
 ### Scale within deployment
 ```
-kubectl get deployment -n ${namepsace}
-kubectl scale --current-replicas=2 --replicas=3 deployment/nginx-deployment -n ${namepsace}
-kubectl scale --replicas=4 deployment/nginx-deployment -n ${namepsace}
+kubectl get deployment -n ${ns}
+kubectl scale --current-replicas=2 --replicas=3 deployment/nginx-deployment -n ${ns}
+kubectl scale --replicas=4 deployment/nginx-deployment -n ${ns}
 ```
 
 ### Running in a loop
