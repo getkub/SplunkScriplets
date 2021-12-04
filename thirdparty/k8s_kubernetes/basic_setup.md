@@ -63,42 +63,6 @@ kubectl config view
 ```
 
 
-## Apply GUI package
-```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/aio/deploy/recommended.yaml
-# Change If necessary to host which is not blocked. NOT necessary mostly as we are enabling 8443 access for LAN
-# kubectl config set-cluster minikube --server=https://<samehost>:8443
-
-
-
-### Start with localLan and how the address needs exposing
-# kubectl proxy --accept-hosts='^localhost$,^192\.168\.+\..+$' --address="${k8s_host}" &
-kubectl proxy &   # This is just enough if you are port fowarding
-```
-
-### Ensure you have an admin account in the dashboard
-
-```
-
-### Tokens (will take some time)
-https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
-#https://github.com/kubernetes/dashboard/issues/4179
-kubectl -n kubernetes-dashboard get secret
-
-kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
-```
-
-### In your laptop, port forward and access as localhost
-```
-mylan="192.168.2.1"
-k8s_host="192.168.2.73"
-api_port=8001
-sshUser=root
-ssh -L ${api_port}:localhost:${api_port} ${sshUser}@${k8s_host}
-http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
-```
-
-
 ### Debug network issues
 ```
 https://stackoverflow.com/questions/55462654/access-minikube-loadbalancer-service-from-host-machine
