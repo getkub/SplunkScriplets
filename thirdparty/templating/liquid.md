@@ -1,0 +1,1 @@
+https://shopify.dev/api/liquid
