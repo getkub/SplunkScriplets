@@ -1,5 +1,6 @@
 ### In case if you cannot access via kubectl
 ```
+curl https://api.myip.com # To find current IP of GCP console
 myns=xyz
 myproj=some_project
 myzone="europe-west1-b"
