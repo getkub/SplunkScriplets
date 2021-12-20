@@ -9,6 +9,7 @@ git config --global user.email $myemail
 git config --global user.name $myuserid
 git config --global pull.rebase false
 
+# git config --global http.sslverify false
 ```
 
 ### Using tokens 
