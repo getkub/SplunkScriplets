@@ -1,4 +1,4 @@
-# https://gist.github.com/tuxfight3r/9ac030cb0d707bb446c7
+Link: https://gist.github.com/tuxfight3r/9ac030cb0d707bb446c7
 ```
                      TCPDUMP FLAGS
 URG  =  (Not Displayed in Flag Field, Displayed elsewhere) 
@@ -22,3 +22,10 @@ Sending a 'hello' to port 514 (shell) from source-port 56916
 09:26:22.019509 IP localhost.shell > localhost.56916: Flags [F.], seq 1, ack 8, win 342, options [nop,nop,TS val 3064249342 ecr 3064249342], length 0
 09:26:22.019525 IP localhost.56916 > localhost.shell: Flags [.], ack 2, win 342, options [nop,nop,TS val 3064249342 ecr 3064249342], length 0
 ```
+
+- Client/Initiator start connection [S] length=0
+- Server SynAcK (acknowledges it) [S.] length=0
+- Acknowledgement [.] length=0
+- Actual Data transfer [P] length=6
+- Acknowledgement [.] length=0
+- Finish Connection [F] length=0
