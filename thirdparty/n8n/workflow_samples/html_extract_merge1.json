@@ -1,0 +1,234 @@
+{
+  "name": "html_extract_merge1",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "html",
+              "value": " <!DOCTYPE html> <html> <style> table, th, td {   border:1px solid black; } </style> <body>  <h2>A basic HTML table</h2>  <table style=\"width:100%\">   <tr>     <td>Priority</td>     <td><span style=\"background:#ffd700\">Medium</span></td>     <td>2</td>     <td>3</td>     <td>4</td>     <td>5</td>   </tr>   <tr>     <td>Risk</td>     <td><span style=\"color:#808080\">Low</span></td>     <td><span style=\"color:#808080\">Medium</span></td>     <td><span style=\"color:#ff0000\">High</span></td>   </tr>   <tr>     <td>Hostname</td>     <td>aws-12345</td>     <td></td>     <td></td>   </tr>   <tr>     <td>Team</td>     <td><span style=\"color:#0000ff\">Management</span></td>     <td>Windows</td>     <td>Linux</td>     <td>DevOps</td>     <td>Security</td>   </tr> </table>  </body> </html>"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "dataPropertyName": "html",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "html_output_1",
+              "cssSelector": "body",
+              "returnValue": "html",
+              "returnArray": true
+            },
+            {
+              "key": "html_output_head",
+              "cssSelector": "head",
+              "returnValue": "html",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "HTML Extract",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [
+        420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "dataPropertyName": "html_output_1",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "html_output_2",
+              "cssSelector": "h1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "HTML Extract1",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "dataPropertyName": "html_output_head",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "html_output_3",
+              "cssSelector": "style",
+              "returnValue": "html"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "HTML Extract2",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [
+        640,
+        440
+      ]
+    },
+    {
+      "parameters": {},
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [
+        820,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "extraParam",
+              "value": "SampleParam"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        640,
+        620
+      ]
+    },
+    {
+      "parameters": {},
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        460
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "HTML Extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML Extract": {
+      "main": [
+        [
+          {
+            "node": "HTML Extract1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTML Extract2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML Extract2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HTML Extract1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "id": 4
+}
