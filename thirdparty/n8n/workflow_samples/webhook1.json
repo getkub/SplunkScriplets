@@ -1,0 +1,107 @@
+{
+  "name": "webhook1",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "options": {}
+      },
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        880,
+        300
+      ],
+      "webhookId": "4fa39cd2-ae29-4629-8a0a-09c9de9d0f8d"
+    },
+    {
+      "parameters": {
+        "values": {
+          "boolean": [
+            {
+              "name": "enable",
+              "value": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "webhookID",
+              "value": "={{$resumeWebhookUrl}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "SET_ENABLE",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "SET_ENABLE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET_ENABLE": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "id": 6
+}
