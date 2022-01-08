@@ -21,3 +21,10 @@ iptables-save >/etc/iptables/rules.v4
 
 # List open 
 iptables -L -v -n
+
+
+## Delete (as root)
+iptables -L --line-numbers
+line_number=xxx
+# iptables -D INPUT $line_number
+iptables-save >/etc/iptables/rules.v4
