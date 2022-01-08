@@ -1,0 +1,88 @@
+{
+  "name": "html_css_selector1",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "filePath": "/tmp/table_style.html"
+      },
+      "name": "Read Binary File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        300,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "sourceData": "binary",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "html",
+              "cssSelector": "html",
+              "returnValue": "html"
+            },
+            {
+              "key": "Team",
+              "cssSelector": "body > table > tbody > tr:nth-child(4)>td>span[style*=0000ff]"
+            },
+            {
+              "key": "Risk",
+              "cssSelector": "body > table > tbody > tr:nth-child(2) > td>span[style*=ff0000]"
+            },
+            {
+              "key": "Priority",
+              "cssSelector": "body > table > tbody > tr:nth-child(1) > td>span[style*= ffd700]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "HTML Extract",
+      "type": "n8n-nodes-base.htmlExtract",
+      "typeVersion": 1,
+      "position": [
+        480,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Read Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Binary File": {
+      "main": [
+        [
+          {
+            "node": "HTML Extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "id": 5
+}
