@@ -1,0 +1,94 @@
+{
+    "nodes": [
+      {
+        "parameters": {},
+        "name": "Start",
+        "type": "n8n-nodes-base.start",
+        "typeVersion": 1,
+        "position": [
+          250,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [\n  {\n    json: {\n    //positive condition\n      variable1: 1,\n      variable2: 0\n    }\n  },\n    {\n    json: {\n    //wrong condition\n      variable2: 1,\n      variable1: 0\n    }\n  }\n]"
+        },
+        "name": "Function",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          500,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Mockup data"
+      },
+      {
+        "parameters": {
+          "functionCode": "for (const [index, item] of items.entries()) {\n  if (item.json.variable1 !== 0 && (item.json.variable2 === 0 || item.json['variable2'] === undefined)) {\n    items[index].json['pastCondition'] = true\n  } else {\n    items[index].json['pastCondition'] = false\n  }\n}\n\nreturn items;\n\n\n"
+        },
+        "name": "Function1",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [
+          720,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "boolean": [
+              {
+                "value1": "={{$node[\"Function1\"].json[\"pastCondition\"]}}",
+                "value2": true
+              }
+            ]
+          }
+        },
+        "name": "IF",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 1,
+        "position": [
+          960,
+          300
+        ]
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "Function",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function": {
+        "main": [
+          [
+            {
+              "node": "Function1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Function1": {
+        "main": [
+          [
+            {
+              "node": "IF",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  }
