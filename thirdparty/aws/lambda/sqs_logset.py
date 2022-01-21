@@ -24,7 +24,7 @@ def lambda_handler(event, context):
         event['Log']=log_event
         response = sqs.send_message(
             QueueUrl=queue_url,
-            MessageGroupId="prism_logging",
+            MessageGroupId="my_logging",
             MessageDeduplicationId="%.20f" % time.time(),
             MessageBody=json.dumps(event)
         )
