@@ -15,4 +15,6 @@ bindpw="secret"
 ldapsearch -x -b "${searchbase}" -H "${ldap_server}" -D "${bind}" -W
 ldapsearch -x -b "${searchbase}" -H "${ldap_server}" -D "${bind}" -w ${bindpw} "objectclass=*"
 
+ldapsearch -x -LLL -H "${ldap_server}" -D "${bind}" -w ${bindpw} -b "${searchbase}" -s sub '(objectClass=*)' 'givenName=username*'
+
 ```
