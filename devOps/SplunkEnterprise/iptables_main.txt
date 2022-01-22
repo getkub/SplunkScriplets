@@ -28,3 +28,7 @@ iptables -L -v -n --line-numbers
 line_number=xxx
 # iptables -D INPUT $line_number
 iptables-save >/etc/iptables/rules.v4
+
+
+## Also check
+https://github.com/getkub/k8s_kubernetes/tree/main/scripts/iptables
