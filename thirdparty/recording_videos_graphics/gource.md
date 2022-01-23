@@ -2,6 +2,7 @@
 ```
 brew install gource
 ```
+https://github.com/acaudwell/Gource/wiki/Controls
 
 ## See graphs
 ```
