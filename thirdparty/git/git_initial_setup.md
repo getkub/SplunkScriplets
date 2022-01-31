@@ -10,6 +10,12 @@ git config --global user.name $myuserid
 git config --global pull.rebase false
 
 # git config --global http.sslverify false
+
+# Add certificate as follows
+git_uri="git.myhost.com:443"
+cert_file="/home/repo_base/git_cert.pem"
+echo | openssl s_client -connect ${git_uri} 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $cert_file
+git config --global http.sslCAInfo $cert_file
 ```
 
 ### Using tokens 
