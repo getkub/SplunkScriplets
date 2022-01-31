@@ -10,6 +10,7 @@ git config --global user.name $myuserid
 git config --global pull.rebase false
 
 # git config --global http.sslverify false
+# git config --edit --global
 
 # Add certificate as follows
 git_uri="git.myhost.com:443"
