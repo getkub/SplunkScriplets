@@ -6,6 +6,7 @@ inputParamsEg="/tmp/sample.csv  '[\w\-]+' HEADER_NO  NE"
 # ---------------------------------------------------------------------------------------- #
 import sys
 import re
+import json
 
 try:
     input_object_file = sys.argv[1]
@@ -41,4 +42,8 @@ with open(input_object_file) as fh:
 
 returnDict['counter'] = counter
 returnDict['returnList'] = returnList
-print(returnDict)            
+# Serializing json  
+json_object = json.dumps(returnDict) 
+
+print(json_object)
+
