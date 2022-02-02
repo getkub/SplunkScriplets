@@ -1,0 +1,13 @@
+---
+- name: "Get Variables from YML"
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: "Read as a list"
+      read_csv:
+        path: ./configs/02_names_department.csv
+      register: hosts_list
+
+    - name: "Prepend & Append something to each of the item"
+      debug:
+        msg: "{{ hosts_list.list | map (attribute='department') | map('regex_replace', '(.+)', 'MYCOMPANY-\\1-COM')}}"
