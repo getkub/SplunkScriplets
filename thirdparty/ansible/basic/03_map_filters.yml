@@ -1,5 +1,5 @@
 ---
-- name: "Get Variables from YML"
+- name: "Ansible MAP filter"
   hosts: localhost
   gather_facts: no
   tasks:
