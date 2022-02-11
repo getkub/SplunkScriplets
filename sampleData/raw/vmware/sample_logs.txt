@@ -1,0 +1,155 @@
+(Rhttpproxy OR vpxa OR Hostd OR vmkernel OR vmw_ipmi OR NSXV OR iofiltervpd OR Fdm OR vmauthd OR fcron OR vmcad OR updatemgr OR vmon OR CROND OR vpxd OR vmware_base OR vmkwarning OR vsfwd OR "su" OR "sudo" OR smad OR ntpdate OR netcpa OR dnsmasq OR vsip_mem_stats.sh OR  sshd OR applmgmt-audit OR watchdog-sensord OR vsip_vm_list.sh OR backup.sh OR amsd OR run-parts OR heartbeat OR "java.util" OR secpolicytools OR netopa OR vdpi OR sfcbd-init OR jumpstart OR vsansystem OR dcbd OR slpd OR rabbitmqproxy OR nfcd OR usbarb OR ntpd OR sntp OR nativeExecutor OR vobd OR vmkeventd)
+# =============== Sample dataset ============#
+#hostd
+<14>1 2022-02-11T09:07:33.823Z myhosttest.mylab.com Hostd: info hostd[2100216] [Originator@6876 sub=Vimsvc.TaskManager opID=sps-Main-264414-515-a5-bd-44da user=vpxuser:VSPHERE.LOCAL\vpxd-extension-fdddc355-09bd-4e9f-998c-e62ddce05fa4] Task Created : haTask--vim.vslm.host.CatalogSyncManager.queryCatalogChange-4107163537
+
+# su 
+<14>1 2022-02-11T09:08:45.120272+00:00 myhost su 40077 - - Successful su for vpostgres by root
+
+# sshd
+<14>1 2022-02-11T09:03:46Z myhosttest.mylab.com sshd[2103135]: rekeyed outbound cipher
+
+# sudo
+<14>1 Feb 11 09:08:44 myhosttest.mylab.com sudo: pam_unix(sudo:session): session closed for user root
+
+# Vpxa
+<14>1 2022-02-11T09:07:33.799Z myhosttest.mylab.com Vpxa: verbose vpxa[2101112] [Originator@6876 sub=VpxaCnxHostd opID=WFU-4541969b] Starting next StartFetchingUpdates() after '7793941' version, wait: true
+
+# Rhttpproxy
+<14>1 2022-02-11T09:07:33.874Z myhosttest.mylab.com Rhttpproxy: verbose rhttpproxy[2100163] [Originator@6876 sub=Proxy Req 45381] Resolved endpoint : [N7Vmacore4Http16LocalServiceSpecE:0x0000000e9cd051b0] _serverNamespace = /vpxa action = Allow _port = 8089
+
+# vmkernel
+<14>1 2022-02-11T09:08:05.317Z myhosttest.mylab.com vmkernel: cpu40:2100116)MemSchedAdmit: 489: uw.2100116 (6935) extraMin/extraFromParent: 158/158, lbt (804) childEmin/eMinLimit: 3198/3328
+
+# vobd
+<14>1 2022-02-11T09:10:03.289Z myhostinternal.org.com vobd: [netCorrelator] 25665383us: [esx.audit.net.firewall.config.changed] Firewall configuration has changed. Operation 'add' for rule set vpxHeartbeats succeeded.
+<14>1 2022-02-11T09:10:03.289Z myhostinternal.org.com vobd: [netCorrelator] 25665416us: [esx.audit.net.firewall.config.changed] Firewall configuration has changed. Operation 'enable' for rule set vpxHeartbeats succeeded.
+
+# vmkeventd
+<14>1 2022-02-11T09:10:24Z myhostinternal.org.com vmkeventd[2100306]: Module sunrpc is already loaded.
+
+#vmw_ipmi
+<14>1 2022-02-11T09:08:28Z myhosttest.mylab.com sfcb-vmw_ipmi[2100925]: IpmiIfcSelGetInfo: IPMI_CMD_GET_SEL_INFO cc=0xc1
+
+# NSXV 
+<14>1 2022-02-11T09:08:28.638Z myhosttest.mylab.com NSXV 7288 - [nsxv@6876 comp="nsx-manager" level="INFO" subcomp="manager"] Resolved, last version:27713508 num vc objs:2839
+
+# iofiltervpd
+<14>1 2022-02-11T09:08:45Z myhosttest.mylab.com iofiltervpd[2099896]: IOFVPSSL_VerifySSLCertificate:239:Client certificate can't be verified
+
+# Fdm
+<14>1 2022-02-11T09:08:44.339Z myhosttest.mylab.com Fdm: info fdm[14401007] [Originator@6876 sub=Cluster opID=SWI-3ab50c2a] hostId=host-1629 state=Slave master=host-1626 isolated=false host-list-version=418 config-version=55 vm-metadata-version=213 slv-mst-tdiff-sec=0
+<14>1 2022-02-11T09:08:44.300Z myhosttest.mylab.com Fdm: warning fdm[2180256] [Originator@6876 sub=Cluster] [HostPing::Ping] sendto[ipv4] 10.62.2.49: Host is down
+
+# vmauthd
+<14>1 Feb 11 09:08:57 myhosttest.mylab.com fcron[19868]: Job '/usr/sbin/logrotate /etc/logrotate.conf' started for user root (pid 19869)
+<14>1 2022-02-11T09:09:00Z myhosttest.mylab.com vmauthd[9320130]: Connect from remote socket (10.57.184.90:47116).
+<14>1 2022-02-11T09:08:58Z myhosttest.mylab.com vmauthd[23710003]: lib/ssl: cipher list ECDHE+AESGCM:RSA+AESGCM:ECDHE+AES:RSA+
+<14>1 2022-02-11T09:09:00Z myhosttest.mylab.com vmauthd[9320130]: lib/ssl: OpenSSL using FIPS_drbg for RAND
+
+# fcron
+<14>1 Feb 11 09:08:57 myhosttest.mylab.com fcron[19868]: Job '/usr/sbin/logrotate /etc/logrotate.conf' started for user root (pid 19869)
+
+# vmon
+<14>1 2022-02-11T09:09:03.857563+00:00 myhostvmon 15203 - - <analytics> Reset fail counters of service.
+
+# updatemgr
+<14>1 2022-02-11T09:09:01.717994+00:00 myhostupdatemgr - - - 2022-02-11T09:09:01:713Z 'VcIntegrity' 140676406601472 INFO [vcIntegrity, 1526] Getting IP Address from host name: myhosttest.mylab.com
+
+# vmcad 
+<14>1 2022-02-11T09:09:01.541647+00:00 myhostvmcad - - - t@140714671339264: VMCACheckAccessKrb: Authenticated user myhosttest.mylab.com@vsphere.local
+
+# vmware_base
+<14>1 2022-02-11T09:09:01.893838+00:00 myhostCROND 1616 - - (root) CMD (. /etc/profile.d/VMware-visl-integration.sh; /usr/lib/applmgmt/backup_restore/scripts/SchedulerCron.py >>/var/log/vmware/applmgmt/backupSchedulerCron.log 2>&1)
+
+# vpxd 
+<14>1 2022-02-11T09:09:06.143274+00:00 myhostvpxd 54128 - - Event [7019107] [1-1] [2022-02-11T09:08:57.995273Z] [vim.event.VmMessageErrorEvent] [error] [User] [XBE-MGMT (Basingstoke)] [7019107] [Error message on Mgmt_PSC-LB-1 on myhosttest.mylab.com in XBE-MGMT (Basingstoke): The vMotion migrations failed because the ESX hosts were not able to connect over the vMotion network. Check the vMotion network settings and physical network configuration. ]
+
+# CROND
+<14>1 2022-02-11T09:09:01.893838+00:00 myhostCROND 1616 - - (root) CMD (. /etc/profile.d/VMware-visl-integration.sh; /usr/lib/applmgmt/backup_restore/scripts/SchedulerCron.py >>/var/log/vmware/applmgmt/backupSchedulerCron.log 2>&1)
+
+
+# vmkwarning
+<14>1 2022-02-11T09:08:45.595Z myhosttest.mylab.com vmkwarning: cpu52:2097791)WARNING: VFAT: 3739: rhttpproxy.log: Possible FAT corruption!: offset not found: 0x820000, length 4096, seekOffset 0x0. File length: 8529541, status: Not found. FS check will run during shutdown.
+
+# vsfwd
+<14>1 2022-02-11T09:08:44Z myhosttest.mylab.com vsfwd: [INFO] created rule hit count response message of 18 bytes
+
+# smad
+<14>1 2022-02-11T09:08:42Z myhosttest.mylab.com smad[22210372]: Failed: no available HP iLO channels
+
+# ntpdate
+<14>1 Feb 11 09:08:31 myhosttest.mylab.com ntpdate[22730]: adjust time server 10.29.2.100 offset 0.000616 sec
+
+# netcpa
+<14>1 2022-02-11T09:08:40Z myhosttest.mylab.com NSX-Netcpa: netcpa: monitor looped 97600 times
+
+# dnsmasq
+<14>1 2022-02-11T09:08:32.185966+00:00 myhostdnsmasq 1298 - - forwarded myhosttest.mylab.com to 10.33.32.18
+
+# vsip_mem_stats.sh
+<14>1 2022-02-11T09:07:07Z myhosttest.mylab.com /vsip_mem_stats.sh: Failed to get system heap list
+
+# applmgmt-audit
+<14>1 2022-02-11T09:01:44.734269+00:00 myhostapplmgmt-audit - - - 2022-02-11T09:01:44.734: INFO Authorization Result: User=vsphere-webclient-69f10325-8cf9-4c08-b14c-7c31e92833c9@vsphere.local, priv=ViewConfiguration, authorized=True
+
+# vsip_vm_list.sh
+<14>1 2022-02-11T09:09:28Z myhosttest.mylab.com /vsip_vm_list.sh: empty vm list
+
+# watchdog-sensord
+<14>1 2022-02-11T09:07:09Z myhosttest.mylab.com watchdog-sensord: Executing '/usr/lib/vmware/bin/sensord -l'
+
+# amsd
+<14>1 2022-02-11T09:03:02Z myhosttest.mylab.com amsd[2102005]: Received broken packet. Closing session.
+
+# backup.sh
+<14>1 2022-02-11T09:01:02Z myhosttest.mylab.com backup.sh.15922355: Unlocking esx.conf
+
+# run-parts
+<14>1 2022-02-11T09:01:01.810977+00:00 myhostrun-parts 8376 - - (/etc/cron.hourly) finished 0anacron
+
+# heartbeat
+<14>1 2022-02-11T09:00:01Z myhostinternal.org.com heartbeat: up 317d15h49m53s, 4 VMs; [] []
+
+# secpolicytools
+<14>1 2022-02-11T09:10:54Z myhostinternal.org.com secpolicytools: Getting realpath failed: /dev/vsansparse
+
+# netopa
+<14>1 2022-02-11T09:10:54UTC I myhostinternal.org.com netopa: FO NSXStatsReportInterface: Try loading config file: /etc/vmware/netopa/netopa.xml
+
+# vdpi
+<14>1 2022-02-11T09:10:56Z myhostinternal.org.com vdpi: [INFO] Starting vDPI
+
+# sfcbd-init
+<14>1 2022-02-11T09:10:54Z myhostinternal.org.com sfcbd-init: Exclusive access granted.
+
+# jumpstart
+<14>1 2022-02-11T09:10:49Z myhostinternal.org.com jumpstart[2100502]: executing start plugin: pktcap-agentd
+
+# vsansystem
+<14>1 2022-02-11T09:10:47.450Z myhostinternal.org.com vsansystem: info vsansystem[2101459] [Originator@6876 sub=Libs opId=vsan-8209] lib/ssl: protocol list tls1.2 (openssl flags 0x17000000)
+
+# dcbd
+<14>1 2022-02-11T09:10:43Z myhostinternal.org.com dcbd: [error] Failed to open dcb ioctl interface
+
+# slpd
+<14>1 2022-02-11T09:10:42Z myhostinternal.org.com slpd[2101185]: Using registration file = /etc/slp.reg
+
+# rabbitmqproxy
+<14>1 2022-02-11T09:10:42Z myhostinternal.org.com rabbitmqproxy: 2022-02-11T09:10:42.543Z info -[2101143] [Originator@6876 sub=Default] Vmacore::InitSSL: FIPS mode = true
+
+# nfcd
+<14>1 2022-02-11T09:10:42Z myhostinternal.org.com nfcd[2101048]: Failed to create socket: Address family not supported by protocol.
+
+# usbarb
+<14>1 2022-02-11T09:10:35Z myhostinternal.org.com usbarb[2100594]: DICT featMask.evc.cpuid.NX = "Val:1"
+<14>1 2022-02-11T09:10:35Z myhostinternal.org.com usbarb[2100594]: USBArb: Failed to connect to the existing arbitrator.
+
+# sntp
+<14>1 2022-02-11T09:10:34Z myhostinternal.org.com sntp[2100522]: sntp 4.2.8p13+vmware@1.3847-o Mon May 20 19:29:07 UTC 2019 (1)
+
+# ntpd
+<14>1 2022-02-11T09:10:34Z myhostinternal.org.com ntpd[2100539]: Listen normally on 3 vmk1 192.168.176.49:123
+
+# nativeExecutor
+<14>1 2022-02-11T09:10:28Z myhostinternal.org.com nativeExecutor[2100417]: Invoking method start on plugin pcipassthrupool
