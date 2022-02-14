@@ -20,6 +20,17 @@
     - debug:
         msg: '{{ hosts.dict.ID01.id}} =>  {{hosts.dict.ID01.hostname}},{{hosts.dict.ID01.host_ip}},{{hosts.dict.ID01.country_code}},{{hosts.dict.ID01.country_name}}'
 
+    # - name: Define Values From CSV File, this reads file in one go, but you could also use col= to read each in it's own lookup.
+    #   set_fact:
+    #     col1: "{{ csv_line[0] }}"
+    #     col2: "{{ csv_line[1] }}"
+    #   vars:
+    #     csv_line: "{{ lookup('csvfile', 'ID01', file='./configs/06_country_host_valid.csv' , delimiter=',' , col=1) }}"
+    #     csv_name: "{{item|basename|regex_replace('.csv')}}"
+    #   with_fileglob:
+    #     - "./configs/*.csv"
+
+
     - name: "Set some regex values"
       set_fact: hostname_regex="^\w+$"
 
