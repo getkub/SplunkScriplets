@@ -11,3 +11,15 @@
     - name: "Prepend & Append something to each of the item"
       debug:
         msg: "{{ hosts_list.list | map (attribute='department') | map('regex_replace', '(.+)', 'MYCOMPANY-\\1-COM')}}"
+
+    - name: "Append extra variable"
+      debug:
+        msg: 
+        - firstname: "{{ hosts_list.list | map (attribute='firstname') | product(['-'])| map('join','') }}"
+
+    - name: "list multiple fields and join them"
+      debug:
+        msg: 
+        - "{{ hosts_list.list| json_query(jmesquery)| map('join','-') }}"
+      vars:
+        jmesquery: "[*].[firstname,secondname,department]"
