@@ -17,9 +17,27 @@
         msg: 
         - firstname: "{{ hosts_list.list | map (attribute='firstname') | product(['-'])| map('join','') }}"
 
-    - name: "list multiple fields and join them"
+    - name: "list multiple fields and join them using json_query"
       debug:
         msg: 
         - "{{ hosts_list.list| json_query(jmesquery)| map('join','-') }}"
       vars:
         jmesquery: "[*].[firstname,secondname,department]"
+
+    - name: "List fields using JINJA traditional"
+      debug:
+        msg: "{{jinja_list}}"
+      vars:
+        - jinja_list: |
+            "
+            {%- set my_list = [] %}
+            {%- for item in hosts_list.list %}
+            {%- set list_item = item.firstname + '-' +  item.secondname + '-' +  item.department %}
+            {{my_list.append(list_item)}}
+            {%- endfor -%}
+            {{my_list|join(',')}}
+            "
+    - name: "Custom filter plugin"
+      debug:
+        msg: 
+        - "{{ hosts_list.list | mapattributes(['firstname', 'secondname', 'department']) | map('join','-')}}"
