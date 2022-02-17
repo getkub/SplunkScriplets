@@ -40,4 +40,15 @@
     - name: "Custom filter plugin"
       debug:
         msg: 
-        - "{{ hosts_list.list | mapattributes(['firstname', 'secondname', 'department']) | map('join','-')}}"
+        - "{{ hosts_list.list | mapattributes(['firstname', 'secondname', 'department']) }}"
+
+    - name: "Set Fact"
+      set_fact:
+        item_list: "{{item_list|default([]) + [item.firstname + '-' + item.secondname + '-' + item.department]}}"
+      with_items: 
+        - "{{ hosts_list.list }}"
+        
+    - name: "Print values"
+      debug:
+        msg: 
+        - "{{ item_list }}"
