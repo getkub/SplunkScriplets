@@ -1,0 +1,19 @@
+---
+- name: "Fileglob and filters"
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: "Find list of files by pattern"
+      find:
+        paths: ./configs
+        patterns: "*.csv"
+        file_type: file
+      register: files_list
+    - name: "Print list"
+      debug:
+        msg: "{{ filebase_noext }}"
+      loop: "{{files_list.files|map(attribute='path')| list }}"
+      vars:
+        - filebase: "{{item|basename}}"
+        - filebase_noext: "{{ filebase.split('.')[:-1].0 }}"
+ 
