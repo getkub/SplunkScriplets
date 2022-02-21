@@ -1,0 +1,13 @@
+https://www.linkedin.com/posts/activity-6897654847563194368-qUTq
+
+For me, every passing day in this industry reinforces my belief that the faster security teams become data teams, the safer we'll all truly be. It was an inside joke at IHS Markit at first, I used to say I ran a data engineering/science team that happened to do security, it really wasn't a joke. At the risk of sounding deranged, it was more akin to prophecy.
+
+In a way, we already are, but maybe not fully transformed into what is ideal. We all have our instincts, we have datasets that may just sit in a SaaS portal or an Excel pivot table, we have feeds from other teams across our companies, and consume open-source or commercial intelligence in various states of refinement – often without knowing it is intel. All of that to say: we already have the data, the data is big, it may not be pretty, but we have it. We’ve taken baby steps towards it – security teams starting using BI, we started writing cool queries, adopting property graphs, and even started quantifying risk - but not many have stepped fully into the "data abyss".
+
+The real solution lies at the bottom of all "that", for all the obsession with having everything “as-Code”, we don’t have our security instincts as code. Before we can get there, we need to make the data useful, that means taking a step outside of our comfort zones and becoming data teams. The truth in risk reduction lies in what we all already collect and know – technical controls, logging, configuration settings, asset posture, inventories, SBOMs, app sec findings, inbound bug bounties – all of it is needed to answer the security concerns (and help your Board sleep soundly in their Ferraris).
+
+So, as you budget and plan for the next evolution of your security program, think Data First. Upskill your teams to learn Pandas, Spark, and SQL. Hire data engineers and analysts instead of more architects, gain insight from your own data and product teams who likely have ways to solve your problems. Hire folks from non-traditional backgrounds with different ways of looking at problems. Even talk to vendors that you normally wouldn’t – graphs, warehouses, lakes, meshes – doesn’t matter, just pick one. And then start to try to find ways to frame the questions you have, to go from a single threaded ticket/alert/incident-based world and into one data first - fully contextualized, always.
+
+Making #SecDataOps a real thing. Not just about a single technology, or a single framework, but a true way to run a modern security program. I'll write more in the future, just needed to get this out of my head.
+
+Stay Dangerous.
