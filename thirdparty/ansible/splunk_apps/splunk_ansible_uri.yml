@@ -1,0 +1,18 @@
+- name: "SEARCH: Run Search and register Sid"
+  uri:
+    url: "{{splunk_ssl_uri}}:{{splunk_mgmt_port}}/services/search/jobs"
+    method: POST
+    user: xxxx
+    password: xxxx
+    body: 
+      - [ search, "{{splunk_search}}"]
+    status_code: [200, 201]
+    force_basic_auth: yes
+    validate_certs: no
+    body_format: form-urlencoded
+    return_content: true
+  vars:
+    - splunk_search: "search index=_internal | stats count"
+    - splunk_ssl_uri: "https://localhost"
+    - splunk_mgmt_port: "8089"
+  register: splunk_search_register
