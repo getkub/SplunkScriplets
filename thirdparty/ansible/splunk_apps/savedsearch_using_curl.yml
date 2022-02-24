@@ -1,4 +1,18 @@
-- name: "Deploy: CURL request to create SavedSearch"
+- name: "DELETE saved searches"
+  uri:
+    url: "{{splunk_uri}}:8089/servicesNS/nobody/myapp/saved/searches/{{savedsearch_name}}"
+    method: DELETE
+    user: xyz
+    password: yyyyy
+    status_code: [200, 201,404]
+    force_basic_auth: yes
+    validate_certs: no
+    body_format: form-urlencoded
+    return_content: true
+  loop: "{{ csv.list}}"
+
+
+- name: "CURL request to create SavedSearch"
   command: |
       /usr/bin/curl -u {{creds}} -o /dev/null -k {{splunk_uri}}:8089/servicesNS/nobody/myapp/saved/searches
       -d name="{{savedsearch_name}}"
