@@ -3,7 +3,7 @@
     url: "{{splunk_ssl_uri}}:{{splunk_mgmt_port}}/services/search/jobs"
     method: POST
     user: xxxx
-    password: xxxx
+    password: xxxxx
     body: 
       - [ search, "{{splunk_search}}"]
     status_code: [200, 201]
