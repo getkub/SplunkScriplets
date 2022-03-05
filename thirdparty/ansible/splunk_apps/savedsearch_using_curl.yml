@@ -9,7 +9,6 @@
     validate_certs: no
     body_format: form-urlencoded
     return_content: true
-  loop: "{{ csv.list}}"
 
 
 - name: "CURL request to create SavedSearch"
@@ -21,4 +20,3 @@
       --data-urlencode disabled=false
       --data-urlencode is_scheduled=1
       --data-urlencode cron_schedule="{{cron}}"
-  loop: "{{ csv.list}}"
