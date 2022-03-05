@@ -1,0 +1,51 @@
+---
+# https://stackoverflow.com/questions/55563237/convert-curl-command-to-ansible
+- name: Run cURL commands
+  hosts: localhost
+  gather_facts: false
+  vars:
+    endpoint: "https://httpbin.org/put"
+    cron_schedule: "0/10 * * * *"
+    invocation_context:
+      action: "someAction"
+      source: "path/to/resource"
+  tasks:
+
+    - name: First task (curl)
+      command: >-
+        curl -k -o /tmp/output-curl1.json 
+        --header "Content-Type: application/json"
+        --header "X-Application-Username: my_username"
+        --header "X-Application-Password: my_password"
+        --request PUT
+        --data '{"enabled":"False","persisted" : true,"concurrentExecution" : false, "type" : "cron","schedule" : "0/10 * * * *","invokeService" : "provisioner","invokeContext" : { "action" : "someAction","source" : "path/to/resource"}}'
+        "{{ endpoint }}"
+
+    - name: First task (uri)
+      uri:
+        url: "{{ endpoint }}"
+        headers:
+          Content-Type: "application/json"
+          X-Application-Username: "my_username"
+          X-Application-Password: "my_password"
+        method: PUT
+        body:
+          enabled: "False"
+          persisted: "true"
+          concurrentExecution: "false"
+          type: "cron"
+          schedule: "{{ cron_schedule }}"
+          invokeService: "provisioner"
+          invokeContext: "{{ invocation_context | to_json }}"
+        body_format: json
+        validate_certs: no
+        return_content: true
+      register: output1
+
+    - copy:
+        content: "{{ output1.content }}"
+        dest: /tmp/output-task1.json
+    - debug:
+        msg:
+        - "Now run below command" 
+        - "diff -u <(jq -Sr .data /tmp/output-curl1.json | jq -S .) <(jq -Sr .data /tmp/output-task1.json | jq -S .)"

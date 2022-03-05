@@ -10,10 +10,12 @@
     - ss_search: "index=_internal | stats count"
     - ss_cron: "* 6 * * *"
     - ss_app: "launcher"
+    - ss_endpoint: "{{splunk_uri}}:8089/servicesNS/nobody/{{ss_app}}/saved/searches"
+    # - ss_endpoint: "https://httpbin.org/post"
   tasks:
     - name: "DELETE saved searches"
       uri:
-        url: "{{splunk_uri}}:8089/servicesNS/nobody/{{ss_app}}/saved/searches/{{ss_name}}"
+        url: "{{ss_endpoint}}/{{ss_name}}"
         method: DELETE
         user: "{{splunk_user}}"
         password: "{{splunk_pass}}"
@@ -24,12 +26,40 @@
         return_content: true
 
 
-    - name: "CURL request to create SavedSearch"
-      command: |
-          /usr/bin/curl -u {{splunk_user}}:{{splunk_pass}} -o /dev/null -k {{splunk_uri}}:8089/servicesNS/nobody/{{ss_app}}/saved/searches
-          -d name="{{ss_name}}"
-          --data-urlencode description="{{ss_name}}_description"
-          --data-urlencode search="{{ss_search}}"
-          --data-urlencode disabled=false
-          --data-urlencode is_scheduled=1
-          --data-urlencode cron_schedule="{{ss_cron}}"
+    # - name: "CURL request to create SavedSearch"
+    #   command: |
+    #       /usr/bin/curl -o /tmp/output-curl1.json  -u {{splunk_user}}:{{splunk_pass}} -o /dev/null -k {{ss_endpoint}}
+    #       -d name="{{ss_name}}"
+    #       --data-urlencode description="{{ss_name}}_description"
+    #       --data-urlencode search="{{ss_search}}"
+    #       --data-urlencode disabled=false
+    #       --data-urlencode is_scheduled=1
+    #       --data-urlencode cron_schedule="{{ss_cron}}"
+
+    - name: "INSERT saved searches"
+      uri:
+        url: "{{ss_endpoint}}"
+        method: POST
+        user: "{{splunk_user}}"
+        password: "{{splunk_pass}}"
+        status_code: [200, 201]
+        body:
+        - [ name, "{{ss_name}}" ]
+        - [ description, "{{ss_name}}_description" ]
+        - [ search, "{{ss_search}}" ]
+        - [ disabled, "false" ]
+        - [ is_scheduled, 1 ]
+        - [ cron_schedule, "{{ss_cron}}" ]
+        force_basic_auth: yes
+        validate_certs: no
+        body_format: form-urlencoded
+        return_content: false
+      # register: output1
+
+    # - copy:
+    #     content: "{{ output1.json }}"
+    #     dest: /tmp/output-task1.json
+    # - debug:
+    #     msg:
+    #     - "Now run below command" 
+    #     - "diff -u <(jq -Sr . /tmp/output-curl1.json | jq -S .) <(jq -Sr . /tmp/output-task1.json | jq -S .)"
