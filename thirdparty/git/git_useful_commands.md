@@ -14,3 +14,8 @@ git log --oneline --follow $filename
 git diff HEAD~2 HEAD -- $filename
 git diff c598d3fe a0647d42 -- $filename
 ```
+
+## Git: checkout a single file from a specific commit
+```
+git checkout c598d3fe $filename
+```
