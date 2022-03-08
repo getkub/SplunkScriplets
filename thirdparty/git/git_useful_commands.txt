@@ -1,0 +1,4 @@
+filename="/my/path/file"
+
+git log --follow $filename 
+git log --oneline --follow $filename 
