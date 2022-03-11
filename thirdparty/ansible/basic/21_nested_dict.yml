@@ -1,0 +1,36 @@
+---
+- name: "Nested vs sub-elements"
+  hosts: localhost
+  gather_facts: no
+  vars:
+    - dict1: {'windows': {'input_source':'beats', 'output_destination', 'internal'}, 'juniper': {'input_source':'syslog', 'output_destination', '3rdparty'} }
+    - dict2: 
+        inputs: ["beats", "syslog" ]
+        outputs: ["beats_output", "syslog_output", "ftp_output" ]
+  tasks:
+    - name: "Aim is to get dict2 elements based on dict1 "
+      debug:
+        msg:
+        - "Copy from directory: {{ item.0.value.input_source }} - {{ item.0.value.input_source }}_output"
+      with_nested:
+        - "{{dict1| dict2items}}"
+        - "{{dict2}}"
+
+    - meta: end_play
+
+    - name: color print - hardcoded
+      debug:
+        msg:
+        - "{{ item[0] }} - {{ item[1] }}"
+      with_nested:
+        - [ 'red', 'green' ]
+        - [ 'grapes', 'apple', 'chilli' ]
+      vars:
+        - color: "{{ item[0] }}"
+        - colored_fuit:
+            fruit1: "{{color}}_grapes"
+            fruit2: "{{color}}_apple"
+            fruit3: "{{color}}_chilli"
+ 
+
+ 
