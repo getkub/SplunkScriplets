@@ -11,6 +11,18 @@
     - debug:
         msg: '{{ hosts_list }}'
 
+    - debug:
+        msg: '{{ clubbed }}'
+      vars:
+        clubbed: |
+          " 
+            {% for result in hosts_list.list %}
+            '{{ result.country_code }}-{{ result.country_name }}',
+            {% endfor %}
+          "
+
+    - meta: end_play 
+
     - name: "Read as a dictionary"
       read_csv:
         path: ./configs/06_country_host_valid.csv
