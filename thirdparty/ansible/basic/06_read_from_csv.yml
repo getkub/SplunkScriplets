@@ -30,7 +30,12 @@
     - debug:
         msg: '{{ dict_clubbed }}'
       vars:
-        dict_clubbed: '{{hosts.dict|dict2items}}'
+        dict_clubbed: |
+          " 
+            {% for r in hosts.dict|dict2items %}
+            {{ r.value.country_code }}-{{ r.value.country_name }}
+            {% endfor %}
+          "
 
     - meta: end_play 
 
