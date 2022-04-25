@@ -21,13 +21,18 @@
             {% endfor %}
           "
 
-    - meta: end_play 
-
     - name: "Read as a dictionary"
       read_csv:
         path: ./configs/06_country_host_valid.csv
         key: id
       register: hosts
+
+    - debug:
+        msg: '{{ dict_clubbed }}'
+      vars:
+        dict_clubbed: '{{hosts.dict|dict2items}}'
+
+    - meta: end_play 
 
     - debug:
         msg: '{{ hosts.dict.ID01.id}} =>  {{hosts.dict.ID01.hostname}},{{hosts.dict.ID01.host_ip}},{{hosts.dict.ID01.country_code}},{{hosts.dict.ID01.country_name}}'
