@@ -1,0 +1,15 @@
+---
+- name: "Nested vs sub-elements"
+  hosts: localhost
+  gather_facts: no
+  vars:
+    - multiline_var: |
+        line1="line1"
+        somerandom2
+        line3
+  tasks:
+    - name: "Updating Templates"
+      template:
+        src: ./configs/22_jinja_template.j2
+        dest: /tmp/22_jinja_template.txt
+        mode: '0644'
