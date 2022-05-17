@@ -4,6 +4,12 @@
 brew install android-platform-tools
 ```
 
+## List/View
+```
+fName="/storage/self/primary/Audiobooks/AB*.mp3"
+adb shell ls -l $fName
+```
+
 ## Push & Pull (copy)
 ```
 src="~/Documents/data/music.mp3"
@@ -13,6 +19,6 @@ adb push $src $dest
 
 ## Delete
 ```
-fileName="/storage/self/primary/Audiobooks/AB*.mp3"
-adb shell rm $fileName
+fName="/storage/self/primary/Audiobooks/AB*.mp3"
+adb shell rm $fName
 ```
