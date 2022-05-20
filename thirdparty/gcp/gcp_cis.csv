@@ -1,0 +1,63 @@
+id,group,cis_summary,mitigation
+1.1,IAM,Ensure that corporate login credentials are used,Cloud User Access Uses Gmail
+1.2,IAM,Enforce Bucket Policy Only,Cloud User Accounts Without MFA
+1.3,IAM,Ensure that Security Key Enforcement is enabled for all admin accounts,
+1.4,IAM,Ensure that there are only GCP-managed service account keys for each service account,Cloud Account With User-managed API Credentials 
+1.5,IAM,Ensure that Service Account has no Admin privileges,Google Service Account With Admin Privileges
+1.6,IAM,Ensure that IAM users are not assigned the Service Account User or Service Account Token Creator roles at project level,
+1.7,IAM,Ensure user-managed/external keys for service accounts are rotated every 90 days or less,API Key Inactive
+1.8,IAM,Ensure that Separation of duties is enforced while assigning service account related roles to users,
+1.9,IAM,Ensure that Cloud KMS cryptokeys are not anonymously or publicly accessible,
+1.1,IAM,Ensure KMS encryption keys are rotated within a period of 90 days,
+1.11,IAM,Ensure that Separation of duties is enforced while assigning KMS related roles to users,
+1.12,IAM,Ensure API keys are not created for a project,Does not appear to be a way to pull these keys
+1.13,IAM,Ensure API keys are restricted to use by only specified Hosts and Apps,Does not appear to be a way to pull these keys
+1.14,IAM,Ensure API keys are restricted to only APIs that application needs access,Does not appear to be a way to pull these keys
+1.15,IAM,Ensure API keys are rotated every 90 days,Does not appear to be a way to pull these keys
+2.1,LM,Ensure that Cloud Audit Logging is configured properly across all services and all users from a project,
+2.2,LM,Ensure that sinks are configured for all log entries,
+2.3,LM,Ensure that retention policies on log buckets are configured using Bucket Lock,
+2.4,LM,Ensure log metric filter and alerts exist for project ownership assignments/changes,Cloud Account Missing Log Metric Filter And Alerts For Project Ownership Assignments/Changes
+2.5,LM,Ensure that the log metric filter and alerts exist for Audit Configuration changes,Cloud Account Missing Log Metric Filter And Alerts For Audit Configuration Changes
+2.6,LM,Ensure that the log metric filter and alerts exist for Custom Role changes,Cloud Account Missing Log Metric Filter And Alerts For Custom Role Changes
+2.7,LM,Ensure that the log metric filter and alerts exist for VPC Network Firewall rule changes,Cloud Account Missing Log Metric Filter And Alerts For VPC Network Firewall Rule Changes
+2.8,LM,Ensure that the log metric filter and alerts exist for VPC network route changes,Cloud Account Missing Log Metric Filter And Alerts For VPC Network Route Changes
+2.9,LM,Ensure that the log metric filter and alerts exist for VPC network changes,Cloud Account Missing Log Metric Filter And Alerts For VPC Network Changes
+2.1,LM,Ensure that the log metric filter and alerts exist for Cloud Storage IAM permission changes,Cloud Account Missing Log Metric Filter And Alerts For Cloud Storage IAM Permission Changes
+2.11,LM,Ensure that the log metric filter and alerts exist for SQL instance configuration changes,Cloud Account Missing Log Metric Filter And Alerts For SQL Instance Configuration Changes
+3.1,Networks,Ensure that the default network does not exist in a project,Network In Project Default Type
+3.2,Networks,Ensure legacy networks do not exist for a project,Network In Project Legacy Type
+3.3,Networks,Ensure that DNSSEC is enabled for Cloud DNS,DNSSEC is not enabled for Cloud Zone
+3.4,Networks,Ensure that RSASHA1 is not used for the key-signing key in Cloud DNS DNSSEC,DNS Zone With Weak Key Signing Algorithm
+3.5,Networks,Ensure that RSASHA1 is not used for the zone-signing key in Cloud DNS DNSSEC,DNS Zone With Weak Zone Signing Algorithm
+3.6,Networks,Ensure that SSH access is restricted from the internet,Access List Exposes SSH To World
+3.7,Networks,Ensure that RDP access is restricted from the Internet,Access List Exposes Windows RDP To World
+3.8,Networks,Ensure that VPC Flow Logs is enabled for every subnet in a VPC Network,Network Missing Subnet Flow Logs
+3.9,Networks,Ensure no HTTPS or SSL proxy load balancers permit SSL policies with weak cipher suites,
+4.1,Vm,Ensure that instances are not configured to use the default service account,Instance not configured to use Default Service Account
+4.2,Vm,Ensure that instances are not configured to use the default service account with full access to all Cloud APIs,
+4.3,Vm,"Ensure ""Block Project-wide SSH keys"" is enabled for VM instances",Instance with Project-wide SSH keys enabled
+4.4,Vm,Ensure oslogin is enabled for a Project,Cloud Account Without OS Login Enabled
+4.5,Vm,Ensure 'Enable connecting to serial ports' is not enabled for VM Instance,Instance with Connecting to Serial Ports Enabled
+4.6,Vm,Ensure that IP forwarding is not enabled on Instances,Instance With IP Forwarding Enabled
+4.7,Vm,Ensure VM disks for critical VMs are encrypted with Customer-Supplied Encryption Keys (CSEK),
+4.8,Vm,Ensure Compute instances are launched with Shielded VM enabled,Instance without Shielded Configuration
+4.9,Vm,Ensure that Compute instances do not have public IP addresses,Instance with public IP address and any port exposure to 0.0.0.0/0
+4.11,Vm,Ensure that App Engine applications enforce HTTPS connections,
+5.1,Storage,Ensure that Cloud Storage bucket is not anonymously or publicly accessible,Storage Container Exposing Access To World
+5.2,Storage,Ensure that Cloud Storage buckets have uniform bucket-level access enabled,Storage Container Without Uniform Bucket Level Access
+6.1.1,DB,Ensure that a MySQL database instance does not allow anyone to connect with administrative privileges,Database Instance Allowing Root Login From Any Host
+6.1.2,DB,Ensure that the 'local_infile' database flag for a Cloud SQL Mysql instance is set to 'off',Database Instance Flag 'local_infile' Enabled
+6.2.1,DB,Ensure that the 'log_checkpoints' database flag for Cloud SQL PostgreSQL instance is set to 'on',Database Instance Flag 'log_checkpoints' Disabled
+6.2.2,DB,Ensure that the 'log_connections' database flag for Cloud SQL PostgreSQL instance is set to 'on',Database Instance Flag 'log_connections' Disabled
+6.2.3,DB,Ensure that the 'log_disconnections' database flag for Cloud SQL PostgreSQL instance is set to 'on',Database Instance Flag 'log_disconnections' Disabled
+6.2.4,DB,Ensure that the 'log_lock_waits' database flag for Cloud SQL PostgreSQL instance is set to 'on',Database Instance Flag 'log_lock_waits' Disabled
+6.2.5,DB,Ensure that the 'log_min_messages' database flag for Cloud SQL PostgreSQL instance is set appropriately,
+6.2.6,DB,Ensure that the 'log_temp_files' database flag for Cloud SQL PostgreSQL instance is set to '0' (on),Database Instance Flag 'log_temp_files' Disabled
+6.2.7,DB,Ensure that the 'log_min_duration_statement' database flag for Cloud SQL PostgreSQL instance is set to '-1' (disabled),Database Instance Flag 'log_min_duration_statement' Enabled
+6.3.1,DB,Ensure that the 'cross db ownership chaining' database flag for Cloud SQL SQL Server instance is set to 'off',Database Instance Flag 'cross db ownership chaining' Enabled
+6.3.2,DB,Ensure that the 'contained database authentication' database flag for Cloud SQL on the SQL Server instance is set to 'off',Database Instance Flag 'contained database authentication' Enabled
+6.4,DB,Ensure that the Cloud SQL database instance requires all incoming connections to use SSL,Database Instance Not Enforcing Transit Encryption
+6.5,DB,Ensure that Cloud SQL database instances are not open to the world,Database Instance Publicly Accessible
+6.6,DB,Ensure that Cloud SQL database instances do not have public IPs,Database Instance Publicly Accessible
+6.7,DB,Ensure that Cloud SQL database instances are configured with automated backups,Database Instance Retention Policy Too Low
