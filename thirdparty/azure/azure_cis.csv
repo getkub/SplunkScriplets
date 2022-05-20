@@ -1,0 +1,120 @@
+ID,CIS_summary,Summary2,Summary3
+1.1,"Ensure that multi-factor authentication is enabled for all privilegedusers",,X
+1.2,"Ensure that multi-factor authentication is enabled for all nonprivilegedusers",,X
+1.3,Ensure that there are no guest users,Cloud Account is Guest User,X
+1.4,"Ensure that 'Allow users to remember multi-factor authentication ondevices they trust' is 'Disabled' ",,
+1.5,Ensure that 'Number of methods required to reset' is set to '2',,
+1.6,"Ensure that 'Number of days before users are asked to re-confirmtheir authentication information' is not set to '0' ",,
+1.7,Ensure that 'Notify users on password resets?' is set to 'Yes' ,,
+1.8,"Ensure that 'Notify all admins when other admins reset theirpassword?' is set to 'Yes' ",,
+1.9,"Ensure that 'Users can consent to apps accessing company data ontheir behalf' is set to 'No' ",,
+1.1," Ensure that 'Users can add gallery apps to their Access Panel' is setto 'No' ",,
+1.11,Ensure that 'Users can register applications' is set to 'No',,
+1.12,Ensure that 'Guest users permissions are limited' is set to 'Yes' ,,
+1.13,Ensure that 'Members can invite' is set to 'No' ,,
+1.14,Ensure that 'Guests can invite' is set to 'No' ,,
+1.15,"Ensure that 'Restrict access to Azure AD administration portal' isset to 'Yes' ",,
+1.16,Ensure that 'Self-service group management enabled' is set to 'No',,
+1.17,Ensure that 'Users can create security groups' is set to 'No' ,,
+1.18,"Ensure that 'Users who can manage security groups' is set to'None'",,
+1.19,Ensure that 'Users can create Office 365 groups' is set to 'No',,
+1.2,"Ensure that 'Users who can manage Office 365 groups' is set to'None' ",,
+1.21,"Ensure that 'Enable ""All Users"" group' is set to 'Yes' ",,
+1.22,Ensure that 'Require Multi-Factor Auth to join devices' is set to 'Yes',,
+1.23,Ensure that no custom subscription owner roles are created,,X
+2,Security Center,,
+2.1,Ensure that standard pricing tier is selected,,
+2.2,"Ensure that 'Automatic provisioning of monitoring agent' is set to'On' ",Security Center Automatic Provisioning Of Monitoring Agent Is Off,X
+2.3,"Ensure ASC Default policy setting ""Monitor System Updates"" is not ""Disabled""",Security Center System Updates Recommendation Is Off,X
+2.4,"Ensure ASC Default policy setting ""Monitor OS Vulnerabilities"" is not ""Disabled""",Security Center Security Configurations Recommendation Is Off,X
+2.5,"Ensure ASC Default policy setting ""Monitor Endpoint Protection"" is not ""Disabled""",Security Center Endpoint Protection Recommendation Is Off,X
+2.6,"Ensure ASC Default policy setting ""Monitor Disk Encryption"" is not ""Disabled""",Security Center Disk Encryption Recommendation Is Off,X
+2.7,"Ensure ASC Default policy setting ""Monitor Network Security Groups"" is not ""Disabled""",Security Center Network Security Groups Recommendation Is Off,X
+2.8,"Ensure ASC Default policy setting ""Monitor Web Application Firewall"" is not ""Disabled""",Security Center Web Application Firewall Recommendation Is Off,
+2.9,"Ensure ASC Default policy setting ""Enable Next Generation Firewall(NGFW) Monitoring"" is not ""Disabled""",Security Center Next Generation Firewall Recommendation Is Off,X
+2.1,"Ensure ASC Default policy setting ""Monitor Vulnerability Assessment"" is not ""Disabled""",Security Center Vulnerability Assessment Recommendation Is Off,
+2.11,"Ensure ASC Default policy setting ""Monitor Storage Blob Encryption"" is not ""Disabled""",Security Center Storage Encryption Recommendation Is Off,
+2.12,"Ensure ASC Default policy setting ""Monitor JIT Network Access"" is not ""Disabled""",Security Center JIT Network Access Recommendation Is Off,X
+2.13,"Ensure ASC Default policy setting ""Monitor Adaptive Application Whitelisting"" is not ""Disabled""",Security Center Adaptive Application Controls Recommendation Is Off,X
+2.14,"Ensure ASC Default policy setting ""Monitor SQL Auditing"" is not ""Disabled""",Security Center SQL Auditing & Threat Detection Recommendation Is Off,X
+2.15,"Ensure ASC Default policy setting ""Monitor SQL Encryption"" is not ""Disabled""",Security Center SQL Encryption Recommendation Is Off,X
+2.16,Ensure that 'Security contact emails' is set,Security Center Security Contact Emails Are Not Set,X
+2.17,Ensure that security contact 'Phone number' is set,Security Center Security Contact Phone Number Is Not Set,X
+2.18,Ensure that 'Send email notification for high severity alerts' is set to 'On',Security Center Send Me Emails About Alerts Is Off,X
+2.19,Ensure that 'Send email also to subscription owners' is set to 'On',Security Center Send Email Also To Subscription Owners Is Off,X
+3,Storage Accounts,,
+3.1,Ensure that 'Secure transfer required' is set to 'Enabled',Storage Account Not Enforcing Transit Encryption,X
+3.2,Ensure that storage account access keys are periodically regenerated,"",
+3.3,"Ensure Storage logging is enabled for Queue service for read, write, and delete requests",,
+3.4,Ensure that shared access signature tokens expire within an hour,,
+3.5,Ensure that shared access signature tokens are allowed only over https,,
+3.6,Ensure that 'Public access level' is set to Private for blob containers ,Storage Containers Exposed To The Public,
+3.7,Ensure default network access rule for Storage Accounts is set to deny,Storage Account Allows Access from the World,X
+3.8,Ensure 'Trusted Microsoft Services' is enabled for Storage Account access,,X
+4.2,Database Services,,
+4.1,Ensure that 'Auditing' is set to 'On',Database Instance Auditing Disabled,X
+4.2,"Ensure that 'AuditActionGroups' in 'auditing' policy for a SQL serveris set properly ",Database Instance Missing Required Audit Action Groups,X
+4.3,Ensure that 'Auditing' Retention is 'greater than 90 days' ,Database Instance Auditing Retention Below Threshold,
+4.4,Ensure that 'Advanced Data Security' on a SQL server is set to 'On',Database Instance Threat Detection Disabled,X
+4.5,Ensure that 'Threat Detection types' is set to 'All',Database Instance Threat Detection Does Not Support All Types,
+4.6,Ensure that 'Send alerts to' is set ,Database Instance Threat Detection Alert Recipients Not Set,
+4.7,Ensure that 'Email service and co-administrators' is 'Enabled',Database Instance Threat Detection Administrator Alerts Disabled,
+4.8,Ensure that Azure Active Directory Admin is configured,Database Instance Azure Active Directory Admin Not Configured,X
+4.9,Ensure that 'Data encryption' is set to 'On' on a SQL Database,Database Data Not Encrypted,X
+4.1,Ensure SQL server's TDE protector is encrypted with BYOK,Database Instance Not Configured to Use Customer Provided Key,X
+4.11,"Ensure 'Enforce SSL connection' is set to 'ENABLED' for MySQLDatabase Server ",MySQL Database Instance Not Enforcing Transit Encryption,
+4.12,"Ensure server parameter 'log_checkpoints' is set to 'ON' forPostgreSQL Database Server",PostgreSQL Database Instance Not Configured to Log Checkpoints,X
+4.13,"Ensure 'Enforce SSL connection' is set to 'ENABLED' for PostgreSQLDatabase Server",PostgreSQL Database Instance Not Enforcing Transit Encryption,
+4.14,"Ensure server parameter 'log_connections' is set to 'ON' forPostgreSQL Database Server",PostgreSQL Database Instance Not Configured to Log Connections,X
+4.15,"Ensure server parameter 'log_disconnections' is set to 'ON' forPostgreSQL Database Server",PostgreSQL Database Instance Not Configured to Log Disconnections,X
+4.16,"Ensure server parameter 'log_duration' is set to 'ON' forPostgreSQL Database Server ",PostgreSQL Database Instance Not Configured to Log Duration,
+4.17,"Ensure server parameter 'connection_throttling' is set to 'ON' forPostgreSQL Database Server",PostgreSQL Database Instance Not Configured to Throttle Connections,X
+4.18,"Ensure server parameter 'log_retention_days' is greater than 3days for PostgreSQL Database Server",PostgreSQL Database Instance Log Retention Below Threshold,
+5.1,Logging & Monitoring,,
+5.1.1,Ensure that a Log Profile exists,Activity Log Profile Not Configured,X
+5.1.2,Ensure that Activity Log Retention is set 365 days or greater,Activity Log Retention Less Than 365 Days,X
+5.1.3,Ensure audit profile captures all the activities,Activity Log Profile Does Not Capture All Activities,X
+5.1.4,"Ensure the log profile captures activity logs for all regionsincluding global",Activity Log Profile Not Configured For All Regions,X
+5.1.5,"Ensure the storage container storing the activity logs is notpublicly accessible ",Storage Container Containing Activity Logs Exposed To The Public,
+5.1.6,"Ensure the storage account containing the container with activitylogs is encrypted with BYOK",Storage Acount For Activity Logs Not Encrypted With Customer Managed Key,X
+5.1.7,Ensure that logging for Azure KeyVault is 'Enabled',,X
+5.2,Monitoring Using Activity Log Alerts,,
+5.2.1,Ensure that Activity Log Alert exists for Create Policy Assignment ,,X
+5.2.2,"Ensure that Activity Log Alert exists for Create or Update NetworkSecurity Group Rule ",,X
+5.2.3,"Ensure that Activity Log Alert exists for Delete Network SecurityGroup",,X
+5.2.4,"Ensure that Activity Log Alert exists for Create or Update NetworkSecurity Group Rule",,X
+5.2.5,"Ensure that activity log alert exists for the Delete Network SecurityGroup Rule",,X
+5.2.6,"Ensure that Activity Log Alert exists for Create or Update SecuritySolution", ,X
+5.2.7,Ensure that Activity Log Alert exists for Delete Security Solution,,X
+5.2.8,"Ensure that Activity Log Alert exists for Create or Update or DeleteSQL Server Firewall Rule",,X
+5.2.9,Ensure that Activity Log Alert exists for Update Security Policy ,,X
+6,Networking,,
+6.1,Ensure that RDP access is restricted from the internet,Instance Exposing SSH To World,X
+6.2,Ensure that SSH access is restricted from the internet,Database Instance Publicly Accessible,X
+6.3,Ensure no SQL Databases allow ingress 0.0.0.0/0 ,,
+6.4,Ensure that Network Security Group Flow Log retention period is 'greater than 90 days',,
+6.5,Ensure that Network Watcher is 'Enabled',Network Watcher Not Enabled For All Regions,X
+7,Virtual Machines,,
+7.1,Ensure that 'OS disk' are encrypted,OS Disk Not Encrypted,X
+7.2,Ensure that 'Data disks' are encrypted,Data Disks Not Encrypted,X
+7.3,Ensure that 'Unattached disks' are encrypted,,X
+7.4,Ensure that only approved extensions are installed,"",X
+7.5,Ensure that the latest OS Patches for all Virtual Machines are applied,,X
+7.6,Ensure that the endpoint protection for all Virtual Machines is installed,Virtual Machine Endpoint Protection Extension Not Installed,X
+8,Other Security Considerations,,
+8.1,Ensure that the expiration date is set on all keys ,Encryption Keys Without Expiration,
+8.2,Ensure that the expiration date is set on all Secrets ,Secrets Without Expiration,
+8.3,Ensure that Resource Locks are set for mission critical Azure resources,,
+8.4,Ensure the key vault is recoverable,Key Vault Is Not Recoverable,X
+8.5,"Enable role-based access control (RBAC) within Azure KubernetesServices",Kubernetes Cluster Running With Basic Authentication,X
+9,AppService,,
+9.1,Ensure App Service Authentication is set on Azure App Service ,App Service Not Requiring Authentication,X
+9.2,"Ensure web app redirects all HTTP traffic to HTTPS in Azure AppService ",App Service Not Enforcing HTTPS,X
+9.3,Ensure web app is using the latest version of TLS encryption,,
+9.4,Ensure the web app has 'Client Certificates (Incoming client certificates)' set to 'On' ,App Service Not Enforcing Client Certificate Validation,X
+9.5,Ensure that Register with Azure Active Directory is enabled on App Service,App Service Without Managed Identity Enabled,
+9.6,"Ensure that '.Net Framework' version is the latest, if used as a part of the web app ",,
+9.7,"Ensure that 'PHP version' is the latest, if used to run the web app ",,
+9.8,"Ensure that 'Python version' is the latest, if used to run the web app ",,
+9.9,"Ensure that 'Java version' is the latest, if used to run the web app ",,
+9.1,"Ensure that 'HTTP Version' is the latest, if used to run the web app ",,X
