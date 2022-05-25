@@ -11,3 +11,4 @@ stat /proc/<pid>/fd/<fd>
 ## Get information of proc 
 # in HEX , so the rem_value should be converted from hex to decimal
 cat /proc/net/tcp
+lsof -Pi :22
