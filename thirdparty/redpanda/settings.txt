@@ -1,0 +1,22 @@
+redpanda:
+    developer_mode: false
+    enable_transactions: false
+    auto_create_topics_enabled: false
+    default_topic_replications: 3
+    append_chunk_size = 32768
+rpk:
+    tune_ballast_file: true
+    ballast_file_path: "/var/lib/redpanda/data/ballast"
+    ballast_file_size: "1GiB"
+
+# =========================== #
+# startup flags
+# =========================== #
+
+--check=false
+--advertise-rpc-addr=same_host.svc:33145
+--overprovisioned
+--default-log-level=info
+--smp=4
+--memory=8000M  # of Device/POD memory
+--reserve-memory=500M
