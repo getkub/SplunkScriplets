@@ -1,8 +1,0 @@
-lsblk -io KNAME,TYPE,SIZE,MODEL,LABEL
-
-fdisk -l  /dev/sda   # Will show Start/End and Blocks
-# https://support.microsoft.com/en-us/kb/929491
-
-
-## Bad sectors in Hard Disk
-sudo hdparm -Ttv /dev/sda
