@@ -9,8 +9,9 @@ fdisk -l  /dev/sda
 ```
 
 ## Bad sectors in Hard Disk
+```
 sudo hdparm -Ttv /dev/sda
-
+```
 
 ## dd commands and showing disk write speed
 ```
