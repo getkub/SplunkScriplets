@@ -16,8 +16,6 @@
         - "{{dict1| dict2items}}"
         - "{{dict2}}"
 
-    - meta: end_play
-
     - name: color print - hardcoded
       debug:
         msg:
