@@ -1,0 +1,14 @@
+  - name: "Read All files"
+    read_csv:
+      path: "{{item}}"
+    with_fileglob:
+      - "/tmp/patterns.*.csv"
+    register: "register_patterns"
+  
+  - name: "Dynamic list"
+    set_fact: "pat_{{pat_var}}={{item.list}}"
+    with_items:
+        - "{{register_patterns.results}}"
+    vars:
+      pat_var: "{{item.item | basename | regex_replace('.csv')| regex_replace('patterns.')}}"
+    no_log: true
