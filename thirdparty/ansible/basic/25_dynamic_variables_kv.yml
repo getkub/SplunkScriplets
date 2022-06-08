@@ -1,0 +1,18 @@
+- hosts: localhost
+  vars:
+    fruits: "{{ dict(f_keys|zip(f_vals)) }}"
+    f_vals: "{{ fruit.results|map(attribute='list')|list }}"
+    f_keys: "{{ fruit.results|map(attribute='item')|
+                              map('basename')|
+                              map('splitext')|
+                              map('first')|list }}"
+  tasks:
+    - read_csv:
+        fieldnames: color,size,price
+        path: "{{ item }}"
+      with_fileglob: "configs/fruits/*.csv"
+      register: fruit
+    - debug:
+        var: fruits
+    - debug:
+        var: fruits.apples
