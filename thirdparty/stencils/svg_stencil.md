@@ -4,4 +4,5 @@
 - https://aws.amazon.com/architecture/icons/
 
 ## SVG Icons
-https://feathericons.com/?ref=producthunt
+- https://feathericons.com/?ref=producthunt
+- https://www.iconshock.com/desktop-icons/
