@@ -1,6 +1,10 @@
 netstat -nat | grep source_host_ip
 # Will see the sessions established. If they are NOT getting closed off
 
+sudo netstat -altpn | grep 8080 | grep LISTEN
+# Will show process
+
+## ----------------------- ##
 # do
 lsof -ni   :<port>
 # get the process id pid) and FileDescriptor
