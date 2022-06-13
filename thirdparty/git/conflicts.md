@@ -15,6 +15,10 @@ git merge --strategy-option theirs
 ```
 git checkout --theirs .
 git add .
+
+# OR
+git merge --abort
+git pull -X theirs
 ```
 
 
