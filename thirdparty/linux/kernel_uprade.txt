@@ -1,0 +1,11 @@
+## Crude steps
+yum update kernel-lt
+vi /etc/default/grub
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+## After reboot
+
+rpm -qa | grep kernel  # get older kernel list
+yum remove old_kernel1
+
+## Run grub2-mkconfig to clean up boot list
