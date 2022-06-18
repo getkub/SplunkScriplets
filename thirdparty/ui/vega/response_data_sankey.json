@@ -1,0 +1,4015 @@
+{
+  "took": 15,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": 1618,
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "table": {
+      "after_key": {
+        "stk1": "win xp",
+        "stk2": "ZW"
+      },
+      "buckets": [
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "AF"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "AF",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "AR"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "AR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "AT"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "AT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "BD"
+          },
+          "doc_count": 10,
+          "stk1": "ios",
+          "stk2": "BD",
+          "size": 10
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "BE"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "BE",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "BI"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "BI",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "BR"
+          },
+          "doc_count": 13,
+          "stk1": "ios",
+          "stk2": "BR",
+          "size": 13
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "CA"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "CA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "CD"
+          },
+          "doc_count": 4,
+          "stk1": "ios",
+          "stk2": "CD",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "CF"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "CF",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "CG"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "CG",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "CM"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "CM",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "CN"
+          },
+          "doc_count": 57,
+          "stk1": "ios",
+          "stk2": "CN",
+          "size": 57
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "CO"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "CO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "CY"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "CY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "DE"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "DE",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "DZ"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "DZ",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "EG"
+          },
+          "doc_count": 4,
+          "stk1": "ios",
+          "stk2": "EG",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "ES"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "ES",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "ET"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "ET",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "FR"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "FR",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "GN"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "GN",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "GR"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "GR",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "HK"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "HK",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "HT"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "HT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "ID"
+          },
+          "doc_count": 8,
+          "stk1": "ios",
+          "stk2": "ID",
+          "size": 8
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "IE"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "IE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "IN"
+          },
+          "doc_count": 57,
+          "stk1": "ios",
+          "stk2": "IN",
+          "size": 57
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "IQ"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "IQ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "IR"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "IR",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "IT"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "IT",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "JP"
+          },
+          "doc_count": 6,
+          "stk1": "ios",
+          "stk2": "JP",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "KE"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "KE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "KH"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "KH",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "LK"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "LK",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "MA"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "MA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "MG"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "MG",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "MK"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "MK",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "ML"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "ML",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "MO"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "MO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "MR"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "MR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "MX"
+          },
+          "doc_count": 5,
+          "stk1": "ios",
+          "stk2": "MX",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "MZ"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "MZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "NE"
+          },
+          "doc_count": 4,
+          "stk1": "ios",
+          "stk2": "NE",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "NG"
+          },
+          "doc_count": 9,
+          "stk1": "ios",
+          "stk2": "NG",
+          "size": 9
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "NL"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "NL",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "NO"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "NO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "NP"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "NP",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "PE"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "PE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "PH"
+          },
+          "doc_count": 4,
+          "stk1": "ios",
+          "stk2": "PH",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "PK"
+          },
+          "doc_count": 7,
+          "stk1": "ios",
+          "stk2": "PK",
+          "size": 7
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "PL"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "PL",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "PS"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "PS",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "PT"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "PT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "RO"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "RO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "RU"
+          },
+          "doc_count": 8,
+          "stk1": "ios",
+          "stk2": "RU",
+          "size": 8
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "SA"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "SA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "SL"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "SL",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "SO"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "SO",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "SY"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "SY",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "TD"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "TD",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "TH"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "TH",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "TN"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "TN",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "TW"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "TW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "TZ"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "TZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "UA"
+          },
+          "doc_count": 2,
+          "stk1": "ios",
+          "stk2": "UA",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "US"
+          },
+          "doc_count": 28,
+          "stk1": "ios",
+          "stk2": "US",
+          "size": 28
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "VE"
+          },
+          "doc_count": 4,
+          "stk1": "ios",
+          "stk2": "VE",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "VN"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "VN",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "YE"
+          },
+          "doc_count": 1,
+          "stk1": "ios",
+          "stk2": "YE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "ios",
+            "stk2": "ZA"
+          },
+          "doc_count": 3,
+          "stk1": "ios",
+          "stk2": "ZA",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "AE"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "AE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "AF"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "AF",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "AO"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "AO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "AR"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "AR",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "AT"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "AT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "AU"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "AU",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "BA"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "BA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "BD"
+          },
+          "doc_count": 10,
+          "stk1": "osx",
+          "stk2": "BD",
+          "size": 10
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "BE"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "BE",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "BG"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "BG",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "BJ"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "BJ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "BO"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "BO",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "BR"
+          },
+          "doc_count": 7,
+          "stk1": "osx",
+          "stk2": "BR",
+          "size": 7
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "CA"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "CA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "CD"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "CD",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "CI"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "CI",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "CN"
+          },
+          "doc_count": 61,
+          "stk1": "osx",
+          "stk2": "CN",
+          "size": 61
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "CO"
+          },
+          "doc_count": 4,
+          "stk1": "osx",
+          "stk2": "CO",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "CS"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "CS",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "DE"
+          },
+          "doc_count": 4,
+          "stk1": "osx",
+          "stk2": "DE",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "DK"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "DK",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "DO"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "DO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "DZ"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "DZ",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "EG"
+          },
+          "doc_count": 3,
+          "stk1": "osx",
+          "stk2": "EG",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "ER"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "ER",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "ES"
+          },
+          "doc_count": 3,
+          "stk1": "osx",
+          "stk2": "ES",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "ET"
+          },
+          "doc_count": 6,
+          "stk1": "osx",
+          "stk2": "ET",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "FR"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "FR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "GA"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "GA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "GB"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "GB",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "GH"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "GH",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "GM"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "GM",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "GT"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "GT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "HK"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "HK",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "HR"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "HR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "ID"
+          },
+          "doc_count": 10,
+          "stk1": "osx",
+          "stk2": "ID",
+          "size": 10
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "IN"
+          },
+          "doc_count": 51,
+          "stk1": "osx",
+          "stk2": "IN",
+          "size": 51
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "IQ"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "IQ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "IR"
+          },
+          "doc_count": 5,
+          "stk1": "osx",
+          "stk2": "IR",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "IT"
+          },
+          "doc_count": 7,
+          "stk1": "osx",
+          "stk2": "IT",
+          "size": 7
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "JP"
+          },
+          "doc_count": 6,
+          "stk1": "osx",
+          "stk2": "JP",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "KE"
+          },
+          "doc_count": 5,
+          "stk1": "osx",
+          "stk2": "KE",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "KH"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "KH",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "KR"
+          },
+          "doc_count": 5,
+          "stk1": "osx",
+          "stk2": "KR",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "KZ"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "KZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "LA"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "LA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "LB"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "LB",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "LK"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "LK",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "LT"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "LT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "MA"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "MA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "MG"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "MG",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "MK"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "MK",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "MM"
+          },
+          "doc_count": 3,
+          "stk1": "osx",
+          "stk2": "MM",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "MW"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "MW",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "MX"
+          },
+          "doc_count": 6,
+          "stk1": "osx",
+          "stk2": "MX",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "NE"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "NE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "NG"
+          },
+          "doc_count": 7,
+          "stk1": "osx",
+          "stk2": "NG",
+          "size": 7
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "NL"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "NL",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "NO"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "NO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "NP"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "NP",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "PE"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "PE",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "PH"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "PH",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "PK"
+          },
+          "doc_count": 14,
+          "stk1": "osx",
+          "stk2": "PK",
+          "size": 14
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "PL"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "PL",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "PR"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "PR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "PS"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "PS",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "RO"
+          },
+          "doc_count": 3,
+          "stk1": "osx",
+          "stk2": "RO",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "RU"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "RU",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "RW"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "RW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "SD"
+          },
+          "doc_count": 4,
+          "stk1": "osx",
+          "stk2": "SD",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "SN"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "SN",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "SS"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "SS",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "SY"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "SY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "TH"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "TH",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "TR"
+          },
+          "doc_count": 3,
+          "stk1": "osx",
+          "stk2": "TR",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "TW"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "TW",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "TZ"
+          },
+          "doc_count": 3,
+          "stk1": "osx",
+          "stk2": "TZ",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "UA"
+          },
+          "doc_count": 4,
+          "stk1": "osx",
+          "stk2": "UA",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "UG"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "UG",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "US"
+          },
+          "doc_count": 18,
+          "stk1": "osx",
+          "stk2": "US",
+          "size": 18
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "UZ"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "UZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "VE"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "VE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "VN"
+          },
+          "doc_count": 3,
+          "stk1": "osx",
+          "stk2": "VN",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "YE"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "YE",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "ZM"
+          },
+          "doc_count": 2,
+          "stk1": "osx",
+          "stk2": "ZM",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "osx",
+            "stk2": "ZW"
+          },
+          "doc_count": 1,
+          "stk1": "osx",
+          "stk2": "ZW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "AO"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "AO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "AR"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "AR",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "AT"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "AT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "AZ"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "AZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "BD"
+          },
+          "doc_count": 6,
+          "stk1": "win 7",
+          "stk2": "BD",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "BE"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "BE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "BG"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "BG",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "BO"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "BO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "BR"
+          },
+          "doc_count": 9,
+          "stk1": "win 7",
+          "stk2": "BR",
+          "size": 9
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "BY"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "BY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "CA"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "CA",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "CD"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "CD",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "CF"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "CF",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "CI"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "CI",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "CL"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "CL",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "CM"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "CM",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "CN"
+          },
+          "doc_count": 74,
+          "stk1": "win 7",
+          "stk2": "CN",
+          "size": 74
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "CO"
+          },
+          "doc_count": 5,
+          "stk1": "win 7",
+          "stk2": "CO",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "CZ"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "CZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "DE"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "DE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "DO"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "DO",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "DZ"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "DZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "EE"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "EE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "EG"
+          },
+          "doc_count": 6,
+          "stk1": "win 7",
+          "stk2": "EG",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "ES"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "ES",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "ET"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "ET",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "FR"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "FR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "GB"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "GB",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "GT"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "GT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "GW"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "GW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "HU"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "HU",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "ID"
+          },
+          "doc_count": 14,
+          "stk1": "win 7",
+          "stk2": "ID",
+          "size": 14
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "IE"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "IE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "IL"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "IL",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "IN"
+          },
+          "doc_count": 49,
+          "stk1": "win 7",
+          "stk2": "IN",
+          "size": 49
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "IQ"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "IQ",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "IR"
+          },
+          "doc_count": 4,
+          "stk1": "win 7",
+          "stk2": "IR",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "IT"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "IT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "JO"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "JO",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "JP"
+          },
+          "doc_count": 4,
+          "stk1": "win 7",
+          "stk2": "JP",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "KE"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "KE",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "KG"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "KG",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "KR"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "KR",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "KZ"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "KZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "MA"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "MA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "MG"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "MG",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "MM"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "MM",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "MR"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "MR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "MW"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "MW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "MX"
+          },
+          "doc_count": 9,
+          "stk1": "win 7",
+          "stk2": "MX",
+          "size": 9
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "MY"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "MY",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "NG"
+          },
+          "doc_count": 5,
+          "stk1": "win 7",
+          "stk2": "NG",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "NO"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "NO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "NZ"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "NZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "PE"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "PE",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "PH"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "PH",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "PK"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "PK",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "PL"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "PL",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "PT"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "PT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "RO"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "RO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "RS"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "RS",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "RU"
+          },
+          "doc_count": 5,
+          "stk1": "win 7",
+          "stk2": "RU",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "SV"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "SV",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "SY"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "SY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "SZ"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "SZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "TH"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "TH",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "TR"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "TR",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "TW"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "TW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "TZ"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "TZ",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "UG"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "UG",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "US"
+          },
+          "doc_count": 30,
+          "stk1": "win 7",
+          "stk2": "US",
+          "size": 30
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "UY"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "UY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "UZ"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "UZ",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "VN"
+          },
+          "doc_count": 2,
+          "stk1": "win 7",
+          "stk2": "VN",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "YE"
+          },
+          "doc_count": 3,
+          "stk1": "win 7",
+          "stk2": "YE",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "ZA"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "ZA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "ZM"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "ZM",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 7",
+            "stk2": "ZW"
+          },
+          "doc_count": 1,
+          "stk1": "win 7",
+          "stk2": "ZW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "AF"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "AF",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "AR"
+          },
+          "doc_count": 4,
+          "stk1": "win 8",
+          "stk2": "AR",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "AU"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "AU",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "AZ"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "AZ",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "BD"
+          },
+          "doc_count": 5,
+          "stk1": "win 8",
+          "stk2": "BD",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "BF"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "BF",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "BG"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "BG",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "BI"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "BI",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "BR"
+          },
+          "doc_count": 5,
+          "stk1": "win 8",
+          "stk2": "BR",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "BY"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "BY",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "CA"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "CA",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "CD"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "CD",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "CH"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "CH",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "CI"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "CI",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "CL"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "CL",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "CM"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "CM",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "CN"
+          },
+          "doc_count": 59,
+          "stk1": "win 8",
+          "stk2": "CN",
+          "size": 59
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "CO"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "CO",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "DE"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "DE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "DZ"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "DZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "EC"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "EC",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "EG"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "EG",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "ES"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "ES",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "ET"
+          },
+          "doc_count": 4,
+          "stk1": "win 8",
+          "stk2": "ET",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "FR"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "FR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "GH"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "GH",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "GN"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "GN",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "GR"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "GR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "GT"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "GT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "HK"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "HK",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "ID"
+          },
+          "doc_count": 11,
+          "stk1": "win 8",
+          "stk2": "ID",
+          "size": 11
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "IN"
+          },
+          "doc_count": 41,
+          "stk1": "win 8",
+          "stk2": "IN",
+          "size": 41
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "IQ"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "IQ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "IR"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "IR",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "IT"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "IT",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "JO"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "JO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "JP"
+          },
+          "doc_count": 6,
+          "stk1": "win 8",
+          "stk2": "JP",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "KH"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "KH",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "KP"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "KP",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "KR"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "KR",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "KZ"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "KZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "LA"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "LA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "LT"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "LT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "MA"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "MA",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "MG"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "MG",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "ML"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "ML",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "MM"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "MM",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "MW"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "MW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "MX"
+          },
+          "doc_count": 6,
+          "stk1": "win 8",
+          "stk2": "MX",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "MY"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "MY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "MZ"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "MZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "NG"
+          },
+          "doc_count": 8,
+          "stk1": "win 8",
+          "stk2": "NG",
+          "size": 8
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "NL"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "NL",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "NO"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "NO",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "PH"
+          },
+          "doc_count": 6,
+          "stk1": "win 8",
+          "stk2": "PH",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "PK"
+          },
+          "doc_count": 9,
+          "stk1": "win 8",
+          "stk2": "PK",
+          "size": 9
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "PL"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "PL",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "PR"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "PR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "PS"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "PS",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "PY"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "PY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "RO"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "RO",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "RS"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "RS",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "RU"
+          },
+          "doc_count": 7,
+          "stk1": "win 8",
+          "stk2": "RU",
+          "size": 7
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "SA"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "SA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "SD"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "SD",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "SE"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "SE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "SL"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "SL",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "SS"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "SS",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "SY"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "SY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "TD"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "TD",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "TH"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "TH",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "TN"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "TN",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "TR"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "TR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "TW"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "TW",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "TZ"
+          },
+          "doc_count": 4,
+          "stk1": "win 8",
+          "stk2": "TZ",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "UA"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "UA",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "UG"
+          },
+          "doc_count": 3,
+          "stk1": "win 8",
+          "stk2": "UG",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "US"
+          },
+          "doc_count": 25,
+          "stk1": "win 8",
+          "stk2": "US",
+          "size": 25
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "VE"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "VE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "VN"
+          },
+          "doc_count": 5,
+          "stk1": "win 8",
+          "stk2": "VN",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "YE"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "YE",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "ZA"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "ZA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "ZM"
+          },
+          "doc_count": 2,
+          "stk1": "win 8",
+          "stk2": "ZM",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win 8",
+            "stk2": "ZW"
+          },
+          "doc_count": 1,
+          "stk1": "win 8",
+          "stk2": "ZW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "AF"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "AF",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "AL"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "AL",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "AR"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "AR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "AU"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "AU",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "BD"
+          },
+          "doc_count": 5,
+          "stk1": "win xp",
+          "stk2": "BD",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "BF"
+          },
+          "doc_count": 4,
+          "stk1": "win xp",
+          "stk2": "BF",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "BG"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "BG",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "BI"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "BI",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "BJ"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "BJ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "BR"
+          },
+          "doc_count": 5,
+          "stk1": "win xp",
+          "stk2": "BR",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "CA"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "CA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "CD"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "CD",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "CL"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "CL",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "CN"
+          },
+          "doc_count": 70,
+          "stk1": "win xp",
+          "stk2": "CN",
+          "size": 70
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "CO"
+          },
+          "doc_count": 5,
+          "stk1": "win xp",
+          "stk2": "CO",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "CR"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "CR",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "CZ"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "CZ",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "DE"
+          },
+          "doc_count": 3,
+          "stk1": "win xp",
+          "stk2": "DE",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "EG"
+          },
+          "doc_count": 4,
+          "stk1": "win xp",
+          "stk2": "EG",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "ES"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "ES",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "ET"
+          },
+          "doc_count": 3,
+          "stk1": "win xp",
+          "stk2": "ET",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "FR"
+          },
+          "doc_count": 3,
+          "stk1": "win xp",
+          "stk2": "FR",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "GB"
+          },
+          "doc_count": 6,
+          "stk1": "win xp",
+          "stk2": "GB",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "GH"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "GH",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "GN"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "GN",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "GR"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "GR",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "GT"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "GT",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "GW"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "GW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "ID"
+          },
+          "doc_count": 10,
+          "stk1": "win xp",
+          "stk2": "ID",
+          "size": 10
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "IN"
+          },
+          "doc_count": 48,
+          "stk1": "win xp",
+          "stk2": "IN",
+          "size": 48
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "IQ"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "IQ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "IR"
+          },
+          "doc_count": 5,
+          "stk1": "win xp",
+          "stk2": "IR",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "IT"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "IT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "JP"
+          },
+          "doc_count": 6,
+          "stk1": "win xp",
+          "stk2": "JP",
+          "size": 6
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "KE"
+          },
+          "doc_count": 3,
+          "stk1": "win xp",
+          "stk2": "KE",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "KH"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "KH",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "KP"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "KP",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "KZ"
+          },
+          "doc_count": 3,
+          "stk1": "win xp",
+          "stk2": "KZ",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "LB"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "LB",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "LK"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "LK",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "LT"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "LT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "LY"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "LY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "MD"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "MD",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "MG"
+          },
+          "doc_count": 3,
+          "stk1": "win xp",
+          "stk2": "MG",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "MM"
+          },
+          "doc_count": 4,
+          "stk1": "win xp",
+          "stk2": "MM",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "MQ"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "MQ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "MW"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "MW",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "MX"
+          },
+          "doc_count": 3,
+          "stk1": "win xp",
+          "stk2": "MX",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "MZ"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "MZ",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "NE"
+          },
+          "doc_count": 4,
+          "stk1": "win xp",
+          "stk2": "NE",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "NG"
+          },
+          "doc_count": 8,
+          "stk1": "win xp",
+          "stk2": "NG",
+          "size": 8
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "NL"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "NL",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "NP"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "NP",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "PE"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "PE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "PH"
+          },
+          "doc_count": 4,
+          "stk1": "win xp",
+          "stk2": "PH",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "PK"
+          },
+          "doc_count": 7,
+          "stk1": "win xp",
+          "stk2": "PK",
+          "size": 7
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "PL"
+          },
+          "doc_count": 4,
+          "stk1": "win xp",
+          "stk2": "PL",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "PT"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "PT",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "RU"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "RU",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "SA"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "SA",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "SD"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "SD",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "SK"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "SK",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "SV"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "SV",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "SY"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "SY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "TD"
+          },
+          "doc_count": 3,
+          "stk1": "win xp",
+          "stk2": "TD",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "TG"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "TG",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "TH"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "TH",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "TM"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "TM",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "TR"
+          },
+          "doc_count": 3,
+          "stk1": "win xp",
+          "stk2": "TR",
+          "size": 3
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "TW"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "TW",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "UA"
+          },
+          "doc_count": 4,
+          "stk1": "win xp",
+          "stk2": "UA",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "UG"
+          },
+          "doc_count": 5,
+          "stk1": "win xp",
+          "stk2": "UG",
+          "size": 5
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "US"
+          },
+          "doc_count": 26,
+          "stk1": "win xp",
+          "stk2": "US",
+          "size": 26
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "UY"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "UY",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "UZ"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "UZ",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "VN"
+          },
+          "doc_count": 4,
+          "stk1": "win xp",
+          "stk2": "VN",
+          "size": 4
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "YE"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "YE",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "ZA"
+          },
+          "doc_count": 2,
+          "stk1": "win xp",
+          "stk2": "ZA",
+          "size": 2
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "ZM"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "ZM",
+          "size": 1
+        },
+        {
+          "key": {
+            "stk1": "win xp",
+            "stk2": "ZW"
+          },
+          "doc_count": 1,
+          "stk1": "win xp",
+          "stk2": "ZW",
+          "size": 1
+        }
+      ]
+    }
+  }
+}
