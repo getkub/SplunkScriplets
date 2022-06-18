@@ -1,0 +1,52 @@
+{
+  "size": 0,
+  "aggs": {
+    "table": {
+      "composite": {
+        "size": 10000,
+        "sources": [
+          {
+            "stk1": {
+              "terms": {
+                "field": "machine.os.keyword"
+              }
+            }
+          },
+          {
+            "stk2": {
+              "terms": {
+                "field": "geo.dest"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "range": {
+            "timestamp": {
+              "gte": "2022-06-11T06:57:50.078Z",
+              "lte": "2022-06-18T06:57:50.078Z",
+              "format": "strict_date_optional_time"
+            }
+          }
+        }
+      ],
+      "filter": [],
+      "should": [],
+      "must_not": []
+    }
+  },
+  "runtime_mappings": {
+    "hour_of_day": {
+      "type": "long",
+      "script": {
+        "source": "emit(doc['timestamp'].value.getHour());"
+      }
+    }
+  }
+}
