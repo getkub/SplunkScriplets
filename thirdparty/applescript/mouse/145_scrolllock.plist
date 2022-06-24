@@ -17,5 +17,9 @@
         <true/>
         <key>StartInterval</key>
         <integer>60</integer>
+        <key>StandardErrorPath</key>
+        <string>/tmp/145_scrolllock.err</string>
+        <key>StandardOutPath</key>
+        <string>/tmp/145_scrolllock.out</string>
 </dict>
 </plist>
