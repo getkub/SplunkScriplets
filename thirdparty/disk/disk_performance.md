@@ -1,3 +1,5 @@
+# Measure IOPS,  Bandwidth (BW), slat (Submission Latency), clat (Completion Latency), lat (Overall latency)
+
 ## Replicate Sequential write pattern
 ```
 sudo apt -y install fio
