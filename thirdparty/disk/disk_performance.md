@@ -1,4 +1,9 @@
-# Measure IOPS,  Bandwidth (BW), slat (Submission Latency), clat (Completion Latency), lat (Overall latency)
+# Measure Disk
+- IOPS
+- Bandwidth (BW)
+- slat (Submission Latency)
+- clat (Completion Latency)
+- lat (Overall latency)
 
 ## Replicate Sequential write pattern
 ```
