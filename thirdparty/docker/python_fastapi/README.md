@@ -11,7 +11,8 @@ docker images
 ```
 docker run --name $mycontainer -p 80:80 ${myimage}:${myversion}
 
-http://localhost:80
+http://localhost
+http://localhost/docs
 http://localhost/items/1?q=apple
 ```
 
