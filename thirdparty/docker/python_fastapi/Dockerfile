@@ -6,7 +6,9 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# COPY . .
 
-CMD [ "python", "./your-daemon-or-script.py" ]
+CMD ["uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+
+# CMD [ "python", "./your-daemon-or-script.py" ]
 # CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
