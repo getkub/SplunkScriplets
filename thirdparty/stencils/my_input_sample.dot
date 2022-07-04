@@ -1,0 +1,7 @@
+graph {
+  "base" -- "bdocker";
+  "base" -- "fluentd";
+  "base" -- "splunk-hf";
+  "base" -- "splunk-indexer";
+  "base" -- "splunk-sh";
+ }
