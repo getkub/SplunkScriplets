@@ -33,8 +33,7 @@ RUN pip3 --no-cache-dir install --upgrade \
     ln -s /usr/bin/vault /usr/local/bin/vault && \
     pip3 show \
         boto3 \
-        dnspython \
-        openshift && \
+        dnspython && \
     ansible-galaxy collection install community.kubernetes && \
     cp -pr  /root/.ansible/collections /usr/local/lib/python3.6/site-packages/ansible && \
     yum clean all && \
