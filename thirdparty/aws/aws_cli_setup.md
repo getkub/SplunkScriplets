@@ -10,17 +10,17 @@ cat append_contents_to_existing_aws_config_file >>  ~/.aws/config file.
 
 - Setup environment
 ```
-cp set-aws-env.sh   /usr/local/bin/set-aws-env
+cp setup_aws_env.sh   /usr/local/bin/setup_aws_env
 
-chmod 755 /usr/local/bin/set-aws-env
+chmod 755 /usr/local/bin/setup_aws_env
 
 ```
 
-- Add alias alias set-aws-env="source set-aws-env" in ~/.zshrc file
+- Add alias alias
 
 ```
 cp ~/.zshrc  ~/zshrc-backup
-echo ‘alias set-aws-env="source set-aws-env"’ >> ~/.zshrc
+echo ‘alias setup_aws_env="source setup_aws_env"’ >> ~/.zshrc
 
-set-aws-env
+setup_aws_env
 ```
