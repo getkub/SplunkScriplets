@@ -7,10 +7,7 @@
 
 # aws_config_file=~/.aws/config
 
-# ==== Test Accounts ==========================================================
-
-# ++++ Stub +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+# sample
 [my-dev-role-readonly]
 region=eu-west-1
 source_profile=default
