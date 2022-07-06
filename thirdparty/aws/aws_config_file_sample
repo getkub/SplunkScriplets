@@ -1,0 +1,18 @@
+# *****************************************************************************
+# AWS Extend Switch Roles
+# Firefox Extension
+# https://github.com/tilfinltd/aws-extend-switch-roles
+# https://addons.mozilla.org/en-GB/firefox/addon/aws-extend-switch-roles3/
+# *****************************************************************************
+
+# aws_config_file=~/.aws/config
+
+# ==== Test Accounts ==========================================================
+
+# ++++ Stub +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+[my-dev-role-readonly]
+region=eu-west-1
+source_profile=default
+role_arn=arn:aws:iam::1234556789:role/my-role-ro
+color=ffd600
