@@ -22,3 +22,16 @@ azure_default_role_arn=
 azure_default_duration_hours=6
 region=eu-west-1
 ```
+
+
+Notes
+Getting Your Tenant ID and App ID URI
+- Your Azure AD system admin should be able to provide you with your Tenant ID and App ID URI. If you can't get it from them, you can scrape it from a login page from the myapps.microsoft.com page.
+- Click the chicklet for the login you want.
+- In the window the pops open quickly copy the login.microsoftonline.com URL. (If you miss it just try again. You can also open the developer console with nagivation preservation to capture the URL.)
+- The GUID right after login.microsoftonline.com/ is the tenant ID.
+- Copy the SAMLRequest URL param.
+- Paste it into a URL decoder (like this one) and decode.
+- Paste the decoded output into the a SAML deflated and encoded XML decoder (like this one).
+- In the decoded XML output the value of the Audience tag is the App ID URI.
+- You may double-check tenant ID using Attribute tag named tenantid provided in XML.
