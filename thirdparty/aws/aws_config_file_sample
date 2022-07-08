@@ -8,7 +8,7 @@
 # aws_config_file=~/.aws/config
 
 # sample
-[my-dev-role-readonly]
+[profile my-dev-role-readonly]
 region=eu-west-1
 source_profile=default
 role_arn=arn:aws:iam::1234556789:role/my-role-ro
