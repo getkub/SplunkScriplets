@@ -23,6 +23,11 @@ azure_default_duration_hours=6
 region=eu-west-1
 ```
 
+- Then Login
+```
+aws-azure-login --mode=gui # 1st time to allow MFA login
+aws-azure-login # for future
+```
 
 Notes
 Getting Your Tenant ID and App ID URI
