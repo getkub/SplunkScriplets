@@ -6,6 +6,14 @@
 # *****************************************************************************
 
 # aws_config_file=~/.aws/config
+[default]
+region=eu-west-1
+azure_tenant_id=xxxxxxxx
+azure_app_id_uri=https://signin.aws.amazon.com/saml
+azure_default_username=my_email_or_id
+azure_default_role_arn=
+azure_default_duration_hours=12
+azure_default_remember_me=true
 
 # sample
 [profile my-dev-role-readonly]
