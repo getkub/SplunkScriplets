@@ -1,17 +1,17 @@
 def call(Map stageParams) {
-    def vault_namespace = stageParams.vault_namespace
+    def storevault_namespace = stageParams.storevault_namespace
     def environment_name = stageParams.environment_name
     env.VAULT_FORMAT = "json"
-    def vault_url = env.VAULT_URL
-    println "Using vault URL as $vault_url"
-    def vault_url = my-ec2-role
+    def storevault_url = env.VAULT_URL
+    println "vault_url=$storevault_url"
+    def storevault_url = my-ec2-role
 
 	sh '''
     set +x
     export AWS_REGION="eu-west-1"
-    export VAULT_NAMESPACE='''+vault_namespace+'''
-    export VAULT_ADDR='''+vault_url+'''
-    vault login -method=aws role='''+vault_role+'''
+    export VAULT_NAMESPACE='''+storevault_namespace+'''
+    export VAULT_ADDR='''+storevault_url+'''
+    vault login -method=aws role='''+storevault_role+'''
     sleep 5
     export my_pw=\$(vault kv get secrets/iac-secrets/'''+environment_name+''' | jq -r '.data.data |.MY_ADMIN_PASS') ; echo ${my_pw} > my_pw.txt
     export app_user=\$(vault kv get secrets/iac-secrets/'''+environment_name+''' | jq -r '.data.data') ; echo ${app_user} > app_user.txt 
