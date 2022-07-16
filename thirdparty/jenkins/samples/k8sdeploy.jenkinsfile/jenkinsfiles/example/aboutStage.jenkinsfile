@@ -1,7 +1,7 @@
 #!groovy
 @Library("jenkinslibrary") _    //jenkins: Manage Jenkins -> configure system -> Global Pipeline Libraries -> Library Name
 
-//实现串行和并行stage，本质是声明是pipeline调用脚本式pipeline。
+
 def task = [:]
 //pipeline
 pipeline{
@@ -21,14 +21,14 @@ pipeline{
 	                         }
 	                     }
 					}
-					//动态串行stage
+					
 					for ( int a = 1;a < 4;a++){
 					    stage("nested $a") {
 						    println("this is nested stage")
 						    sleep 2
 						}  
 					 }
-					//动态并行stage
+					
     		        parallel(tasks)
     		        
     		    } 

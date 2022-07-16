@@ -11,10 +11,10 @@ def remote = [:]
 pipeline{
     agent any
     options {
-    timestamps() //日志会有时间
-    skipDefaultCheckout() //删除隐式checkout scm语句
-    disableConcurrentBuilds() //禁止并行
-    timeout(time: 1, unit: "HOURS") //流水线超时设置1h
+    timestamps() 
+    skipDefaultCheckout() 
+    disableConcurrentBuilds() 
+    timeout(time: 1, unit: "HOURS") 
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2'))
 	}
     stages{
@@ -66,7 +66,7 @@ pipeline{
 		    	}
 		    }	
 		}    
-		stage("deploy to nginx"){  //  deploy project to k8s server
+		stage("deploy to nginx"){  
 		    steps{
 		    	script{
 		    		withCredentials([sshUserPrivateKey(credentialsId: credentialsId, keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
@@ -76,7 +76,7 @@ pipeline{
 						sshCommand remote: remote, command: "[[ -d ${remoteNginxPath} ]] && rm -rf ${remoteNginxPath}/* || mkdir -p ${remoteNginxPath}"
 						//传输
 						sshPut remote: remote, from: "${target_dir}/../dist.tar.gz", into: remoteNginxPath
-						//解压,删除tar包,reload nginx
+						
 						sshCommand remote: remote, command: """
 							tar xf ${remoteNginxPath}/dist.tar.gz -C ${remoteNginxPath}/ \
 							&& rm -f ${remoteNginxPath}/dist.tar.gz \

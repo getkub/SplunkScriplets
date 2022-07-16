@@ -90,7 +90,7 @@ pipeline{
 				}
 			}	
 		}    
-		stage("deploy project to k8s server"){  //  deploy project to k8s server
+		stage("deploy project to k8s server"){  
 			steps{
 				script{
 

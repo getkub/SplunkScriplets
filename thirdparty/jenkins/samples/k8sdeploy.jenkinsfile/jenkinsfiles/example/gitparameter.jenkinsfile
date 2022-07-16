@@ -1,7 +1,7 @@
 #!groovy
 @Library("jenkinslibrary") _    
 
-//当使用gitlab存储jenkins时，用于获取后端项目的分支列表参数
+
 def url = 'http://10.0.0.1/root/project.git'
 
 //pipeline

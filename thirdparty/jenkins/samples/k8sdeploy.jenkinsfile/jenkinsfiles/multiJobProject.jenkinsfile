@@ -8,10 +8,10 @@ pipeline{
 	
     agent any
     options {
-	    timestamps() //日志会有时间
-	    skipDefaultCheckout() //删除隐式checkout scm语句
-	    disableConcurrentBuilds() //禁止并行
-	    timeout(time: 1, unit: "HOURS") //流水线超时设置1h
+	    timestamps()
+	    skipDefaultCheckout()
+	    disableConcurrentBuilds()
+	    timeout(time: 1, unit: "HOURS")
 	    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2'))
 	}
 	
