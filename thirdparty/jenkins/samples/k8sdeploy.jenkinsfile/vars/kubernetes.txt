@@ -1,5 +1,0 @@
-## use the k8s apiserver to operation project
-+ config apiserver url
-+ how to get  k8s token 
-    - kubectl -n kube-system get secret |grep admin
-    - kubectl get secret admin-token-xxx -n kube-system -o jsonpath={".data.token"} | base64 -d
