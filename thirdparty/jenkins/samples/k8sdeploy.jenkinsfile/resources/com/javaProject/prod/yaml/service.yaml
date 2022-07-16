@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: ${Service}
+ namespace: ${NS}
+ labels:
+   app: ${Service}
+   release: ${release}
+spec:
+ selector:
+  app: ${Service}
+  release: ${release}
+ ports:
+ - name: http
+   port: ${Port}
+   targetPort: ${Port}
+   nodePort: ${Port}
+ type: NodePort

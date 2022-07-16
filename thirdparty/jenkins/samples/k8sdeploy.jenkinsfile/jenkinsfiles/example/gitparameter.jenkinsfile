@@ -1,0 +1,24 @@
+#!groovy
+@Library("jenkinslibrary") _    
+
+//当使用gitlab存储jenkins时，用于获取后端项目的分支列表参数
+def url = 'http://10.0.0.1/root/project.git'
+
+//pipeline
+pipeline{
+	
+    agent any
+	parameters{
+		gitParameter(branch: '', branchFilter: '.*', defaultValue: 'origin/master', description: '', listSize: '10', name: 'branch', 
+					quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*', type: 'PT_BRANCH', 
+					useRepository: url)
+	}
+    stages{
+    	stage("pull code"){  // pull code from gitlab 
+            steps{
+            	git credentialsId: 'credentialsId', url: url
+				
+           }
+        }
+    }
+}

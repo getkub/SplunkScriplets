@@ -1,0 +1,10 @@
+env.gitlab_auth = "8ad24c23-ff19-422f-af3d-50b4afd85200"
+env.harbor_auth = "91de3ca0-67d9-4706-b036-19aa2b7f8100"
+env.harbor_host =  "10.0.0.1"
+env.release = "dev"
+env.JDK_V = "8"
+env.k8s_master_ip = "10.0.0.1"
+env.NS = "default"
+env.Apollo = "http://10.0.0.1:8080"
+env.DnsIP = "10.0.0.1"
+env.DnsName = "www.xxx.com

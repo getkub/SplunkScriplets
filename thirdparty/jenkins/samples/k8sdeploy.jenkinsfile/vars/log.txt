@@ -1,0 +1,4 @@
++ log.warning(value)
++ log.error(value)
++ log.info(value)
++ log.debug(value)

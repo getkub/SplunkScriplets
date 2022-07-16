@@ -1,0 +1,135 @@
+#!groovy
+@Library("jenkinslibrary") _    //jenkins: Manage Jenkins -> configure system -> Global Pipeline Libraries -> Library Name
+
+
+// libraries -> func
+
+
+
+
+// environment -> parameters
+String Service = "${env.Service}"
+String releaseEnv = "${env.releaseEnv}"
+String projectType = "webSiteProject"
+
+
+def remote = [:]	
+
+//pipeline
+pipeline{
+    agent any
+    options {
+    timestamps() //日志会有时间
+    skipDefaultCheckout() //删除隐式checkout scm语句
+    //disableConcurrentBuilds() //禁止并行
+    timeout(time: 1, unit: "HOURS") //流水线超时设置1h
+    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2'))
+	}
+    stages{
+		stage("initial env"){  // initial env parmaters to global pipeline
+			steps{
+				script{
+					// config file
+					def baseEnvConfig = libraryResource "com/${projectType}/${releaseEnv}/conf/base.groovy"
+					def serviceEnvConfig = libraryResource "com/${projectType}/${releaseEnv}/conf/${Service}.groovy"
+					writeFile encoding: 'UTF-8', file: 'base.groovy', text: baseEnvConfig
+					writeFile encoding: 'UTF-8', file: 'service.groovy', text: serviceEnvConfig
+					load 'base.groovy'
+					load 'service.groovy'
+					//choice resources file 	
+					sh "rm -rf base.groovy service.groovy"
+					remote.allowAnyHosts = true
+					remote。logLevel = "INFO"
+				}
+			}
+		}
+		stage("roll back"){  // pull code from gitlab 
+        	when { 
+        		beforeAgent true;
+        		environment name: 'status', value: 'rollback'
+        	}
+            steps{
+				script{
+					withCredentials([sshUserPrivateKey(credentialsId: credentialsId, keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+						remote.user = userName
+						remote.identityFile = identity
+						writeFile file: 'rollback.sh', text: """
+							backUpTgzFile=`ls -tr ${backUpDir}/${Service}@*.tgz |tail -1 `
+							[[ \${backUpTgzFile} == '' ]] && echo no such file  && exit 13
+							[[ -d ${NginxRootPath}/${Service} ]] && rm -rf ${NginxRootPath}/${Service}
+							tar xf ${backUpDir}/\${backUpTgzFile} -C ${NginxRootPath}/
+							"""
+						//resource资源会把值都转换为字符串，不能写列表
+						remoteAddr = remoteAddr.tokenize(",")
+						remoteAddr.each{
+							remote.name = it
+							remote.host = it
+							sshScript remote: remote, script: "rollback.sh"
+							sshCommand remote: remote, command: "[[ -d ${NginxRootPath}/${Service} ]] && /usr/sbin/nginx -s reload || error ${NginxRootPath}/${Service} does not exists"
+						}
+						sh "rm -f backup.sh"
+					}
+				}
+           }
+        }
+        stage("pull code"){  // pull code from gitlab 
+        	when { 
+        		beforeAgent true;
+        		environment name: 'status', value: 'update'
+        	}
+            steps{
+				script{
+				checkout([$class: 'GitSCM', 
+					branches: [[name: gitlab_branch]], 
+					doGenerateSubmoduleConfigurations: false, 
+					extensions: [], submoduleCfg: [], 
+					userRemoteConfigs: [[credentialsId: gitlab_auth, 
+					url: gitlab_url ]]])
+				}
+           }
+        }
+		stage("update to nginx"){  //  deploy project to k8s server
+			when { 
+        		beforeAgent true;
+        		environment name: 'Status', value: 'update'
+        	}
+		    steps{
+		    	script{
+		    		//清理旧包
+		    		sh returnStatus: true, script: "[[ -f ${Service}.tgz ]] && rm -f ${Service}.tgz"
+		    		//打包更新包
+		    		dir(target_dir){
+		    		    sh "tar zcf ${WORKSPACE}/${Service}.tgz ./*"
+		    		}
+
+	    			
+		    		withCredentials([sshUserPrivateKey(credentialsId: credentialsId, keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+						remote.user = userName
+						remote.identityFile = identity
+						//resource资源会把值都转换为字符串，不能写列表
+						remoteAddr = remoteAddr.tokenize(",")
+						remoteAddr.each{							
+							println(it)
+							remote.name = it
+							remote.host = it
+							//将包发送到目标服务器
+							sshPut remote: remote, from: "${Service}.tgz", into: NginxRootPath
+							//删除旧的备份文件
+							sshCommand remote: remote, command: "rm -f ${backUpDir}/${Service}@*.tgz"
+							//备份现有静态目录
+							sshCommand remote: remote, command: "[[ -d ${NginxRootPath}/${Service} ]] && cd ${NginxRootPath}/ && tar -zcf ${backUpDir}/${Service}@${Tag}.tgz ${Service} || exit 10"
+							//删除线上目录
+							sshCommand remote: remote, command: "[[ -d ${NginxRootPath}/${Service} ]] && rm -rf ${NginxRootPath}/${Service} && mkdir -p ${NginxRootPath}/${Service} || mkdir -p ${NginxRootPath}/${Service}"
+							//解压更新包，reload nginx
+							sshCommand remote: remote, command: "[[ -f ${NginxRootPath}/${Service}.tgz ]] && tar xf ${NginxRootPath}/${Service}.tgz -C ${NginxRootPath}/${Service}/ && /usr/sbin/nginx -s reload || error ${NginxRootPath}/${Service}.tgz does not exists"
+							//删除更新包
+							sshCommand remote: remote, command: "rm -f ${NginxRootPath}/${Service}.tgz"
+						}
+						
+		    		}
+		    		cleanWs cleanWhenFailure: false, cleanWhenNotBuilt: false, cleanWhenUnstable: false
+		        }
+		    }
+		}
+    }
+}

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: ${Service}
+ namespace: ${NS}
+ labels:
+  app: ${Service}
+  release: ${release}
+spec:
+ replicas: ${server_replicas}
+ selector:
+  matchLabels:
+   app: ${Service}
+   release: ${release}
+ template:
+  metadata:
+   labels:
+    app: ${Service}
+    release: ${release}
+  spec:
+   hostAliases:
+      - ip: "${DnsIP}"
+        hostnames:
+        - "${DnsName}"
+   containers:
+   - name: ${Service}
+     image: ${REPOSITORY}
+     resources:
+      requests:
+       memory: "${request_mem}"
+      limits:
+       memory: "${limit_mem}"
+     ports:
+     - name: http
+       containerPort: ${Port}
+   imagePullSecrets:
+   - name: registry-secret

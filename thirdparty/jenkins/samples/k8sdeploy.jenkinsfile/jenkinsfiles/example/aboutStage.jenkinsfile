@@ -1,0 +1,38 @@
+#!groovy
+@Library("jenkinslibrary") _    //jenkins: Manage Jenkins -> configure system -> Global Pipeline Libraries -> Library Name
+
+//实现串行和并行stage，本质是声明是pipeline调用脚本式pipeline。
+def task = [:]
+//pipeline
+pipeline{
+	
+    agent any
+    stages{
+    	stage("about stage"){
+    		steps{
+    		    script{
+    		    
+    		    	for (int i = 1;i < 4;i++){
+    		    		def index = i
+					    tasks[ "task ${index}" ] = {
+	                         stage("task ${index}"){
+	                     		    println "task ${index}"
+	                     		    sleep 10   
+	                         }
+	                     }
+					}
+					//动态串行stage
+					for ( int a = 1;a < 4;a++){
+					    stage("nested $a") {
+						    println("this is nested stage")
+						    sleep 2
+						}  
+					 }
+					//动态并行stage
+    		        parallel(tasks)
+    		        
+    		    } 
+    		}
+    	}
+    }
+}

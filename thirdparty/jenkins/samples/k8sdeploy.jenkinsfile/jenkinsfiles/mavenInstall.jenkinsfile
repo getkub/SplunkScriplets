@@ -1,0 +1,63 @@
+#!groovy
+@Library("jenkinslibrary") _    //jenkins: Manage Jenkins -> configure system -> Global Pipeline Libraries -> Library Name
+
+// libraries -> func
+def healthCheck = new org.devops.healthCheck()
+def harborSearch = new org.devops.harborSearch()
+def k8sSearch = new org.devops.k8sSearch()
+
+// environment -> parameters
+String Service = "${env.Service}"
+String releaseEnv = "${env.releaseEnv}"
+String projectType = "javaProject"
+
+//pipeline
+pipeline{
+    agent any
+    options {
+    timestamps() 
+    skipDefaultCheckout()
+    disableConcurrentBuilds()
+    timeout(time: 1, unit: "HOURS")
+	buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2'))
+	}
+    stages{
+		stage("initial env"){  // initial env parmaters to global pipeline
+			steps{
+				script{
+					def baseEnvConfig = libraryResource "com/${projectType}/${releaseEnv}/conf/base.groovy"
+					def serviceEnvConfig = libraryResource "com/${projectType}/${releaseEnv}/conf/${Service}.groovy"
+					writeFile encoding: 'UTF-8', file: 'base.groovy', text: baseEnvConfig
+					writeFile encoding: 'UTF-8', file: 'service.groovy', text: serviceEnvConfig
+					load 'base.groovy'
+					load 'service.groovy'
+				}
+			}
+		}
+        stage("pull code"){  // pull code from gitlab 
+            steps{
+				script{
+				checkout([$class: 'GitSCM', 
+					branches: [[name: "${gitlab_branch}"]], 
+					doGenerateSubmoduleConfigurations: false, 
+					extensions: [], submoduleCfg: [], 
+					userRemoteConfigs: [[credentialsId: "${gitlab_auth}", 
+					url: "${gitlab_url}" ]]])
+				}
+           }
+        }
+        stage("maven build"){  // build target java project
+        	steps{
+        		script{
+					dir("${target_dir}") {
+						withMaven(jdk: 'jdk1.8.0_191', maven: 'mave3.6.0') {
+						    sh "mvn clean install -U -Dmaven.test.skip=true"
+						}
+	       			}
+       			}
+        	}
+		}
+
+			
+    }
+}
