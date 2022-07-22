@@ -29,6 +29,11 @@ aws-azure-login --mode=gui # 1st time to allow MFA login
 aws-azure-login # for future
 ```
 
+- Check roles
+```
+aws sts get-caller-identity
+```
+
 Notes
 Getting Your Tenant ID and App ID URI
 - Your Azure AD system admin should be able to provide you with your Tenant ID and App ID URI. If you can't get it from them, you can scrape it from a login page from the myapps.microsoft.com page.
