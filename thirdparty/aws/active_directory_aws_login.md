@@ -34,7 +34,7 @@ aws-azure-login # for future
 aws sts get-caller-identity
 eval $(assume-role my-app-creator)\n
 aws sts get-caller-identity
-
+aws s3 ls  # Test
 ```
 
 Notes
