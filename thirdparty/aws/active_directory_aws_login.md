@@ -32,6 +32,9 @@ aws-azure-login # for future
 - Check roles
 ```
 aws sts get-caller-identity
+eval $(assume-role my-app-creator)\n
+aws sts get-caller-identity
+
 ```
 
 Notes
