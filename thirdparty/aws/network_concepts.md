@@ -13,3 +13,5 @@ Concepts are
 - For PUBLIC  Routes -> Edit Routes -> destination (0.0.0.0/0)  -> Target of Internet Gateway and attach to relevant IGW
 - For PRIVATE Routes -> Subnet Association -> Associate two private networks to private route table
 - For PUBLIC  Routes -> Subnet Association -> Associate two public  networks to private route table
+
+- NAT Gateway required for egress
