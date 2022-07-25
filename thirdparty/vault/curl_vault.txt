@@ -1,0 +1,3 @@
+curl --request POST --header \"Content-Type: application/json\" " +
+                " --header \"X-Vault-Namespace: ${vault_namespace}\" " +
+                " --data '{\"jwt\": \"${jwtToken}\", \"role\": \"myrole\"}' ${vault_endpoint}/v1/auth/kubernetes/login -k -s
