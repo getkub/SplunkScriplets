@@ -1,0 +1,14 @@
+- hosts: localhost
+  vars:
+    fruit: "apple"
+  tasks:
+    - name: Main Task
+      block:
+        - name: Get subtask1
+          set_fact:
+            task1: "subtask1"
+        - name: print subtask
+          debug:
+            msg: task1    
+      when: fruit is defined
+
