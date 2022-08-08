@@ -9,3 +9,8 @@ rsync -vtr --progress --exclude debug/ rsync://mirror.pnl.gov/epel/7/x86_64/ epe
 ### Faster rsync
 rsync -r --size-only --progress ${srcDir}/* ${destDir}/ --dry-run
 ```
+
+## Ignore Certain files
+```
+rsync -r --size-only --progress ${srcDir}/* ${destDir}/ --exclude '.DS_Store' --dry-run
+```
