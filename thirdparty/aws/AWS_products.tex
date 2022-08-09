@@ -1,0 +1,1624 @@
+\documentclass[10pt,a4paper]{article}
+
+% Packages
+\usepackage{fancyhdr}           % For header and footer
+\usepackage{multicol}           % Allows multicols in tables
+\usepackage{tabularx}           % Intelligent column widths
+\usepackage{tabulary}           % Used in header and footer
+\usepackage{hhline}             % Border under tables
+\usepackage{graphicx}           % For images
+\usepackage{xcolor}             % For hex colours
+%\usepackage[utf8x]{inputenc}    % For unicode character support
+\usepackage[T1]{fontenc}        % Without this we get weird character replacements
+\usepackage{colortbl}           % For coloured tables
+\usepackage{setspace}           % For line height
+\usepackage{lastpage}           % Needed for total page number
+\usepackage{seqsplit}           % Splits long words.
+%\usepackage{opensans}          % Can't make this work so far. Shame. Would be lovely.
+\usepackage[normalem]{ulem}     % For underlining links
+% Most of the following are not required for the majority
+% of cheat sheets but are needed for some symbol support.
+\usepackage{amsmath}            % Symbols
+\usepackage{MnSymbol}           % Symbols
+\usepackage{wasysym}            % Symbols
+%\usepackage[english,german,french,spanish,italian]{babel}              % Languages
+
+% Document Info
+\author{irohitpawar}
+\pdfinfo{
+  /Title (aws-services.pdf)
+  /Creator (Cheatography)
+  /Author (irohitpawar)
+  /Subject (AWS Services Cheat Sheet)
+}
+
+% Lengths and widths
+\addtolength{\textwidth}{6cm}
+\addtolength{\textheight}{-1cm}
+\addtolength{\hoffset}{-3cm}
+\addtolength{\voffset}{-2cm}
+\setlength{\tabcolsep}{0.2cm} % Space between columns
+\setlength{\headsep}{-12pt} % Reduce space between header and content
+\setlength{\headheight}{85pt} % If less, LaTeX automatically increases it
+\renewcommand{\footrulewidth}{0pt} % Remove footer line
+\renewcommand{\headrulewidth}{0pt} % Remove header line
+\renewcommand{\seqinsert}{\ifmmode\allowbreak\else\-\fi} % Hyphens in seqsplit
+% This two commands together give roughly
+% the right line height in the tables
+\renewcommand{\arraystretch}{1.3}
+\onehalfspacing
+
+% Commands
+\newcommand{\SetRowColor}[1]{\noalign{\gdef\RowColorName{#1}}\rowcolor{\RowColorName}} % Shortcut for row colour
+\newcommand{\mymulticolumn}[3]{\multicolumn{#1}{>{\columncolor{\RowColorName}}#2}{#3}} % For coloured multi-cols
+\newcolumntype{x}[1]{>{\raggedright}p{#1}} % New column types for ragged-right paragraph columns
+\newcommand{\tn}{\tabularnewline} % Required as custom column type in use
+
+% Font and Colours
+\definecolor{HeadBackground}{HTML}{333333}
+\definecolor{FootBackground}{HTML}{666666}
+\definecolor{TextColor}{HTML}{333333}
+\definecolor{DarkBackground}{HTML}{F70727}
+\definecolor{LightBackground}{HTML}{FEEFF1}
+\renewcommand{\familydefault}{\sfdefault}
+\color{TextColor}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhead{} % Set header to blank
+\fancyfoot{} % Set footer to blank
+\fancyhead[L]{
+\noindent
+\begin{multicols}{3}
+\begin{tabulary}{5.8cm}{C}
+    \SetRowColor{DarkBackground}
+    \vspace{-7pt}
+    {\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\noindent
+        \hspace*{-6pt}\includegraphics[width=5.8cm]{/web/www.cheatography.com/public/images/cheatography_logo.pdf}}
+    }
+\end{tabulary}
+\columnbreak
+\begin{tabulary}{11cm}{L}
+    \vspace{-2pt}\large{\bf{\textcolor{DarkBackground}{\textrm{AWS Services Cheat Sheet}}}} \\
+    \normalsize{by \textcolor{DarkBackground}{irohitpawar} via \textcolor{DarkBackground}{\uline{cheatography.com/127546/cs/24837/}}}
+\end{tabulary}
+\end{multicols}}
+
+\fancyfoot[L]{ \footnotesize
+\noindent
+\begin{multicols}{3}
+\begin{tabulary}{5.8cm}{LL}
+  \SetRowColor{FootBackground}
+  \mymulticolumn{2}{p{5.377cm}}{\bf\textcolor{white}{Cheatographer}}  \\
+  \vspace{-2pt}irohitpawar \\
+  \uline{cheatography.com/irohitpawar} \\
+  \end{tabulary}
+\vfill
+\columnbreak
+\begin{tabulary}{5.8cm}{L}
+  \SetRowColor{FootBackground}
+  \mymulticolumn{1}{p{5.377cm}}{\bf\textcolor{white}{Cheat Sheet}}  \\
+   \vspace{-2pt}Published 17th October, 2020.\\
+   Updated 18th October, 2020.\\
+   Page {\thepage} of \pageref{LastPage}.
+\end{tabulary}
+\vfill
+\columnbreak
+\begin{tabulary}{5.8cm}{L}
+  \SetRowColor{FootBackground}
+  \mymulticolumn{1}{p{5.377cm}}{\bf\textcolor{white}{Sponsor}}  \\
+  \SetRowColor{white}
+  \vspace{-5pt}
+  %\includegraphics[width=48px,height=48px]{dave.jpeg}
+  Measure your website readability!\\
+  www.readability-score.com
+\end{tabulary}
+\end{multicols}}
+
+
+
+
+\begin{document}
+\raggedright
+\raggedcolumns
+
+% Set font size to small. Switch to any value
+% from this page to resize cheat sheet text:
+% www.emerson.emory.edu/services/latex/latex_169.html
+\footnotesize % Small font.
+
+\begin{multicols*}{3}
+
+\begin{tabularx}{5.377cm}{x{1.41887 cm} x{1.41887 cm} x{1.73926 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Compute}}}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Category}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 1 (+ 1)
+% Row 1
+\SetRowColor{white}
+{\bf{Instances (Virtual machines)}} & EC2 & Provides secure, resizable compute capacity in the cloud. It makes web-scale cloud computing easier for developers. \{\{popup="https://aws.amazon.com/ec2/?c=cp\&sec=srv"\}\}EC2\{\{/popup\}\} \tn 
+% Row Count 14 (+ 13)
+% Row 2
+\SetRowColor{LightBackground}
+ & EC2 Spot & Run fault-tolerant workloads for up to 90\% off. \{\{popup="https://aws.amazon.com/ec2/spot/?c=cp\&sec=srv"\}\}EC2Spot\{\{/popup\}\} \tn 
+% Row Count 23 (+ 9)
+% Row 3
+\SetRowColor{white}
+ & EC2 Autoscaling & Automatically add or remove compute capacity to meet changes in demand. \{\{popup="https://aws.amazon.com/ec2/autoscaling/?c=cp\&sec=srv"\}\}EC2\_AustoScaling\{\{/popup\}\} \tn 
+% Row Count 34 (+ 11)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.41887 cm} x{1.41887 cm} x{1.73926 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Compute}} (cont)}}  \tn
+% Row 4
+\SetRowColor{LightBackground}
+ & Lightsail & Designed to be the easiest way to launch \& manage a virtual private server with AWS. An easy-to-use cloud platform that offers everything need to build an application or website. \{\{popup="https://aws.amazon.com/lightsail/?c=cp\&sec=srv"\}\}Lightsail\{\{/popup\}\} \tn 
+% Row Count 18 (+ 18)
+% Row 5
+\SetRowColor{white}
+ & Batch & Enables developers, scientists, \& engineers to easily \& efficiently run hundreds of thousands of batch computing jobs on AWS. Fully managed batch processing at any scale. \{\{popup="https://aws.amazon.com/batch/?c=cp\&sec=srv"\}\}Batch\{\{/popup\}\} \tn 
+% Row Count 34 (+ 16)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.41887 cm} x{1.41887 cm} x{1.73926 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Compute}} (cont)}}  \tn
+% Row 6
+\SetRowColor{LightBackground}
+{\bf{Containers}} & Elastic Container Service (ECS) & Highly secure, reliable, \& scalable way to run containers. \{\{popup="https://aws.amazon.com/ecs/?c=cp\&sec=srv"\}\}ECS\{\{/popup\}\} \tn 
+% Row Count 9 (+ 9)
+% Row 7
+\SetRowColor{white}
+ & Elastic Container Registry (ECR) & Easily store, manage, \& deploy container images. \{\{popup="https://aws.amazon.com/ecr/?c=cp\&sec=srv"\}\}ECR\{\{/popup\}\} \tn 
+% Row Count 17 (+ 8)
+% Row 8
+\SetRowColor{LightBackground}
+ & Elastic Kubernetes Service (EKS) & Fully managed Kubernetes service. \{\{popup="https://aws.amazon.com/eks/?c=cp\&sec=srv"\}\}EKS\{\{/popup\}\} \tn 
+% Row Count 24 (+ 7)
+% Row 9
+\SetRowColor{white}
+ & Fargate & Serverless compute for containers. \{\{popup="https://aws.amazon.com/fargate/?c=cp\&sec=srv"\}\}Fargate\{\{/popup\}\} \tn 
+% Row Count 32 (+ 8)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.41887 cm} x{1.41887 cm} x{1.73926 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Compute}} (cont)}}  \tn
+% Row 10
+\SetRowColor{LightBackground}
+{\bf{Serverless}} & Lambda & Run code without thinking about servers. Pay only for the compute time you consume. \{\{popup="https://aws.amazon.com/lambda/?c=cp\&sec=srv"\}\}Lamda\{\{/popup\}\} \tn 
+% Row Count 11 (+ 11)
+% Row 11
+\SetRowColor{white}
+{\bf{Edge and hybrid}} & Outposts & Run AWS infrastructure \& services on premises for a truly consistent hybrid experience. \{\{popup="https://aws.amazon.com/outpost/?c=cp\&sec=srv"\}\}Outposts\{\{/popup\}\} \tn 
+% Row Count 22 (+ 11)
+% Row 12
+\SetRowColor{LightBackground}
+ & Snow Family & Collect and process data in rugged or disconnected edge environments. \{\{popup="https://aws.amazon.com/snow/?c=cp\&sec=srv"\}\}SnowFamily\{\{/popup\}\} \tn 
+% Row Count 32 (+ 10)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.41887 cm} x{1.41887 cm} x{1.73926 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Compute}} (cont)}}  \tn
+% Row 13
+\SetRowColor{LightBackground}
+ & Wavelength & Deliver ultra-low latency application for 5G devices. \{\{popup="https://aws.amazon.com/wavelength/?c=cp\&sec=srv"\}\}Wavelenth\{\{/popup\}\} \tn 
+% Row Count 9 (+ 9)
+% Row 14
+\SetRowColor{white}
+ & VMware Cloud on AWS & Innovate faster, rapidly transition to the cloud, \& work securely from any location. \{\{popup="https://aws.amazon.com/vmware/?c=cp\&sec=srv"\}\}VMware\_On\_AWS\{\{/popup\}\} \tn 
+% Row Count 20 (+ 11)
+% Row 15
+\SetRowColor{LightBackground}
+ & Local Zones & Run latency sensitive applications closer to end-users. \{\{popup="https://aws.amazon.com/about-aws/global-infrastructure/localzones/?c=cp\&sec=srv"\}\}LocalZones\{\{/popup\}\} \tn 
+% Row Count 32 (+ 12)
+\hhline{>{\arrayrulecolor{DarkBackground}}---}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{1.59264 cm} x{3.38436 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{Storage}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 1 (+ 1)
+% Row 1
+\SetRowColor{white}
+AWS S3 & S3 is the storehouse for the internet i.e. object storage built to store \& retrieve any amount of data from anywhere \{\{popup="https://aws.amazon.com/s3/?c=s\&sec=srv"\}\}S3\{\{/popup\}\} \tn 
+% Row Count 8 (+ 7)
+% Row 2
+\SetRowColor{LightBackground}
+AWS Backup & AWS Backup is an externally-accessible backup provider that makes it easier to align \& optimize the backup of data across AWS services in the cloud. \{\{popup="https://aws.amazon.com/backup/?c=s\&sec=srv"\}\}AWS\_Backup\{\{/popup\}\} \tn 
+% Row Count 17 (+ 9)
+% Row 3
+\SetRowColor{white}
+Amazon EBS & Amazon Elastic Block Store is a web service that provides block-level storage volumes. \{\{popup="https://aws.amazon.com/ebs/?c=s\&sec=srv"\}\}EBS\{\{/popup\}\} \tn 
+% Row Count 23 (+ 6)
+% Row 4
+\SetRowColor{LightBackground}
+Amazon EFS Storage & EFS offers file storage for the user's Amazon EC2 instances. It's kind of blob Storage. \{\{popup="https://aws.amazon.com/efs/?c=s\&sec=srv"\}\}EFS\{\{/popup\}\} \tn 
+% Row Count 29 (+ 6)
+% Row 5
+\SetRowColor{white}
+Amazon FSx & FSx supply fully managed 3rd-party file systems with the native compatibility \& characteristic sets for workloads. It's available as FSx for Windows server (Fully managed file storage built on Windows Server) \& Lustre (Fully managed high-performance file system integrated with S3). \{\{popup="https://aws.amazon.com/fsx/windows/?c=s\&sec=srv"\}\}FSx\_Windows\{\{/popup\}\}  \{\{popup="https://aws.amazon.com/fsx/lustre/?c=s\&sec=srv"\}\}FSx\_Lustre\{\{/popup\}\} \tn 
+% Row Count 46 (+ 17)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.59264 cm} x{3.38436 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{Storage (cont)}}  \tn
+% Row 6
+\SetRowColor{LightBackground}
+AWS Storage Gateway & Storage Gateway is a service which connects an on-premises software appliance with cloud-based storage. \{\{popup="https://aws.amazon.com/storagegateway/?c=s\&sec=srv"\}\}Storage\_Gateway\{\{/popup\}\} \tn 
+% Row Count 8 (+ 8)
+% Row 7
+\SetRowColor{white}
+AWS DataSync & DataSync makes it simple \& fast to move large amounts of data online between on-premises storage \& S3, EFS, or FSx for Windows File Server. \{\{popup="https://aws.amazon.com/datasync/?c=s\&sec=srv"\}\}DataSync\{\{/popup\}\} \tn 
+% Row Count 16 (+ 8)
+% Row 8
+\SetRowColor{LightBackground}
+AWS Transfer Family & The Transfer Family provides fully managed support for file transfers directly into \& out of S3. \{\{popup="https://aws.amazon.com/aws-transfer-family/?c=s\&sec=srv"\}\}Transfer\_Family\{\{/popup\}\} \tn 
+% Row Count 23 (+ 7)
+% Row 9
+\SetRowColor{white}
+AWS Snow Family & Highly-secure, portable devices to collect \& process data at the edge, and migrate data into and out of AWS. \{\{popup="https://aws.amazon.com/snow/?c=s\&sec=srv"\}\}Snow\_Family\{\{/popup\}\} \tn 
+% Row Count 30 (+ 7)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\SetRowColor{LightBackground}
+\mymulticolumn{2}{x{5.377cm}}{{\bf{Classification}}: \newline {\bf{Object storage}}: {\emph{S3}} \newline {\bf{File storage services}}: {\emph{Elastic File System, FSx for Windows Servers \& FSx for Lustre}} \newline {\bf{Block storage}}: {\emph{EBS}} \newline {\bf{Backup}}: {\emph{AWS Backup}} \newline {\bf{Data transfer}}: \newline {\emph{Storage gateway}} -{}-\textgreater{} 3 types: Tape, File, Volume. \newline {\emph{Transfer Family}} -{}-\textgreater{} SFTP, FTPS, FTP. \newline {\emph{Edge computing and storage and Snow Family}} -{}-\textgreater{} Snowcone, Snowball, Snowmobile}  \tn 
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{p{0.54301 cm} x{1.29487 cm} x{1.04425 cm} x{1.29487 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Databases}}}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Database type}} & {\bf{Use cases}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 4 (+ 4)
+% Row 1
+\SetRowColor{white}
+{\bf{Relational}} & Traditional \seqsplit{applications}, ERP, CRM, e-commerce & Aurora, RDS, Redshift & RDS is a web service that makes it easier to set up, control, and scale a relational database in the cloud. \{\{popup="https://aws.amazon.com/rds/aurora/?c=db\&sec=srv"\}\}Aurora\{\{/popup\}\} \{\{popup="https://aws.amazon.com/rds/?c=db\&sec=srv"\}\}RDS\{\{/popup\}\} \{\{popup="https://aws.amazon.com/redshift/?c=db\&sec=srv"\}\}Redshift\{\{/popup\}\} \tn 
+% Row Count 32 (+ 28)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.54301 cm} x{1.29487 cm} x{1.04425 cm} x{1.29487 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Databases}} (cont)}}  \tn
+% Row 2
+\SetRowColor{LightBackground}
+{\bf{Key-value}} & \seqsplit{High-traffic} web apps, e-commerce systems, gaming \seqsplit{applications} & DynamoDB & DynamoDB is a fully \seqsplit{administered} NoSQL database service that offers quick and reliable performance with integrated \seqsplit{scalability.} \{\{popup="https://aws.amazon.com/dynamodb/?c=db\&sec=srv"\}\}DynamoDB\{\{/popup\}\} \tn 
+% Row Count 17 (+ 17)
+% Row 3
+\SetRowColor{white}
+{\bf{In-memory}} & Caching, session management, gaming \seqsplit{leaderboards}, geospatial \seqsplit{applications} & \seqsplit{ElastiCache} for Memcached \& Redis & ElastiCache helps in setting up, managing, and scaling in-memory cache conditions. \{\{popup="https://aws.amazon.com/elasticache/memcached/?c=db\&sec=srv"\}\}Memcached\{\{/popup\}\} \{\{popup="https://aws.amazon.com/elasticache/redis/?c=db\&sec=srv"\}\}Redis\{\{/popup\}\} \tn 
+% Row Count 39 (+ 22)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.54301 cm} x{1.29487 cm} x{1.04425 cm} x{1.29487 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Databases}} (cont)}}  \tn
+% Row 4
+\SetRowColor{LightBackground}
+{\bf{Document}} & Content management, catalogs, user profiles & \seqsplit{DocumentDB} & DocumentDB (with MongoDB \seqsplit{compatibility)} is a quick, dependable, and \seqsplit{fully-managed} database service that makes it easy for you to set up, operate, and scale \seqsplit{MongoDB-compatible} databases.\{\{popup="https://aws.amazon.com/documentdb/?c=db\&sec=srv"\}\}DocumentDB\{\{/popup\}\} \tn 
+% Row Count 22 (+ 22)
+% Row 5
+\SetRowColor{white}
+{\bf{Wide column}} & High scale industrial apps for equipment maintenance, fleet management, and route \seqsplit{optimization} & Keyspaces (for Apache \seqsplit{Cassandra)} & Keyspaces is a scalable, highly available, and managed Apache \seqsplit{Cassandra–compatible} database service. \{\{popup="https://aws.amazon.com/keyspaces/?c=db\&sec=srv"\}\}Keyspaces\{\{/popup\}\} \tn 
+% Row Count 37 (+ 15)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.54301 cm} x{1.29487 cm} x{1.04425 cm} x{1.29487 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Databases}} (cont)}}  \tn
+% Row 6
+\SetRowColor{LightBackground}
+{\bf{Graph}} & Fraud detection, social networking, \seqsplit{recommendation} engines & Neptune & Neptune is a fast, reliable, fully managed graph database service that makes it easy to build and run \seqsplit{applications} that work with highly connected datasets. \{\{popup="https://aws.amazon.com/neptune/?c=db\&sec=srv"\}\}Neptune\{\{/popup\}\} \tn 
+% Row Count 20 (+ 20)
+% Row 7
+\SetRowColor{white}
+{\bf{Time series}} & IoT \seqsplit{applications}, DevOps, industrial telemetry & \seqsplit{Timestream} & Timestream is a fast, scalable, and serverless time series database service for IoT and operational \seqsplit{applications} that makes it easy to store and analyze trillions of events per day. \{\{popup="https://aws.amazon.com/timestream/?c=db\&sec=srv"\}\}Timestream\{\{/popup\}\} \tn 
+% Row Count 42 (+ 22)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.54301 cm} x{1.29487 cm} x{1.04425 cm} x{1.29487 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Databases}} (cont)}}  \tn
+% Row 8
+\SetRowColor{LightBackground}
+{\bf{Ledger}} & Systems of record, supply chain, \seqsplit{registrations}, banking \seqsplit{transactions} & Quantum Ledger Database (QLDB) & QLDB is a fully managed ledger database that provides a transparent, immutable, and \seqsplit{cryptographically} verifiable transaction log ‎owned by a central trusted authority. \{\{popup="https://aws.amazon.com/qldb/?c=db\&sec=srv"\}\}QLDB\{\{/popup\}\} \tn 
+% Row Count 20 (+ 20)
+\hhline{>{\arrayrulecolor{DarkBackground}}----}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{1.69218 cm} x{3.28482 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Developer Tools}}}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 1 (+ 1)
+% Row 1
+\SetRowColor{white}
+Cloud9 & Cloud9 is a cloud-based IDE that enables the user to write, run, and debug code. \{\{popup="https://aws.amazon.com/cloud9/?c=dv\&sec=srv"\}\}Cloud9\{\{/popup\}\} \tn 
+% Row Count 7 (+ 6)
+% Row 2
+\SetRowColor{LightBackground}
+CodeArtifact & CodeArtifact is a fully managed artifact repository service that makes it easy for organizations of any size to securely store, publish, \& share software packages used in their software development process. \{\{popup="https://aws.amazon.com/codeartifact/?c=dv\&sec=srv"\}\}CodeArtifact\{\{/popup\}\} \tn 
+% Row Count 19 (+ 12)
+% Row 3
+\SetRowColor{white}
+CodeBuild & CodeBuild is a fully managed service that assembles source code, runs unit tests, \& also generates artefacts ready to deploy. \{\{popup="https://aws.amazon.com/codebuild/?c=dv\&sec=srv"\}\}CodeBuild\{\{/popup\}\} \tn 
+% Row Count 27 (+ 8)
+% Row 4
+\SetRowColor{LightBackground}
+CodeGuru & CodeGuru is a developer tool powered by machine learning that provides intelligent recommendations for improving code quality \& identifying an application's most expensive lines of code. \{\{popup="https://aws.amazon.com/codeguru/?c=dv\&sec=srv"\}\}CodeGuru\{\{/popup\}\} \tn 
+% Row Count 38 (+ 11)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.69218 cm} x{3.28482 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Developer Tools}} (cont)}}  \tn
+% Row 5
+\SetRowColor{LightBackground}
+Cloud Development Kit & Cloud Development Kit (AWS CDK) is an open source software development framework to define cloud application resources using familiar programming languages. \{\{popup="https://aws.amazon.com/cdk/?c=dv\&sec=srv"\}\}CDK\{\{/popup\}\} \tn 
+% Row Count 9 (+ 9)
+% Row 6
+\SetRowColor{white}
+CodeCommit & CodeCommit is a version control service that enables the user to personally store \& manage Git archives in the AWS cloud. \{\{popup="https://aws.amazon.com/codecommit/?c=dv\&sec=srv"\}\}CodeCommit\{\{/popup\}\} \tn 
+% Row Count 17 (+ 8)
+% Row 7
+\SetRowColor{LightBackground}
+CodeDeploy & CodeDeploy is a fully managed deployment service that automates software deployments to a variety of compute services such as EC2, Fargate, Lambda, \& on-premises servers. \{\{popup="https://aws.amazon.com/codedeploy/?c=dv\&sec=srv"\}\}CodeDeploy\{\{/popup\}\} \tn 
+% Row Count 27 (+ 10)
+% Row 8
+\SetRowColor{white}
+CodePipeline & CodePipeline is a fully managed continuous delivery service that helps automate release pipelines for fast \& reliable app \& infra updates.  \{\{popup="https://aws.amazon.com/codepipeline/?c=dv\&sec=srv"\}\}CodePipeline\{\{/popup\}\} \tn 
+% Row Count 36 (+ 9)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.69218 cm} x{3.28482 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Developer Tools}} (cont)}}  \tn
+% Row 9
+\SetRowColor{LightBackground}
+CodeStar & CodeStar enables to quickly develop, build, \& deploy applications on AWS. \{\{popup="https://aws.amazon.com/codestar/?c=dv\&sec=srv"\}\}CodeStar\{\{/popup\}\} \tn 
+% Row Count 6 (+ 6)
+% Row 10
+\SetRowColor{white}
+CLI & AWS CLI is a unified tool to manage AWS services \& control multiple services from the command line \& automate them through scripts. \{\{popup="https://aws.amazon.com/cli/?c=dv\&sec=srv"\}\}CLI\{\{/popup\}\} \tn 
+% Row Count 14 (+ 8)
+% Row 11
+\SetRowColor{LightBackground}
+X-Ray & X-Ray helps developers analyze \& debug production, distributed applications, such as those built using a microservices architecture. \{\{popup="https://aws.amazon.com/xray/?c=dv\&sec=srv"\}\}X-Ray\{\{/popup\}\} \tn 
+% Row Count 22 (+ 8)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.18988 cm} x{2.78712 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{Migration \& Transfer services}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 1 (+ 1)
+% Row 1
+\SetRowColor{white}
+Migration Evaluator & Build a data-driven business case for AWS. \{\{popup="https://aws.amazon.com/migration-evaluator/?c=mt\&sec=srv"\}\}ME\{\{/popup\}\} \tn 
+% Row Count 7 (+ 6)
+% Row 2
+\SetRowColor{LightBackground}
+Migration Hub & Migration Hub provides a single location to track the progress of app migrations across multiple AWS \& partner solutions. \{\{popup="https://aws.amazon.com/migration-hub/?c=mt\&sec=srv"\}\}MigrationHub\{\{/popup\}\} \tn 
+% Row Count 17 (+ 10)
+% Row 3
+\SetRowColor{white}
+Application Discovery Service & Application Discovery Service helps enterprise customers plan migration projects by gathering information about their on-premises data centers. \{\{popup="https://aws.amazon.com/application-discovery/?c=mt\&sec=srv"\}\}ADS\{\{/popup\}\} \tn 
+% Row Count 28 (+ 11)
+% Row 4
+\SetRowColor{LightBackground}
+Server Migration Service (SMS) & SMS is an agentless service which makes it easier \& faster to migrate thousands of on-premises workloads to AWS. \{\{popup="https://aws.amazon.com/server-migration-service/?c=mt\&sec=srv"\}\}SMS\{\{/popup\}\} \tn 
+% Row Count 38 (+ 10)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{2.18988 cm} x{2.78712 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{Migration \& Transfer services (cont)}}  \tn
+% Row 5
+\SetRowColor{LightBackground}
+Database Migration Service (DMS) & DMS helps migrate databases to AWS quickly \& securely. \{\{popup="https://aws.amazon.com/dms/?c=mt\&sec=srv"\}\}DMS\{\{/popup\}\} \tn 
+% Row Count 6 (+ 6)
+% Row 6
+\SetRowColor{white}
+CloudEndure Migration & CloudEndure Migration simplifies, expedites, \& reduces the cost of cloud migration by offering a highly automated lift-\&-shift solution. \{\{popup="https://aws.amazon.com/cloudendure-migration/?c=mt\&sec=srv"\}\}CloudEndure\{\{/popup\}\} \tn 
+% Row Count 17 (+ 11)
+% Row 7
+\SetRowColor{LightBackground}
+VMware Cloud on AWS & Refer compute section. \tn 
+% Row Count 19 (+ 2)
+% Row 8
+\SetRowColor{white}
+DataSync & Refer storage section. \tn 
+% Row Count 20 (+ 1)
+% Row 9
+\SetRowColor{LightBackground}
+Transfer Family & Refer storage section. \tn 
+% Row Count 21 (+ 1)
+% Row 10
+\SetRowColor{white}
+Snow Family & Refer storage section. \tn 
+% Row Count 22 (+ 1)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{p{0.4177 cm} x{1.2531 cm} x{1.2531 cm} x{1.2531 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Cost Management}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Use cases}} & {\bf{Capabilities}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 4 (+ 4)
+% Row 1
+\SetRowColor{white}
+\seqsplit{Organize} & Construct cost allocation \& governance foundation with your own tagging strategy & 1) Cost Allocation Tags 2) Cost Categories & Cost Categories is a feature within AWS Cost Management product suite that enables group cost \& usage information into meaningful categories based on needs. \{\{popup="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html"\}\}CostAllocationTags\{\{/popup\}\} \{\{popup="https://aws.amazon.com/aws-cost-management/aws-cost-categories/?track=costma"\}\}CostCategories\{\{/popup\}\} \tn 
+% Row Count 37 (+ 33)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.4177 cm} x{1.2531 cm} x{1.2531 cm} x{1.2531 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Cost Management (cont)}}  \tn
+% Row 2
+\SetRowColor{LightBackground}
+\seqsplit{Report} & Raise awareness \& \seqsplit{accountability} of your cloud spend with the detailed, allocable cost data & 1) Cost Explorer 2) Cost \& Usage Report & Cost \& Usage Report contains the most \seqsplit{comprehensive} set of AWS cost \& usage data available, including additional metadata about AWS services, pricing, \& \seqsplit{reservations}. \{\{popup="https://aws.amazon.com/aws-cost-management/aws-cost-explorer/?track=costma"\}\}CostExplorer\{\{/popup\}\} \{\{popup="https://aws.amazon.com/aws-cost-management/aws-cost-and-usage-reporting/?track=costma"\}\}CUR\{\{/popup\}\} \tn 
+% Row Count 33 (+ 33)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.4177 cm} x{1.2531 cm} x{1.2531 cm} x{1.2531 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Cost Management (cont)}}  \tn
+% Row 3
+\SetRowColor{LightBackground}
+\seqsplit{Access} & Track billing information across the \seqsplit{organization} in a \seqsplit{consolidated} view & 1) \seqsplit{Consolidated} Billing 2) Credits & credits are applied to bills to help cover costs that are associated with eligible services. \{\{popup="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/consolidated-billing.html"\}\}ConsolidatedBilling\{\{/popup\}\} \{\{popup="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilling-credits.html"\}\}Credits\{\{/popup\}\} \tn 
+% Row Count 29 (+ 29)
+% Row 4
+\SetRowColor{white}
+\seqsplit{Control} & Establish effective governance mechanisms with the right guardrails in place & 1) IAM 2) \seqsplit{Organizations} 3) Control Tower 4) Service Catalog & \seqsplit{Organizations} helps centrally govern environment as you grow \& scale workloads on AWS. Control tower is the easiest way to set up \& govern a new, secure \seqsplit{multi-account} AWS \seqsplit{environment.} \{\{popup="https://aws.amazon.com/controltower/?track=costma"\}\}ControlTower\{\{/popup\}\} \tn 
+% Row Count 52 (+ 23)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.4177 cm} x{1.2531 cm} x{1.2531 cm} x{1.2531 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Cost Management (cont)}}  \tn
+% Row 5
+\SetRowColor{LightBackground}
+\seqsplit{Forecast} & Estimate resource utilization \& spend with forecast dashboards. & 1) Cost Explorer \seqsplit{(Self-Service)} 2) Budgets \seqsplit{(Event-Driven)} & A forecast is a prediction of how much you will use AWS services over the forecast time period that you selected, based on your past usage. \{\{popup="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-forecast.html\#reading-forecasts"\}\}Forecasting\{\{/popup\}\} \{\{popup="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/budgets-view.html"\}\}EventDrivenBudgets\{\{/popup\}\} \tn 
+% Row Count 33 (+ 33)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.4177 cm} x{1.2531 cm} x{1.2531 cm} x{1.2531 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Cost Management (cont)}}  \tn
+% Row 6
+\SetRowColor{LightBackground}
+\seqsplit{Budget} & Keep spend in check with custom budget threshold \& auto alert \seqsplit{notification} & 1) Budgets 2) Budget Alerts via Chime \& Slack 3) Service Catalog & Budgets allows to set custom budgets to track cost \& usage from the simplest to the most complex use cases. \{\{popup="https://aws.amazon.com/aws-cost-management/aws-budgets/?track=costma"\}\}Budgets\{\{/popup\}\} \{\{popup="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/sns-alert-chime.html"\}\}BudgetAlerts\{\{/popup\}\} \{\{popup="https://docs.aws.amazon.com/servicecatalog/latest/adminguide/catalogs\_budgets.html"\}\}ServiceCatalog\{\{/popup\}\} \tn 
+% Row Count 37 (+ 37)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.4177 cm} x{1.2531 cm} x{1.2531 cm} x{1.2531 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Cost Management (cont)}}  \tn
+% Row 7
+\SetRowColor{LightBackground}
+\seqsplit{Purchase} & Leverage free trials \& \seqsplit{programmatic} discounts based on workload pattern \& needs & 1) Free Tier 2) Reserved Instances 3) Savings Plans 4) Spot Instances 5) DynamoDB On-demand & RI provide a significant discount (up to 75\%) compared to On-Demand pricing. \{\{popup="https://aws.amazon.com/aws-cost-management/aws-cost-optimization/reserved-instances/?track=costma"\}\}RI\{\{/popup\}\} \{\{popup="https://aws.amazon.com/free/?track=costma\&all-free-tier.sort-by=item.additionalFields.SortRank\&all-free-tier.sort-order=asc"\}\}FreeTier\{\{/popup\}\} \{\{popup="https://aws.amazon.com/savingsplans/?track=costma"\}\}SavingsPlan\{\{/popup\}\} \{\{popup="https://aws.amazon.com/ec2/spot/?track=costma\&cards.sort-by=item.additionalFields.startDateTime\&cards.sort-order=asc"\}\}SpotEC2\{\{/popup\}\} \{\{popup="https://aws.amazon.com/dynamodb/pricing/?track=costma"\}\}DynamoDBOD\{\{/popup\}\} \tn 
+% Row Count 56 (+ 56)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.4177 cm} x{1.2531 cm} x{1.2531 cm} x{1.2531 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Cost Management (cont)}}  \tn
+% Row 8
+\SetRowColor{LightBackground}
+\seqsplit{Elasticity} & Scale \& schedule services based on expected utilization pattern \& needs & 1) Instance Scheduler 2) Redshift pause \& resume 3) EC2 Auto Scaling 4) Trusted Advisor & Trusted Advisor is an online tool that provides real time guidance to help provision resources following AWS best practices.     \{\{popup="https://aws.amazon.com/solutions/implementations/instance-scheduler/"\}\}InstanceScheduler\{\{/popup\}\} \{\{popup="https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-operations.html"\}\}RedshiftP\&R\{\{/popup\}\} \{\{popup="https://aws.amazon.com/ec2/autoscaling/?track=costma"\}\}EC2ASG\{\{/popup\}\} \{\{popup="https://aws.amazon.com/premiumsupport/technology/trusted-advisor/?track=costma"\}\}TrustedAdvisor\{\{/popup\}\} \tn 
+% Row Count 46 (+ 46)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{p{0.4177 cm} x{1.2531 cm} x{1.2531 cm} x{1.2531 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Cost Management (cont)}}  \tn
+% Row 9
+\SetRowColor{LightBackground}
+\seqsplit{Rightsize} & Align service allocation size to actual workload demand & 1) Cost Explorer Right Sizing \seqsplit{Recommendations} 2) Compute Optimizer 3) Redshift resize 4) S3 Intelligent Tiering & Compute Optimizer recommends optimal AWS Compute resources for your workloads to reduce costs \& improve performance by using ML to analyze historical utilization metrics. \{\{popup="https://aws.amazon.com/compute-optimizer/?track=costma"\}\}CO\{\{/popup\}\} \tn 
+% Row Count 21 (+ 21)
+% Row 10
+\SetRowColor{white}
+\seqsplit{Inspect} & Stay up-to-date with resource deployment \& cost \seqsplit{optimization} \seqsplit{opportunities} & Cost Explorer & Cost Explorer has an easy-to-use interface that lets you visualize, understand, \& manage AWS costs \& usage over time. \{\{popup="https://aws.amazon.com/aws-cost-management/aws-cost-explorer/?track=costma2"\}\}CostExplorer\{\{/popup\}\} \tn 
+% Row Count 40 (+ 19)
+\hhline{>{\arrayrulecolor{DarkBackground}}----}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{SDKs \& Toolkits}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 1 (+ 1)
+% Row 1
+\SetRowColor{white}
+CDK & CDK uses the familiarity \& expressive power of programming languages for modeling apps. \{\{popup="https://aws.amazon.com/cdk/"\}\}CDK\{\{/popup\}\} \tn 
+% Row Count 8 (+ 7)
+% Row 2
+\SetRowColor{LightBackground}
+Corretto & Corretto is a no-cost, multiplatform, production-ready distribution of the OpenJDK. \{\{popup="https://aws.amazon.com/corretto/"\}\}Corretto\{\{/popup\}\} \tn 
+% Row Count 16 (+ 8)
+% Row 3
+\SetRowColor{white}
+Crypto Tools & Cryptography is hard to do safely \& correctly. The AWS Crypto Tools libraries are designed to help everyone do cryptography right, even without special expertise. \{\{popup="https://docs.aws.amazon.com/aws-crypto-tools/"\}\}Crypto Tools\{\{/popup\}\} \tn 
+% Row Count 29 (+ 13)
+% Row 4
+\SetRowColor{LightBackground}
+Serverless Application Model (SAM) & SAM is an open-source framework for building serverless applications. It provides shorthand syntax to express functions, APIs, databases, \& event source mappings. \{\{popup="https://aws.amazon.com/serverless/sam/\#:\textasciitilde{}:text=The\%20AWS\%20Serverless\%20Application\%20Model,and\%20model\%20it\%20using\%20YAML."\}\}SAM\{\{/popup\}\} \tn 
+% Row Count 45 (+ 16)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{SDKs \& Toolkits (cont)}}  \tn
+% Row 5
+\SetRowColor{LightBackground}
+Tools for developing and managing applications on AWS & Complete list of tools can be found here: \{\{popup="https://aws.amazon.com/tools/"\}\}Tools\{\{/popup\}\} \tn 
+% Row Count 5 (+ 5)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{1.21133 cm} x{1.16956 cm} p{0.62655 cm} x{1.16956 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Networking \& Content Delivery}}}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Use cases}} & {\bf{Functionality}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+{\bf{Build a cloud network}} & Define and provision a logically isolated network for your AWS resources & VPC & VPC lets you provision a logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define. \{\{popup="https://aws.amazon.com/vpc/?c=nt\&sec=srv"\}\}VPC\{\{/popup\}\} \tn 
+% Row Count 21 (+ 19)
+% Row 2
+\SetRowColor{LightBackground}
+ & Connect VPCs and \seqsplit{on-premises} networks through a central hub & \seqsplit{Transit} \seqsplit{Gateway} & Transit Gateway connects VPCs \& \seqsplit{on-premises} networks through a central hub. This simplifies network \& puts an end to complex peering \seqsplit{relationships}. \{\{popup="https://aws.amazon.com/transit-gateway/?c=sc\&sec=srv"\}\}TransitGateway\{\{/popup\}\} \tn 
+% Row Count 43 (+ 22)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.21133 cm} x{1.16956 cm} p{0.62655 cm} x{1.16956 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Networking \& Content Delivery}} (cont)}}  \tn
+% Row 3
+\SetRowColor{LightBackground}
+ & Provide private \seqsplit{connectivity} between VPCs, services, and \seqsplit{on-premises} \seqsplit{applications} & \seqsplit{PrivateLink} & \seqsplit{PrivateLink} provides private \seqsplit{connectivity} between VPCs \& services hosted on AWS or \seqsplit{on-premises}, securely on the Amazon network. \{\{popup="https://aws.amazon.com/privatelink/?c=nt\&sec=srv"\}\}PrivateLink\{\{/popup\}\} \tn 
+% Row Count 19 (+ 19)
+% Row 4
+\SetRowColor{white}
+ & Route users to Internet \seqsplit{applications} with a managed DNS service & Route 53 & Route 53 is a highly available \& scalable cloud DNS web service. \{\{popup="https://aws.amazon.com/route53/?c=nt\&sec=srv"\}\}Route53\{\{/popup\}\} \tn 
+% Row Count 32 (+ 13)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.21133 cm} x{1.16956 cm} p{0.62655 cm} x{1.16956 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Networking \& Content Delivery}} (cont)}}  \tn
+% Row 5
+\SetRowColor{LightBackground}
+{\bf{Scale your network design}} & \seqsplit{Automatically} distribute traffic across a pool of resources, such as instances, containers, IP addresses, and Lambda functions & \seqsplit{Elastic} Load \seqsplit{Balancing} & Elastic Load Balancing \seqsplit{automatically} \seqsplit{distributes} incoming \seqsplit{application} traffic across multiple targets, such as EC2's, containers, IP addresses, \& Lambda functions. \{\{popup="https://aws.amazon.com/elasticloadbalancing/?c=nt\&sec=srv"\}\}ElasticLoadBalancing\{\{/popup\}\} \tn 
+% Row Count 24 (+ 24)
+% Row 6
+\SetRowColor{white}
+ & Direct traffic through the AWS Global network to improve global \seqsplit{application} \seqsplit{performance} & \seqsplit{Global} \seqsplit{Accelerator} & Global \seqsplit{Accelerator} is a networking service that sends user's traffic through AWS's global network \seqsplit{infrastructure}, improving internet user \seqsplit{performance} by up to 60\%. \{\{popup="https://aws.amazon.com/global-accelerator/?c=nt\&sec=srv"\}\}GlobalAccelerator\{\{/popup\}\} \tn 
+% Row Count 48 (+ 24)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.21133 cm} x{1.16956 cm} p{0.62655 cm} x{1.16956 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Networking \& Content Delivery}} (cont)}}  \tn
+% Row 7
+\SetRowColor{LightBackground}
+{\bf{Secure your network traffic}} & Safeguard \seqsplit{applications} running on AWS against DDoS attacks & \seqsplit{Shield} & Shield is a managed \seqsplit{Distributed} Denial of Service (DDoS) protection service that safeguards \seqsplit{applications} running on AWS. \{\{popup="https://aws.amazon.com/shield/?c=nt\&sec=srv"\}\}Shield\{\{/popup\}\} \tn 
+% Row Count 18 (+ 18)
+% Row 8
+\SetRowColor{white}
+ & Protect your web \seqsplit{applications} from common web exploits & WAF & WAF is a web \seqsplit{application} firewall that helps protect your web \seqsplit{applications} or APIs against common web exploits that may affect \seqsplit{availability}, compromise security, or consume excessive resources. \{\{popup="https://aws.amazon.com/waf/?c=nt\&sec=srv"\}\}WAF\{\{/popup\}\} \tn 
+% Row Count 42 (+ 24)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.21133 cm} x{1.16956 cm} p{0.62655 cm} x{1.16956 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Networking \& Content Delivery}} (cont)}}  \tn
+% Row 9
+\SetRowColor{LightBackground}
+ & Centrally configure and manage firewall rules & \seqsplit{Firewall} \seqsplit{Manager} & Firewall Manager is a security management service which allows to centrally configure \& manage firewall rules across accounts \& apps in AWS \seqsplit{Organization}. \{\{popup="https://aws.amazon.com/firewall-manager/?c=nt\&sec=srv"\}\}link text\{\{/popup\}\} \tn 
+% Row Count 22 (+ 22)
+% Row 10
+\SetRowColor{white}
+{\bf{Build a hybrid IT network}} & Connect your users to AWS or \seqsplit{on-premises} resources using a Virtual Private Network & (VPN) - \seqsplit{Client} & VPN solutions establish secure \seqsplit{connections} between \seqsplit{on-premises} networks, remote offices, client devices, \& the AWS global network. \{\{popup="https://aws.amazon.com/vpn/?c=nt\&sec=srv"\}\}VPN\{\{/popup\}\} \tn 
+% Row Count 40 (+ 18)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.21133 cm} x{1.16956 cm} p{0.62655 cm} x{1.16956 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Networking \& Content Delivery}} (cont)}}  \tn
+% Row 11
+\SetRowColor{LightBackground}
+ & Create an encrypted connection between your network and your Amazon VPCs or AWS Transit Gateways & (VPN) - Site to Site & \seqsplit{Site-to-Site} VPN creates a secure connection between data center or branch office \& AWS cloud resources. \{\{popup="https://aws.amazon.com/vpn/?c=nt\&sec=srv"\}\}site\_to\_site\{\{/popup\}\} \tn 
+% Row Count 17 (+ 17)
+% Row 12
+\SetRowColor{white}
+ & Establish a private, dedicated connection between AWS and your datacenter, office, or colocation \seqsplit{environment} & \seqsplit{Direct} \seqsplit{Connect} & Direct Connect is a cloud service solution that makes it easy to establish a dedicated network connection from your premises to AWS. \{\{popup="https://aws.amazon.com/directconnect/?c=nt\&sec=srv"\}\}DirectConnect\{\{/popup\}\} \tn 
+% Row Count 37 (+ 20)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.21133 cm} x{1.16956 cm} p{0.62655 cm} x{1.16956 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Networking \& Content Delivery}} (cont)}}  \tn
+% Row 13
+\SetRowColor{LightBackground}
+{\bf{Content delivery networks}} & Securely deliver data, videos, \seqsplit{applications}, and APIs to customers globally with low latency, and high transfer speeds & \seqsplit{CloudFront} & CloudFront expedites \seqsplit{distribution} of static \& dynamic web content. \{\{popup="https://aws.amazon.com/cloudfront/?c=nt\&sec=srv"\}\}CloudFront\{\{/popup\}\} \tn 
+% Row Count 14 (+ 14)
+% Row 14
+\SetRowColor{white}
+{\bf{Build a network for \seqsplit{microservices} architectures}} & Provide \seqsplit{application-level} networking for containers and \seqsplit{microservices} & App Mesh & App Mesh makes it accessible to guide \& control \seqsplit{microservices} operating on AWS. \{\{popup="https://aws.amazon.com/app-mesh/?c=nt\&sec=srv"\}\}AppMesh\{\{/popup\}\} \tn 
+% Row Count 28 (+ 14)
+% Row 15
+\SetRowColor{LightBackground}
+ & Create, maintain, and secure APIs at any scale & API \seqsplit{Gateway} & API Gateway allows the user to design \& expand their own REST and WebSocket APIs at any scale. \{\{popup="https://aws.amazon.com/api-gateway/?c=nt\&sec=srv"\}\}APIGateway\{\{/popup\}\} \tn 
+% Row Count 44 (+ 16)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.21133 cm} x{1.16956 cm} p{0.62655 cm} x{1.16956 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{{\bf{Networking \& Content Delivery}} (cont)}}  \tn
+% Row 16
+\SetRowColor{LightBackground}
+ & Discover AWS services connected to your \seqsplit{applications} & Cloud Map & Cloud Map permits the name \& handles the cloud resources. \{\{popup="https://aws.amazon.com/cloud-map/?c=nt\&sec=srv"\}\}CloudMap\{\{/popup\}\} \tn 
+% Row Count 13 (+ 13)
+\hhline{>{\arrayrulecolor{DarkBackground}}----}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Category}} & {\bf{Use cases}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+{\bf{Identity \& access management}} & Securely manage access to services and resources & Identity \& Access \seqsplit{Management} (IAM) & IAM is a web service for safely \seqsplit{controlling} access to AWS services. \{\{popup="https://aws.amazon.com/iam/?c=sc\&sec=srv"\}\}IAM\{\{/popup\}\} \tn 
+% Row Count 16 (+ 14)
+% Row 2
+\SetRowColor{LightBackground}
+ & Securely manage access to services and resources & Single Sign-On & SSO helps in \seqsplit{simplifying}, managing SSO access to AWS accounts \& business \seqsplit{applications}. \{\{popup="https://aws.amazon.com/single-sign-on/?c=sc\&sec=srv"\}\}SSO\{\{/popup\}\} \tn 
+% Row Count 33 (+ 17)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 3
+\SetRowColor{LightBackground}
+ & Identity management for apps & Cognito & Cognito lets you add user sign-up, sign-in, \& access control to web \& mobile apps quickly and easily. \{\{popup="https://aws.amazon.com/cognito/?c=sc\&sec=srv"\}\}Cognito\{\{/popup\}\} \tn 
+% Row Count 18 (+ 18)
+% Row 4
+\SetRowColor{white}
+ & Managed Microsoft Active Directory & \seqsplit{Directory} Service & AWS Managed Microsoft Active Directory (AD) enables your \seqsplit{directory-aware} workloads \& AWS resources to use managed Active Directory (AD) in AWS. \{\{popup="https://aws.amazon.com/directoryservice/?c=sc\&sec=srv"\}\}DirectoryService\{\{/popup\}\} \tn 
+% Row Count 42 (+ 24)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 5
+\SetRowColor{LightBackground}
+ & Simple, secure service to share AWS resources & Resource Access Manager & Resource Access Manager (RAM) is a service that enables you to easily \& securely share AWS resources with any AWS account or within AWS \seqsplit{Organization}. \{\{popup="https://aws.amazon.com/ram/?c=sc\&sec=srv"\}\}RAM\{\{/popup\}\} \tn 
+% Row Count 22 (+ 22)
+% Row 6
+\SetRowColor{white}
+ & Central governance and management across AWS accounts & \seqsplit{Organizations} & \seqsplit{Organizations} helps you centrally govern your \seqsplit{environment} as you grow and scale your workloads on AWS. \{\{popup="https://aws.amazon.com/organizations/?c=sc\&sec=srv"\}\}Orgs\{\{/popup\}\} \tn 
+% Row Count 40 (+ 18)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 7
+\SetRowColor{LightBackground}
+{\bf{Detection}} & Unified security and compliance center & Security Hub & Security Hub gives a \seqsplit{comprehensive} view of security alerts \& security posture across AWS accounts. \{\{popup="https://aws.amazon.com/security-hub/?c=sc\&sec=srv"\}\}SecurityHub\{\{/popup\}\} \tn 
+% Row Count 19 (+ 19)
+% Row 8
+\SetRowColor{white}
+ & Managed threat detection service & \seqsplit{GuardDuty} & GuardDuty is a threat detection service that \seqsplit{continuously} monitors for malicious activity \& \seqsplit{unauthorized} behavior to protect AWS accounts, workloads, \& data stored in S3. \{\{popup="https://aws.amazon.com/guardduty/?c=sc\&sec=srv"\}\}GuardDuty\{\{/popup\}\} \tn 
+% Row Count 44 (+ 25)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 9
+\SetRowColor{LightBackground}
+ & Analyze \seqsplit{application} security & \seqsplit{Inspector} & Inspector is a security \seqsplit{vulnerability} \seqsplit{assessment} service improves the security \& \seqsplit{compliance} of the AWS \seqsplit{resources.} \{\{popup="https://aws.amazon.com/inspector/?c=sc\&sec=srv"\}\}Inspector\{\{/popup\}\} \tn 
+% Row Count 20 (+ 20)
+% Row 10
+\SetRowColor{white}
+ & Record and evaluate \seqsplit{configurations} of your AWS resources & Config & Config is a service that enables to assess, audit, \& evaluate the \seqsplit{configurations} of AWS \seqsplit{resources.} \{\{popup="https://aws.amazon.com/config/?c=sc\&sec=srv"\}\}Config\{\{/popup\}\} \tn 
+% Row Count 37 (+ 17)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 11
+\SetRowColor{LightBackground}
+ & Track user activity and API usage & \seqsplit{CloudTrail} & \seqsplit{CloudTrail} is a service that enables \seqsplit{governance}, \seqsplit{compliance}, \seqsplit{operational} auditing, \& risk auditing of AWS account. \{\{popup="https://aws.amazon.com/cloudtrail/?c=sc\&sec=srv"\}\}CloudTrail\{\{/popup\}\} \tn 
+% Row Count 20 (+ 20)
+% Row 12
+\SetRowColor{white}
+ & Security management for IoT devices & IoT Device Defender & IoT Device Defender is a fully managed service that helps secure fleet of IoT devices. \{\{popup="https://aws.amazon.com/iot-device-defender/?c=sc\&sec=srv"\}\}IoTDD\{\{/popup\}\} \tn 
+% Row Count 37 (+ 17)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 13
+\SetRowColor{LightBackground}
+{\bf{Infrastructure protection}} & DDoS protection & Shield & Shield is a managed DDoS \seqsplit{protection} service that \seqsplit{safeguards} apps running. It provides always-on detection \& automatic inline \seqsplit{mitigations} that minimize \seqsplit{application} downtime \& latency. \{\{popup="https://aws.amazon.com/shield/?c=sc\&sec=srv"\}\}Shield\{\{/popup\}\} \tn 
+% Row Count 26 (+ 26)
+% Row 14
+\SetRowColor{white}
+ & Filter malicious web traffic & Web \seqsplit{Application} Firewall (WAF) & WAF is a web \seqsplit{application} firewall that helps protect web apps or APIs against common web exploits that may affect \seqsplit{availability}, \seqsplit{compromise} security, or consume excessive \seqsplit{resources.} \{\{popup="https://aws.amazon.com/waf/?c=sc\&sec=srv"\}\}WAF\{\{/popup\}\} \tn 
+% Row Count 51 (+ 25)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 15
+\SetRowColor{LightBackground}
+ & Central management of firewall rules & Firewall Manager & Firewall Manager eases the user AWS WAF \seqsplit{administration} \& \seqsplit{maintenance} \seqsplit{activities} over multiple accounts \& \seqsplit{resources.} \{\{popup="https://aws.amazon.com/firewall-manager/?c=sc\&sec=srv"\}\}FirewallManager\{\{/popup\}\} \tn 
+% Row Count 21 (+ 21)
+% Row 16
+\SetRowColor{white}
+{\bf{Data protection}} & Discover and protect your sensitive data at scale & Macie & Macie is a fully managed data (security \& privacy) service that uses ML \& pattern matching to discover \& protect sensitive data. \{\{popup="https://aws.amazon.com/macie/?c=sc\&sec=srv"\}\}Macie\{\{/popup\}\} \tn 
+% Row Count 41 (+ 20)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 17
+\SetRowColor{LightBackground}
+ & Key storage and management & Key \seqsplit{Management} Service (KMS) & KMS makes it easy for to create \& manage \seqsplit{cryptographic} keys \& control their use across a wide range of AWS services \& in your \seqsplit{applications}. \{\{popup="https://aws.amazon.com/kms/?c=sc\&sec=srv"\}\}KMS\{\{/popup\}\} \tn 
+% Row Count 21 (+ 21)
+% Row 18
+\SetRowColor{white}
+ & Hardware based key storage for regulatory compliance & CloudHSM & CloudHSM is a \seqsplit{cloud-based} hardware security module (HSM) that enables you to easily generate \& use your own \seqsplit{encryption} keys. \{\{popup="https://aws.amazon.com/cloudhsm/?c=sc\&sec=srv"\}\}CloudHSM\{\{/popup\}\} \tn 
+% Row Count 41 (+ 20)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 19
+\SetRowColor{LightBackground}
+ & Provision, manage, and deploy public and private SSL/TLS \seqsplit{certificates} & \seqsplit{Certificate} Manager & \seqsplit{Certificate} Manager is a service that easily provision, manage, \& deploy public and private SSL/TLS certs for use with AWS services \& internal connected \seqsplit{resources.} \{\{popup="https://aws.amazon.com/certificate-manager/?c=sc\&sec=srv"\}\}ACM\{\{/popup\}\} \tn 
+% Row Count 25 (+ 25)
+% Row 20
+\SetRowColor{white}
+ & Rotate, manage, and retrieve secrets & Secrets Manager & Secrets Manager assist the user to safely encode, store, \& recover \seqsplit{credentials} for any user's database \& other services. \{\{popup="https://aws.amazon.com/secrets-manager/?c=sc\&sec=srv"\}\}SecretsManager\{\{/popup\}\} \tn 
+% Row Count 47 (+ 22)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 21
+\SetRowColor{LightBackground}
+{\bf{Incident response}} & \seqsplit{Investigate} potential security issues & \seqsplit{Detective} & Detective makes it easy to analyze, \seqsplit{investigate}, \& quickly identify the root cause of potential security issues or \seqsplit{suspicious} \seqsplit{activities.} \{\{popup="https://aws.amazon.com/detective/?c=sc\&sec=srv"\}\}Detective\{\{/popup\}\} \tn 
+% Row Count 22 (+ 22)
+% Row 22
+\SetRowColor{white}
+ & Fast, automated, cost- effective disaster recovery & \seqsplit{CloudEndure} Disaster Recovery & Provides scalable, \seqsplit{cost-effective} business \seqsplit{continuity} for physical, virtual, \& cloud servers. \{\{popup="https://aws.amazon.com/cloudendure-disaster-recovery/?c=sc\&sec=srv"\}\}CloudEndure\{\{/popup\}\} \tn 
+% Row Count 42 (+ 20)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.91894 cm} x{1.16956 cm} x{0.96071 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Security, Identity, \& Compliance (cont)}}  \tn
+% Row 23
+\SetRowColor{LightBackground}
+{\bf{Compliance}} & No cost, \seqsplit{self-service} portal for on-demand access to AWS' compliance reports & Artifact & Artifact is a web service that enables the user to download AWS security \& \seqsplit{compliance} records. \{\{popup="https://aws.amazon.com/artifact/?c=sc\&sec=srv"\}\}Artifact\{\{/popup\}\} \tn 
+% Row Count 17 (+ 17)
+\hhline{>{\arrayrulecolor{DarkBackground}}----}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{1.16956 cm} p{0.75186 cm} x{1.12779 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Data Lakes \& Analytics}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Category}} & {\bf{Use cases}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+{\bf{Analytics}} & \seqsplit{Interactive} \seqsplit{analytics} & Athena & Athena is an \seqsplit{interactive} query service that makes it easy to analyze data in S3 using standard SQL. \{\{popup="https://aws.amazon.com/athena/?c=a\&sec=srv"\}\}Athena\{\{/popup\}\} \tn 
+% Row Count 19 (+ 17)
+% Row 2
+\SetRowColor{LightBackground}
+ & Big data \seqsplit{processing} & EMR & EMR is the \seqsplit{industry-leading} cloud big data platform for \seqsplit{processing} vast amounts of data using open source tools such as Apache Spark, Hive, HBase,Flink, Hudi, \& Presto. \{\{popup="https://aws.amazon.com/emr/?c=a\&sec=srv"\}\}EMR\{\{/popup\}\} \tn 
+% Row Count 43 (+ 24)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.16956 cm} p{0.75186 cm} x{1.12779 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Data Lakes \& Analytics (cont)}}  \tn
+% Row 3
+\SetRowColor{LightBackground}
+ & Data \seqsplit{warehousing} & Redshift & The most popular \& fastest cloud data \seqsplit{warehouse.} \{\{popup="https://aws.amazon.com/redshift/?c=a\&sec=srv"\}\}Redshift\{\{/popup\}\} \tn 
+% Row Count 13 (+ 13)
+% Row 4
+\SetRowColor{white}
+ & \seqsplit{Real-time} \seqsplit{analytics} & Kinesis & Kinesis makes it easy to collect, process, \& analyze real-time, streaming data so one can get timely insights. \{\{popup="https://aws.amazon.com/kinesis/?c=a\&sec=srv"\}\}Kinesis\{\{/popup\}\} \tn 
+% Row Count 32 (+ 19)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.16956 cm} p{0.75186 cm} x{1.12779 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Data Lakes \& Analytics (cont)}}  \tn
+% Row 5
+\SetRowColor{LightBackground}
+ & \seqsplit{Operational} \seqsplit{analytics} & \seqsplit{Elasticsearch} Service & \seqsplit{Elasticsearch} Service is a fully managed service that makes it easy to deploy, secure, \& run \seqsplit{Elasticsearch} cost \seqsplit{effectively} at scale. \{\{popup="https://aws.amazon.com/elasticsearch-service/?c=a\&sec=srv"\}\}ES\{\{/popup\}\} \tn 
+% Row Count 22 (+ 22)
+% Row 6
+\SetRowColor{white}
+ & \seqsplit{Dashboards} \& \seqsplit{visualizations} & \seqsplit{Quicksight} & \seqsplit{QuickSight} is a fast, \seqsplit{cloud-powered} business \seqsplit{intelligence} service that makes it easy to deliver insights to everyone in \seqsplit{organization}. \{\{popup="https://aws.amazon.com/quicksight/?c=a\&sec=srv"\}\}QuickSight\{\{/popup\}\} \tn 
+% Row Count 44 (+ 22)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.16956 cm} p{0.75186 cm} x{1.12779 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Data Lakes \& Analytics (cont)}}  \tn
+% Row 7
+\SetRowColor{LightBackground}
+{\bf{Data movement}} & \seqsplit{Real-time} data \seqsplit{movement} & 1) Amazon Managed Streaming for Apache Kafka (MSK) 2) Kinesis Data Streams 3) Kinesis Data Firehose 4) Kinesis Data Analytics 5) Kinesis Video Streams 6) Glue & MSK is a fully managed service that makes it easy to build \& run \seqsplit{applications} that use Apache Kafka to process streaming data. \{\{popup="https://aws.amazon.com/msk/?c=a\&sec=srv"\}\}MSK\{\{/popup\}\} \{\{popup="https://aws.amazon.com/kinesis/data-streams/?c=a\&sec=srv"\}\}KDS\{\{/popup\}\} \{\{popup="https://aws.amazon.com/kinesis/data-firehose/?c=a\&sec=srv"\}\}KDF\{\{/popup\}\} \{\{popup="https://aws.amazon.com/kinesis/data-analytics/?c=a\&sec=srv"\}\}KDA\{\{/popup\}\} \{\{popup="https://aws.amazon.com/kinesis/video-streams/?c=a\&sec=srv"\}\}KVS\{\{/popup\}\} \{\{popup="https://aws.amazon.com/glue/?c=a\&sec=srv"\}\}Glue\{\{/popup\}\} \tn 
+% Row Count 59 (+ 59)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.16956 cm} p{0.75186 cm} x{1.12779 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Data Lakes \& Analytics (cont)}}  \tn
+% Row 8
+\SetRowColor{LightBackground}
+{\bf{Data lake}} & Object \seqsplit{storage} & 1) S3 2) Lake Formation & Lake Formation is a service that makes it easy to set up a secure data lake in days. A data lake is a \seqsplit{centralized}, curated, \& secured \seqsplit{repository} that stores all data, both in its original form \& prepared for analysis. \{\{popup="https://aws.amazon.com/s3/?c=a\&sec=srv"\}\}S3\{\{/popup\}\} \{\{popup="https://aws.amazon.com/lake-formation/?c=a\&sec=srv\&loc=0"\}\}LakeFormation\{\{/popup\}\} \tn 
+% Row Count 38 (+ 38)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.16956 cm} p{0.75186 cm} x{1.12779 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Data Lakes \& Analytics (cont)}}  \tn
+% Row 9
+\SetRowColor{LightBackground}
+ & Backup \& \seqsplit{archive} & 1) S3 Glacier 2) Backup & S3 Glacier \& S3 Glacier Deep Archive are a secure, durable, \& extremely low-cost S3 cloud storage classes for data archiving \& long-term backup. \{\{popup="https://aws.amazon.com/glacier/?c=a\&sec=srv"\}\}S3Glacier\{\{/popup\}\} \tn 
+% Row Count 22 (+ 22)
+% Row 10
+\SetRowColor{white}
+ & Data \seqsplit{catalog} & 1) Glue  2)) Lake Formation & Refer as above. \tn 
+% Row Count 25 (+ 3)
+% Row 11
+\SetRowColor{LightBackground}
+ & \seqsplit{Third-party} data & Data Exchange & Data Exchange makes it easy to find, subscribe to, \& use \seqsplit{third-party} data in the cloud. \{\{popup="https://aws.amazon.com/data-exchange/?c=a\&sec=srv"\}\}DataExchange\{\{/popup\}\} \tn 
+% Row Count 43 (+ 18)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.16956 cm} p{0.75186 cm} x{1.12779 cm} x{1.12779 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{4}{x{5.377cm}}{\bf\textcolor{white}{Data Lakes \& Analytics (cont)}}  \tn
+% Row 12
+\SetRowColor{LightBackground}
+{\bf{Predictive analytics \&\& machine learning}} & \seqsplit{Frameworks} \& \seqsplit{interfaces} & Deep Learning AMIs & Deep Learning AMIs provide machine learning \seqsplit{practitioners} \& \seqsplit{researchers} with the \seqsplit{infrastructure} \& tools to \seqsplit{accelerate} deep learning in the cloud, at any scale. \{\{popup="https://aws.amazon.com/machine-learning/amis/?c=a\&sec=srv"\}\}DeepLearningAMIs\{\{/popup\}\} \tn 
+% Row Count 26 (+ 26)
+% Row 13
+\SetRowColor{white}
+ & \seqsplit{Platform} \seqsplit{services} & SageMaker & SageMaker is a fully managed service that provides every developer \& data scientist with the ability to build, train, \& deploy machine learning (ML) models quickly. \{\{popup="https://aws.amazon.com/sagemaker/?c=a\&sec=srv"\}\}SageMaker\{\{/popup\}\} \tn 
+% Row Count 51 (+ 25)
+\hhline{>{\arrayrulecolor{DarkBackground}}----}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{1.96811 cm} p{0.64078 cm} x{1.96811 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Containers}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Use cases}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 3 (+ 3)
+% Row 1
+\SetRowColor{white}
+Store, encrypt, and manage container images & ECR & Refer compute section \tn 
+% Row Count 6 (+ 3)
+% Row 2
+\SetRowColor{LightBackground}
+Run containerized applications or build microservices & ECS & Refer compute section \tn 
+% Row Count 10 (+ 4)
+% Row 3
+\SetRowColor{white}
+Manage containers with Kubernetes & EKS & Refer compute section \tn 
+% Row Count 12 (+ 2)
+% Row 4
+\SetRowColor{LightBackground}
+Run containers without managing servers & \seqsplit{Fargate} & Fargate is a serverless compute engine for containers that works with both ECS \& EKS. \{\{popup="https://aws.amazon.com/fargate/?c=cn\&sec=srv"\}\}Fargate\{\{/popup\}\} \tn 
+% Row Count 22 (+ 10)
+% Row 5
+\SetRowColor{white}
+Run containers with server-level control & EC2 & Refer compute section \tn 
+% Row Count 25 (+ 3)
+% Row 6
+\SetRowColor{LightBackground}
+Containerize and migrate existing applications & \seqsplit{App2Container} & App2Container (A2C) is a command-line tool for modernizing .NET \& Java applications into containerized applications. \{\{popup="https://aws.amazon.com/app2container/?c=cn\&sec=srv"\}\}App2Container\{\{/popup\}\} \tn 
+% Row Count 37 (+ 12)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.96811 cm} p{0.64078 cm} x{1.96811 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Containers (cont)}}  \tn
+% Row 7
+\SetRowColor{LightBackground}
+Quickly launch and manage containerized applications & \seqsplit{Copilot} & Copilot is a command line interface (CLI) that enables customers to quickly launch \& easily manage containerized applications on AWS. \{\{popup="https://aws.amazon.com/containers/copilot/?c=cn\&sec=srv"\}\}Copilot\{\{/popup\}\} \tn 
+% Row Count 13 (+ 13)
+\hhline{>{\arrayrulecolor{DarkBackground}}---}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{1.14425 cm} x{1.73926 cm} x{1.69349 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Serverless}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Category}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+{\bf{Compute}} & \{\{popup="https://aws.amazon.com/lambda/"\}\}Lambda\{\{/popup\}\} & Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume. \tn 
+% Row Count 11 (+ 9)
+% Row 2
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/lambda/edge/"\}\}Lambda@Edge\{\{/popup\}\} & Lambda@Edge is a feature of Amazon CloudFront that lets you run code closer to users of your application, which improves performance \& reduces latency. \tn 
+% Row Count 22 (+ 11)
+% Row 3
+\SetRowColor{white}
+ & \{\{popup="https://aws.amazon.com/fargate/"\}\}Fargate\{\{/popup\}\} & Refer containers section \tn 
+% Row Count 26 (+ 4)
+% Row 4
+\SetRowColor{LightBackground}
+{\bf{Storage}} & \{\{popup="https://aws.amazon.com/s3/"\}\}S3\{\{/popup\}\} & Refer storage section \tn 
+% Row Count 30 (+ 4)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.14425 cm} x{1.73926 cm} x{1.69349 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Serverless (cont)}}  \tn
+% Row 5
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/efs/"\}\}EFS\{\{/popup\}\} & Refer storage section \tn 
+% Row Count 4 (+ 4)
+% Row 6
+\SetRowColor{white}
+{\bf{Data stores}} & \{\{popup="https://aws.amazon.com/dynamodb/"\}\}DynamoDB\{\{/popup\}\} & DynamoDB is a key-value \& document database that delivers single-digit millisecond performance at any scale. \tn 
+% Row Count 12 (+ 8)
+% Row 7
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/rds/aurora/serverless/"\}\}Aurora Serverless \{\{/popup\}\} & Aurora Serverless is an on-demand, auto-scaling configuration for Amazon Aurora (MySQL \& \seqsplit{PostgreSQL-compatible} editions), where the database will automatically start up, shut down, \& scale capacity up or down based on your application's needs. \tn 
+% Row Count 30 (+ 18)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.14425 cm} x{1.73926 cm} x{1.69349 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Serverless (cont)}}  \tn
+% Row 8
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/rds/proxy/"\}\}RDS Proxy\{\{/popup\}\} & RDS Proxy is a fully managed, highly available database proxy for RDS that makes applications more scalable, resilient to database failures, \& more secure. \tn 
+% Row Count 12 (+ 12)
+% Row 9
+\SetRowColor{white}
+{\bf{API Proxy}} & \{\{popup="https://aws.amazon.com/api-gateway/"\}\}API Gateway\{\{/popup\}\} & API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, \& secure APIs at any scale. \tn 
+% Row Count 22 (+ 10)
+% Row 10
+\SetRowColor{LightBackground}
+{\bf{Application integration}} & \{\{popup="https://aws.amazon.com/sns/"\}\}SNS\{\{/popup\}\} & SNS is a fully managed messaging service for both \seqsplit{system-to-system} \& app-to-person (A2P) \seqsplit{communication.} \tn 
+% Row Count 30 (+ 8)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.14425 cm} x{1.73926 cm} x{1.69349 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Serverless (cont)}}  \tn
+% Row 11
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/sqs/"\}\}SQS\{\{/popup\}\} & SQS is a fully managed message queuing service that enables to decouple \& scale microservices, distributed systems, \& serverless applications. \tn 
+% Row Count 11 (+ 11)
+% Row 12
+\SetRowColor{white}
+ & \{\{popup="https://aws.amazon.com/appsync/"\}\}AppSync\{\{/popup\}\} & AppSync is a fully managed service that makes it easy to develop GraphQL APIs by handling the heavy lifting of securely connecting to data sources like AWS DynamoDB, Lambda. \tn 
+% Row Count 24 (+ 13)
+% Row 13
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/eventbridge/"\}\}EventBridge\{\{/popup\}\} & EventBridge is a serverless event bus that makes it easy to connect applications together using data from apps, integrated SaaS apps, \& AWS services. \tn 
+% Row Count 35 (+ 11)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{1.14425 cm} x{1.73926 cm} x{1.69349 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Serverless (cont)}}  \tn
+% Row 14
+\SetRowColor{LightBackground}
+{\bf{Orchestration}} & \{\{popup="https://aws.amazon.com/step-functions/"\}\}Step Functions\{\{/popup\}\} & Step Functions is a serverless function orchestrator that makes it easy to sequence Lambda functions \& multiple AWS services into \seqsplit{business-critical} applications. \tn 
+% Row Count 12 (+ 12)
+% Row 15
+\SetRowColor{white}
+{\bf{Analytics}} & \{\{popup="https://aws.amazon.com/kinesis/"\}\}Kinesis\{\{/popup\}\} & Kinesis makes it easy to collect, process, \& analyze real-time, streaming data so one can get timely insights. \tn 
+% Row Count 20 (+ 8)
+% Row 16
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/athena/"\}\}Athena\{\{/popup\}\} & Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. \tn 
+% Row Count 28 (+ 8)
+\hhline{>{\arrayrulecolor{DarkBackground}}---}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{0.82386 cm} x{1.87657 cm} x{1.87657 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Application Integration}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Category}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+{\bf{Messaging}} & \{\{popup="https://aws.amazon.com/sns/?c=ai\&sec=srv"\}\}SNS\{\{/popup\}\} & Reliable high throughput pub/sub, SMS, email, and mobile push notifications \tn 
+% Row Count 7 (+ 5)
+% Row 2
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/sqs/?c=ai\&sec=srv"\}\}SQS\{\{/popup\}\} & Message queue that sends, stores, and receives messages between application components at any volume \tn 
+% Row Count 14 (+ 7)
+% Row 3
+\SetRowColor{white}
+ & \{\{popup="https://aws.amazon.com/amazon-mq/?c=ai\&sec=srv"\}\}MQ\{\{/popup\}\} & Message broker for Apache ActiveMQ that makes migration easy and enables hybrid architectures \tn 
+% Row Count 20 (+ 6)
+% Row 4
+\SetRowColor{LightBackground}
+{\bf{Workflows}} & \{\{popup="https://aws.amazon.com/step-functions/?c=ai\&sec=srv"\}\}Step Functions\{\{/popup\}\} & Coordinate multiple AWS services into serverless workflows so you can build and update apps quickly \tn 
+% Row Count 27 (+ 7)
+% Row 5
+\SetRowColor{white}
+{\bf{API management}} & \{\{popup="https://aws.amazon.com/api-gateway/?c=ai\&sec=srv"\}\}API Gateway\{\{/popup\}\} & Create, publish, maintain, monitor, \& secure APIs at any scale for serverless workloads \& web apps \tn 
+% Row Count 34 (+ 7)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.82386 cm} x{1.87657 cm} x{1.87657 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Application Integration (cont)}}  \tn
+% Row 6
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/appsync/?c=ai\&sec=srv"\}\}AppSync\{\{/popup\}\} & Create a flexible API to securely access, manipulate, \& combine data from one or more data sources \tn 
+% Row Count 7 (+ 7)
+% Row 7
+\SetRowColor{white}
+{\bf{Event bus}} & \{\{popup="https://aws.amazon.com/eventbridge/?c=sc\&sec=srv"\}\}EventBridge\{\{/popup\}\} & Build an event-driven architecture that connects application data from your own apps, SaaS, \& AWS services \tn 
+% Row Count 14 (+ 7)
+% Row 8
+\SetRowColor{LightBackground}
+ & \{\{popup="https://aws.amazon.com/appflow/"\}\}AppFlow\{\{/popup\}\} & Automate the flow of data between SaaS applications \& AWS services at nearly any scale, without code. \tn 
+% Row Count 21 (+ 7)
+\hhline{>{\arrayrulecolor{DarkBackground}}---}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{0.86963 cm} x{1.28156 cm} x{2.42581 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Management \& Governance}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+{\bf{Category}} & {\bf{Service}} & {\bf{Description}} \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+{\bf{Enable}} & Control Tower & The easiest way to set up and govern a new, secure multi-account AWS environment. \{\{popup="https://aws.amazon.com/controltower/?c=mg\&sec=srv\&exp=b"\}\}ControlTower\{\{/popup\}\} \tn 
+% Row Count 11 (+ 9)
+% Row 2
+\SetRowColor{LightBackground}
+ & \seqsplit{Organizations} & Organizations helps centrally govern environment as you grow \& scale workloads on AWS \{\{popup="https://aws.amazon.com/organizations/?c=mg\&sec=srv"\}\}Organizations\{\{/popup\}\} \tn 
+% Row Count 20 (+ 9)
+% Row 3
+\SetRowColor{white}
+ & \seqsplit{Well-Architected} Tool & Well-Architected Tool helps review the state of workloads \& compares them to the latest AWS architectural best practices. \{\{popup="https://aws.amazon.com/well-architected-tool/?c=mg\&sec=srv"\}\}WATool\{\{/popup\}\} \tn 
+% Row Count 30 (+ 10)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.86963 cm} x{1.28156 cm} x{2.42581 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Management \& Governance (cont)}}  \tn
+% Row 4
+\SetRowColor{LightBackground}
+ & Budgets & Budgets allows to set custom budgets to track cost \& usage from the simplest to the most complex use cases. \{\{popup="https://aws.amazon.com/aws-cost-management/aws-budgets/?c=mg\&sec=srv"\}\}Budgets\{\{/popup\}\} \tn 
+% Row Count 10 (+ 10)
+% Row 5
+\SetRowColor{white}
+ & License Manager & License Manager makes it easier to manage software licenses from software vendors such as Microsoft, SAP, Oracle, \& IBM across AWS \& on-premises environments. \{\{popup="https://aws.amazon.com/license-manager/?c=mg\&sec=srv"\}\}LicenseManager\{\{/popup\}\} \tn 
+% Row Count 22 (+ 12)
+% Row 6
+\SetRowColor{LightBackground}
+{\bf{Provision }} & \seqsplit{CloudFormation} & CloudFormation enables the user to design \& provision AWS infrastructure deployments predictably \& repeatedly. \{\{popup="https://aws.amazon.com/cloudformation/?c=mg\&sec=srv"\}\}CloudFormation\{\{/popup\}\} \tn 
+% Row Count 32 (+ 10)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.86963 cm} x{1.28156 cm} x{2.42581 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Management \& Governance (cont)}}  \tn
+% Row 7
+\SetRowColor{LightBackground}
+ & Service Catalog & Service Catalog allows organizations to create \& manage catalogs of IT services that are approved for use on AWS. \{\{popup="https://aws.amazon.com/organizations/?c=mg\&sec=srv"\}\}ServiceCatalog\{\{/popup\}\} \tn 
+% Row Count 10 (+ 10)
+% Row 8
+\SetRowColor{white}
+ & OpsWorks & OpsWorks presents a simple and flexible way to create and maintain stacks and applications. \{\{popup="https://aws.amazon.com/opsworks/?c=mg\&sec=srv"\}\}OpsWorks\{\{/popup\}\} \tn 
+% Row Count 18 (+ 8)
+% Row 9
+\SetRowColor{LightBackground}
+ & \seqsplit{Marketplace} & Marketplace is a digital catalog with thousands of software listings from independent software vendors that make it easy to find, test, buy, \& deploy software that runs on AWS. \{\{popup="https://aws.amazon.com/marketplace/?c=mg\&sec=srv"\}\}Marketplace\{\{/popup\}\} \tn 
+% Row Count 31 (+ 13)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.86963 cm} x{1.28156 cm} x{2.42581 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Management \& Governance (cont)}}  \tn
+% Row 10
+\SetRowColor{LightBackground}
+{\bf{Operate}} & CloudWatch & CloudWatch offers a reliable, scalable, \& flexible monitoring solution that can easily start. \{\{popup="https://aws.amazon.com/cloudwatch/?c=mg\&sec=srv"\}\}CloudWatch\{\{/popup\}\} \tn 
+% Row Count 9 (+ 9)
+% Row 11
+\SetRowColor{white}
+ & CloudTrail & CloudTrail is a service that enables governance, compliance, operational auditing, \& risk auditing of AWS account. \{\{popup="https://aws.amazon.com/cloudtrail/?c=mg\&sec=srv"\}\}CloudTrail\{\{/popup\}\} \tn 
+% Row Count 19 (+ 10)
+% Row 12
+\SetRowColor{LightBackground}
+ & Config & \{\{popup="https://aws.amazon.com/config/?c=mg\&sec=srv"\}\}Config\{\{/popup\}\} \tn 
+% Row Count 23 (+ 4)
+% Row 13
+\SetRowColor{white}
+ & Systems Manager & Systems Manager to plan, proctor, \& automate administration tasks on the AWS resources. \{\{popup="https://aws.amazon.com/systems-manager/?c=mg\&sec=srv"\}\}SystemsManager\{\{/popup\}\} \tn 
+% Row Count 32 (+ 9)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{x{0.86963 cm} x{1.28156 cm} x{2.42581 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{3}{x{5.377cm}}{\bf\textcolor{white}{Management \& Governance (cont)}}  \tn
+% Row 14
+\SetRowColor{LightBackground}
+ & Cost \& usage report & Refer cost management section \tn 
+% Row Count 2 (+ 2)
+% Row 15
+\SetRowColor{white}
+ & Cost explorer & Refer cost management section \tn 
+% Row Count 4 (+ 2)
+% Row 16
+\SetRowColor{LightBackground}
+ & Managed Services & Operate your AWS infrastructure on your behalf. \{\{popup="https://aws.amazon.com/managed-services/?c=mg\&sec=srv"\}\}ManagedServices\{\{/popup\}\} \tn 
+% Row Count 11 (+ 7)
+% Row 17
+\SetRowColor{white}
+ & X Ray & \{\{popup="https://aws.amazon.com/xray/?c=mg\&sec=srv"\}\}X-Ray\{\{/popup\}\} \tn 
+% Row Count 15 (+ 4)
+\hhline{>{\arrayrulecolor{DarkBackground}}---}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{X}
+\SetRowColor{DarkBackground}
+\mymulticolumn{1}{x{5.377cm}}{\bf\textcolor{white}{Recommend security best practices}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Turn on multifactor authentication for the "root" account} \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Turn on CloudTrail log file validation.} \tn 
+% Row Count 3 (+ 1)
+% Row 2
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Enable CloudTrail multi-region logging.} \tn 
+% Row Count 4 (+ 1)
+% Row 3
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Integrate CloudTrail with CloudWatch.} \tn 
+% Row Count 5 (+ 1)
+% Row 4
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Enable access logging for CloudTrail S3 buckets.} \tn 
+% Row Count 6 (+ 1)
+% Row 5
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Enable access logging for Elastic Load Balancer (ELB).} \tn 
+% Row Count 8 (+ 2)
+% Row 6
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Enable Redshift audit logging.} \tn 
+% Row Count 9 (+ 1)
+% Row 7
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Enable Virtual Private Cloud (VPC) flow logging.} \tn 
+% Row Count 10 (+ 1)
+% Row 8
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Require multifactor authentication (MFA) to delete CloudTrail buckets} \tn 
+% Row Count 12 (+ 2)
+% Row 9
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Enable CloudTrail logging across all AWS.} \tn 
+% Row Count 13 (+ 1)
+% Row 10
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Turn on multi-factor authentication for IAM users.} \tn 
+% Row Count 14 (+ 1)
+% Row 11
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Enable IAM users for multi-mode access.} \tn 
+% Row Count 15 (+ 1)
+% Row 12
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Attach IAM policies to groups or roles} \tn 
+% Row Count 16 (+ 1)
+% Row 13
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Rotate IAM access keys regularly, and standardize on the selected number of days} \tn 
+% Row Count 18 (+ 2)
+% Row 14
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Set up a strict password policy.} \tn 
+% Row Count 19 (+ 1)
+% Row 15
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Set the password expiration period to 90 days and prevent reuseCustomer Visualforce pages with standard headers} \tn 
+% Row Count 22 (+ 3)
+% Row 16
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Don't use expired SSL/TLS certificates} \tn 
+% Row Count 23 (+ 1)
+% Row 17
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{User HTTPS for CloudFront distributions} \tn 
+% Row Count 24 (+ 1)
+% Row 18
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Restrict access to CloudTrail bucket.} \tn 
+% Row Count 25 (+ 1)
+% Row 19
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Encrypt CloudTrail log files at rest} \tn 
+% Row Count 26 (+ 1)
+% Row 20
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Encrypt Elastic Block Store (EBS) database.} \tn 
+% Row Count 27 (+ 1)
+% Row 21
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Provision access to resources using IAM roles.} \tn 
+% Row Count 28 (+ 1)
+% Row 22
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Ensure EC2 security groups don't have large ranges of ports open} \tn 
+% Row Count 30 (+ 2)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{X}
+\SetRowColor{DarkBackground}
+\mymulticolumn{1}{x{5.377cm}}{\bf\textcolor{white}{Recommend security best practices (cont)}}  \tn
+% Row 23
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Configure EC2 security groups to restrict inbound access to EC2.} \tn 
+% Row Count 2 (+ 2)
+% Row 24
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Avoid using root user accounts.} \tn 
+% Row Count 3 (+ 1)
+% Row 25
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Use secure SSL ciphers when connecting between the client and ELB.} \tn 
+% Row Count 5 (+ 2)
+% Row 26
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Use secure SSL versions when connecting between client and ELB.} \tn 
+% Row Count 7 (+ 2)
+% Row 27
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Use a standard naming (tagging) convention for EC2.} \tn 
+% Row Count 9 (+ 2)
+% Row 28
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Encrypt RDS.} \tn 
+% Row Count 10 (+ 1)
+% Row 29
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Ensure access keys are not being used with root accounts.} \tn 
+% Row Count 12 (+ 2)
+% Row 30
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Use secure CloudFront SSL versions.} \tn 
+% Row Count 13 (+ 1)
+% Row 31
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Enable the require\_ssl parameter in all Redshift clusters.} \tn 
+% Row Count 15 (+ 2)
+% Row 32
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Rotate SSH keys periodically.} \tn 
+% Row Count 16 (+ 1)
+% Row 33
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Minimize the number of discrete security groups.} \tn 
+% Row Count 17 (+ 1)
+% Row 34
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Reduce number of IAM groups.} \tn 
+% Row Count 18 (+ 1)
+% Row 35
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Terminate unused access keys} \tn 
+% Row Count 19 (+ 1)
+% Row 36
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Disable access for inactive or unused IAM users} \tn 
+% Row Count 20 (+ 1)
+% Row 37
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Remove unused IAM access keys} \tn 
+% Row Count 21 (+ 1)
+% Row 38
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Delete unused SSH Public Keys} \tn 
+% Row Count 22 (+ 1)
+% Row 39
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Restrict access to AMIs.} \tn 
+% Row Count 23 (+ 1)
+% Row 40
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Restrict access to EC2 security groups.} \tn 
+% Row Count 24 (+ 1)
+% Row 41
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Restrict access to RDS instances.} \tn 
+% Row Count 25 (+ 1)
+% Row 42
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Restrict access to Redshift clusters.} \tn 
+% Row Count 26 (+ 1)
+% Row 43
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Restrict outbound access.} \tn 
+% Row Count 27 (+ 1)
+% Row 44
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Disallow unrestricted ingress access on uncommon ports.} \tn 
+% Row Count 29 (+ 2)
+% Row 45
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Restrict access to well-known ports such as CIFS, FTP, ICMP, SMTP, SSH, Remote desktop} \tn 
+% Row Count 31 (+ 2)
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\vfill
+\columnbreak
+\begin{tabularx}{5.377cm}{X}
+\SetRowColor{DarkBackground}
+\mymulticolumn{1}{x{5.377cm}}{\bf\textcolor{white}{Recommend security best practices (cont)}}  \tn
+% Row 46
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Inventory \& categorize all existing custom apps by the types of data stored, compliance requirements \& possible threats they face.} \tn 
+% Row Count 3 (+ 3)
+% Row 47
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Involve IT security throughout the development process.} \tn 
+% Row Count 5 (+ 2)
+% Row 48
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Grant the fewest privileges as possible for application users} \tn 
+% Row Count 7 (+ 2)
+% Row 49
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{Enforce a single set of data loss prevention policies across custom applications and all other cloud services.} \tn 
+% Row Count 10 (+ 3)
+% Row 50
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{Encrypt highly sensitive data such as protected health information (PHI) or personally identifiable information (PII).} \tn 
+% Row Count 13 (+ 3)
+\hhline{>{\arrayrulecolor{DarkBackground}}-}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+
+% That's all folks
+\end{multicols*}
+
+\end{document}
