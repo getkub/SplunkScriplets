@@ -27,7 +27,7 @@ sample1.json
 	            "clientAuthEnabled": "false",
 	            "enabled": "true"
 	        }
-	    },
+	    }
 ]
 
 
