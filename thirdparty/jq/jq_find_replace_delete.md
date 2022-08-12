@@ -6,6 +6,10 @@
 cat sample_array.json | jq '.[]| select (.host == "${MY_HOST_EUROPE}")| .details.country |= "xxxxxx" '
 ```
 
+### Find and Replace based and retain entire data
+```
+jq 'map(if (.host == "${MY_HOST_EUROPE}") then .details.country = "xxxxxx" else . end )' sample_array.json
+```
 
 ### Delete a key-value
 ```
