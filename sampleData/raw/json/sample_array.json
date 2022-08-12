@@ -5,24 +5,27 @@
 	        "details": {
 	            "country": "US",
 	            "clientAuthEnabled": "false",
+	            "securityMode": "tls",
 	            "enabled": "true"
 	        }
 	    },
 	   {
 	        "host": "${MY_HOST_EUROPE}",
-	        "port": 443,
+	        "port": 22,
 	        "details": {
 	            "country": "UK",
 	            "clientAuthEnabled": "false",
+	            "securityMode": "none",
 	            "enabled": "true"
 	        }
 	    },
 	   {
 	        "host": "${MY_HOST_EUROPE}",
-	        "port": 443,
+	        "port": 8000,
 	        "details": {
 	            "country": "US",
 	            "clientAuthEnabled": "false",
+	            "securityMode": "https",
 	            "enabled": "true"
 	        }
 	    }
