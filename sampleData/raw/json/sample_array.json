@@ -1,0 +1,29 @@
+	[
+	   {
+	        "host": "${MY_HOST_AMERICAS}",
+	        "port": 443,
+	        "details": {
+	            "country": "US",
+	            "clientAuthEnabled": "false",
+	            "enabled": "true"
+	        }
+	    },
+	   {
+	        "host": "${MY_HOST_EUROPE}",
+	        "port": 443,
+	        "details": {
+	            "country": "UK",
+	            "clientAuthEnabled": "false",
+	            "enabled": "true"
+	        }
+	    },
+	   {
+	        "host": "${MY_HOST_EUROPE}",
+	        "port": 443,
+	        "details": {
+	            "country": "US",
+	            "clientAuthEnabled": "false",
+	            "enabled": "true"
+	        }
+	    }
+]
