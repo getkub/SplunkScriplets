@@ -1,38 +1,5 @@
-sample1.json
 - https://www.baeldung.com/linux/find-matching-text-replace-next-line
-```
-	[
-	   {
-	        "host": "${MY_HOST_AMERICAS}",
-	        "port": 443,
-	        "details": {
-	            "country": "US",
-	            "clientAuthEnabled": "false",
-	            "enabled": "true"
-	        }
-	    },
-	   {
-	        "host": "${MY_HOST_EUROPE}",
-	        "port": 443,
-	        "details": {
-	            "country": "UK",
-	            "clientAuthEnabled": "false",
-	            "enabled": "true"
-	        }
-	    },
-	   {
-	        "host": "${MY_HOST_EUROPE}",
-	        "port": 443,
-	        "details": {
-	            "country": "US",
-	            "clientAuthEnabled": "false",
-	            "enabled": "true"
-	        }
-	    }
-]
-
-
-```
+- Data sample: [Link](../../sampleData/raw/json/sample_array.json)
 
 ### Position based data manipulation
 ```
