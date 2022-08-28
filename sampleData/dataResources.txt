@@ -6,3 +6,4 @@ https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/azure-sentinel-th
 
 ## Quality Data
 https://github.com/elastic/integrations/blob/main/packages/cisco_asa/data_stream/log/sample_event.json
+https://github.com/elastic/integrations/tree/main/packages/apache/data_stream/access/_dev/test/pipeline
