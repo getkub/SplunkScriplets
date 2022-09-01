@@ -48,6 +48,9 @@ cat ~/.kube/config
 # update kubeconfig
 role_arn="arn:aws:iam::1234533435:role/my_custom_role"
 aws eks update-kubeconfig --name $cluster_name --role-arn $role_arn
+
+## Test
+kubectl get pods --kubeconfig ~/.kube/config
 ```
 
 Notes
