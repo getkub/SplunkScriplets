@@ -37,6 +37,19 @@ aws sts get-caller-identity
 aws s3 ls  # Test
 ```
 
+- For EKS (https://aws.amazon.com/premiumsupport/knowledge-center/eks-cluster-connection/)
+```
+# One off
+cluster_name=my_cluster
+# aws eks update-kubeconfig --name $cluster_name
+cat ~/.kube/config
+
+
+# update kubeconfig
+role_arn="arn:aws:iam::1234533435:role/my_custom_role"
+aws eks update-kubeconfig --name $cluster_name --role-arn $role_arn
+```
+
 Notes
 Getting Your Tenant ID and App ID URI
 - Your Azure AD system admin should be able to provide you with your Tenant ID and App ID URI. If you can't get it from them, you can scrape it from a login page from the myapps.microsoft.com page.
