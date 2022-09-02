@@ -1,0 +1,2 @@
+- SWOT (Strength, weakness, Opportunities, Threats) https://www.atlassian.com/software/confluence/templates/swot-analysis 
+- Risk Assessment https://www.atlassian.com/software/confluence/templates/risk-assessment
