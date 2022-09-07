@@ -15,7 +15,7 @@
 ```
 
 ## IAM policy Trust example
-```
+```json
 {
   "Version": "2013-10-17",
   "Statement": [
