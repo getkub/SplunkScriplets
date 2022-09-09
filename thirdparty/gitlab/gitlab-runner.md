@@ -49,3 +49,26 @@ kubectl -n gitlab exec -it $pod  -- /bin/bash
 gitlab-rake "gitlab:password:reset[root]"
 
 ```
+
+### Gitlab runner k8s config
+- Ensure k8s secret is created with `my-cert`
+```
+image: myrepo/group1/gitlab-runner:centos8
+imagePullPolicy: IfNotPresent
+gitlabUrl: "https://myserver:5443"
+certsSecretName: my-cert
+
+runners:
+  # runner configuration, where the multi line strings is evaluated as
+  # template so you can specify helm values inside of it.
+  #
+  # tpl: https://helm.sh/docs/howto/charts_tips_and_tricks/#using-the-tpl-function
+  # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+  config: |
+    [[runners]]
+      [runners.kubernetes]
+        namespace = "{{.Release.Namespace}}"
+        image = "myrepo/group1/my-image:v1"
+        helper_image = "myrepo/group2/gitlab-runner-helper:alpine3.15-x86_64-a2003406"
+        tls-ca-file = "/home/gitlab-runner/.gitlab-runner/certs/my-cert.crt"
+```
