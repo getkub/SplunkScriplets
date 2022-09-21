@@ -1,0 +1,50 @@
+---
+kind: Deployment
+apiVersion: v1
+metadata:
+  name: dev-kafka-client
+  namespace: dev-kafka
+  labels:
+    app: dev-kafka
+    env: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: dev-kafka
+        env: dev
+  template:
+    metadata:
+      labels:
+        app: dev-kafka
+        env: dev
+    spec:
+      containers:
+      - name: kafka-client
+        image: mesosphere/kafka-client:5.4.0
+        command:
+        - "/bin/sh"
+        args:
+        - "-c"
+        - while true; do sleep infinity; done
+        ports:
+        - name: kafka
+          containerPort: 9092
+          protocol: TCP
+        - name: kafka-alt
+          containerPort: 9093
+          protocol: TCP
+        env:
+        - name: KAFKA_CLIENT_USER
+          value: administrator
+        - name: ALLOW_PLAINTEXT_LISTENER
+          value: 'yes'
+        - name: KAFKA_CLIENT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kafka-secrets
+              key: password
+        - name: KAFKA_HEAP_OPTS
+          value: "-Xms4096m -Xmx8192m"
+        terminationMessagePath: "/dev/termination-log"
+        imagePullPolicy: IfNotPresent
