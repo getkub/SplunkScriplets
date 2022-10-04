@@ -20,3 +20,8 @@ sudo mount /tmp -o remount,exec
 
 ### To debug a container which is NOT starting using docker-compose
 docker-compose -f <compose_file> run <container_name> sh
+
+
+## Exec
+docker run -it --entrypoint bash repo.myrepo.co/project/imagename:imagetag
+docker push repo.myrepo.co/project/imagename:imagetag
