@@ -14,7 +14,7 @@ ansible-vault encrypt_string ${secret_string} --vault-password-file ${my_key_fil
 # to do above, cd to where the file is kept
 cd /tmp
 encrypted_file_for_string="myencrypted_file"
-echo -n $secret_string | ansible-vault encrypt_string --vault-id dev@${encrypted_file_for_string} --stdin-name ${secret_identifier} > ${encrypted_file_for_string}
+echo -n $secret_string | ansible-vault encrypt_string --vault-id dev@${encrypted_file_for_string} --stdin-name ${secret_identifier} > ${encrypted_file_for_string}.yml
 
 # ------------------------------ #
 # Encrypt a file (Remember the file itself get's encrypted)
