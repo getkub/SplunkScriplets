@@ -1,0 +1,22 @@
+# Add John Smith to the organization
+dn: uid=jsmith1,ou=People,dc=df,dc=org
+changetype: add
+objectClass: inetOrgPerson
+description: John Smith from Accounting.  John is the project
+  manager of the building project, so contact him with any qu
+ estions.
+cn: John Smith
+sn: Smith
+uid: jsmith1
+
+# Add Sally Brown to the organization
+dn: uid=sbrown20,ou=People,dc=df,dc=org
+changetype: add
+objectClass: inetOrgPerson
+description: Sally Brown from engineering.  Sally is responsibl
+ e for designing the blue prints and testing the structural int
+ egrity of the design.
+cn: Sally Brown
+sn: Brown
+uid: sbrown20
+
