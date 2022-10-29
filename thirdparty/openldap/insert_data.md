@@ -3,9 +3,13 @@
 password="adminpassword"
 ldapserver="127.0.0.1:1389"
 ldifFile="/tmp/newusers.ldif"
-mydn="cn=admin,dc=df,dc=org"
+mydn="dc=example,dc=org"
 ldapadd -x -D $mydn -w $password -H ldap://${ldapserver} -f ${ldifFile}
 ldapmodify -a -x -D $mydn -w $password -H ldap://${ldapserver} -f ${ldifFile}
+
+ldapsearch -H ldap://${ldapserver} -x -s base -b "" -LLL "+"
+#ldapadd -x -W -D "cn=ldapadm,${mydn}" -f /etc/openldap/slapd.d/xxxxx.ldif
+
 ```
 
 
