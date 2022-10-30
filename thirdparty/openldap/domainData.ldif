@@ -1,0 +1,19 @@
+dn: dc=df,dc=org
+objectClass: top
+objectClass: dcObject
+objectclass: organization
+o: df org
+dc: df
+
+dn: cn=admin,dc=df,dc=org
+objectClass: organizationalRole
+cn: admin
+description: Directory admin
+
+dn: ou=People,dc=df,dc=org
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Group,dc=df,dc=org
+objectClass: organizationalUnit
+ou: Group 
