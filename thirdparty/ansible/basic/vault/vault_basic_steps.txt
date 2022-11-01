@@ -8,16 +8,17 @@ echo "my_key" > $my_key_file
 secret_string="mypassword"
 secret_identifier="my_secret_key"
 encrypted_file_for_string="myencrypted_file"
+my_encrypted_file="/some/other/location/encrypted_file.yml"
 
 # below now has a bug
-ansible-vault encrypt_string ${secret_string} --vault-password-file ${my_key_file} --name ${secret_identifier} > ${encrypted_file_for_string}.yml
+# ansible-vault encrypt_string ${secret_string} --vault-password-file ${my_key_file} --name ${secret_identifier} > ${encrypted_file_for_string}.yml
 # to do above, cd to where the file is kept
-cd /tmp
-my_key_file="/file/path/secret.txt"
+# cd /tmp
+# my_key_file="/file/path/secret.txt"
 # Ensure $encrypted_file_for_string is present in same directory and contains the 
-secret_identifier="myencrypted_file"
-cp $my_key_file $secret_identifier
-echo -n $secret_string | ansible-vault encrypt_string --vault-id dev@${secret_identifier} --stdin-name ${secret_identifier} > ${secret_identifier}.yml
+
+export ANSIBLE_VAULT_PASSWORD_FILE="${my_key_file}" 
+ansible-vault encrypt_string ${secret_string} --name ${secret_identifier} >> ${my_encrypted_file}
 # echo -n $secret_string | ansible-vault encrypt_string --vault-id dev@${encrypted_file_for_string} --vault-password-file ${password_file} --stdin-name ${secret_identifier}  > /tmp/${encrypted_file_for_string}.yml
 
 # ------------------------------ #
