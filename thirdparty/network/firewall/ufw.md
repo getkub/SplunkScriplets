@@ -47,5 +47,8 @@ ufw app info Samba
 ```
 ufw status numbered
 ufw delete 7
+
+# OR by rules
+# ufw delete allow 9200  # NOT working yet
 ```
 
