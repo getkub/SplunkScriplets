@@ -42,3 +42,10 @@ ufw allow from ${lan_range} to any app Samba
 ufw app info Samba
 ```
 
+
+- Delete example
+```
+ufw status numbered
+ufw delete 7
+```
+
