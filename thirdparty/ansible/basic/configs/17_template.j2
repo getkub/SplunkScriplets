@@ -1,6 +1,14 @@
-{% set my_fruit_list = ["default"] %}
+{% macro input(name, value='', type='text', size=20) -%}
+    <input type="{{ type }}" name="{{ name }}" value="{{
+        value|e }}" size="{{ size }}">
+{%- endmacro %}
 
-{%- for item in (fruits_dict.dict| dict2items | selectattr("value.type", "match", "^veg$"))[3:8]  -%}
+{% set my_fruit_list = [] %}
+{% set range = ["default"] %}
+{%- for item in (fruits_dict.dict| dict2items | selectattr("value.type", "match", "^veg$"))[0:3]  -%}
 {{ my_fruit_list.append(item.value.name) }}
 {%- endfor -%}
 my_list=["{{ my_fruit_list|join('", "') }}"]
+
+<p>{{ input('user_test') }}</p>
+<p>{{ input('pass_test', type='password') }}</p>
