@@ -4,8 +4,8 @@
 {%- endmacro %}
 
 {% set my_fruit_list = [] %}
-{% set range = ["default"] %}
-{%- for item in (fruits_dict.dict| dict2items | selectattr("value.type", "match", "^veg$"))[0:3]  -%}
+{% set input_range = "[0:2]" %}
+{%- for item in (fruits_dict.dict| dict2items | selectattr("value.type", "match", "^veg$"))[0:2]  -%}
 {{ my_fruit_list.append(item.value.name) }}
 {%- endfor -%}
 my_list=["{{ my_fruit_list|join('", "') }}"]
