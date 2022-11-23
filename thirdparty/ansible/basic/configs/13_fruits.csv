@@ -5,3 +5,10 @@ id,name,quantity,type
 4,beetroot,2,veg
 5,onion,3,veg
 6,tomato,4,both
+7,pear,4,fruit
+8,banana,6,fruit
+9,persimon,4,fruit
+10,guava,4,fruit
+11,pepper,4,veg
+12,potato,5,veg
+13,cherry,5,fruit

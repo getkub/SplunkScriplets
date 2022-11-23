@@ -1,0 +1,6 @@
+{% set my_fruit_list = [] %}
+
+{%- for item in (fruits_dict.dict| dict2items | selectattr("value.type", "match", "^veg$"))[3:8]  -%}
+{{ my_fruit_list.append(item.value.name) }}
+{%- endfor -%}
+my_list=["{{ my_fruit_list|join('", "') }}"]

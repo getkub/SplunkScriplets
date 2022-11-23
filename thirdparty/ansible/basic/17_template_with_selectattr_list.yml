@@ -1,0 +1,32 @@
+---
+- name: "Get Variables from YML"
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: "Read as a list"
+      read_csv:
+        path: ./configs/13_fruits.csv
+      register: fruits_list
+    - name: "Read as a dict"
+      read_csv:
+        path: ./configs/13_fruits.csv
+        key: id
+      register: fruits_dict
+    # - debug:
+    #     msg: '{{ fruits_list }}'
+
+    - debug:
+        msg: '{{ clubbed }}'
+      vars:
+        clubbed: |
+          " 
+            {% for result in fruits_list.list %}
+            '{{ result.type }}-{{ result.name }}-{{ result.id }}',
+            {% endfor %}
+          "
+
+    - name: "show templating results"
+      template:
+        src: ./configs/17_template.j2
+        dest: /tmp/17_template.txt
+        mode: '0644'
