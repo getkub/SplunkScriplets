@@ -1,0 +1,38 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    input_range: 2
+    by_type: "{{ fruits.dict.values()|groupby('type') }}"
+    my_dict: "{{ dict(by_type|map('first')|list|
+                      zip(by_type|map('last')|
+                                  map('map', attribute='name')|list)) }}"
+    my_list: |
+      {% for batch in my_dict[type]|batch(input_range|int) %}
+        - {{ batch }}
+      {% endfor %}
+      
+  tasks:
+    - read_csv:
+        path: ./configs/13_fruits.csv
+        key: id
+      register: fruits
+    - debug:
+        var: fruits.dict|to_yaml
+    - debug:
+        var: by_type|to_yaml
+    - debug:
+        var: my_dict|to_yaml
+
+    - debug:
+        msg: "{{ my_list }}"
+      loop: "{{ my_dict.keys()|list }}"
+      vars:
+        type: "{{ item }}"
+
+    - set_fact:
+        my_list_veg: "{{ my_list }}"
+      vars:
+        type: veg
+        input_range: 3
+    - debug:
+        var: my_list_veg
