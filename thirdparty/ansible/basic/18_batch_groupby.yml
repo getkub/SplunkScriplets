@@ -6,11 +6,19 @@
     my_dict: "{{ dict(by_type|map('first')|list|
                       zip(by_type|map('last')|
                                   map('map', attribute='name')|list)) }}"
+    my_dict2: "{{ dict(by_type) }}"
     my_list: |
       {% for batch in my_dict[type]|batch(input_range|int) %}
         - {{ batch }}
       {% endfor %}
-      
+    my_list2: |
+      {% for batch in my_dict2[type]|batch(input_range|int) %}
+      {% for i in batch %}
+      - id: {{ i.id }}
+        name: {{ i.name }}
+      {% endfor %}
+      {% endfor %}
+
   tasks:
     - read_csv:
         path: ./configs/13_fruits.csv
@@ -31,6 +39,13 @@
 
     - set_fact:
         my_list_veg: "{{ my_list }}"
+      vars:
+        type: veg
+        input_range: 3
+    - debug:
+        var: my_list_veg
+    - set_fact:
+        my_list_veg: "{{ my_list2|from_yaml }}"
       vars:
         type: veg
         input_range: 3
