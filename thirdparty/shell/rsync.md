@@ -14,3 +14,10 @@ rsync -r --size-only --progress ${srcDir}/* ${destDir}/ --dry-run
 ```
 rsync -r --size-only --progress ${srcDir}/* ${destDir}/ --exclude '.DS_Store' --dry-run
 ```
+
+
+## More Accurate run, but takes time
+```
+rsync -rhic --progress ${srcDir}/* ${destDir}/ --ignore-times --dry-run
+
+```
