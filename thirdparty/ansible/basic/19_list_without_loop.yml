@@ -1,0 +1,21 @@
+# - hosts: localhost
+#   gather_facts: no
+#   vars:
+#     by_type: "{{ fruits.dict.values()|groupby('type') }}"
+#     my_list2: |
+#       {% for batch in my_dict2[type]|batch(input_range|int) %}
+#       {% for i in batch %}
+#       - id: {{ i.id }}
+#         name: {{ i.name }}
+#       {% endfor %}
+#       {% endfor %}
+#     fruits_dict: "{{ fruits.dict }}"
+
+#   tasks:
+#     - read_csv:
+#         path: ./configs/13_fruits.csv
+#         key: id
+#       register: fruits
+#     - debug:
+#         var: fruits_dict
+
