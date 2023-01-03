@@ -37,6 +37,18 @@
             {%- endfor -%}
             {{my_list|join(',')}}
             "
+# https://stackoverflow.com/questions/74994156/how-can-i-efficiently-loop-through-and-combine-fields-of-a-lookup-csv-file/74994667
+    - name: "List fields using ANSIBLE Core functions"
+      debug:
+        msg: "{{using_ansible_core_list}}"
+      vars:
+        firstname: "{{ hosts_list.list | d([]) | map(attribute='firstname') }}"
+        secondname: "{{ hosts_list.list | d([]) | map(attribute='secondname') }}"
+        department: "{{ hosts_list.list | d([]) | map(attribute='department') }}"
+        using_ansible_core_list: "{{ firstname | zip(secondname) | map('join', '-')| zip(department) | map('join', '-')}}"
+    
+    # - meta: end_play
+
     - name: "Custom filter plugin"
       debug:
         msg: 
