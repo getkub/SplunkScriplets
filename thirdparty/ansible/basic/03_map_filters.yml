@@ -32,7 +32,7 @@
         - jinja_list: |-
             {% set my_list = [] %}
             {% for item in hosts_list.list %}
-            {% if item.department == 'HR' %}
+            {% if item.department != 'IT' %}
             {% set list_item = item.firstname + '-' +  item.secondname + '-' +  item.department %}
             {{my_list.append(list_item)}}
             {%- endif %}
