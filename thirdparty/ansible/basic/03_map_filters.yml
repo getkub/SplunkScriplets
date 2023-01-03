@@ -24,19 +24,21 @@
       vars:
         jmesquery: "[*].[firstname,secondname,department]"
 
+# no double quotes & join required. Be Careful of the - symbol at `endfor` & `endif` statements
     - name: "List fields using JINJA traditional"
       debug:
         msg: "{{jinja_list}}"
       vars:
-        - jinja_list: |
-            "
-            {%- set my_list = [] %}
-            {%- for item in hosts_list.list %}
-            {%- set list_item = item.firstname + '-' +  item.secondname + '-' +  item.department %}
+        - jinja_list: |-
+            {% set my_list = [] %}
+            {% for item in hosts_list.list %}
+            {% if item.department == 'HR' %}
+            {% set list_item = item.firstname + '-' +  item.secondname + '-' +  item.department %}
             {{my_list.append(list_item)}}
-            {%- endfor -%}
-            {{my_list|join(',')}}
-            "
+            {%- endif %}
+            {%- endfor %}
+            {{my_list}}
+
 # https://stackoverflow.com/questions/74994156/how-can-i-efficiently-loop-through-and-combine-fields-of-a-lookup-csv-file/74994667
     - name: "List fields using ANSIBLE Core functions"
       debug:
