@@ -6,11 +6,24 @@
   tasks:
     - read_csv:
         path: "configs/13_fruits.csv"
-      register: fruits_csv_full
-    - name: ": FILTER csv by type"
-      set_fact: 
-        fruits_csv:  '{{ fruits_csv_full.list | selectattr("type", "match", input_regex)  }}'
-    - name: ": filtered list"
+      register: fruits_csv_list
+    - read_csv:
+        path: "configs/13_fruits.csv"
+        key: id
+      register: fruits_csv_dict
+    # - name: "Create a new list with combined fields"
+    #   debug:
+    #     msg: "{{jinja_list}}"
+      # vars:
+      #   - jinja_list: |-
+      #       {% set ml = [] %}
+      #       {% for item in fruits_csv_list.list %}
+      #       {% set li = item.type + '-' +  item.name + '-' +  item.id %}
+      #       {{ml.append(li)}}
+      #       {%- endfor %}
+      #       {{ml}}  
+
+# https://serverfault.com/questions/685673/appending-to-lists-or-adding-keys-to-dictionaries-in-ansible
+    - name: "Create a new list with combined fields"
       debug:
-        msg: "{{fruits_csv}}"
-  
+        msg: "{{ fruits_csv_list.list |combine({'country': 'US'}) }}"
