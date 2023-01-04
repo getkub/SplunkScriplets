@@ -1,0 +1,16 @@
+- name: "Playbook for fruits csv"
+  hosts: localhost
+  gather_facts: no
+  vars:
+    input_regex: "^veg$"
+  tasks:
+    - read_csv:
+        path: "configs/13_fruits.csv"
+      register: fruits_csv_full
+    - name: ": FILTER csv by type"
+      set_fact: 
+        fruits_csv:  '{{ fruits_csv_full.list | selectattr("type", "match", input_regex)  }}'
+    - name: ": filtered list"
+      debug:
+        msg: "{{fruits_csv}}"
+  

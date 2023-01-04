@@ -2,19 +2,27 @@
   hosts: localhost
   gather_facts: no
   vars:
-    ing_collector_input: "veg"
+    input_regex: "veg"
   tasks:
     - read_csv:
         path: "configs/13_fruits.csv"
         key: id
-      register: fruits_csv_full
+      register: fruits_csv_dict
     - name: ": FILTER csv by type"
       set_fact: 
-        fruits_csv:  '{{ fruits_csv_full.dict| dict2items | selectattr("value.type", "match", "^veg$")| list | items2dict  }}'
+        fruits_csv:  '{{ fruits_csv_dict.dict| dict2items | selectattr("value.type", "match", "^veg$")| list | items2dict  }}'
     - name: ": non-filtered list"
       debug:
-        msg: "{{fruits_csv_full}}"
-    - name: ": filtered list"
+        msg: "{{fruits_csv_dict}}"
+    - name: "DICT: filtered list"
       debug:
         msg: "{{fruits_csv}}"
-  
+    - read_csv:
+        path: "configs/13_fruits.csv"
+      register: fruits_csv_list
+    - name: "LIST: FILTER csv by type"
+      set_fact: 
+        fruits_csv:  '{{ fruits_csv_list.list | selectattr("type", "match", input_regex)  }}'
+    - name: ": filtered list"
+      debug:
+        msg: "{{fruits_csv}}"  
