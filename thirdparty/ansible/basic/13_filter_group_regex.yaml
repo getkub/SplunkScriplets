@@ -21,7 +21,7 @@
     - name: "FILTER the list"
       set_fact: 
         uid_filter:  '{{ jinja_list | selectattr("uid", "match", input_regex)  }}'
-    - name: "FILTER the list"
+    - name: "GET ONLY the uid field"
       set_fact:
         filtered_list: |-
             {% set result = [] %}
