@@ -2,28 +2,33 @@
   hosts: localhost
   gather_facts: no
   vars:
-    input_regex: "^veg$"
+    input_regex: "^veg-"
+    exclusion_list: ["veg-potato-12", "veg-beetroot-4"]
   tasks:
     - read_csv:
         path: "configs/13_fruits.csv"
       register: fruits_csv_list
-    - read_csv:
-        path: "configs/13_fruits.csv"
-        key: id
-      register: fruits_csv_dict
-    # - name: "Create a new list with combined fields"
-    #   debug:
-    #     msg: "{{jinja_list}}"
-      # vars:
-      #   - jinja_list: |-
-      #       {% set ml = [] %}
-      #       {% for item in fruits_csv_list.list %}
-      #       {% set li = item.type + '-' +  item.name + '-' +  item.id %}
-      #       {{ml.append(li)}}
-      #       {%- endfor %}
-      #       {{ml}}  
-
-# https://serverfault.com/questions/685673/appending-to-lists-or-adding-keys-to-dictionaries-in-ansible
+# https://stackoverflow.com/questions/75001196/how-to-append-a-combination-field-into-nested-list-using-jinja2
     - name: "Create a new list with combined fields"
+      set_fact:
+        jinja_list: |-
+          {% set result = [] %}
+          {% for item in fruits_csv_list.list %}
+          {% set li = {'uid': [item.type, item.name, item.id] | join('-')} %}
+          {{ result.append(item | combine(li)) }}
+          {%- endfor %}
+          {{ result }}
+    - name: "FILTER the list"
+      set_fact: 
+        uid_filter:  '{{ jinja_list | selectattr("uid", "match", input_regex)  }}'
+    - name: "FILTER the list"
+      set_fact:
+        filtered_list: |-
+            {% set result = [] %}
+            {% for item in uid_filter %}
+            {{ result.append(item.uid) }}
+            {%- endfor %}
+            {{ result }}
+    - name: "Remove the exclusion list"
       debug:
-        msg: "{{ fruits_csv_list.list |combine({'country': 'US'}) }}"
+        msg: "{{ filtered_list | difference(exclusion_list) }}"
