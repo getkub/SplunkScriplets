@@ -1,4 +1,4 @@
-# SplunkScriplets
+# SplunkScriplets and Other technology snippets
 ### Various Splunk related configs, support items, tricks and notes .. All in ONE Place
 The repository is NOT just for Splunk itself, must mostly collection of third party surroundings (like OS, firewalls) and snippets which are useful for an enterprise grade Splunk deployment
 
