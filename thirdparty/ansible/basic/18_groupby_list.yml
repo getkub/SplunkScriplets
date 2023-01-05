@@ -1,0 +1,11 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    by_type: "{{ fruits.list|groupby('type') }}"
+
+  tasks:
+    - read_csv:
+        path: ./configs/13_fruits.csv
+      register: fruits
+    - debug:
+        var: "{{by_type}}"
