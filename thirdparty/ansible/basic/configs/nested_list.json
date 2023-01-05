@@ -1,0 +1,25 @@
+[
+    {
+        "type": "fruit",
+        "names": [
+            "apple",
+            "mango",
+            "pear",
+            "grapes"
+        ]
+    },
+    {
+        "type": "both",
+        "names": [
+            "tomato"
+        ]
+    },
+    {
+        "type": "veg",
+        "names": [
+            "potato",
+            "augbe",
+            "chilli"
+        ]
+    }
+]

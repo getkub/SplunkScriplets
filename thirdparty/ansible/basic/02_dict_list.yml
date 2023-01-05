@@ -1,0 +1,39 @@
+---
+- name: "Get Variables from YML"
+  hosts: localhost
+  vars: 
+    nested_list: |-
+      [
+          {
+              "type": "fruit",
+              "names": [
+                  "apple",
+                  "mango",
+                  "pear",
+                  "grapes"
+              ]
+          },
+          {
+              "type": "both",
+              "names": [
+                  "tomato"
+              ]
+          },
+          {
+              "type": "veg",
+              "names": [
+                  "potato",
+                  "augbe",
+                  "chilli"
+              ]
+          }
+      ]
+  gather_facts: no
+  tasks:
+    # - debug:
+    #     var: nested_list
+    - debug:
+        msg: 
+          - item_type: "{{item.type}}"
+          - item_names: "{{item.names}}"
+      with_items: "{{nested_list}}"
