@@ -3,6 +3,7 @@
   gather_facts: no
   vars:
     input_regex: "veg"
+    input_list: ["both"]
   tasks:
     - read_csv:
         path: "configs/13_fruits.csv"
@@ -11,6 +12,9 @@
     - name: ": FILTER csv by type"
       set_fact: 
         fruits_csv:  '{{ fruits_csv_dict.dict| dict2items | selectattr("value.type", "match", "^veg$")| list | items2dict  }}'
+    - name: ": FILTER csv by type"
+      debug: 
+        msg:  '{{ fruits_csv_dict.dict| dict2items | selectattr("value.type", "in" , input_list)| list | items2dict  }}'
     - name: ": non-filtered list"
       debug:
         msg: "{{fruits_csv_dict}}"
