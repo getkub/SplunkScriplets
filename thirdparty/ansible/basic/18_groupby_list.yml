@@ -2,10 +2,21 @@
   gather_facts: no
   vars:
     by_type: "{{ fruits.list|groupby('type') }}"
-
+    group_first_list: "{{ by_type |map('first')|list  }}"
+    group_last_list: "{{ by_type |map('last')|map('map', attribute='name') | list  }}"
+    net_dict: "{{ dict(group_first_list|zip(group_last_list)) }}"
+    net_list: "{{ net_dict|dict2items(key_name='name', value_name='net') }}"
   tasks:
     - read_csv:
         path: ./configs/13_fruits.csv
       register: fruits
     - debug:
-        var: "{{by_type}}"
+        var: by_type
+    - debug:
+        var: group_first_list
+    - debug:
+        var: group_last_list
+    - debug:
+        var: net_dict
+    - debug:
+        var: net_list
