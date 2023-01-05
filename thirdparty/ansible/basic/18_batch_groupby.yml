@@ -29,7 +29,7 @@
     - debug:
         var: by_type|to_yaml
     - debug:
-        var: my_dict|to_yaml
+        var: my_dict
 
     - debug:
         msg: "{{ my_list }}"
@@ -49,5 +49,3 @@
       vars:
         type: veg
         input_range: 3
-    - debug:
-        var: my_list_veg
