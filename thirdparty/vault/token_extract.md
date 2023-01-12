@@ -10,6 +10,18 @@ cat /tmp/vault.crt | jq -r .data.private_key > /tmp/my-key.pem
 cat /tmp/vault.crt | jq -r .data.ca_chain[0] > /tmp/my-ca-chain.crt
 ```
 
+## Token extraction method - via API
+```
+MY_KEY_DIR="org/department"
+# Extract the key from the DIR
+
+curl \
+-H "X-Vault-Token: $CLIENT_TOKEN" \
+-H "X-Vault-Namespace: $NS" \
+-X GET ${VAULT_URL}/v1/secrets/data/${MY_KEY_DIR}
+
+```
+
 
 ## Token Update method
 ```
