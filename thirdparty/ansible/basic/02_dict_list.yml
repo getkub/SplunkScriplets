@@ -1,33 +1,34 @@
 ---
-- name: "Get Variables from YML"
+- name: "LOAD JSON into variable, debug msg as var, nested_list iteration"
   hosts: localhost
   vars: 
-    nested_list: |-
-      [
-          {
-              "type": "fruit",
-              "names": [
-                  "apple",
-                  "mango",
-                  "pear",
-                  "grapes"
-              ]
-          },
-          {
-              "type": "both",
-              "names": [
-                  "tomato"
-              ]
-          },
-          {
-              "type": "veg",
-              "names": [
-                  "potato",
-                  "augbe",
-                  "chilli"
-              ]
-          }
-      ]
+    - jsondata: "{{ lookup('file', './configs/nested_list.json') | from_json }}"
+    - nested_list: |-
+        [
+            {
+                "type": "fruit",
+                "names": [
+                    "apple",
+                    "mango",
+                    "pear",
+                    "grapes"
+                ]
+            },
+            {
+                "type": "both",
+                "names": [
+                    "tomato"
+                ]
+            },
+            {
+                "type": "veg",
+                "names": [
+                    "potato",
+                    "augbe",
+                    "chilli"
+                ]
+            }
+        ]
   gather_facts: no
   tasks:
     # - debug:
@@ -37,3 +38,5 @@
           - item_type: "{{item.type}}"
           - item_names: "{{item.names}}"
       with_items: "{{nested_list}}"
+    - debug:
+        var: jsondata
