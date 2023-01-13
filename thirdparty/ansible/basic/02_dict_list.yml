@@ -3,6 +3,7 @@
   hosts: localhost
   vars: 
     - jsondata: "{{ lookup('file', './configs/nested_list.json') | from_json }}"
+    - filterKey: "type"
     - nested_list: |-
         [
             {
@@ -42,6 +43,6 @@
         var: jsondata
     - name: "Get an object using 'GET' function. This is useful if you have non-word characters in the key"
       debug:
-        msg: "{{item.get('type')}}"
+        msg: "{{item.get(filterKey)}}"
       loop: "{{jsondata}}"
 
