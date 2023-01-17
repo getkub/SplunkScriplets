@@ -1,0 +1,17 @@
+---
+- name: "Create JSON from vars"
+  hosts: localhost
+  gather_facts: no
+  vars:
+    mylist:
+      type: fruit
+      ttl: 60m
+      country: US
+  tasks:
+    - name: "Convert vars to json"
+      debug:
+        var: mylist
+    - name: "Convert vars to json"
+      debug:
+        var: mylist| to_json
+
