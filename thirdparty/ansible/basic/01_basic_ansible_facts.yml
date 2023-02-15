@@ -1,0 +1,10 @@
+---
+# ansible-playbook -i localhost,  --connection=local 01_basic_ansible_facts.yml
+- name: Playbook
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Test message 
+      debug:
+        var: ansible_facts
+        verbosity: 0
