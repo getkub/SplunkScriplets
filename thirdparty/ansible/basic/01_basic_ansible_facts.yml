@@ -8,3 +8,12 @@
       debug:
         var: ansible_facts
         verbosity: 0
+    - name: Test message 
+      debug:
+        var: hostvars[inventory_hostname]
+    - name: Test message 
+      debug:
+        msg:
+          - "ansible_user_id": "{{ansible_user_id}}"
+          - "ansible_env.USER": "{{ansible_env.USER}}"
+          - "ansible_date_time.iso8601": "{{ansible_date_time.iso8601}}"
