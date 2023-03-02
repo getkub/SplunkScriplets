@@ -12,7 +12,7 @@ keytool -importkeystore \
 
 ```
 # Alternatively
-keytool -list -rfc -keystore $jks -storepass $storepass | sed "s/^\-*BEGIN [A-Z]-*//g;s/^\-*END [A-Z]-*$//g"
+keytool -list -rfc -keystore $jks -storepass $storepass | sed "s/^\-*BEGIN [A-Z]-*//g;s/^\-*END [A-Z]-*$//g" > ${jks}.pem
 
 als="ca"
 keytool -export -rfc -keystore $jks -storepass $storepass -alias $als -file ${jks}.pem
