@@ -13,5 +13,7 @@ keytool -importkeystore \
 
 #### PKCS12 to PEM
 ```
-openssl pkcs12 -in ${jks}.p12 
+openssl pkcs12 -in ${jks}.p12 -out ${jks}.pem -passin pass:${storepass} -passout pass:${storepass}
 ```
+
+### PEM can be used in cacert in CURL
