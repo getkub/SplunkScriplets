@@ -3,16 +3,21 @@
     tmp_path: "/tmp/"
     passphrase: "changeme"
     my_org: "mycompany"
+    thisproject: "mycert"
   tasks:
   - name: Create private key (RSA, 4096 bits)
     community.crypto.openssl_privatekey:
-      path: "{{tmp_path}}/certificate.key"
+      path: "{{tmp_path}}/{{thisproject}}.key"
       # type: X25519
       # passphrase: "{{passphrase}}"
       # cipher: auto
+  - name: Generate an OpenSSL public key in PEM format
+    community.crypto.openssl_publickey:
+      path: "{{tmp_path}}/{{thisproject}}.pub.pem"
+      privatekey_path: "{{tmp_path}}/{{thisproject}}.key"
   - name: Create certificate signing request (CSR) for self-signed certificate
     community.crypto.openssl_csr_pipe:
-      privatekey_path: "{{tmp_path}}/certificate.key"
+      privatekey_path: "{{tmp_path}}/{{thisproject}}.key"
       common_name: "{{my_org}}.com"
       organization_name: "{{my_org}}, Inc."
       organizational_unit_name: "IT"
@@ -27,7 +32,7 @@
 
   - name: Create self-signed certificate from CSR
     community.crypto.x509_certificate:
-      path: "{{tmp_path}}/certificate.pem"
+      path: "{{tmp_path}}/{{thisproject}}.ca.pem"
       csr_content: "{{ csr.csr }}"
-      privatekey_path: "{{tmp_path}}/certificate.key"
+      privatekey_path: "{{tmp_path}}/{{thisproject}}.key"
       provider: selfsigned
