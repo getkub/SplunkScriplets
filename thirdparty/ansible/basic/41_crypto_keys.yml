@@ -1,0 +1,33 @@
+- hosts: localhost
+  vars:
+    tmp_path: "/tmp/"
+    passphrase: "changeme"
+    my_org: "mycompany"
+  tasks:
+  - name: Create private key (RSA, 4096 bits)
+    community.crypto.openssl_privatekey:
+      path: "{{tmp_path}}/certificate.key"
+      # type: X25519
+      # passphrase: "{{passphrase}}"
+      # cipher: auto
+  - name: Create certificate signing request (CSR) for self-signed certificate
+    community.crypto.openssl_csr_pipe:
+      privatekey_path: "{{tmp_path}}/certificate.key"
+      common_name: "{{my_org}}.com"
+      organization_name: "{{my_org}}, Inc."
+      organizational_unit_name: "IT"
+      state_or_province_name: "someState"
+      locality_name: "someLocality"
+      country_name: "US"
+      subject_alt_name:
+        - "DNS:{{my_org}}.com"
+        - "DNS:www.{{my_org}}.com"
+        - "DNS:docs.{{my_org}}.com"
+    register: csr
+
+  - name: Create self-signed certificate from CSR
+    community.crypto.x509_certificate:
+      path: "{{tmp_path}}/certificate.pem"
+      csr_content: "{{ csr.csr }}"
+      privatekey_path: "{{tmp_path}}/certificate.key"
+      provider: selfsigned
