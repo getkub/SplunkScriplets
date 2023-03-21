@@ -1,0 +1,1 @@
+- Adding dynamic value to raw body : https://community.postman.com/t/raw-json-body-how-to-add-variable/3396
