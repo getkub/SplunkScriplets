@@ -1,0 +1,48 @@
+<form version="1.1">
+  <label>onboard</label>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="app">
+      <label>app</label>
+      <fieldForLabel>choro_state</fieldForLabel>
+      <fieldForValue>choro_state</fieldForValue>
+      <search>
+        <query>|inputlookup examples.csv| stats count by choro_state</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+    <input type="dropdown" token="app2">
+      <label>app2</label>
+      <fieldForLabel>nutrients_group</fieldForLabel>
+      <fieldForValue>nutrients_group</fieldForValue>
+      <search>
+        <query>|inputlookup examples.csv where choro_state=$app$ | stats count by nutrients_group</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+    <input type="multiselect" token="multi1">
+      <label>multi1</label>
+      <fieldForLabel>nutrients_name</fieldForLabel>
+      <fieldForValue>nutrients_name</fieldForValue>
+      <search>
+        <query>|inputlookup examples.csv where choro_state=$app$ | stats count by nutrients_name|eval nutrients_name=split(nutrients_name,",")| mvexpand nutrients_name| eval nutrients_name=trim(nutrients_name)</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>|inputlookup examples.csv where choro_state=$app$ nutrients_name="*"</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>
