@@ -20,3 +20,9 @@ else {
 }
 
 ```
+
+
+- Skip a stage based on boolean value
+```
+when { excpression {return params.SKIP_STAGE_3 }}
+```
