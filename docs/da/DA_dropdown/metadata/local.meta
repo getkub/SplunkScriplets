@@ -1,0 +1,21 @@
+[app/ui]
+version = 9.0.4.1
+
+[app/launcher]
+version = 9.0.4.1
+
+[views/asset_db]
+owner = admin
+version = 9.0.4.1
+
+[lookups/horseshoe_data.csv]
+access = read : [ * ]
+export = system
+owner = admin
+version = 9.0.4.1
+
+[lookups/sales_data.csv]
+access = read : [ * ]
+export = system
+owner = admin
+version = 9.0.4.1

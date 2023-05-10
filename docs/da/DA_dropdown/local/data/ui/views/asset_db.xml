@@ -1,0 +1,29 @@
+<form version="1.1">
+  <label>asset_db</label>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="tok_metric" searchWhenChanged="true">
+      <label>metric_label</label>
+      <fieldForLabel>metric</fieldForLabel>
+      <fieldForValue>metric</fieldForValue>
+      <search>
+        <query>| inputlookup sales_data.csv| stats count by metric</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <title>Metric_Value Table</title>
+        <search>
+          <query>| inputlookup sales_data.csv where metric="$tok_metric$"</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>
