@@ -16,3 +16,9 @@ fname="${destDir}/${appName}.tgz"
 scp myuser@Server:/tmp/${appName}.tgz $fname
 tar -xzf $fname -C $destDir  && rm $fname
 ```
+
+
+## Dashboard Studio link within Splunk
+```
+/app/splunk-dashboard-studio
+```
