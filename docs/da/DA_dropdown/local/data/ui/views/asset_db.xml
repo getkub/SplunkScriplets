@@ -25,5 +25,40 @@
         <option name="refresh.display">progressbar</option>
       </table>
     </panel>
+    <panel>
+      <chart>
+        <title>Metric Types</title>
+        <search>
+          <query>| inputlookup sales_data.csv | stats count by metric</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Categorical Colors</title>
+      <viz type="sankey_diagram_app.sankey_diagram">
+        <search>
+          <query>|inputlookup webstore_requests.csv  | rex field=referer "https?://.*(?&lt;referer_path&gt;/.*)\?.*"  | stats count, avg(bytes) by referer_path uri_path</query>
+          <earliest></earliest>
+          <latest></latest>
+        </search>
+        <option name="sankey_diagram_app.sankey_diagram.colorMode">categorical</option>
+        <option name="sankey_diagram_app.sankey_diagram.maxColor">#3fc77a</option>
+        <option name="sankey_diagram_app.sankey_diagram.minColor">#d93f3c</option>
+        <option name="sankey_diagram_app.sankey_diagram.numOfBins">6</option>
+        <option name="sankey_diagram_app.sankey_diagram.showBackwards">0</option>
+        <option name="sankey_diagram_app.sankey_diagram.showLabels">1</option>
+        <option name="sankey_diagram_app.sankey_diagram.showLegend">1</option>
+        <option name="sankey_diagram_app.sankey_diagram.showSelf">0</option>
+        <option name="sankey_diagram_app.sankey_diagram.showTooltip">1</option>
+        <option name="sankey_diagram_app.sankey_diagram.styleBackwards">0</option>
+        <option name="sankey_diagram_app.sankey_diagram.useColors">1</option>
+      </viz>
+    </panel>
   </row>
 </form>

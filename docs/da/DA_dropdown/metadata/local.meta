@@ -1,21 +1,35 @@
 [app/ui]
 version = 9.0.4.1
+modtime = 1683723447.815621000
 
 [app/launcher]
 version = 9.0.4.1
+modtime = 1683723447.816407000
 
 [views/asset_db]
 owner = admin
 version = 9.0.4.1
+modtime = 1683730089.718280000
 
 [lookups/horseshoe_data.csv]
 access = read : [ * ]
 export = system
 owner = admin
 version = 9.0.4.1
+modtime = 1683723611.765718000
 
 [lookups/sales_data.csv]
 access = read : [ * ]
 export = system
 owner = admin
 version = 9.0.4.1
+modtime = 1683723617.381000000
+
+[nav/default]
+version = 9.0.4.1
+modtime = 1683730733.488204000
+
+[views/studio_dropdown]
+owner = admin
+version = 9.0.4.1
+modtime = 1683731386.095989000

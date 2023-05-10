@@ -1,0 +1,7 @@
+
+        <dashboard version="2" theme="light" hiddenElements="{&quot;hideEdit&quot;:false,&quot;hideOpenInSearch&quot;:false,&quot;hideExport&quot;:false}">
+            <label>studio_dropdown</label>
+            <description></description>
+            <definition><![CDATA[{"visualizations":{"viz_9nvbI5Al":{"type":"splunk.table","options":{},"dataSources":{"primary":"ds_NAuRhxFm"}}},"dataSources":{"ds_qhF4OIhf":{"type":"ds.search","options":{"query":"| inputlookup sales_data.csv \n| stats count by metric"},"name":"metric_search"},"ds_NAuRhxFm":{"type":"ds.search","options":{"query":"| inputlookup sales_data.csv where metric IN (\"$metric$\")"},"name":"table1"}},"defaults":{"dataSources":{"ds.search":{"options":{"queryParameters":{"latest":"$global_time.latest$","earliest":"$global_time.earliest$"}}}}},"inputs":{"input_global_trp":{"type":"input.timerange","options":{"token":"global_time","defaultValue":"-24h@h,now"},"title":"Global Time Range"},"input_2Dato6xW":{"options":{"items":[],"defaultValue":"*","token":"metric"},"title":"metric","type":"input.dropdown","dataSources":{"primary":"ds_qhF4OIhf"}}},"layout":{"type":"grid","options":{},"structure":[{"item":"viz_9nvbI5Al","type":"block","position":{"x":0,"y":0,"w":1200,"h":400}}],"globalInputs":["input_global_trp","input_2Dato6xW"]},"description":"","title":"studio_dropdown"}]]></definition>
+            <assets><![CDATA[{}]]></assets>
+        </dashboard>
