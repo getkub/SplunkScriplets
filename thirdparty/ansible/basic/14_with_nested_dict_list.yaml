@@ -4,7 +4,7 @@
   gather_facts: false
   hosts: localhost
   tasks:
-    - name: "pipeline_skeleton: Update KAFKA INPUT/FILTER/OUTPUT template with values"
+    - name: "Updatetemplate with values"
       debug:
         msg: "{{item.0}}, {{item.1}}, {{item.2}}"
       with_nested:
