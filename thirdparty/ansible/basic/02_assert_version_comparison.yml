@@ -1,0 +1,17 @@
+---
+- name: "Compare versions using builtin"
+  hosts: localhost
+  gather_facts: no
+  vars:
+    mylist:
+      installed_version: "10.52.00"
+      latest_version: "10.52.00.01"
+  tasks:
+    - name: "Comparing semver versions"
+      assert:
+        that:
+          - " '10.52.0' is version( '10.52.1', 'lt', version_type='semver')"
+    # - name: "Comparing semver versions"
+    #   assert: "Convert vars to json"
+    #     that:
+    #       - "mylist.installed_version is version(mylist.installed_version, 'lt', version_type='semver')"
