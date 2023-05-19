@@ -15,3 +15,7 @@
     #   assert: "Convert vars to json"
     #     that:
     #       - "mylist.installed_version is version(mylist.installed_version, 'lt', version_type='semver')"
+    - name: "Regex version numbers out"
+      debug:
+        msg:
+          - "{{ mylist.latest_version |regex_replace('^(\\d+\\..\\d+)\\..+', '\\1') }}"
