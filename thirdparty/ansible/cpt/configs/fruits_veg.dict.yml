@@ -1,0 +1,13 @@
+fruits_veg:
+  - name: apple
+    color: red
+    type: fruit
+  - name: banana
+    color: yellow
+    type: fruit
+  - name: carrot
+    color: orange
+    type: vegetable
+  - name: orange
+    color: orange
+    type: fruit
