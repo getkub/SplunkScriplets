@@ -10,7 +10,9 @@ brew install ansible
 
 
 - prompts & zsh themes
-`
+```
 ZSH_THEME="philips"
 
 PROMPT='%{$fg[blue]%}%B%c /%b%{$reset_color%} $(git_prompt_info)%(!.#.$) '
+
+```
