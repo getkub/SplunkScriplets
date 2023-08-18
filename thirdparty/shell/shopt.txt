@@ -1,0 +1,3 @@
+shopt -s dotglob
+
+# Various shell options
