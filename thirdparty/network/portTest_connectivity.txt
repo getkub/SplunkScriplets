@@ -13,3 +13,16 @@ echo "<14> ${timeForSysLog} test message" > /dev/udp/10.10.20.30/514
 
 # Using lsof
 lsof -i tcp:8001
+
+
+https://stackoverflow.com/questions/929368/how-to-test-an-internet-connection-with-bash
+```
+#!/usr/bin/bash
+
+# Test for network conection
+for interface in $(ls /sys/class/net/ | grep -v lo);
+do
+  if [[ $(cat /sys/class/net/$interface/carrier) = 1 ]]; then OnLine=1; fi
+done
+if ! [ $OnLine ]; then echo "Not Online" > /dev/stderr; exit; fi
+```
