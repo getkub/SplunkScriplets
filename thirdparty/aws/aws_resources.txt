@@ -1,0 +1,3 @@
+## Get all resources
+
+aws resourcegroupstaggingapi get-resources --query 'ResourceTagMappingList[].[ResourceARN]'
