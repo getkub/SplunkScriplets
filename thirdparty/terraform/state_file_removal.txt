@@ -1,9 +1,10 @@
 # Ensure it has all TF_VARS exported before running. Put this into a bash file and call it as 'remove_tfstate.sh'
+TF_VARS=$1
 terraform state rm 'name_of_record["specify_here"]'
 
 ## Then initiate an apply
 terraform apply -input=false -lock-timeout=60m $(MY_TF_ARTEFACTS) && \
 AWS_SHARED_CREDENTIALS_FILE=".credentials.aws" \
 ACCOUNT_ID=1234556 \
-$(TF_BASH) ./remove_tfstate.sh
+$(TF_BASH) ./remove_tfstate.sh "${TF_VARS}"
 
