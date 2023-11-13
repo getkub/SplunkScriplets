@@ -15,7 +15,8 @@ git config --global pull.rebase false
 # Add certificate as follows
 git_uri="git.myhost.com:443"
 cert_file="/home/repo_base/git_cert.pem"
-echo | openssl s_client -connect ${git_uri} 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $cert_file
+openssl s_client -connect ${git_uri} 2>/dev/null </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $cert_file
+git config --global --unset http.sslverify
 git config --global http.sslCAInfo $cert_file
 
 ## If above doesn't work in some cases , try OVERRIDING using variables
