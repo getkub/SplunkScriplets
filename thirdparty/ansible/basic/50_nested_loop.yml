@@ -1,0 +1,31 @@
+---
+# NOT WORKING
+- name: Copy files with appended directory name
+  hosts: localhost
+  vars:
+    destination_directory: "/tmp/dest"
+    source_directory: "/tmp/source"
+    reference_csv: "./configs/02_names_department.csv"
+  tasks:
+    - name: Read CSV file
+      read_csv:
+        path: "{{ reference_csv }}"
+      register: csv_data
+
+    - name: Create destination folder
+      file:
+        path: "{{ destination_directory }}"
+        state: directory
+
+    - name: Perform actual file copy
+      copy:
+        src: "{{ source_directory }}/{{ item.department }}/{{ item.file }}"
+        dest: "{{ destination_directory }}/{{ item.department }}.{{ item.id }}.txt"
+      loop: "{{ csv_data.list }}"
+      loop_control:
+        loop_var: item
+      vars:
+        item:
+          id: "{{ item.1.id }}"
+          department: "{{ item.1.department }}"
+          file: "{{ lookup('fileglob', source_directory + '/' + item.1.department + '/*.txt') | first }}"

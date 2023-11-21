@@ -1,0 +1,20 @@
+---
+- name: Read a template as file and put into another template
+  hosts: localhost
+  gather_facts: no
+  vars:
+    name: "bob"
+    email: "bob@bob.com"
+    phone: "12345"
+
+  tasks:
+    - name: "Render contact_details template to temporary file"
+      template:
+        src: "./templates/04_contact_details.j2"
+        dest: "/tmp/contact_details_tmp.md.j2"
+
+    - name: "Update final template"
+      lineinfile:
+        path: "/tmp/main_callout.md"
+        line: "{{ lookup('template', '/tmp/contact_details_tmp.md.j2') }}"
+        create: true
