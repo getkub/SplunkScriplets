@@ -1,0 +1,26 @@
+---
+- name: Read a template and Put into another template
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: "Get Values into Individual Vars"
+      set_fact:
+        "{{ item | basename | regex_replace('.j2') | regex_replace('04_vars-') }}": "{{ lookup('file', item) }}"
+      with_fileglob:
+        - "./templates/04_vars-*.j2"
+
+    - debug:
+        var: email
+    - debug:
+        var: name
+    - debug:
+        var: phone
+    - name: "show templating results"
+      set_fact:
+        four_contact_details: "{{ lookup('template', './templates/04_contact_details.j2') }}"
+
+    - name: "First pass"
+      template:
+          src: "./templates/04_jinja_in_jinja.j2"
+          dest: "/tmp/04_jinja_in_jinja.md"
+          mode: preserve
