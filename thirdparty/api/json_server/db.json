@@ -1,0 +1,13 @@
+{
+    "posts": [
+      { "id": "1", "title": "apple title", "views": 100 },
+      { "id": "2", "title": "banana title", "views": 200 }
+    ],
+    "comments": [
+      { "id": "1", "text": "apple comment", "postId": "1" },
+      { "id": "2", "text": "banana comment", "postId": "2" }
+    ],
+    "profile": {
+      "name": "typicode"
+    }
+}
