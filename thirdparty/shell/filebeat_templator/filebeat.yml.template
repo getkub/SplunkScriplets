@@ -1,0 +1,33 @@
+# Filebeat configuration file
+
+# ==================== Filebeat inputs ====================
+
+filebeat:
+  inputs:
+    - type: log
+      enabled: true
+      # Path to the log file you want to collect
+      paths:
+        - /var/log/nginx/access.log
+
+# =================== Logstash output (template) ====================
+
+output.logstash:
+  # Set to true to enable sending logs to Logstash
+  enabled: true
+  # List of Logstash hosts and ports (template)
+  hosts: {{ LOGSTASH_HOSTS }}
+
+# =================== Optional SSL configuration ====================
+
+# Optional SSL configuration for secure communication with Logstash
+
+# ssl:
+#   certificate_authorities: ["/etc/pki/tls/certs/ca-bundle.crt"]
+#   verification_mode: "full"
+
+# =================== Global options ====================
+
+# Optional global options for Filebeat
+
+# registry_file: "/var/lib/filebeat/registry"
