@@ -38,8 +38,11 @@ function Log-Message {
     Write-Output $logData
 }
 
+# Get the directory of the script
+$scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Path
+
 # Read CSV file using Import-Csv
-$csvPath = "your_csv_file.csv"  # Replace with your actual CSV file path
+$csvPath = Join-Path $scriptDirectory "your_csv_file.csv"  # Replace with your actual CSV file path
 $csvData = Import-Csv $csvPath
 
 # Initialize array to track successful connections
@@ -66,8 +69,9 @@ if ($successfulHosts.Count -eq 0) {
 
 # Generate final filebeat.yml by replacing placeholder
 $logstashHosts = $successfulHosts -join ", "
-$filebeatYmlPath = "C:\path\to\filebeat.yml.template"  # Replace with your actual file path
-(Get-Content $filebeatYmlPath) -replace "{{ LOGSTASH_HOSTS }}", $logstashHosts | Set-Content "C:\tmp\filebeat.yml"
+$filebeatYmlPath = Join-Path $scriptDirectory "filebeat.yml"
+
+(Get-Content (Join-Path $scriptDirectory "filebeat.yml.template")) -replace "{{ LOGSTASH_HOSTS }}", $logstashHosts | Set-Content $filebeatYmlPath
 
 Log-Message "filebeat" "success" "Generated filebeat.yml with Logstash hosts: $logstashHosts"
 exit 0
