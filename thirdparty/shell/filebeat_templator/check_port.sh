@@ -23,9 +23,6 @@ check_port() {
   return 0  # Success
 }
 
-# Set default port (optional)
-port=${1:-22}  # Default port is 22 (SSH)
-
 # Function to log message in JSON format
 log_message() {
   local module="$1"
@@ -40,7 +37,7 @@ log_message() {
 skip_header=true
 successful_hosts=()  # Array to track successful connections
 
-while IFS=, read -r hostname ip; do
+while IFS=, read -r hostname ip port; do
   # Skip header line
   if [ "$skip_header" = true ]; then
     skip_header=false

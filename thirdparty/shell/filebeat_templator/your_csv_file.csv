@@ -1,4 +1,5 @@
-hostname,ip
-host1,192.168.1.10
-host2,127.0.0.1
-host4,10.0.0.1
+hostname,ip,port
+host1,192.168.1.10,22
+host2,127.0.0.1,22
+host3,localhost,22
+host4,10.0.0.1,22
