@@ -1,0 +1,39 @@
+{
+  "traceId": "00000000-0000-0000-0000-000000000001",
+  "spans": [
+    {
+      "name": "http-get-user",
+      "kind": "CLIENT",
+      "attributes": {
+        "http.method": "GET",
+        "http.url": "/users/123",
+        "http.status_code": 200
+      },
+      "startTime": {
+        "seconds": 1649423141,
+        "nanos": 1000000
+      },
+      "endTime": {
+        "seconds": 1649423142,
+        "nanos": 500000
+      }
+    },
+    {
+      "name": "db-get-user",
+      "kind": "SERVER",
+      "attributes": {
+        "db.operation": "SELECT",
+        "db.table": "users"
+      },
+      "startTime": {
+        "seconds": 1649423141,
+        "nanos": 2000000
+      },
+      "endTime": {
+        "seconds": 1649423141,
+        "nanos": 4000000
+      },
+      "parentSpanId": "00000000-0000-0000-0000-000000000001"
+    }
+  ]
+}
