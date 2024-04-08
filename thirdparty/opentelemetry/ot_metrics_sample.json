@@ -1,0 +1,19 @@
+[
+  {
+    "name": "http_server_requests",
+    "type": "Counter",
+    "value": 123,
+    "attributes": {
+      "http.status_code": 200
+    }
+  },
+  {
+    "name": "db_query_duration",
+    "type": "Histogram",
+    "value": 50.2,
+    "attributes": {
+      "db.operation": "SELECT",
+      "db.table": "users"
+    }
+  }
+]
