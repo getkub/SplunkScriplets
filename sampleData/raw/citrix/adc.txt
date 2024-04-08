@@ -1,0 +1,1 @@
+https://docs.netscaler.com/en-us/citrix-adc/current-release/application-firewall/logs.html
