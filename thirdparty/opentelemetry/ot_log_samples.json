@@ -1,0 +1,17 @@
+{
+  "timestamp": {
+    "seconds": 1649423141,
+    "nanos": 345000000
+  },
+  "attributes": {
+    "uid": 100,
+    "auid": 1233,
+    "comm": "bash",
+    "exe": "/bin/bash",
+    "key": "login",
+    "syscall": "open",
+    "return": 1,
+    "retval": -1,
+    "msg": "Login attempt from /dev/pts/0"  // Combine msg and msgtype for clarity
+  }
+}
