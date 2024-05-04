@@ -4,7 +4,7 @@
 - https://opentelemetry.io/docs/specs/otel/metrics/data-model/
 - https://opentelemetry.io/docs/collector/
 - https://grafana.com/blog/2024/04/18/a-guide-to-scaling-opentelemetry-collectors-across-multiple-hosts-via-ansible/
-
+- https://opentelemetry.io/docs/specs/semconv/resource/host/
 
 ### Good Designs
 - https://www.elastic.co/blog/native-opentelemetry-support-in-elastic-observability

@@ -17,8 +17,12 @@
         Can be reduced by 
         - Tags
 
-* Describe different types of aggregations used for metrics (e.g., sum, count, average) and when you would use each. 
+* Describe different types of aggregations used for metrics (e.g., sum, count, average) and when you would use each.
 * How can you leverage Amazon CloudWatch metrics for anomaly detection?
+    - Metric Filters and Alarms: Thresholds, trigger alarm & Anomalies
+    - Anomaly Detection Model: ML detect anomalies in your metric data
+    - CloudWatch Logs Insights: query and analyze log data
+    - Integration with AWS Lambda & SNS: Invoke Lambdas or notifications via Amazon SNS
 
 2. **Distributed Tracing Expertise:**
     * Explain the concept of distributed tracing and its benefits for troubleshooting complex microservices architectures.
@@ -26,8 +30,20 @@
     * How can you use distributed tracing data to identify performance bottlenecks in an application?
 
 3. **OpenTelemetry Knowledge:**
-    * Describe your experience with the OpenTelemetry project. 
+    * Describe your experience with the OpenTelemetry project.
+        - OpenTelemetry is an Observability framework and toolkit designed to create and manage telemetry data such as traces, metrics, and logs
+        - Contributed to OpenTelemetry Semantic Conventions for Elastic Search Integration: I actively participated in defining and refining OpenTelemetry Semantic Conventions for Elastic Search data. This involved collaborating with the Elastic and OpenTelemetry communities to ensure seamless mapping between Elastic Search field notations and the standardized fields defined by OTEL.
+        - OTEL Implementation Discussions: I collaborated with application development teams to discuss the implementation of OTEL standards within their applications. This involved explaining the benefits of OTEL, identifying appropriate instrumentation points, and guiding the team on integrating OTEL libraries for trace and metric collection.
     * Explain the benefits of using OpenTelemetry for instrumenting applications compared to vendor-specific solutions.
+        - Vendor Neutrality Reduced Lock-In
+        - NOT worrying about compatibility issues
+        - Unified APIs for Development team
+        - Polyglot Support - libraries for various programming languages
+        - Standardized Data makes it easy for End Content team
+        - Best observability practices
+        - Open Source Advantage
+
+
     * How would you approach migrating an existing monitoring setup to use OpenTelemetry with AWS services?
 
 **AWS Observability and Scalability:**
