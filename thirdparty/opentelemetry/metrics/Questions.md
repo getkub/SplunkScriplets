@@ -45,23 +45,38 @@
 
 
     * How would you approach migrating an existing monitoring setup to use OpenTelemetry with AWS services?
+        - Inventory and Evaluation
+        - Mapping and Gap Analysis
+        - Backend Selection
+        - Phased Approach
+        - Instrumentation applications with OpenTelemetry
+        - Alerting and Notification
+        - Training & Support
 
 **AWS Observability and Scalability:**
 
 4. **Building and Running Large-Scale Systems on AWS:**
-    * Describe your experience architecting and deploying highly scalable distributed systems on AWS. 
+    * Describe your experience architecting and deploying highly scalable distributed systems on AWS
+
+        ### Data Flow Architecture
+
+        1. **Clients Send Data**: Applications send log and metrics data to the configured endpoint in Route 53.
+        2. **Route 53 Directs Traffic**: Route 53 directs traffic to the Application Load Balancer (ALB).
+        3. **ALB Distributes Load**: The ALB distributes incoming data requests across healthy Logstash instances in the Auto Scaling Group.
+        4. **Logstash Parses and Transforms**: Each Logstash instance parses incoming data, extracting relevant information and potentially enriching it.
+        5. **Kafka Queues Data**: Kafka acts as a buffer, decoupling Logstash from Elasticsearch and ensuring data is not lost if individual Elasticsearch nodes fail.
+
+
     * How do you leverage AWS services like Auto Scaling Groups and CloudWatch alarms for proactive capacity management?
+
     * Discuss strategies for optimizing the cost-efficiency of your observability solution on AWS.
 
 5. **Troubleshooting Platforms on AWS:**
-    * Walk us through your approach to troubleshooting a performance issue in a complex AWS-based application. 
-    * Which AWS tools and services would you utilize for gathering diagnostic data and pinpointing the root cause?
     * Describe a situation where you used observability data to identify and resolve a critical production incident on AWS.
 
 **Bonus Questions:**
 
 * Discuss your experience with integrating observability data with other tools like dashboards (e.g., Grafana) or alerting systems (e.g., PagerDuty).
+    - 
 * How would you approach building a disaster recovery plan for your observability infrastructure on AWS?
 * Share your thoughts on emerging trends in observability and how they might impact your approach in the future.
-
-These questions are designed to assess the candidate's proficiency in core observability concepts, their experience with AWS services, and their understanding of the specific role's focus on OpenTelemetry. By asking follow-up questions based on the candidate's responses, you can gain a deeper understanding of their problem-solving skills and their ability to contribute to your team's observability strategy.
