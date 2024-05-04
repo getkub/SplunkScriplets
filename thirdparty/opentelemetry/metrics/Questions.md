@@ -1,5 +1,26 @@
 ## Interview Questions for Principal Observability Engineer (AWS Focus)
 
+#### Circa
+- 75TB logs
+- 1TB traces
+- 100M metric points per hour
+- 4 Clusters (hot, warm, cold, frozen)
+
+#### Metrics Examples
+```
+2024-05-05 01:00:00 INFO EC2/i-0123456 CPUUtilization: 35%
+2024-05-05 01:15:00 INFO S3/my-bucket EstimatedStorageUsed: 10 GB
+2024-05-05 01:30:00 INFO RDS/my-database DatabaseConnections: 20
+2024-05-05 01:45:00 INFO ALB/my-load-balancer RequestCount: 100
+2024-05-05 02:00:00 INFO CWLogs/my-log-group IngestionBytes: 1 MB
+
+2024-05-05 02:15:00 INFO WebServer/my-app RequestLatency: 200ms
+2024-05-05 02:30:00 INFO WebServer/my-app HttpErrorRate: 1%
+2024-05-05 02:45:00 INFO UserActivity/my-app ActiveUsers: 500
+2024-05-05 03:30:00 INFO AppMetrics/my-app LoginSuccessRate: 98%
+
+```
+
 **Observability Concepts and Tools:**
 
 1. **Deep Dive on Metrics:**
