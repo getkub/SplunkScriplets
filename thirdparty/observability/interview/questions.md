@@ -38,8 +38,6 @@
     - Provide real-time feedback
     - Shift alerting towards proactive notifications
 
----
-
 ## Technical Expertise
 
 Explain the three pillars of observability: metrics, logs, and traces. How do they work together to provide a holistic view of a system? (Measures grasp of fundamental observability tools)
@@ -56,7 +54,6 @@ Designing a highly scalable and fault-tolerant monitoring and alerting system fo
 
 Troubleshooting a complex performance issue in a distributed service, utilizing tracing and metrics analysis.
 
----
 ## Leadership and Communication:
 
 How would you explain the importance of observability to stakeholders who may not have a technical background? (Tests communication skills and ability to tailor explanations)
