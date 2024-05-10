@@ -40,7 +40,7 @@
 
 ---
 
-## Technical Expertise
+## Technical Expertise
 
 Explain the three pillars of observability: metrics, logs, and traces. How do they work together to provide a holistic view of a system? (Measures grasp of fundamental observability tools)
 
