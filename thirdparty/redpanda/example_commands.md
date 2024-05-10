@@ -1,0 +1,1 @@
+rpk cluster logdirs describe -H --aggretate-into-topic --sort-by-size -H --aggregate-into topic
