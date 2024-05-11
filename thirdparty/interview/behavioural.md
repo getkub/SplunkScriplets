@@ -21,3 +21,41 @@
     - working as xxxxx represents an opportunity for me to leverage my expertise, drive innovation, and make a meaningful impact on the organization's success."
 
 - **Tell me about a time when you provided excellent customer service?**
+    - SITUATION – Briefly outline the situation you were in.
+    - TASK – Explain the task that needed to be done.
+    - ACTION – Give details about the action you took, and the action others - took.
+    - RESULT – Tell the interviewer the results following your actions. (Make - sure the results are positive!)
+
+- **What’s your greatest achievement?**
+- **Tell me about a time when you were under pressure at work. What was the situation, and how did you get through it?**
+- **Where do you see yourself in five years?**
+    - That you will still be working for them in five years’ time.
+    - That you will have developed to become a highly-trusted and productive - member of their team.
+    - That you will help other people to get up to speed when they join the - company.
+- **What did you like and dislike about your previous job?**
+- **Describe a time when you disagreed with your boss**
+- **What’s your least favorite task?**
+- **Tell me about a time you took the initiative to solve a difficult problem**
+- **What are your strengths and weaknesses?**
+- **Tell me about a time when you did something at work that had a positive impact on your team or the organization.**
+- **Why should we hire you?**
+    - Add value.
+    - Commercially-aware
+    - Fast-learner
+- **Talk about a time when you had to work closely with someone whose personality was very different from yours.**
+- **Describe a time when the team you were a part of was undergoing some change. How did the change impact you, and how did you adapt?**
+- **What motivates you?**
+- **Tell me about a time when you had to collaborate with a coworker who was difficult to work with.**
+- **Describe a time when you had to be flexible in a work situation**
+- **Describe a time you had to give a person difficult feedback?**
+- **Describe yourself in three words.**
+- **How do you respond to stress and pressure?**
+- **Describe a time when you got frustrated or angry at work.**
+- **How would you deal with a customer complaint?**
+    - It involves listening to the customer
+    - Allow them to speak
+    - Apologize for the complaint
+    - Come up with a solution 
+    - Take steps to prevent happening in future
+- **When have you gone above and beyond for a customer**
+- **Why did you leave your last job? Why do you want to leave your current job?**
