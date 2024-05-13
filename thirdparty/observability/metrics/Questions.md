@@ -98,6 +98,18 @@
 **Bonus Questions:**
 
 * Discuss your experience with integrating observability data with other tools like dashboards (e.g., Grafana) or alerting systems (e.g., PagerDuty).
-    - 
+
 * How would you approach building a disaster recovery plan for your observability infrastructure on AWS?
+    - Define Scope & Recovery Objectives: Identify critical components, RTO & RPO targets.
+    - Leverage AWS DR Options: Utilize separate regions, AZs, backups to S3 in different region.
+    - Infrastructure as Code (IaC): Use CloudFormation or Terraform for automated deployments.
+    - Disaster Recovery Testing: Regularly test DR plan with failover simulations.
+    - Cost Optimization: Manage backup lifecycle costs with S3, consider managed services with - redundancy.
+    - Additional Considerations: Security, alerting, and documented DR procedures.
+
 * Share your thoughts on emerging trends in observability and how they might impact your approach in the future.
+    - AI & ML (AIOps): Automates anomaly detection, event correlation, and - root cause suggestions.
+    - Focus on Business Outcomes: Observability drives business metrics like - customer experience and development velocity.
+    - Security & Observability Convergence: Security leverages observability - data for threat detection and response.
+    - Financial Observability (FinOps): Optimizes observability costs while - maintaining visibility.
+    - Democratization of Observability: Makes data and tools accessible to - developers and product managers.
