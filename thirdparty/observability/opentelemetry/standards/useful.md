@@ -13,6 +13,7 @@
 - https://opentelemetry.io/docs/demo/architecture/
 
 - OpenTelemetry Custom Extensions (https://www.youtube.com/watch?v=hXTlV_RnELc)
+- Actual implementation: https://www.youtube.com/watch?v=H9bAMRmaaxk
 
 ### Distibuted Tracing Summary
 
