@@ -1,7 +1,7 @@
 [
   {
     "name": "http_server_requests",
-    "type": "Counter",
+    "kind": "Counter",
     "value": 123,
     "attributes": {
       "http.status_code": 200
@@ -9,7 +9,7 @@
   },
   {
     "name": "db_query_duration",
-    "type": "Histogram",
+    "kind": "Histogram",
     "value": 50.2,
     "attributes": {
       "db.operation": "SELECT",
