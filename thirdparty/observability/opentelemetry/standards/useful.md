@@ -5,11 +5,14 @@
 - https://opentelemetry.io/docs/collector/
 - https://grafana.com/blog/2024/04/18/a-guide-to-scaling-opentelemetry-collectors-across-multiple-hosts-via-ansible/
 - https://opentelemetry.io/docs/specs/semconv/resource/host/
+- https://opentelemetry.io/docs/collector/quick-start/
 
 ### Good Designs
 - https://www.elastic.co/blog/native-opentelemetry-support-in-elastic-observability
 - https://github.com/elastic/observability-examples/tree/main/Elastiflix
+- https://opentelemetry.io/docs/demo/architecture/
 
+- OpenTelemetry Custom Extensions (https://www.youtube.com/watch?v=hXTlV_RnELc)
 
 ### Distibuted Tracing Summary
 
