@@ -1,0 +1,18 @@
+# Converts a JSON array into newline separate json events
+# Quite useful to process an output of 'curl' command
+- hosts: localhost
+  vars:
+    json_file: /tmp/orig.json
+    dest_file: /tmp/final.ndjson
+  tasks:
+  - name: Read JSON file
+    set_fact:
+      json_data: "{{ lookup('file', json_file) | from_json }}"
+  - name: Convert JSON array/list into ndjson
+    set_fact:
+      ndjson_content: "{% for item in json_data %}{{ item | to_json| trim}}\n{% endfor %}"
+  - name: Save ndjson to file
+    copy:
+      content: "{{ ndjson_content }}"
+      dest: "{{dest_file}}"
+
