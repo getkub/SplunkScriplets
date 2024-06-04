@@ -14,6 +14,7 @@
 
 ### Attributes & Claims
 - givenName (user.givenname)
+- upn (user.principalname)
 - surname (user.surname)
 - emailaddress (user.mail)
 - name (user.principalname)
