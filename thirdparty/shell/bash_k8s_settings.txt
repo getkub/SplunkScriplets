@@ -1,0 +1,9 @@
+## ~/.bashrc
+
+export NS=""
+alias k="kubectl -n \${NS}"
+PS1="[\W]$"
+set -o vi
+
+alias ctx='kubectl config set-context --current --namespace'
+export KUBECONFIG=/home/${USER}/.config/config
