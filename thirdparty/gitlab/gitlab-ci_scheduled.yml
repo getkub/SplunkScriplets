@@ -1,0 +1,20 @@
+## To ensure a scheduled run is possible and align to specific schedule
+variables:
+  GIT_STRATEGY: clone
+
+stages:
+  - my_stage_1
+  
+my_stage_1:
+  tags:
+    - runner1
+  image: 
+    name: docker/alpine:3.9
+  stage: my_stage_1
+  rules:
+    - if '$SCHEDULE == "my_schedule_at_9am"'
+  script:
+    - source /opt/venv/bin/activiate
+    - export PATH=$PATH:/my/spec/dir
+    - sh ./mycustomer_script ${PARAMS}_STAGE
+    
