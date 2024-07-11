@@ -1,0 +1,47 @@
+---
+- name: Process CSV data
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Read CSV file
+      ansible.builtin.read_csv:
+        path: "{{ playbook_dir }}/index_info.csv"
+      register: csv_data
+
+    - name: Initialize grouped_data
+      ansible.builtin.set_fact:
+        grouped_data: {}
+
+    - name: Group and sum CSV data using Jinja2 template
+      set_fact:
+        grouped_data_str: >-
+          {% set grouped_data = {} %}
+          {% for item in csv_data.list %}
+            {% set ds = item.data_stream %}
+            {% set size = item.size_in_bytes | int %}
+            {% if ds in grouped_data %}
+              {% set _ = grouped_data.update({ ds: grouped_data[ds] + size }) %}
+            {% else %}
+              {% set _ = grouped_data.update({ ds: size }) %}
+            {% endif %}
+          {% endfor %}
+          {{ grouped_data | to_json }}
+
+    - name: Convert grouped_data_str to dictionary
+      set_fact:
+        grouped_data: "{{ grouped_data_str | from_json }}"
+
+    - name: Filter out data streams with size < 1000 bytes
+      set_fact:
+        filtered_data: >-
+          {{
+            grouped_data | dict2items |
+            selectattr('value', 'le', 1000) |
+            map(attribute='key') |
+            list
+          }}
+
+    - name: Print filtered data (for debugging)
+      ansible.builtin.debug:
+        msg: "{{ filtered_data }}"
