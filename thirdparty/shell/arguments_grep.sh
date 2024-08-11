@@ -7,3 +7,24 @@ fruitFlag=`echo $input_args | grep fruit | awk -F 'fruit=' '{print $2}' | awk -F
 
 echo colourFlag=$colourFlag
 echo fruitFlag=$fruitFlag
+
+
+## Better Way
+# Set default values for the flags
+colourFlag=""
+fruitFlag=""
+
+# Loop through all the arguments
+for arg in "$@"; do
+  case $arg in
+    fruit=*)
+      fruitFlag="${arg#*=}"
+      ;;
+    colour=*)
+      colourFlag="${arg#*=}"
+      ;;
+  esac
+done
+
+echo "colourFlag=$colourFlag"
+echo "fruitFlag=$fruitFlag"
