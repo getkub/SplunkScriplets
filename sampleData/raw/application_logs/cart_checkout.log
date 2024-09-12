@@ -1,0 +1,49 @@
+# 1. User lands on the e-commerce homepage
+[2024-09-12 09:00:01] 123.45.67.89 "GET / HTTP/1.1" 200 "Mozilla/5.0" 
+
+# 2. User browses product categories
+[2024-09-12 09:02:12] 123.45.67.89 "GET /categories HTTP/1.1" 200 "Mozilla/5.0"
+[2024-09-12 09:02:25] 123.45.67.89 "GET /category/electronics HTTP/1.1" 200 "Mozilla/5.0"
+
+# 3. User views details of an item
+[2024-09-12 09:03:15] 123.45.67.89 "GET /product/12345 HTTP/1.1" 200 "Mozilla/5.0"
+
+# 4. User adds the item to the cart
+[2024-09-12 09:03:40] 123.45.67.89 "POST /cart/add/12345 HTTP/1.1" 200 "Mozilla/5.0"
+
+# 5. Item successfully added to the cart
+[2024-09-12 09:03:41] 123.45.67.89 "GET /cart HTTP/1.1" 200 "Mozilla/5.0"
+
+# 6. User adds more items to the cart
+[2024-09-12 09:05:00] 123.45.67.89 "POST /cart/add/67890 HTTP/1.1" 200 "Mozilla/5.0"
+
+# 7. User reviews the cart
+[2024-09-12 09:07:10] 123.45.67.89 "GET /cart HTTP/1.1" 200 "Mozilla/5.0"
+
+# 8. User clicks on “Proceed to Checkout”
+[2024-09-12 09:07:30] 123.45.67.89 "GET /checkout HTTP/1.1" 200 "Mozilla/5.0"
+
+# 9. User logs in or creates a new account
+[2024-09-12 09:08:00] 123.45.67.89 "POST /login HTTP/1.1" 200 "Mozilla/5.0"
+[2024-09-12 09:08:15] 123.45.67.89 "GET /account HTTP/1.1" 200 "Mozilla/5.0"
+
+# 10. User provides shipping information
+[2024-09-12 09:09:20] 123.45.67.89 "POST /checkout/shipping HTTP/1.1" 200 "Mozilla/5.0"
+
+# 11. User selects a shipping method
+[2024-09-12 09:09:45] 123.45.67.89 "POST /checkout/shipping-method HTTP/1.1" 200 "Mozilla/5.0"
+
+# 12. User provides payment details
+[2024-09-12 09:10:30] 123.45.67.89 "POST /checkout/payment HTTP/1.1" 200 "Mozilla/5.0"
+
+# 13. User reviews the order
+[2024-09-12 09:11:00] 123.45.67.89 "GET /checkout/review HTTP/1.1" 200 "Mozilla/5.0"
+
+# 14. User clicks “Place Order”
+[2024-09-12 09:11:30] 123.45.67.89 "POST /checkout/complete HTTP/1.1" 200 "Mozilla/5.0"
+
+# 15. Payment processed and confirmation message displayed
+[2024-09-12 09:11:35] 123.45.67.89 "GET /confirmation/98765 HTTP/1.1" 200 "Mozilla/5.0"
+
+# 16. Email sent with order details
+[2024-09-12 09:11:36] 123.45.67.89 "POST /email/send HTTP/1.1" 200 "Mozilla/5.0"
