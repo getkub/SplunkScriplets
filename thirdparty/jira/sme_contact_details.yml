@@ -1,0 +1,25 @@
+team_contacts:
+  - app_name: "firewall sensitive"
+    feed_index: "feed_name1"
+    sme_contact_email: "firewall_name1@mycompany.com"
+    sme_contact: "Firewall Management Team"
+
+  - app_name: "web application firewall"
+    feed_index: "feed_name2"
+    sme_contact_email: "waf_team@mycompany.com"
+    sme_contact: "Web Application Firewall Team"
+
+  - app_name: "network intrusion detection"
+    feed_index: "feed_name3"
+    sme_contact_email: "nid_team@mycompany.com"
+    sme_contact: "Network Intrusion Detection Team"
+
+  - app_name: "database logs"
+    feed_index: "feed_name4"
+    sme_contact_email: "db_logs_team@mycompany.com"
+    sme_contact: "Database Security Team"
+
+  - app_name: "authentication logs"
+    feed_index: "feed_name5"
+    sme_contact_email: "auth_logs_team@mycompany.com"
+    sme_contact: "Authentication Logs Team"

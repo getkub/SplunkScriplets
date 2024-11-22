@@ -1,0 +1,28 @@
+{
+  "alert_details": {
+    "use_case": {
+      "id": "RULE01",
+      "name": "Missing logs from Key Devices",
+      "rule_id": "LOGS_MISSING",
+      "severity": "4",
+      "priority": "6"
+    },
+    "mitre_mapping": {
+      "tactic_id": "TA0040",
+      "tactic_name": "Impact"
+    },
+    "expected": {
+      "host": "*",
+      "index": "feed_name1"
+    },
+    "actual": {
+      "event_count": 0
+    },
+    "timestamps": {
+      "scheduled_time": "2024-11-22T05:56:56.905Z",
+      "alert_generated": "2024-11-22T05:56:57.283Z"
+    }
+  }
+}
+
+
