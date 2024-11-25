@@ -1,0 +1,26 @@
+- hosts: localhost
+  vars:
+    template_file: "configs/02_list_template.j2"
+    json_file: "configs/02_list.json"
+    json_event: "[{\"service_bus_namespace\":\"company-primary-eventhub\",\"event_hub_name\":\"main-tracking-events\",\"connection_string\":\"string1\"},{\"service_bus_namespace\":\"company-secondary-eventhub\",\"event_hub_name\":\"analytics-stream-events\",\"connection_string\":\"string2\"},{\"service_bus_namespace\":\"company-monitoring-eventhub\",\"event_hub_name\":\"system-monitoring-events\",\"connection_string\":\"string3\"}]"
+    output_file: "/tmp/rendered_output.txt"
+    output_file_from_event: "/tmp/rendered_output_event.txt"
+
+  tasks:
+    - name: Read JSON file
+      set_fact:
+        eh_list: "{{ lookup('file', json_file) | from_json }}"
+
+    - name: Render Jinja2 template from JSON file
+      template:
+        src: "{{ template_file }}"
+        dest: "{{ output_file }}"
+
+    - name: Set eh_list from json_event
+      set_fact:
+        eh_list_event: "{{ json_event | from_json }}"
+
+    - name: Render Jinja2 template from json_event
+      template:
+        src: "{{ template_file }}"
+        dest: "{{ output_file_from_event }}"

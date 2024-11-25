@@ -1,0 +1,17 @@
+[
+    {
+      "service_bus_namespace": "company-primary-eventhub",
+      "event_hub_name": "main-tracking-events",
+      "connection_string": "string1"
+    },
+    {
+      "service_bus_namespace": "company-secondary-eventhub", 
+      "event_hub_name": "analytics-stream-events",
+      "connection_string": "string2"
+    },
+    {
+      "service_bus_namespace": "company-monitoring-eventhub",
+      "event_hub_name": "system-monitoring-events", 
+      "connection_string": "string3"
+    }
+  ]
