@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-indigo-700 flex items-center">
+                <i class="fas fa-database mr-3"></i> User Management System
+            </h1>
+            <p class="text-gray-600">Manage your user records with ease</p>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8 fade-in">
+            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                <h2 class="text-xl font-semibold text-gray-800">User Records</h2>
+                <button id="addUserBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center transition-colors">
+                    <i class="fas fa-plus mr-2"></i> Add User
+                </button>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+                <div class="text-sm text-gray-600">
+                    Showing <span id="startCount">1</span> to <span id="endCount">5</span> of <span id="totalCount">10</span> entries
+                </div>
+                <div class="flex space-x-2">
+                    <button id="prevPage" class="px-3 py-1 border rounded-md text-gray-700 disabled:opacity-50">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="nextPage" class="px-3 py-1 border rounded-md text-gray-700 disabled:opacity-50">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit User Modal -->
+    <div id="userModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-md slide-in">
+                <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-gray-800" id="modalTitle">Add New User</h3>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="userForm" class="p-6">
+                    <input type="hidden" id="userId">
+                    
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="name" name="name" required 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" name="email" required 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                        <input type="tel" id="phone" name="phone" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select id="status" name="status" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" id="cancelBtn" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="submit" id="saveBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-md fade-in">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800">Confirm Deletion</h3>
+                </div>
+                
+                <div class="p-6">
+                    <p class="text-gray-700 mb-6">Are you sure you want to delete this user? This action cannot be undone.</p>
+                    
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" id="cancelDelete" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="button" id="confirmDelete" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock database
+        let users = [
+            { id: 1, name: 'John Doe', email: 'john@example.com', phone: '123-456-7890', status: 'active' },
+            { id: 2, name: 'Jane Smith', email: 'jane@example.com', phone: '234-567-8901', status: 'active' },
+            { id: 3, name: 'Robert Johnson', email: 'robert@example.com', phone: '345-678-9012', status: 'inactive' },
+            { id: 4, name: 'Emily Davis', email: 'emily@example.com', phone: '456-789-0123', status: 'pending' },
+            { id: 5, name: 'Michael Wilson', email: 'michael@example.com', phone: '567-890-1234', status: 'active' },
+            { id: 6, name: 'Sarah Brown', email: 'sarah@example.com', phone: '678-901-2345', status: 'inactive' },
+            { id: 7, name: 'David Taylor', email: 'david@example.com', phone: '789-012-3456', status: 'active' },
+            { id: 8, name: 'Jessica Garcia', email: 'jessica@example.com', phone: '890-123-4567', status: 'pending' },
+            { id: 9, name: 'Thomas Martinez', email: 'thomas@example.com', phone: '901-234-5678', status: 'active' },
+            { id: 10, name: 'Lisa Robinson', email: 'lisa@example.com', phone: '012-345-6789', status: 'inactive' }
+        ];
+
+        // DOM elements
+        const userTableBody = document.getElementById('userTableBody');
+        const userForm = document.getElementById('userForm');
+        const userModal = document.getElementById('userModal');
+        const confirmModal = document.getElementById('confirmModal');
+        const addUserBtn = document.getElementById('addUserBtn');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelDelete = document.getElementById('cancelDelete');
+        const confirmDelete = document.getElementById('confirmDelete');
+        const prevPage = document.getElementById('prevPage');
+        const nextPage = document.getElementById('nextPage');
+        const startCount = document.getElementById('startCount');
+        const endCount = document.getElementById('endCount');
+        const totalCount = document.getElementById('totalCount');
+        const modalTitle = document.getElementById('modalTitle');
+
+        // Pagination variables
+        const itemsPerPage = 5;
+        let currentPage = 1;
+        let totalPages = Math.ceil(users.length / itemsPerPage);
+        let userToDelete = null;
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            renderUsers();
+            updatePagination();
+            
+            // Event listeners
+            addUserBtn.addEventListener('click', openAddUserModal);
+            closeModal.addEventListener('click', closeUserModal);
+            cancelBtn.addEventListener('click', closeUserModal);
+            userForm.addEventListener('submit', saveUser);
+            cancelDelete.addEventListener('click', closeConfirmModal);
+            confirmDelete.addEventListener('click', deleteUser);
+            prevPage.addEventListener('click', goToPrevPage);
+            nextPage.addEventListener('click', goToNextPage);
+        });
+
+        // Render users in the table
+        function renderUsers() {
+            userTableBody.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, users.length);
+            
+            for (let i = startIndex; i < endIndex; i++) {
+                const user = users[i];
+                const row = document.createElement('tr');
+                
+                let statusClass = '';
+                switch(user.status) {
+                    case 'active': statusClass = 'bg-green-100 text-green-800'; break;
+                    case 'inactive': statusClass = 'bg-red-100 text-red-800'; break;
+                    case 'pending': statusClass = 'bg-yellow-100 text-yellow-800'; break;
+                }
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${user.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                            ${user.status.charAt(0).toUpperCase() + user.status.slice(1)}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button onclick="editUser(${user.id})" class="text-indigo-600 hover:text-indigo-900 mr-3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="confirmDeleteUser(${user.id})" class="text-red-600 hover:text-red-900">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                
+                userTableBody.appendChild(row);
+            }
+            
+            // Update pagination info
+            startCount.textContent = startIndex + 1;
+            endCount.textContent = endIndex;
+            totalCount.textContent = users.length;
+            
+            // Disable/enable pagination buttons
+            prevPage.disabled = currentPage === 1;
+            nextPage.disabled = currentPage === totalPages;
+        }
+
+        // Open modal for adding a new user
+        function openAddUserModal() {
+            userForm.reset();
+            document.getElementById('userId').value = '';
+            modalTitle.textContent = 'Add New User';
+            saveBtn.textContent = 'Save';
+            userModal.classList.remove('hidden');
+        }
+
+        // Open modal for editing a user
+        function editUser(id) {
+            const user = users.find(u => u.id === id);
+            if (user) {
+                document.getElementById('userId').value = user.id;
+                document.getElementById('name').value = user.name;
+                document.getElementById('email').value = user.email;
+                document.getElementById('phone').value = user.phone;
+                document.getElementById('status').value = user.status;
+                
+                modalTitle.textContent = 'Edit User';
+                saveBtn.textContent = 'Update';
+                userModal.classList.remove('hidden');
+            }
+        }
+
+        // Close user modal
+        function closeUserModal() {
+            userModal.classList.add('hidden');
+        }
+
+        // Save or update user
+        function saveUser(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('userId').value;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const status = document.getElementById('status').value;
+            
+            if (id) {
+                // Update existing user
+                const index = users.findIndex(u => u.id === parseInt(id));
+                if (index !== -1) {
+                    users[index] = { id: parseInt(id), name, email, phone, status };
+                }
+            } else {
+                // Add new user
+                const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+                users.push({ id: newId, name, email, phone, status });
+                totalPages = Math.ceil(users.length / itemsPerPage);
+            }
+            
+            closeUserModal();
+            renderUsers();
+            updatePagination();
+        }
+
+        // Confirm user deletion
+        function confirmDeleteUser(id) {
+            userToDelete = id;
+            confirmModal.classList.remove('hidden');
+        }
+
+        // Close confirmation modal
+        function closeConfirmModal() {
+            userToDelete = null;
+            confirmModal.classList.add('hidden');
+        }
+
+        // Delete user
+        function deleteUser() {
+            if (userToDelete) {
+                users = users.filter(u => u.id !== userToDelete);
+                totalPages = Math.ceil(users.length / itemsPerPage);
+                
+                // Adjust current page if we deleted the last item on the last page
+                if (currentPage > totalPages && totalPages > 0) {
+                    currentPage = totalPages;
+                } else if (totalPages === 0) {
+                    currentPage = 1;
+                }
+                
+                closeConfirmModal();
+                renderUsers();
+                updatePagination();
+            }
+        }
+
+        // Pagination functions
+        function goToPrevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderUsers();
+                updatePagination();
+            }
+        }
+
+        function goToNextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderUsers();
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            totalPages = Math.ceil(users.length / itemsPerPage);
+            prevPage.disabled = currentPage === 1;
+            nextPage.disabled = currentPage === totalPages || totalPages === 0;
+        }
+    </script>
+</body>
+</html>
