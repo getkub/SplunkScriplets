@@ -1,5 +1,7 @@
 ## API updates
 
+- uses Huachao Mao REST Client plugin in Visual studio (Ctrl+Alt_R in Windows or Cmd+Alt+R in MacOS)
+
 ```
 PUT {{baseUrl}}/wiki/api/v2/pages/3327557500
 Content-Type: application/json
