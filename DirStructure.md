@@ -1,96 +1,72 @@
+# Repository Directory Structure
+
 ```
 .
 ├── devOps
-│   ├── SplunkEnterprise
-│   │   └── archive
-│   ├── SplunkUF
-│   │   └── SPF_Install
-│   └── api_integration
-│       └── ansible
-│           ├── apps
-│           │   └── mysearch
-│           │       └── local
-│           └── lib
+│   ├── api_integration
+│   │   └── ansible
+│   ├── SplunkEnterprise
+│   │   └── archive
+│   └── SplunkUF
+│       └── SPF_Install
 ├── docs
-│   ├── splunk_spl_examples
-│   ├── splunk_tips
-│   │   ├── answers
-│   │   ├── api
-│   │   ├── apps
-│   │   │   └── A_prod_ldap_auth
-│   │   │       └── local
-│   │   ├── configs
-│   │   │   └── sample_app
-│   │   │       └── local
-│   │   ├── dashboards
-│   │   │   └── dashboard_samples
-│   │   ├── others
-│   │   │   ├── errors
-│   │   │   │   └── memoryLeak
-│   │   │   └── notes
-│   │   ├── searches
-│   │   └── stanza
-│   └── ta
-│       └── vmware
+│   ├── da
+│   │   ├── DA_dropdown
+│   │   └── dashboard_samples
+│   ├── design
+│   ├── rest
+│   ├── security
+│   ├── SPL_searches
+│   ├── splunk_tips
+│   │   ├── answers
+│   │   ├── api
+│   │   ├── apps
+│   │   ├── configs
+│   │   ├── dashboards
+│   │   ├── others
+│   │   └── stanza
+│   ├── ta
+│   │   └── vmware
+│   └── ui
 ├── sampleData
-│   ├── data_process
-│   └── raw
-│       ├── application_logs
-│       ├── csv
-│       ├── json
-│       ├── os
-│       │   └── linux
-│       ├── vmware
-│       └── yaml
+│   ├── data_process
+│   └── raw
+│       ├── application_logs
+│       ├── citrix
+│       ├── csv
+│       ├── json
+│       ├── msft
+│       ├── os
+│       ├── vmware
+│       └── yaml
 └── thirdparty
-    ├── Visual_Studio_code
     ├── android
     ├── ansible
-    │   ├── basic
-    │   │   ├── configs
-    │   │   │   └── fruits
-    │   │   ├── filter_plugins
-    │   │   │   └── __pycache__
-    │   │   ├── group_vars
-    │   │   ├── roles
-    │   │   │   ├── distributor_role
-    │   │   │   │   └── tasks
-    │   │   │   ├── git
-    │   │   │   │   └── tasks
-    │   │   │   └── github
-    │   │   │       └── tasks
-    │   │   ├── templates
-    │   │   └── vault
-    │   ├── hortonew
-    │   │   ├── group_vars
-    │   │   ├── playbooks
-    │   │   └── roles
-    │   │       ├── universal_forwarder_linux
-    │   │       │   └── tasks
-    │   │       └── universal_forwarder_windows
-    │   │           ├── files
-    │   │           └── tasks
-    │   └── splunk_apps
-    ├── applescript
-    │   └── mouse
+    │   ├── basic
+    │   ├── cpt
+    │   ├── hortonew
+    │   └── splunk_apps
+    ├── api
+    │   └── json_server
     ├── approach_concepts
     ├── arcsight
     ├── aws
-    │   ├── iam
-    │   └── lambda
+    │   ├── iam
+    │   └── lambda
     ├── azure
     ├── blogger
     ├── certs
+    │   └── keytool
+    ├── confluence
     ├── curl
     ├── cyberark
     ├── dataCapture
     ├── disk
     ├── docker
-    │   ├── ansible
-    │   ├── dockerfile_samples
-    │   ├── npm_samples
-    │   └── python_fastapi
-    │       └── app
+    │   ├── ansible
+    │   ├── dockerfile_samples
+    │   ├── npm_samples
+    │   └── python_fastapi
     ├── encode_decode
     ├── esxi
     ├── eventgen
@@ -98,71 +74,87 @@
     ├── gcp
     ├── git
     ├── gitlab
+    ├── go
     ├── html
+    │   └── crud
+    ├── iam
     ├── images
     ├── interview
     ├── javascript
     ├── jenkins
+    ├── jira
+    │   └── jira_ticketing
     ├── jq
     ├── jupyter_books
     ├── k8s_kubernetes
     ├── kafka
+    ├── keytool
     ├── ldap_activeDirectory
     ├── linux
     ├── logrotate
     ├── machine_learning
     ├── macos
+    │   └── applescript
     ├── mouse
+    ├── music
     ├── mustache
     ├── n8n
-    │   └── workflow_samples
+    │   └── workflow_samples
     ├── network
-    │   └── firewall
+    │   └── firewall
     ├── nginx
+    ├── observability
+    │   ├── apm
+    │   ├── interview
+    │   ├── metrics
+    │   ├── opentelemetry
+    │   └── traces
     ├── openldap
     ├── opensearch
     ├── openssl
     ├── pandoc
     ├── perl
     ├── php
-    │   └── shellScriptTrigger
+    │   └── shellScriptTrigger
+    ├── postman
     ├── powershell
-    │   └── user_bulk
+    │   └── user_bulk
     ├── preChecks
     ├── python
-    │   ├── scapy
-    │   └── web_server
+    │   ├── scapy
+    │   └── web_server
     ├── quest
     ├── recording_videos_graphics
     ├── redpanda
     ├── regexes
+    ├── rfi_process
     ├── rsyslog
     ├── ruby
     ├── scapy
+    ├── security_posture
     ├── servicenow
     ├── shell
+    │   └── filebeat_templator
     ├── shuffle
     ├── snmp
     ├── soc_usecases
     ├── squid
     ├── ssh
     ├── standards
-    │   ├── ISO
-    │   │   └── iso27001
-    │   └── pci
+    │   ├── ISO
+    │   └── pci
     ├── stencils
     ├── templating
-    │   └── business_reporting
+    │   └── business_reporting
     ├── terraform
-    │   ├── gcp_terraform
-    │   │   └── generic_mods
-    │   │       └── sql_postgress
-    │   └── terraformer
+    │   ├── gcp_terraform
+    │   └── terraformer
+    ├── ticketing
     ├── ui
-    │   └── vega
+    │   └── vega
     ├── vagrant
     ├── vault
+    ├── video
     ├── virtualbox
+    ├── Visual_Studio_code
     └── websites
-
-```
