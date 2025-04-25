@@ -1,3 +1,6 @@
+### ldapsearches Examples
+
+```
 # Physical test
 # AD commands
 #
@@ -23,3 +26,4 @@ ldapsearch -Z -v -x -H ldaps://host21myCompanydc02.myCompany.com:636 -D "myCompa
 | ldapfilter search="(&(objectClass=user)(distinguishedName=$member$))" attrs="sAMAccountName,displayName"
 | table sAMAccountName,displayName
 
+```

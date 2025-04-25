@@ -1,3 +1,6 @@
+### cpd time Examples
+
+```
 # Replicated Current Processing Day (CPD) at search time
 <mySearch>
 | rename _time as myTime
@@ -16,3 +19,4 @@
 | convert timeformat="%H:%M %a %d/%m/%Y" ctime(myTime) as myTimeT
 | convert timeformat="%H:%M %a %d/%m/%Y" ctime(day) as dayT
 | convert timeformat="%H:%M %a %d/%m/%Y" ctime(adjustedTime) as adjustedTimeT
+```

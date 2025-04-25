@@ -1,3 +1,6 @@
+### indexes vs roles mapping Examples
+
+```
 # To show any missing role vs indexes
 | rest /services/data/indexes
 | stats count by title
@@ -13,3 +16,4 @@
 # To find AD/LDAP to roles
 | rest /servcies/admin/LDAP-groups splunk_server=local
 | table title, roles
+```

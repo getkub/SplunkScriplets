@@ -1,3 +1,6 @@
+### cpu memory Examples
+
+```
 # CPU/Memory usage
 `dmc_set_index_introspection` sourcetype=splunk_resource_usage component=Hostwide host=*  | eval CPU_Usage=('data.cpu_system_pct' + 'data.cpu_user_pct')   | timechart avg(CPU_Usage) by  host
  
@@ -13,3 +16,4 @@ index=_introspection host=* sourcetype=splunk_resource_usage component=Hostwide
 | timechart limit=0 useother=f span=1m max(used_pct) AS max_used,max(swap_used_pct) AS max_swap_used by host
 
 # ================================================================================
+```
