@@ -1,4 +1,12 @@
 Vagrant.configure("2") do |config|
+  # Set custom data directory for Vagrant
+  data_dir = ENV['VAGRANT_DATA_DIR'] || File.expand_path("~/vagrant_data")
+  ENV['VAGRANT_HOME'] = data_dir
+  
+  # Enable debugging
+  config.vm.boot_timeout = 600
+  config.vm.graceful_halt_timeout = 600
+  
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
@@ -6,6 +14,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "rockylinux/9"
+  config.vm.box_version = "5.0.0"
   config.vm.hostname = "splunk01"
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -55,6 +64,20 @@ Vagrant.configure("2") do |config|
     vb.memory = "4096"  # Increased memory for better performance
     vb.cpus = 2         # Added CPU cores
     vb.name = "splunk-standalone"  # Custom VM name
+    
+    # Basic VirtualBox settings
+    vb.customize ["modifyvm", :id, "--ioapic", "on"]
+    vb.customize ["modifyvm", :id, "--rtcuseutc", "on"]
+    vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
+    vb.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
+    vb.customize ["modifyvm", :id, "--vtx-vpid", "on"]
+    vb.customize ["modifyvm", :id, "--vtxux", "on"]
+    vb.customize ["modifyvm", :id, "--largepages", "on"]
+    vb.customize ["modifyvm", :id, "--chipset", "ich9"]
+    vb.customize ["modifyvm", :id, "--firmware", "efi"]
+    vb.customize ["modifyvm", :id, "--graphicscontroller", "vboxsvga"]
+    vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+    vb.customize ["modifyvm", :id, "--accelerate2dvideo", "on"]
   end
   #
   # View the documentation for the provider you are using for more
