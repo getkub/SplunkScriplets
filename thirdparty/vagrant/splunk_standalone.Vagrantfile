@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "centos/7"
+  config.vm.box = "rockylinux/9"
   config.vm.hostname = "splunk01"
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -52,7 +52,9 @@ Vagrant.configure("2") do |config|
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-     vb.memory = "2048"
+    vb.memory = "4096"  # Increased memory for better performance
+    vb.cpus = 2         # Added CPU cores
+    vb.name = "splunk-standalone"  # Custom VM name
   end
   #
   # View the documentation for the provider you are using for more
@@ -61,8 +63,26 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    # Update system
+    dnf update -y
+    
+    # Install required dependencies
+    dnf install -y wget curl net-tools
+    
+    # Set timezone
+    timedatectl set-timezone UTC
+    
+    # Disable SELinux (optional, but often needed for Splunk)
+    setenforce 0
+    sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+    
+    # Create Splunk user and group
+    groupadd splunk
+    useradd -g splunk -d /opt/splunk splunk
+    
+    # Create necessary directories
+    mkdir -p /opt/splunk
+    chown -R splunk:splunk /opt/splunk
+  SHELL
 end
