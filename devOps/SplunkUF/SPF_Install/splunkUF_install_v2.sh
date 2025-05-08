@@ -48,7 +48,7 @@ timestamp() {
 log() {
   local level="$1"
   local message="$2"
-  echo "$(timestamp) - component=SplunkInstall, level=${level}, message=${message}" | tee -a ${LOG_FILE}
+  echo "$(timestamp) - component=SplunkFwdInstall, level=${level}, message=${message}" | tee -a ${LOG_FILE}
 }
 
 log "INFO" "Starting Splunk Universal Forwarder installation script."
