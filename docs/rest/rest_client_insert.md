@@ -23,3 +23,14 @@ name=TEST_API_Search
 &disabled=0
 &cron_schedule=*/3 * * * *
 &is_scheduled=1
+
+
+## Update existing
+POST {{baseUrl}}/servicesNS/{{owner}}/{{app}}/saved/searches/TEST_API_Search
+Authorization: Bearer {{token}}
+Content-Type: application/x-www-form-urlencoded
+
+search=search index=_audit | stats count
+&dispatch.earliest_time=-10m
+&cron_schedule=*/5 * * * *
+&description=Updated via API
