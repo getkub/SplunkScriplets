@@ -36,6 +36,7 @@ SPLUNK_HOME="/opt/splunkforwarder"
 SPLUNK_USER="splunkfwd"
 SPLUNK_GROUP="splunkfwd"
 DEPLOYMENT_SERVER="splunk-deploy.example.com:8089"
+DEPLOYMENT_APP="deployment_client_app"
 
 DEB_PACKAGE="latest-splunkforwarder.deb"
 RPM_PACKAGE="latest-splunkforwarder.rpm"
@@ -85,8 +86,10 @@ sudo chown -R "${SPLUNK_USER}:${SPLUNK_GROUP}" "$SPLUNK_HOME"
 
 # Configure deployment client
 log "INFO" "Configuring deployment server."
-sudo bash -c "cat > ${SPLUNK_HOME}/etc/system/local/deploymentclient.conf <<EOF
+sudo mkdir -p "${SPLUNK_HOME}/etc/apps/${DEPLOYMENT_APP}/default"
+sudo bash -c "cat > ${SPLUNK_HOME}/etc/apps/${DEPLOYMENT_APP}/default/deploymentclient.conf <<EOF
 [deployment-client]
+
 [target-broker:deploymentServer]
 targetUri = ${DEPLOYMENT_SERVER}
 EOF"
