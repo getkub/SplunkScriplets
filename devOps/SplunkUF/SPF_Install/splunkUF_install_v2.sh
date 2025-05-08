@@ -1,131 +1,103 @@
-#!/bin/sh
+#!/bin/bash
 
 # ============================================================================
-# Basic Script to Uninstall+Install Splunk Universal Forwarder in LINUX environments
-# Version : 1.11
+# Splunk Universal Forwarder Installation Script for Linux
+# Version: 1.2
+#
+# Description:
+# This script installs and configures the Splunk Universal Forwarder (UF) 
+# on supported Linux systems (Debian/Ubuntu, RedHat/CentOS, Amazon Linux).
+#
+# Key Features:
+# - Detects OS and installs appropriate package (DEB/RPM)
+# - Creates and sets correct ownership to a dedicated non-root user
+# - Registers Splunk as a systemd service for automatic start on boot
+# - Configures deployment server settings
+# - Starts Splunk cleanly via systemd (no password prompt at boot)
+#
+# Notes:
+# - Script must be run with sudo/root privileges
+# - Splunk runs under the dedicated user specified in SPLUNK_USER
+# - Admin user creation (user-seed.conf) is intentionally skipped
+#
 # ============================================================================
+# Configuration Variables
+SPLUNK_HOME="/opt/splunkforwarder"
+SPLUNK_USER="splunkfwd"
+SPLUNK_GROUP="splunkfwd"
+DEPLOYMENT_SERVER="splunk-deploy.example.com:8089"
 
-# ============================================================================
-# Identify Relevant Environment and Service
-# ============================================================================
-OSTYPE=$(uname -s)
-LOGFILE="/var/log/splunk_install.log"
-COMPONENT="SplunkInstall"
+DEB_PACKAGE="latest-splunkforwarder.deb"
+RPM_PACKAGE="latest-splunkforwarder.rpm"
 
-log() {
-    local level=$1
-    local msg=$2
-    echo "$(date +'%Y-%m-%d %H:%M:%S') - component=${COMPONENT}, level=${level}, message=${msg}" | tee -a "$LOGFILE"
+timestamp() {
+  date "+%Y-%m-%d %H:%M:%S"
 }
 
-# ============================================================================
-# Constants
-# ============================================================================
-DEP_SERVER_IP="10.1.2.3"
-SPLUNK_PKG_RPM="latest-splunkforwarder.rpm"
-SPLUNK_PKG_DEB="latest-splunkforwarder.deb"
-FWD_PASS="changeme_new"
-SPLUNK_HOME="/opt/splunkforwarder"
-DEP_PORT=8089
-DEPLOY_SERVER="${DEP_SERVER_IP}:${DEP_PORT}"
-
-# ============================================================================
-# Pre-Checks
-# ============================================================================
-if [ "$OSTYPE" != "Linux" ]; then
-    log "ERROR" "OSTYPE is not Linux. Exiting without any changes."
-    exit 0
-fi
-
-if [ "$EUID" -ne 0 ]; then
-    log "ERROR" "This script must be run as root."
-    exit 1
-fi
+log() {
+  local level="$1"
+  local message="$2"
+  echo "$(timestamp) - component=SplunkInstall, level=${level}, message=${message}"
+}
 
 log "INFO" "Starting Splunk Universal Forwarder installation script."
 
-# Check for port conflicts *before install*
-log "INFO" "Checking for port ${DEP_PORT} conflicts before installation."
+# Cleanup previous systemd service if needed
+if [ -f /etc/systemd/system/SplunkForwarder.service ]; then
+  log "INFO" "Removing existing SplunkForwarder systemd unit file."
+  sudo "${SPLUNK_HOME}/bin/splunk" disable boot-start --accept-license --no-prompt || sudo rm -f /etc/systemd/system/SplunkForwarder.service
+  sudo systemctl daemon-reexec
+  sudo systemctl daemon-reload
+fi
 
-if command -v netstat > /dev/null 2>&1; then
-    if netstat -tuln | grep -q ":${DEP_PORT}"; then
-        log "WARN" "Port ${DEP_PORT} is already in use. Installation may not bind correctly."
-    fi
-elif command -v ss > /dev/null 2>&1; then
-    if ss -tuln | grep -q ":${DEP_PORT}"; then
-        log "WARN" "Port ${DEP_PORT} is already in use. Installation may not bind correctly."
-    fi
+# Detect platform and install package
+if [ -f /etc/debian_version ]; then
+  log "INFO" "Detected Debian/Ubuntu system."
+  if ! dpkg -i "$DEB_PACKAGE"; then
+    log "ERROR" "Failed to install DEB package."
+    exit 1
+  fi
+elif [ -f /etc/redhat-release ] || [ -f /etc/centos-release ] || grep -q "Amazon Linux" /etc/os-release 2>/dev/null; then
+  log "INFO" "Detected RedHat/CentOS/Amazon Linux system."
+  if ! rpm -i "$RPM_PACKAGE"; then
+    log "ERROR" "Failed to install RPM package."
+    exit 1
+  fi
 else
-    log "WARN" "Neither netstat nor ss found. Skipping port conflict check."
+  log "ERROR" "Unsupported or unknown Linux distribution."
+  exit 1
 fi
 
-# Determine package type
-if command -v rpm > /dev/null 2>&1; then
-    PKG_TYPE="rpm"
-    SPLUNK_PKG="$SPLUNK_PKG_RPM"
-    log "INFO" "RPM system detected."
-elif command -v dpkg > /dev/null 2>&1; then
-    PKG_TYPE="deb"
-    SPLUNK_PKG="$SPLUNK_PKG_DEB"
-    log "INFO" "DEB system detected."
-else
-    log "ERROR" "Neither RPM nor DEB detected. Cannot proceed."
-    exit 2
-fi
+# Set initial ownership
+log "INFO" "Setting ownership of SPLUNK_HOME to ${SPLUNK_USER}."
+sudo chown -R "${SPLUNK_USER}:${SPLUNK_GROUP}" "$SPLUNK_HOME"
 
-if [ ! -f "$SPLUNK_PKG" ]; then
-    log "ERROR" "Splunk package $SPLUNK_PKG not found in current directory."
-    exit 2
-fi
-
-# ============================================================================
-# Installation
-# ============================================================================
-log "INFO" "Installing Splunk Universal Forwarder from $SPLUNK_PKG."
-
-if [ "$PKG_TYPE" = "rpm" ]; then
-    rpm -U "$SPLUNK_PKG"
-elif [ "$PKG_TYPE" = "deb" ]; then
-    dpkg -i "$SPLUNK_PKG"
-fi
-
-if [ "$?" -ne 0 ]; then
-    log "ERROR" "Installation failed. Please remove any partial install manually."
-    exit 100
-fi
-
-# ============================================================================
-# Configuration
-# ============================================================================
-log "INFO" "Configuring Splunk: setting password and deployment server."
-
-mkdir -p "${SPLUNK_HOME}/etc/apps/deployclient/local"
-cat <<EOF > "${SPLUNK_HOME}/etc/apps/deployclient/local/deploymentclient.conf"
+# Configure deployment client
+log "INFO" "Configuring deployment server."
+sudo bash -c "cat > ${SPLUNK_HOME}/etc/system/local/deploymentclient.conf <<EOF
 [deployment-client]
 [target-broker:deploymentServer]
-targetUri = ${DEPLOY_SERVER}
-EOF
+targetUri = ${DEPLOYMENT_SERVER}
+EOF"
 
-"${SPLUNK_HOME}/bin/splunk" edit user admin -password "$FWD_PASS" -auth admin:changeme --accept-license --answer-yes --no-prompt
-"${SPLUNK_HOME}/bin/splunk" set splunkd-port "$DEP_PORT"
-"${SPLUNK_HOME}/bin/splunk" start --accept-license --answer-yes --no-prompt
+# Re-set ownership after config change
+sudo chown -R "${SPLUNK_USER}:${SPLUNK_GROUP}" "$SPLUNK_HOME"
 
-if [ "$?" -ne 0 ]; then
-    log "ERROR" "Splunk failed to start. Please check logs and directories manually."
-    exit 101
-fi
+# First-time start as non-root to initialize config
+log "INFO" "First-time Splunk start as ${SPLUNK_USER} to initialize files."
+sudo -u "$SPLUNK_USER" "${SPLUNK_HOME}/bin/splunk" start --accept-license --no-prompt
 
-# ============================================================================
-# Enable and Start Service
-# ============================================================================
-log "INFO" "Enabling and starting splunkforwarder service."
+# Stop it before boot-enable
+log "INFO" "Stopping Splunk before enabling boot-start."
+sudo -u "$SPLUNK_USER" "${SPLUNK_HOME}/bin/splunk" stop
 
-if command -v systemctl > /dev/null 2>&1; then
-    systemctl enable splunkforwarder
-    systemctl start splunkforwarder
-    log "INFO" "Splunk Forwarder service started via systemd."
-else
-    log "WARN" "Systemd not found. Please enable/start splunkforwarder manually."
-fi
+# Enable boot-start under non-root user
+log "INFO" "Enabling Splunk to start at boot via systemd."
+sudo "${SPLUNK_HOME}/bin/splunk" enable boot-start -user "$SPLUNK_USER" --accept-license --no-prompt
 
-log "INFO" "**** Splunk Forwarder Successfully Installed ****"
+# Start via systemd (no prompts at reboot)
+log "INFO" "Starting SplunkForwarder via systemctl."
+sudo systemctl daemon-reload
+sudo systemctl start SplunkForwarder
+
+log "INFO" "Splunk Universal Forwarder installation and configuration completed successfully."
