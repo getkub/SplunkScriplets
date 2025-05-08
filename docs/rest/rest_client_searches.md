@@ -25,7 +25,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/x-www-form-urlencoded
 
 search=| rest /servicesNS/nobody/{{app}}/saved/searches/{{search_name}}
-       | table title, eai:acl.app, qualifiedSearch
        | rename eai:acl.app AS app
+       | table app, title, qualifiedSearch, cron_schedule, alert_type, actions, action.email.to
 
 ```
