@@ -2,30 +2,34 @@
 
 set -e
 
-# ----------- Default Configurable Inputs -----------
+# ----------- Configurable Inputs -----------
 product=""
 version=""
-arch="amd64"
-os="linux"        # linux | windows
-pkg=""            # deb | tgz | rpm | msi
-hash=""           # Replace with actual hash from Splunk
+arch=""           # e.g., amd64 | arm64
+os=""            # e.g., linux | windows
+pkg=""           # deb | tgz | rpm | msi
+hash=""          # Replace with actual hash from Splunk
 # ------------------------------------------
 
 # Function to display usage
 usage() {
-  echo "Usage: $0 -p product -v version -k package -h hash"
+  echo "Usage: $0 -p product -v version -a arch -o os -k package -h hash"
   echo "  -p product   : The product name (e.g., splunk, uf)"
   echo "  -v version   : The version number (e.g., 9.4.2)"
+  echo "  -a arch      : The architecture (e.g., amd64, arm64)"
+  echo "  -o os        : The operating system (e.g., linux, windows)"
   echo "  -k package   : The package type (deb, tgz, rpm, msi)"
   echo "  -h hash      : The build hash"
   exit 1
 }
 
 # Parse command-line options
-while getopts "p:v:k:h:" opt; do
+while getopts "p:v:a:o:k:h:" opt; do
   case "$opt" in
     p) product="$OPTARG" ;;
     v) version="$OPTARG" ;;
+    a) arch="$OPTARG" ;;
+    o) os="$OPTARG" ;;
     k) pkg="$OPTARG" ;;
     h) hash="$OPTARG" ;;
     *) usage ;;
@@ -33,7 +37,7 @@ while getopts "p:v:k:h:" opt; do
 done
 
 # Check if all required options are provided
-if [ -z "$product" ] || [ -z "$version" ] || [ -z "$pkg" ] || [ -z "$hash" ]; then
+if [ -z "$product" ] || [ -z "$version" ] || [ -z "$arch" ] || [ -z "$os" ] || [ -z "$pkg" ] || [ -z "$hash" ]; then
   usage
 fi
 
@@ -57,16 +61,14 @@ case "$os" in
     if [ "$pkg" = "deb" ]; then
       filename="${product}-${version}-${hash}-${os}-${arch}.${pkg}"
     elif [ "$pkg" = "rpm" ]; then
-      arch="x86_64"
-      filename="${product}-${version}-${hash}-${arch}.${pkg}"
+      filename="${product}-${version}-${hash}-x86_64.${pkg}"
     else
       filename="${product}-${version}-${hash}-${os}-${arch}.${pkg}"
     fi
     ;;
   "windows")
-    arch="x64"
     pkg="msi"
-    filename="${product}-${version}-${hash}-windows-${arch}.${pkg}"
+    filename="${product}-${version}-${hash}-windows-x64.${pkg}"
     ;;
   *)
     log error "Unsupported OS type" "os=\"$os\""

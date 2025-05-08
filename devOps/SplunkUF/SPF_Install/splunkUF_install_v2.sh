@@ -18,19 +18,12 @@ log() {
     echo "$(date +'%Y-%m-%d %H:%M:%S') - component=${COMPONENT}, level=${level}, message=${msg}" | tee -a "$LOGFILE"
 }
 
-log "INFO" "Starting Splunk Universal Forwarder installation script."
-
-if [ "$OSTYPE" != "Linux" ]; then
-    log "ERROR" "OSTYPE is not Linux. Exiting without any changes."
-    exit 0
-fi
-
 # ============================================================================
 # Constants
 # ============================================================================
 DEP_SERVER_IP="10.1.2.3"
-SPLUNK_PKG_RPM="splunkforwarder-latest-x86-64.rpm"
-SPLUNK_PKG_DEB="splunkforwarder-latest-amd64.deb"
+SPLUNK_PKG_RPM="latest-splunkforwarder.rpm"
+SPLUNK_PKG_DEB="latest-splunkforwarder.deb"
 FWD_PASS="changeme_new"
 SPLUNK_HOME="/opt/splunkforwarder"
 DEP_PORT=8089
@@ -39,10 +32,17 @@ DEPLOY_SERVER="${DEP_SERVER_IP}:${DEP_PORT}"
 # ============================================================================
 # Pre-Checks
 # ============================================================================
+if [ "$OSTYPE" != "Linux" ]; then
+    log "ERROR" "OSTYPE is not Linux. Exiting without any changes."
+    exit 0
+fi
+
 if [ "$EUID" -ne 0 ]; then
     log "ERROR" "This script must be run as root."
     exit 1
 fi
+
+log "INFO" "Starting Splunk Universal Forwarder installation script."
 
 # Check for port conflicts *before install*
 log "INFO" "Checking for port ${DEP_PORT} conflicts before installation."
