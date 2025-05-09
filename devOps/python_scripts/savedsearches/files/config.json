@@ -1,0 +1,5 @@
+{
+    "app": "my_app",
+    "owner": "nobody",
+    "baseUrl": "https://mysplunk:8089"
+}
