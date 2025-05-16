@@ -6,10 +6,12 @@
 
 ### Default (dry-run)
 ```
-python savedsearches/upsert.py
+python savedsearches/update.py
 ```
 
 ### Actually perform POST requests
 ```
-python savedsearches/upsert.py --real-run
+python savedsearches/update.py --updateOnly
+python savedsearches/update.py --deleteOnly
+
 ```
