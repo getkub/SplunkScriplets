@@ -77,14 +77,11 @@ for stanza in conf_parser.sections():
     if args.action_flag == 'deleteOnly':
         if exists:
             log.info("🗑️ Exists and will be deleted: %s", name)
-            if args.dry_run:
-                log.info("❌ Would delete: %s", name)
+            del_response = requests.delete(url, headers=headers, verify=CERT_PATH)
+            if del_response.status_code >= 400:
+                log.error("❌ Delete failed: %s - %s", del_response.status_code, del_response.reason)
             else:
-                del_response = requests.delete(url, headers=headers, verify=CERT_PATH)
-                if del_response.status_code >= 400:
-                    log.error("❌ Delete failed: %s - %s", del_response.status_code, del_response.reason)
-                else:
-                    log.info("✅ Deleted: %s", name)
+                log.info("✅ Deleted: %s", name)
         else:
             log.warning("❓ Not found: %s", name)
 
