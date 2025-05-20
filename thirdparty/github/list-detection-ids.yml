@@ -1,0 +1,36 @@
+name: List Detection IDs
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run daily
+  push:
+    paths:
+      - 'detections/*.yaml'
+  workflow_dispatch:
+jobs:
+  list-ids:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install pyyaml
+      - name: Extract detection IDs
+        run: |
+          find ./detections -type f -name "*.yaml" -exec grep -oP "id: \K.*" {} \; | sort -u > detection_ids.txt
+      - name: Update pinned issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const ids = fs.readFileSync('detection_ids.txt', 'utf8').trim().split('\n').join(', ');
+            const issueBody = `Available Detection IDs:\n\n${ids}\n\nCopy these IDs into the "Deploy Detection Rules to Splunk" issue form.`;
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: 1, # Pinned issue
+              body: issueBody
+            });
