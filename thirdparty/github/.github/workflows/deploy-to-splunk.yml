@@ -1,0 +1,103 @@
+name: Deploy to Splunk
+on:
+  issues:
+    types: [labeled]
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'deploy'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Extract detection IDs from issue
+        run: |
+          DETECTION_IDS=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=Detection IDs\n\n).*?(?=\n\nAdditional Comments)')
+          echo "DETECTION_IDS=$DETECTION_IDS" >> $GITHUB_ENV
+      - name: Create deployment file
+        run: |
+          echo "Deployment request for detection IDs: ${{ env.DETECTION_IDS }}" > .github/deployment.txt
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Trigger deployment for detection IDs: ${{ env.DETECTION_IDS }}"
+          title: "Deploy detection IDs: ${{ env.DETECTION_IDS }}"
+          body: "This PR triggers deployment for detection IDs: ${{ env.DETECTION_IDS }}. Approve to proceed."
+          branch: deploy/${{ github.event.issue.number }}
+          labels: deploy
+    outputs:
+      pr_number: ${{ steps.create-pull-request.outputs.pull-request-number }}
+
+  deploy:
+    needs: create-pr
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'deploy'
+    steps:
+      - name: Wait for PR approval
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prNumber = ${{ needs.create-pr.outputs.pr_number }};
+            if (!prNumber) {
+              core.setFailed('No pull request created.');
+              return;
+            }
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+            if (pr.state !== 'open') {
+              core.setFailed('Pull request is not open.');
+              return;
+            }
+            // Check for code owner approval
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+            const approved = reviews.some(review => review.state === 'APPROVED' && review.user.login in ['@org/security-team', '@lead-developer']); // Adjust with actual code owners
+            if (!approved) {
+              core.setFailed('Pull request requires code owner approval.');
+              return;
+            }
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install pyyaml ansible
+      - name: Validate and filter detections
+        run: |
+          IFS=',' read -ra IDS <<< "${{ env.DETECTION_IDS }}"
+          touch selected_detections.txt invalid_ids.txt
+          for id in "${IDS[@]}"; do
+            file=$(find ./detections -type f -name "*.yaml" -exec grep -l "id: $id" {} \;)
+            [ -n "$file" ] && echo "$file" >> selected_detections.txt || echo "$id" >> invalid_ids.txt
+          done
+      - name: Run Ansible playbook
+        run: |
+          if [ -s selected_detections.txt ]; then
+            ansible-playbook playbook.yml -e "detection_files=$(cat selected_detections.txt)"
+          else
+            echo "No valid detection IDs found."
+            exit 1
+          fi
+      - name: Comment on issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue_number = ${{ github.event.issue.number }};
+            const invalid_ids = require('fs').existsSync('invalid_ids.txt') ? require('fs').readFileSync('invalid_ids.txt', 'utf8').trim() : '';
+            const comment = invalid_ids ? 
+              `Deployment triggered for detection IDs: ${{ env.DETECTION_IDS }}.\nInvalid IDs (skipped): ${invalid_ids}` :
+              `Deployment triggered for detection IDs: ${{ env.DETECTION_IDS }}`;
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: comment
+            });

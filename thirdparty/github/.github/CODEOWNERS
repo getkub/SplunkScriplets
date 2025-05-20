@@ -1,0 +1,4 @@
+# Require approval from the security team for all detection files
+/detections/ @org/security-team
+# Require approval for a virtual deployment file
+/.github/deployment.txt @org/security-team @lead-developer

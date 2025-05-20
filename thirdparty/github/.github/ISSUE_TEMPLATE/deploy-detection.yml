@@ -1,0 +1,19 @@
+name: Deploy Detection Rules to Splunk
+description: Submit detection IDs to deploy to Splunk
+title: "[Deploy] Detection Rules"
+labels: ["deploy"]
+body:
+  - type: input
+    id: detection_ids
+    attributes:
+      label: Detection IDs
+      description: Enter comma-separated detection IDs (e.g., id1,id2). Check pinned issue #1 for available IDs.
+      placeholder: id1,id2,id3
+    validations:
+      required: true
+  - type: textarea
+    id: comments
+    attributes:
+      label: Additional Comments
+      description: Optional notes about this deployment
+      placeholder: Any comments
