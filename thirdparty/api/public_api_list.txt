@@ -1,4 +1,0 @@
-# https://www.postman.com/cs-demo/workspace/public-rest-apis/collection/8854915-454a2dc7-dcbe-41cf-9bfa-da544fcd93a2
-https://api.sunrise-sunset.org/
-https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2020-01-01&endtime=2020-01-02
-https://api.coindesk.com/v1/bpi/currentprice.json
