@@ -1,10 +1,9 @@
-#!/usr/bin/env python3
-
 import requests
 import json
 import sys
 import logging
 from datetime import datetime
+import os
 
 # Configure logging
 logging.basicConfig(
@@ -17,16 +16,35 @@ logging.basicConfig(
 )
 logger = logging.getLogger('api_collector')
 
+def get_splunk_credentials():
+    try:
+        # Get credentials from Splunk's environment
+        api_key = os.environ.get('SPLUNK_API_KEY')
+        api_url = os.environ.get('SPLUNK_API_URL')
+        
+        if not api_key or not api_url:
+            raise Exception("API credentials not found in environment")
+            
+        return {
+            'api_key': api_key,
+            'api_url': api_url
+        }
+            
+    except Exception as e:
+        logger.error(f"Failed to get credentials: {str(e)}")
+        sys.exit(1)
+
 def make_api_call():
     try:
-        # Replace with your actual API endpoint and authentication
-        api_url = "https://api.example.com/data"
+        # Get credentials from Splunk
+        credentials = get_splunk_credentials()
+        
         headers = {
-            "Authorization": "Bearer YOUR_API_TOKEN",
+            "Authorization": f"Bearer {credentials['api_key']}",
             "Content-Type": "application/json"
         }
         
-        response = requests.get(api_url, headers=headers)
+        response = requests.get(credentials['api_url'], headers=headers)
         response.raise_for_status()
         
         data = response.json()
