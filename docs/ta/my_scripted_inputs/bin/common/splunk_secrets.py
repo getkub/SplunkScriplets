@@ -2,7 +2,7 @@
 
 import os
 import requests
-from . import splunk_common
+import splunk_common
 
 class SplunkSecrets:
     def __init__(self, logger=None):
@@ -29,7 +29,7 @@ class SplunkSecrets:
                 'Content-Type': 'application/json'
             }
             
-            splunk_common.log_json(self.logger, 'INFO', f"Fetching credential for realm={realm}, username={username}")
+            splunk_common.log_json(self.logger, 'info', f"Fetching credential for realm={realm}, username={username}")
             
             response = requests.get(
                 url,
@@ -45,14 +45,14 @@ class SplunkSecrets:
             for entry in data.get('entry', []):
                 content = entry.get('content', {})
                 if content.get('realm') == realm and content.get('username') == username:
-                    splunk_common.log_json(self.logger, 'INFO', "Credential found successfully")
+                    splunk_common.log_json(self.logger, 'info', "Credential found successfully")
                     return content.get('clear_password')
                     
-            splunk_common.log_json(self.logger, 'ERROR', f"No credential found for realm={realm}, username={username}")
+            splunk_common.log_json(self.logger, 'error', f"No credential found for realm={realm}, username={username}")
             return None
             
         except Exception as e:
-            splunk_common.log_json(self.logger, 'ERROR', f"Failed to retrieve credential: {str(e)}")
+            splunk_common.log_json(self.logger, 'error', f"Failed to retrieve credential: {str(e)}")
             raise
 
     def store_credential(self, realm, username, password):
@@ -72,7 +72,7 @@ class SplunkSecrets:
                 'password': password
             }
             
-            splunk_common.log_json(self.logger, 'INFO', f"Storing credential for realm={realm}, username={username}")
+            splunk_common.log_json(self.logger, 'info', f"Storing credential for realm={realm}, username={username}")
             
             response = requests.post(
                 url,
@@ -85,9 +85,9 @@ class SplunkSecrets:
             if response.status_code not in (200, 201):
                 raise Exception(f"Failed to store credential: {response.status_code} - {response.text}")
                 
-            splunk_common.log_json(self.logger, 'INFO', "Credential stored successfully")
+            splunk_common.log_json(self.logger, 'info', "Credential stored successfully")
             return True
             
         except Exception as e:
-            splunk_common.log_json(self.logger, 'ERROR', f"Failed to store credential: {str(e)}")
+            splunk_common.log_json(self.logger, 'error', f"Failed to store credential: {str(e)}")
             raise

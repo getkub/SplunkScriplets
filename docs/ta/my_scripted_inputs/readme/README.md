@@ -44,7 +44,9 @@ rsync -avz --size-only --checksum \
   --exclude='*.pyc' \
   --exclude='*.pyo' \
   --exclude='*.pyd' \
+  --exclude='.DS_Store' \
   --exclude='.pytest_cache' \
+  --delete \
   my_scripted_inputs ${SPLUNK_HOME}/etc/apps/ --dry-run
 ```
 
