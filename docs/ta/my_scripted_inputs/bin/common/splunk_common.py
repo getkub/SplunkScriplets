@@ -1,8 +1,11 @@
-# splunk_common.py
 import logging
 import json
-import sys
+import os
 from datetime import datetime, timezone, timedelta
+
+# Configuration variables
+SPLUNK_HOME = os.environ.get('SPLUNK_HOME', '/opt/splunk')
+SCRIPT_NAME = 'my_scripted_input'
 
 class JsonFormatter(logging.Formatter):
     def format(self, record):
@@ -16,7 +19,8 @@ class JsonFormatter(logging.Formatter):
         return json.dumps(log_record)
 
 def setup_logging(level=logging.INFO):
-    handler = logging.StreamHandler(sys.stderr)  # ✅ CHANGED from default (stdout)
+    logfile = f'{SPLUNK_HOME}/var/log/splunk/{SCRIPT_NAME}.log'
+    handler = logging.FileHandler(logfile)
     handler.setFormatter(JsonFormatter())
     logger = logging.getLogger()
     logger.setLevel(level)
