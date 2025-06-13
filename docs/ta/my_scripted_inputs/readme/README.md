@@ -33,6 +33,13 @@ my_scripted_inputs/
 - Python 3.x
 - `requests` Python package
 
+
+## DEV purpose copying
+
+```
+rsync -avz --size-only --checksum my_scripted_inputs ${SPLUNK_HOME}/etc/apps/ --dry-run
+```
+
 ## Installation
 
 1. Copy the TA to your Splunk apps directory:
