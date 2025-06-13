@@ -95,19 +95,23 @@ def main():
 
     try:
         # Fetch weather data
-        splunk_common.log_json(logger, 'INFO', f"Fetching weather data for {args.city}")
         weather_data = get_weather_data(args.city, args.realm, args.username)
         
-        # Log the weather data
-        splunk_common.log_json(
-            logger,
-            'INFO',
-            weather_data,
-            status='success' if 'error' not in weather_data else 'failure'
-        )
+        # Log success/failure to Splunk's internal logs
+        if 'error' in weather_data:
+            splunk_common.log_json(logger, 'ERROR', f"Failed to get weather data: {weather_data['error']}", status='failure')
+        else:
+            splunk_common.log_json(logger, 'INFO', f"Successfully fetched weather data for {args.city}", status='success')
+        
+        # Output the raw JSON to stdout for Splunk indexing and flush immediately
+        print(json.dumps(weather_data), flush=True)
+        sys.stdout.flush()
 
     except Exception as e:
-        splunk_common.log_json(logger, 'ERROR', f"Failed to get weather data: {str(e)}", status='failure')
+        error_msg = f"Failed to get weather data: {str(e)}"
+        splunk_common.log_json(logger, 'ERROR', error_msg, status='failure')
+        print(json.dumps({'error': error_msg}), flush=True)
+        sys.stdout.flush()
         sys.exit(1)
 
 if __name__ == '__main__':
