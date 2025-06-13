@@ -2,50 +2,108 @@
 
 import argparse
 import requests
+import json
 import sys
-import os
 from common import splunk_common
-from common.splunk_secrets import SplunkSecrets
+from splunk.credentials import CredentialManager
 
-def get_weather_data(city):
-    """Fetch weather data from wttr.in API"""
+def get_weather_data(city, realm, username):
+    """Get weather data from Open-Meteo API with credential management"""
     try:
-        url = f"https://wttr.in/{city}?format=3"
-        response = requests.get(url, timeout=5)
-        if response.status_code == 200:
-            return response.text.strip()
+        # Get API credentials
+        cred_manager = CredentialManager(realm)
+        credentials = cred_manager.get_credentials(username)
+        if not credentials:
+            return {'error': f"No credentials found for realm '{realm}' and username '{username}'"}
+
+        # First get coordinates for the city using geocoding API
+        geocoding_url = f"https://geocoding-api.open-meteo.com/v1/search?name={city}&count=1"
+        
+        # Get coordinates
+        geo_response = requests.get(geocoding_url, timeout=5)
+        if geo_response.status_code == 200:
+            geo_data = geo_response.json()
+            if not geo_data.get('results'):
+                return {'error': f"City not found: {city}"}
+            
+            location = geo_data['results'][0]
+            lat = location['latitude']
+            lon = location['longitude']
+            
+            # Get weather data using coordinates
+            weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m"
+            weather_response = requests.get(weather_url, timeout=5)
+            
+            if weather_response.status_code == 200:
+                weather_data = weather_response.json()
+                current = weather_data['current']
+                
+                # Map weather codes to descriptions
+                weather_codes = {
+                    0: "Clear sky",
+                    1: "Mainly clear",
+                    2: "Partly cloudy",
+                    3: "Overcast",
+                    45: "Foggy",
+                    48: "Depositing rime fog",
+                    51: "Light drizzle",
+                    53: "Moderate drizzle",
+                    55: "Dense drizzle",
+                    61: "Slight rain",
+                    63: "Moderate rain",
+                    65: "Heavy rain",
+                    71: "Slight snow",
+                    73: "Moderate snow",
+                    75: "Heavy snow",
+                    77: "Snow grains",
+                    80: "Slight rain showers",
+                    81: "Moderate rain showers",
+                    82: "Violent rain showers",
+                    85: "Slight snow showers",
+                    86: "Heavy snow showers",
+                    95: "Thunderstorm",
+                    96: "Thunderstorm with slight hail",
+                    99: "Thunderstorm with heavy hail"
+                }
+                
+                return {
+                    'city': location['name'],
+                    'country': location.get('country', 'Unknown'),
+                    'temperature': current['temperature_2m'],
+                    'humidity': current['relative_humidity_2m'],
+                    'wind_speed': current['wind_speed_10m'],
+                    'description': weather_codes.get(current['weather_code'], "Unknown"),
+                    'timestamp': current['time'],
+                    'realm': realm,
+                    'username': username
+                }
+            else:
+                return {'error': f"Weather API Error {weather_response.status_code}"}
         else:
-            raise Exception(f"API error {response.status_code}: {response.text}")
+            return {'error': f"Geocoding API Error {geo_response.status_code}"}
     except Exception as e:
-        raise Exception(f"Failed to fetch weather data: {str(e)}")
+        return {'error': str(e)}
 
 def main():
-    parser = argparse.ArgumentParser(description="Weather API Collector for Splunk")
-    parser.add_argument('--city', default="Melbourne", help='City to get weather for')
+    parser = argparse.ArgumentParser(description="Weather API Collector (Secure) for Splunk")
+    parser.add_argument('--city', default="Sydney", help='City to get weather for')
     parser.add_argument('--realm', required=True, help='Credential realm')
     parser.add_argument('--username', required=True, help='Credential username')
 
     args = parser.parse_args()
     logger = splunk_common.setup_logging()
-    secrets = SplunkSecrets(logger)
 
     try:
-        # Get credentials from Splunk (though not needed for this API)
-        api_key = secrets.get_credential(args.realm, args.username)
-        if not api_key:
-            splunk_common.log_json(logger, 'ERROR', f"No credentials found for realm={args.realm}, username={args.username}", status='failure')
-            sys.exit(1)
-
         # Fetch weather data
         splunk_common.log_json(logger, 'INFO', f"Fetching weather data for {args.city}")
-        weather_data = get_weather_data(args.city)
+        weather_data = get_weather_data(args.city, args.realm, args.username)
         
         # Log the weather data
         splunk_common.log_json(
             logger,
             'INFO',
-            f"Weather data for {args.city}: {weather_data}",
-            status='success'
+            weather_data,
+            status='success' if 'error' not in weather_data else 'failure'
         )
 
     except Exception as e:
