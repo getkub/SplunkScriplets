@@ -23,7 +23,15 @@ This Splunk app provides two weather data collectors that fetch weather informat
 
 1. Copy the app to your Splunk apps directory:
    ```bash
-   cp -r my_scripted_inputs $SPLUNK_HOME/etc/apps/
+SPLUNK_HOME="/opt/splunk"
+
+rsync -avz --size-only --checksum \
+  --exclude='__pycache__' \
+  --exclude='*.pyc' \
+  --exclude='*.pyo' \
+  --exclude='*.pyd' \
+  --exclude='.pytest_cache' \
+  my_scripted_inputs ${SPLUNK_HOME}/etc/apps/
    ```
 
 2. Restart Splunk:

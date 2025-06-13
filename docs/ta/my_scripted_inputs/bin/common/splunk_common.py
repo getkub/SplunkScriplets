@@ -1,6 +1,7 @@
 # splunk_common.py
 import logging
 import json
+import sys
 from datetime import datetime, timezone, timedelta
 
 class JsonFormatter(logging.Formatter):
@@ -15,7 +16,7 @@ class JsonFormatter(logging.Formatter):
         return json.dumps(log_record)
 
 def setup_logging(level=logging.INFO):
-    handler = logging.StreamHandler()
+    handler = logging.StreamHandler(sys.stderr)  # ✅ CHANGED from default (stdout)
     handler.setFormatter(JsonFormatter())
     logger = logging.getLogger()
     logger.setLevel(level)
