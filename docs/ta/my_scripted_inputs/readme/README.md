@@ -37,7 +37,15 @@ my_scripted_inputs/
 ## DEV purpose copying
 
 ```
-rsync -avz --size-only --checksum my_scripted_inputs ${SPLUNK_HOME}/etc/apps/ --dry-run
+SPLUNK_HOME="/opt/splunk"
+
+rsync -avz --size-only --checksum \
+  --exclude='__pycache__' \
+  --exclude='*.pyc' \
+  --exclude='*.pyo' \
+  --exclude='*.pyd' \
+  --exclude='.pytest_cache' \
+  my_scripted_inputs ${SPLUNK_HOME}/etc/apps/ --dry-run
 ```
 
 ## Installation
