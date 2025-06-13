@@ -18,7 +18,6 @@ my_scripted_inputs/
 ├── bin/
 │   ├── api_collector.py        # Basic API collector
 │   ├── api_collector_2.py      # Time series API collector
-│   ├── run_api_collector.sh    # Shell script wrapper
 │   └── common/
 │       ├── splunk_common.py    # Common utilities and logging
 │       └── splunk_secrets.py   # Secure credential management
@@ -59,14 +58,14 @@ The scripts are configured through Splunk's `inputs.conf`. Example configuration
 
 ```ini
 # Basic API Collector
-[script://./bin/run_api_collector.sh]
+[script://./bin/api_collector.py --url "https://api.example.com/endpoint" --realm "api_credentials" --username "api_user"]
 disabled = 0
 interval = 300
 index = main
 passAuth = splunk-system-user
 
 # Time Series API Collector
-[script://./bin/run_api_collector_2.sh]
+[script://./bin/api_collector_2.py --url "https://api.example.com/timeseries" --realm "api_credentials" --username "api_user" --days 1]
 disabled = 0
 interval = 3600
 index = main
@@ -86,12 +85,21 @@ The following environment variables can be configured:
 - Simple API data collection
 - Basic authentication
 - JSON response handling
+- Parameters:
+  - `--url`: API endpoint URL
+  - `--realm`: Credential realm
+  - `--username`: Credential username
 
 ### 2. Time Series API Collector (`api_collector_2.py`)
 - Time series data collection
 - Date range parameters
 - Extended timeout for large datasets
 - Per-entry logging
+- Parameters:
+  - `--url`: API endpoint URL
+  - `--realm`: Credential realm
+  - `--username`: Credential username
+  - `--days`: Number of days to look back
 
 ## Usage
 
@@ -110,10 +118,10 @@ You can test the collectors manually:
 export SPLUNK_SESSION_KEY=your_session_key
 
 # Run the basic collector
-./bin/run_api_collector.sh "https://api.example.com/endpoint"
+python3 ./bin/api_collector.py --url "https://api.example.com/endpoint" --realm "api_credentials" --username "api_user"
 
 # Run the time series collector
-./bin/run_api_collector_2.sh "https://api.example.com/timeseries" --days 7
+python3 ./bin/api_collector_2.py --url "https://api.example.com/timeseries" --realm "api_credentials" --username "api_user" --days 7
 ```
 
 ## Logging
@@ -144,6 +152,7 @@ To create a new API collector:
    ```
 3. Use the `SplunkSecrets` class for credential management
 4. Implement your specific API collection logic
+5. Add the new collector to `inputs.conf` with appropriate parameters in the script path
 
 ## Troubleshooting
 
@@ -155,11 +164,3 @@ To create a new API collector:
 ## Support
 
 For issues or questions, please contact your Splunk administrator or raise an issue in the repository.
-
----
-
-## How to Add Credential
-
-Run this once to store the API key securely in Splunk:
-
-```
