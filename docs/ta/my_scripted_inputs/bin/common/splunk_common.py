@@ -4,7 +4,8 @@ import os
 from datetime import datetime, timezone, timedelta
 
 # Configuration variables
-SPLUNK_HOME = os.environ.get('SPLUNK_HOME', '/opt/splunk')
+default_splunk_home = '/Applications/splunk' if os.uname().sysname == 'Darwin' else '/opt/splunk'
+SPLUNK_HOME = os.environ.get('SPLUNK_HOME', default_splunk_home)
 SCRIPT_NAME = 'my_scripted_input'
 
 class JsonFormatter(logging.Formatter):
