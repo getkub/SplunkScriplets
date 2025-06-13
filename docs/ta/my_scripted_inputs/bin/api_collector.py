@@ -1,33 +1,47 @@
+#!/usr/bin/env python3
+
 import argparse
 import requests
-from common.splunk_secrets import get_splunk_credential
+import sys
+import os
+from common import splunk_common
+from common.splunk_secrets import SplunkSecrets
 
 def main():
-    parser = argparse.ArgumentParser(description="Splunk API Collector with secure credential access")
-    parser.add_argument("--app", required=True, help="Splunk app name")
-    parser.add_argument("--user", required=True, help="Username in Splunk's password store")
-    parser.add_argument("--realm", required=True, help="Realm for credential (usually API base URL)")
-    parser.add_argument("--endpoint", required=True, help="Full external API endpoint to call")
+    parser = argparse.ArgumentParser(description="Secure API Collector for Splunk")
+    parser.add_argument('--url', required=True, help='API URL to fetch')
+    parser.add_argument('--realm', required=True, help='Credential realm')
+    parser.add_argument('--username', required=True, help='Credential username')
 
     args = parser.parse_args()
-
-    # Step 1: Fetch stored password
-    api_key = get_splunk_credential(app_name=args.app, realm=args.realm, username=args.user)
-
-    # Step 2: Use the credential
-    headers = {
-        "Authorization": f"Bearer {api_key}"
-    }
+    logger = splunk_common.setup_logging()
+    secrets = SplunkSecrets(logger)
 
     try:
-        response = requests.get(args.endpoint, headers=headers)
+        # Get credentials from Splunk
+        api_key = secrets.get_credential(args.realm, args.username)
+        if not api_key:
+            splunk_common.log_json(logger, 'ERROR', f"No credentials found for realm={args.realm}, username={args.username}", status='failure')
+            sys.exit(1)
+
+        # Make API request with credentials
+        headers = {
+            'Authorization': f'Bearer {api_key}',
+            'Content-Type': 'application/json'
+        }
+        
+        splunk_common.log_json(logger, 'INFO', f"Fetching data from {args.url}")
+        response = requests.get(args.url, headers=headers, timeout=5)
+        
         if response.status_code == 200:
-            print(response.text)  # Data to index
+            data = response.json()
+            splunk_common.log_json(logger, 'INFO', f"API response: {data}")
         else:
-            print(f"API call failed: {response.status_code} - {response.text}")
+            splunk_common.log_json(logger, 'ERROR', f"API error {response.status_code}: {response.text}", status='failure')
+
     except Exception as e:
-        print(f"API request error: {e}")
+        splunk_common.log_json(logger, 'ERROR', f"Failed to query API: {str(e)}", status='failure')
+        sys.exit(1)
 
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    main() 

@@ -1,36 +1,93 @@
+#!/usr/bin/env python3
+
 import os
 import requests
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+from . import splunk_common
 
+class SplunkSecrets:
+    def __init__(self, logger=None):
+        """Initialize SplunkSecrets with optional logger"""
+        self.logger = logger or splunk_common.setup_logging()
+        self.splunkd_port = os.environ.get('SPLUNK_MGMT_PORT', '8089')
+        self.splunkd_host = os.environ.get('SPLUNK_MGMT_HOST', 'localhost')
 
-def get_splunk_credential(app_name, realm, username, splunk_host="https://localhost:8089"):
-    """
-    Fetches a stored password from Splunk's credential store.
-    
-    Args:
-        app_name: The name of your app (e.g., "my_scripted_inputs")
-        realm: The realm used when storing the credential (e.g., "https://api.example.com")
-        username: The stored username (e.g., "api_user")
-        splunk_host: Usually https://localhost:8089
-    
-    Returns:
-        clear_password: The decrypted password
-    """
-    session_token = os.environ.get('SPLUNKD_SESSION_KEY')
-    if not session_token:
-        raise Exception("Missing SPLUNKD_SESSION_KEY. Ensure 'passAuth = splunk-system-user' is set in inputs.conf.")
+    def get_session_key(self):
+        """Get Splunk session key from environment"""
+        session_key = os.environ.get('SPLUNK_SESSION_KEY')
+        if not session_key:
+            raise ValueError("No session key found in environment")
+        return session_key
 
-    headers = {
-        'Authorization': f'Splunk {session_token}'
-    }
+    def get_credential(self, realm, username):
+        """Retrieve a specific credential from Splunk's storage"""
+        try:
+            session_key = self.get_session_key()
+            url = f"https://{self.splunkd_host}:{self.splunkd_port}/services/storage/passwords"
+            
+            headers = {
+                'Authorization': f'Splunk {session_key}',
+                'Content-Type': 'application/json'
+            }
+            
+            splunk_common.log_json(self.logger, 'INFO', f"Fetching credential for realm={realm}, username={username}")
+            
+            response = requests.get(
+                url,
+                headers=headers,
+                verify=False,  # Note: In production, you should properly handle SSL verification
+                timeout=5
+            )
+            
+            if response.status_code != 200:
+                raise Exception(f"Failed to get credentials: {response.status_code} - {response.text}")
+                
+            data = response.json()
+            for entry in data.get('entry', []):
+                content = entry.get('content', {})
+                if content.get('realm') == realm and content.get('username') == username:
+                    splunk_common.log_json(self.logger, 'INFO', "Credential found successfully")
+                    return content.get('clear_password')
+                    
+            splunk_common.log_json(self.logger, 'ERROR', f"No credential found for realm={realm}, username={username}")
+            return None
+            
+        except Exception as e:
+            splunk_common.log_json(self.logger, 'ERROR', f"Failed to retrieve credential: {str(e)}")
+            raise
 
-    path = f"/servicesNS/nobody/{app_name}/storage/passwords/{realm}:{username}?output_mode=json"
-    url = splunk_host + path
-
-    response = requests.get(url, headers=headers, verify=False)
-
-    if response.status_code != 200:
-        raise Exception(f"Failed to retrieve credential: {response.status_code} - {response.text}")
-
-    return response.json()['entry'][0]['content']['clear_password']
+    def store_credential(self, realm, username, password):
+        """Store a new credential in Splunk's storage"""
+        try:
+            session_key = self.get_session_key()
+            url = f"https://{self.splunkd_host}:{self.splunkd_port}/services/storage/passwords"
+            
+            headers = {
+                'Authorization': f'Splunk {session_key}',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+            
+            data = {
+                'name': realm,
+                'username': username,
+                'password': password
+            }
+            
+            splunk_common.log_json(self.logger, 'INFO', f"Storing credential for realm={realm}, username={username}")
+            
+            response = requests.post(
+                url,
+                headers=headers,
+                data=data,
+                verify=False,  # Note: In production, you should properly handle SSL verification
+                timeout=5
+            )
+            
+            if response.status_code not in (200, 201):
+                raise Exception(f"Failed to store credential: {response.status_code} - {response.text}")
+                
+            splunk_common.log_json(self.logger, 'INFO', "Credential stored successfully")
+            return True
+            
+        except Exception as e:
+            splunk_common.log_json(self.logger, 'ERROR', f"Failed to store credential: {str(e)}")
+            raise

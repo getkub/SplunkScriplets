@@ -1,13 +1,13 @@
 #!/bin/bash
 
-APP_NAME="my_scripted_inputs"
-USERNAME="api_user"
-REALM="https://api.example.com"
-API_ENDPOINT="https://api.example.com/data"
+# Get the directory where the script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-$SPLUNK_HOME/bin/splunk cmd python \
-  $SPLUNK_HOME/etc/apps/$APP_NAME/bin/api_collector.py \
-  --app "$APP_NAME" \
-  --user "$USERNAME" \
-  --realm "$REALM" \
-  --endpoint "$API_ENDPOINT"
+# Set up Python path
+export PYTHONPATH="${SCRIPT_DIR}:${PYTHONPATH}"
+
+# Run the API collector with secure credentials
+python3 "${SCRIPT_DIR}/api_collector.py" \
+    --url "$1" \
+    --realm "api_credentials" \
+    --username "api_user" 
