@@ -69,6 +69,11 @@ rsync -avz --size-only --checksum \
    splunk add credentials -realm weather_api -username weather_api -password your_api_key
    ```
 
+   ```bash
+   read -s -p "Enter API key: " API_KEY
+   splunk add credentials -realm weather_api -username weather_api -password "$API_KEY"
+   unset API_KEY
+   ```
 ## Configuration
 
 ### Input Configuration
