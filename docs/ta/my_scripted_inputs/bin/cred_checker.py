@@ -6,7 +6,7 @@ import os
 import sys
 
 from common import splunk_common
-from common import splunk_secrets
+from common.splunk_secrets import SplunkSecrets
 
 def check_credentials(realm, username, logger):
     """Check if credentials can be retrieved from Splunk"""
@@ -41,16 +41,19 @@ def main():
     logger = splunk_common.setup_logging()
 
     try:
-        # Validate SPLUNK_SESSION_KEY
-        if not os.environ.get('SPLUNK_SESSION_KEY'):
-            error_msg = "SPLUNK_SESSION_KEY environment variable is not set"
-            splunk_common.log_json(logger, 'error', error_msg, status='failure')
-            print(json.dumps({'error': error_msg}), flush=True)
-            sys.stdout.flush()
-            sys.exit(1)
-
+        # Log environment for debugging
+        splunk_common.log_json(logger, 'info', f"Environment: {dict(os.environ)}")
         # Check credentials
         result = check_credentials(args.realm, args.username, logger)
+
+        # Validate SPLUNK_SESSION_KEY
+        # if not os.environ.get('SPLUNK_SESSION_KEY'):
+        #     error_msg = "SPLUNK_SESSION_KEY environment variable is not set"
+        #     splunk_common.log_json(logger, 'error', error_msg, status='failure')
+        #     print(json.dumps({'error': error_msg}), flush=True)
+        #     sys.stdout.flush()
+        #     sys.exit(1)
+
         
         # Log success/failure to Splunk's internal logs
         if 'error' in result:
