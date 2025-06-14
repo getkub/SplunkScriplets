@@ -6,7 +6,8 @@
 # Icon must end with two \r
 Icon
 
-
+# Splunk specific
+splunklib/
 # Thumbnails
 ._*
 

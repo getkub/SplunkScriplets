@@ -5,7 +5,7 @@ This Splunk Technical Add-on (TA) provides a secure way to collect data from API
 ## Features
 
 - Secure credential management using Splunk's password storage
-- REST API-based credential retrieval (no splunklib dependency)
+- Uses Splunk's official SDK (splunklib) for credential management
 - JSON-formatted logging
 - Configurable API endpoints and authentication
 - Works on Splunk Heavy Forwarders
@@ -16,8 +16,10 @@ This Splunk Technical Add-on (TA) provides a secure way to collect data from API
 ```
 my_scripted_inputs/
 ├── bin/
-│   ├── api_collector.py        # Basic API collector
-│   ├── api_collector_2.py      # Time series API collector
+│   ├── api_collector.py        # Weather API collector
+│   ├── api_collector_unsecure.py # Weather API collector (no auth)
+│   ├── cred_checker.py         # Credential verification tool
+│   ├── splunklib/             # Splunk SDK libraries
 │   └── common/
 │       ├── splunk_common.py    # Common utilities and logging
 │       └── splunk_secrets.py   # Secure credential management
@@ -31,8 +33,7 @@ my_scripted_inputs/
 
 - Splunk Heavy Forwarder
 - Python 3.x
-- `requests` Python package
-
+- Splunk SDK (splunklib) in the bin/ directory
 
 ## DEV purpose copying
 
@@ -57,14 +58,15 @@ rsync -avz --size-only --checksum \
    cp -r my_scripted_inputs $SPLUNK_HOME/etc/apps/
    ```
 
-2. Install required Python packages:
+2. Ensure splunklib is present in the bin/ directory:
    ```bash
-   pip3 install requests
+   # The splunklib directory should be in bin/splunklib/
+   ls $SPLUNK_HOME/etc/apps/my_scripted_inputs/bin/splunklib/
    ```
 
 3. Set up credentials in Splunk:
    ```bash
-   splunk add credentials -realm api_credentials -username api_user -password your_api_key
+   splunk add credentials -realm weather_api -username weather_api -password your_api_key
    ```
 
 ## Configuration
@@ -74,18 +76,25 @@ rsync -avz --size-only --checksum \
 The scripts are configured through Splunk's `inputs.conf`. Example configurations:
 
 ```ini
-# Basic API Collector
-[script://./bin/api_collector.py --url "https://api.example.com/endpoint" --realm "api_credentials" --username "api_user"]
+# Weather API Collector (Secure)
+[script://./bin/api_collector.py --city "Sydney" --realm "weather_api" --username "weather_api"]
 disabled = 0
 interval = 300
 index = main
 passAuth = splunk-system-user
 
-# Time Series API Collector
-[script://./bin/api_collector_2.py --url "https://api.example.com/timeseries" --realm "api_credentials" --username "api_user" --days 1]
+# Weather API Collector (Unsecure)
+[script://./bin/api_collector_unsecure.py --city "Sydney"]
 disabled = 0
-interval = 3600
+interval = 300
 index = main
+
+# Credential Checker
+[script://./bin/cred_checker.py --realm "weather_api" --username "weather_api"]
+sourcetype = cred_checker
+index = main
+disabled = 0
+interval = 300
 passAuth = splunk-system-user
 ```
 
@@ -98,32 +107,34 @@ The following environment variables can be configured:
 
 ## Available Collectors
 
-### 1. Basic API Collector (`api_collector.py`)
-- Simple API data collection
-- Basic authentication
+### 1. Weather API Collector (`api_collector.py`)
+- Fetches weather data using Open-Meteo API
+- Secure credential management using Splunk SDK
 - JSON response handling
 - Parameters:
-  - `--url`: API endpoint URL
+  - `--city`: City name for weather data
   - `--realm`: Credential realm
   - `--username`: Credential username
 
-### 2. Time Series API Collector (`api_collector_2.py`)
-- Time series data collection
-- Date range parameters
-- Extended timeout for large datasets
-- Per-entry logging
+### 2. Weather API Collector (Unsecure) (`api_collector_unsecure.py`)
+- Same functionality as secure collector but without credential management
+- Uses Open-Meteo API (no API key required)
 - Parameters:
-  - `--url`: API endpoint URL
-  - `--realm`: Credential realm
-  - `--username`: Credential username
-  - `--days`: Number of days to look back
+  - `--city`: City name for weather data
+
+### 3. Credential Checker (`cred_checker.py`)
+- Verifies credential storage and retrieval
+- Uses Splunk SDK for credential management
+- Parameters:
+  - `--realm`: Credential realm to check
+  - `--username`: Credential username to check
 
 ## Usage
 
-The API collectors are automatically run by Splunk based on the configured interval. They will:
+The collectors are automatically run by Splunk based on the configured interval. They will:
 
-1. Retrieve credentials from Splunk's password storage
-2. Make authenticated API calls
+1. Retrieve credentials from Splunk's password storage (secure version)
+2. Make API calls to fetch weather data
 3. Log results in JSON format
 
 ### Manual Testing
@@ -131,14 +142,14 @@ The API collectors are automatically run by Splunk based on the configured inter
 You can test the collectors manually:
 
 ```bash
-# Set the session key
-export SPLUNK_SESSION_KEY=your_session_key
+# Test the secure collector
+python3 ./bin/api_collector.py --city "Sydney" --realm "weather_api" --username "weather_api"
 
-# Run the basic collector
-python3 ./bin/api_collector.py --url "https://api.example.com/endpoint" --realm "api_credentials" --username "api_user"
+# Test the unsecure collector
+python3 ./bin/api_collector_unsecure.py --city "Sydney"
 
-# Run the time series collector
-python3 ./bin/api_collector_2.py --url "https://api.example.com/timeseries" --realm "api_credentials" --username "api_user" --days 7
+# Test credential checker
+python3 ./bin/cred_checker.py --realm "weather_api" --username "weather_api"
 ```
 
 ## Logging
@@ -153,9 +164,10 @@ The collectors use JSON-formatted logging with the following fields:
 ## Security Considerations
 
 1. Credentials are stored in Splunk's encrypted password storage
-2. No sensitive data is exposed in environment variables or logs
-3. Uses Splunk's session key for authentication
-4. SSL verification is disabled by default (should be properly configured in production)
+2. Uses Splunk's official SDK for credential management
+3. No sensitive data is exposed in environment variables or logs
+4. Uses Splunk's session key for authentication
+5. SSL verification is disabled by default (should be properly configured in production)
 
 ## Creating New Collectors
 
@@ -169,14 +181,15 @@ To create a new API collector:
    ```
 3. Use the `SplunkSecrets` class for credential management
 4. Implement your specific API collection logic
-5. Add the new collector to `inputs.conf` with appropriate parameters in the script path
+5. Add the new collector to `inputs.conf` with appropriate parameters
 
 ## Troubleshooting
 
 1. Check Splunk's internal logs for script execution issues
 2. Verify credentials are properly stored in Splunk
-3. Ensure network access to both Splunk management port and target API
-4. Check Python dependencies are installed correctly
+3. Ensure splunklib is present in the bin/ directory
+4. Check network access to both Splunk management port and target API
+5. Verify Python dependencies are installed correctly
 
 ## Support
 

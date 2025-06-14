@@ -41,20 +41,11 @@ def main():
     logger = splunk_common.setup_logging()
 
     try:
-        # Log environment for debugging
-        splunk_common.log_json(logger, 'info', f"Environment: {dict(os.environ)}")
+        # Removed environment logging for cleaner output
+
         # Check credentials
         result = check_credentials(args.realm, args.username, logger)
 
-        # Validate SPLUNK_SESSION_KEY
-        # if not os.environ.get('SPLUNK_SESSION_KEY'):
-        #     error_msg = "SPLUNK_SESSION_KEY environment variable is not set"
-        #     splunk_common.log_json(logger, 'error', error_msg, status='failure')
-        #     print(json.dumps({'error': error_msg}), flush=True)
-        #     sys.stdout.flush()
-        #     sys.exit(1)
-
-        
         # Log success/failure to Splunk's internal logs
         if 'error' in result:
             splunk_common.log_json(logger, 'error', f"Failed to retrieve credentials: {result['error']}", status='failure')
@@ -63,13 +54,11 @@ def main():
         
         # Output the result to stdout for Splunk indexing
         print(json.dumps(result), flush=True)
-        sys.stdout.flush()
 
     except Exception as e:
         error_msg = f"Failed to check credentials: {str(e)}"
         splunk_common.log_json(logger, 'error', error_msg, status='failure')
         print(json.dumps({'error': error_msg}), flush=True)
-        sys.stdout.flush()
         sys.exit(1)
 
 if __name__ == '__main__':
