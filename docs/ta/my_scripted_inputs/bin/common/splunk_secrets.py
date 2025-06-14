@@ -2,7 +2,7 @@
 
 import os
 import requests
-import splunk_common
+from . import splunk_common
 
 class SplunkSecrets:
     def __init__(self, logger=None):
@@ -22,7 +22,7 @@ class SplunkSecrets:
         """Retrieve a specific credential from Splunk's storage"""
         try:
             session_key = self.get_session_key()
-            url = f"https://{self.splunkd_host}:{self.splunkd_port}/services/storage/passwords"
+            url = f"https://{self.splunkd_host}:{self.splunkd_port}/services/storage/passwords?output_mode=json"
             
             headers = {
                 'Authorization': f'Splunk {session_key}',
@@ -53,41 +53,4 @@ class SplunkSecrets:
             
         except Exception as e:
             splunk_common.log_json(self.logger, 'error', f"Failed to retrieve credential: {str(e)}")
-            raise
-
-    def store_credential(self, realm, username, password):
-        """Store a new credential in Splunk's storage"""
-        try:
-            session_key = self.get_session_key()
-            url = f"https://{self.splunkd_host}:{self.splunkd_port}/services/storage/passwords"
-            
-            headers = {
-                'Authorization': f'Splunk {session_key}',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-            
-            data = {
-                'name': realm,
-                'username': username,
-                'password': password
-            }
-            
-            splunk_common.log_json(self.logger, 'info', f"Storing credential for realm={realm}, username={username}")
-            
-            response = requests.post(
-                url,
-                headers=headers,
-                data=data,
-                verify=False,  # Note: In production, you should properly handle SSL verification
-                timeout=5
-            )
-            
-            if response.status_code not in (200, 201):
-                raise Exception(f"Failed to store credential: {response.status_code} - {response.text}")
-                
-            splunk_common.log_json(self.logger, 'info', "Credential stored successfully")
-            return True
-            
-        except Exception as e:
-            splunk_common.log_json(self.logger, 'error', f"Failed to store credential: {str(e)}")
             raise

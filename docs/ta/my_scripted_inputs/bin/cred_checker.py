@@ -2,9 +2,11 @@
 
 import argparse
 import json
+import os
 import sys
-import splunk_common
-from splunk_secrets import SplunkSecrets
+
+from common import splunk_common
+from common import splunk_secrets
 
 def check_credentials(realm, username, logger):
     """Check if credentials can be retrieved from Splunk"""
@@ -16,6 +18,7 @@ def check_credentials(realm, username, logger):
         password = secrets.get_credential(realm, username)
         
         if not password:
+            splunk_common.log_json(logger, 'error', f"No credentials found for realm='{realm}', username='{username}'")
             return {'error': f"No credentials found for realm '{realm}' and username '{username}'"}
         
         return {
@@ -26,6 +29,7 @@ def check_credentials(realm, username, logger):
         }
         
     except Exception as e:
+        splunk_common.log_json(logger, 'error', f"Failed to retrieve credential: {str(e)}")
         return {'error': str(e)}
 
 def main():
@@ -37,6 +41,14 @@ def main():
     logger = splunk_common.setup_logging()
 
     try:
+        # Validate SPLUNK_SESSION_KEY
+        if not os.environ.get('SPLUNK_SESSION_KEY'):
+            error_msg = "SPLUNK_SESSION_KEY environment variable is not set"
+            splunk_common.log_json(logger, 'error', error_msg, status='failure')
+            print(json.dumps({'error': error_msg}), flush=True)
+            sys.stdout.flush()
+            sys.exit(1)
+
         # Check credentials
         result = check_credentials(args.realm, args.username, logger)
         
@@ -44,7 +56,7 @@ def main():
         if 'error' in result:
             splunk_common.log_json(logger, 'error', f"Failed to retrieve credentials: {result['error']}", status='failure')
         else:
-            splunk_common.log_json(logger, 'info', f"Successfully retrieved credentials for realm: {args.realm}, username: {args.username}", status='success')
+            splunk_common.log_json(logger, 'info', f"Successfully retrieved credentials for realm={args.realm}, username={args.username}", status='success')
         
         # Output the result to stdout for Splunk indexing
         print(json.dumps(result), flush=True)
