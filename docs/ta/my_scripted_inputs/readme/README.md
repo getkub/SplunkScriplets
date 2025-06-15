@@ -199,3 +199,38 @@ To create a new API collector:
 ## Support
 
 For issues or questions, please contact your Splunk administrator or raise an issue in the repository.
+
+
+
+### Add Creds
+
+- Usage Examples:
+
+#### Add the ReqRes API credential:
+
+```bash
+python add_creds.py add --realm "reqres_api" --username "api_key"
+```
+
+# Will prompt for Splunk password and credential password
+
+#### Update an existing credential:
+```bash
+python add_creds.py update --realm "reqres_api" --username "api_key"
+```
+
+#### List all stored credentials:
+```bash
+python add_creds.py list
+```
+
+#### Verify the credential works with your existing setup:
+```bash
+python add_creds.py verify --realm "reqres_api" --username "api_key"
+```
+
+#### With custom app context and logging:
+
+```bash
+python add_creds.py add --realm "github_api" --username "token" --app "myapp" --log-level "DEBUG"
+```
