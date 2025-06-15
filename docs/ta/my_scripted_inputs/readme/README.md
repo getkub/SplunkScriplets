@@ -67,6 +67,19 @@ rsync -avz --size-only --checksum \
 3. Set up credentials in Splunk:
    ```bash
    splunk add credentials -realm weather_api -username weather_api -password your_api_key
+
+   OR 
+   myrealm="reqres_api"
+   mypass="reqres-free-v1"
+   keyname="api_key"
+   curl -k "https://localhost:8089/services/storage/passwords?output_mode=json&search=realm%3D${myrealm}" \
+  -H "Authorization: Bearer $mytoken"
+
+   curl -k https://localhost:8089/services/storage/passwords \                                             
+   -H "Authorization: Bearer $mytoken" \
+   -d name="${keyname}" \
+   -d password="${mypass}" \
+   -d realm="${myrealm}"  
    ```
 
    ```bash
