@@ -1,6 +1,7 @@
 import logging
 import json
 import os
+import sys
 from datetime import datetime, timezone, timedelta
 
 # Configuration variables
@@ -21,9 +22,10 @@ class JsonFormatter(logging.Formatter):
 
 def setup_logging(level=logging.INFO):
     logfile = f'{SPLUNK_HOME}/var/log/splunk/{SCRIPT_NAME}.log'
+    caller_name = os.path.basename(sys.argv[0]).replace(".py", "")
     handler = logging.FileHandler(logfile)
     handler.setFormatter(JsonFormatter())
-    logger = logging.getLogger()
+    logger = logging.getLogger(caller_name)
     logger.setLevel(level)
     logger.handlers = [handler]
     return logger
