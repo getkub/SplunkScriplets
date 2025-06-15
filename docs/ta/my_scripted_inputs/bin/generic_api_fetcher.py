@@ -6,6 +6,7 @@ import json
 import sys
 from common import splunk_common
 from common.splunk_secrets import SplunkSecrets
+from datetime import datetime, timezone
 
 def fetch_api_data(api_url, api_key=None):
     headers = {}
@@ -78,7 +79,7 @@ def main():
     })
 
     output_data = {
-        "timestamp": datetime.now(timezone(timedelta(hours=10))).isoformat(timespec='seconds'),
+        "timestamp": datetime.now(timezone.utc).isoformat(timespec='seconds'),
         "source": args.source_name,
         "api_url": args.api_url,
         "status_code": data["status_code"],
