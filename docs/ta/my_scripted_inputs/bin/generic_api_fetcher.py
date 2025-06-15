@@ -8,8 +8,12 @@ from common import splunk_common
 from common.splunk_secrets import SplunkSecrets
 
 def fetch_api_data(api_url, api_key=None):
+    headers = {}
+    if api_key:
+        headers['X-API-Key'] = api_key  # Set only this header
+
     try:
-        response = requests.get(api_url, timeout=10)  # No headers
+        response = requests.get(api_url, headers=headers, timeout=10)  # Pass headers here
         if response.status_code != 200:
             return {"error": f"API request failed: {response.status_code} - {response.text}"}
         data = response.json()
@@ -33,10 +37,7 @@ def main():
     logger = splunk_common.setup_logging()
     
     try:
-        # Initialize Splunk secrets handler
         secrets = SplunkSecrets(logger)
-        
-        # Retrieve API key from Splunk credentials
         api_key = secrets.get_credential(args.realm, args.username)
         
         if not api_key:
@@ -57,8 +58,7 @@ def main():
             "username": args.username
         })
         sys.exit(1)
-
-    # Fetch data from API
+    print(f"DEBUG: API key from Splunk secrets: {api_key}", file=sys.stderr)
     data = fetch_api_data(args.api_url, api_key)
 
     if "error" in data:
@@ -70,7 +70,6 @@ def main():
         })
         sys.exit(1)
 
-    # Log success to Splunk internal logs
     splunk_common.log_json(logger, "INFO", "API fetch succeeded", {
         "api_url": args.api_url,
         "realm": args.realm,
@@ -78,9 +77,8 @@ def main():
         "status_code": data.get("status_code")
     })
 
-    # Output JSON to stdout for indexing
     output_data = {
-        "timestamp": splunk_common.get_timestamp(),
+        "timestamp": datetime.now(timezone(timedelta(hours=10))).isoformat(timespec='seconds'),
         "source": args.source_name,
         "api_url": args.api_url,
         "status_code": data["status_code"],
@@ -88,7 +86,7 @@ def main():
         "content_type": data["content_type"],
         "realm": args.realm,
         "username": args.username,
-        "api_data": data["api_data"]  # Raw API response
+        "api_data": data["api_data"]
     }
     
     print(json.dumps(output_data), flush=True)
