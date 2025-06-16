@@ -73,8 +73,9 @@ rsync -avz --size-only --checksum \
    mypass="reqres-free-v1"
    keyname="api_key"
    curl -k "https://localhost:8089/services/storage/passwords?output_mode=json&search=realm%3D${myrealm}" \
-  -H "Authorization: Bearer $mytoken"
+        -H "Authorization: Bearer $mytoken"
 
+   ## Insert
    curl -k https://localhost:8089/services/storage/passwords \                                             
    -H "Authorization: Bearer $mytoken" \
    -d name="${keyname}" \
