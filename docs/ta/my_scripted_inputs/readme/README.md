@@ -76,7 +76,7 @@ rsync -avz --size-only --checksum \
         -H "Authorization: Bearer $mytoken"
 
    ## Insert
-   curl -k https://localhost:8089/services/storage/passwords \                                             
+   curl -k https://localhost:8089/services/storage/passwords \
    -H "Authorization: Bearer $mytoken" \
    -d name="${keyname}" \
    -d password="${mypass}" \
