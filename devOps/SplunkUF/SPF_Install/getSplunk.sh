@@ -59,11 +59,11 @@ log info "Starting download process" "product=\"$product\" version=\"$version\" 
 case "$os" in
   "linux")
     if [ "$pkg" = "deb" ]; then
-      filename="${product}-${version}-${hash}-${os}-${arch}.${pkg}"
+      filename="${product}-${version}-${hash}-${os}.${arch}.${pkg}"
     elif [ "$pkg" = "rpm" ]; then
-      filename="${product}-${version}-${hash}-x86_64.${pkg}"
+      filename="${product}-${version}-${hash}.x86_64.${pkg}"
     else
-      filename="${product}-${version}-${hash}-${os}-${arch}.${pkg}"
+      filename="${product}-${version}-${hash}-${os}.${arch}.${pkg}"
     fi
     ;;
   "windows")
