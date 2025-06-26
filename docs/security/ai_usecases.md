@@ -120,6 +120,71 @@ A set of practical, real-world examples for leveraging agentic AI capabilities o
 - **Outcome**: Detects and responds to stealth exfil attempts in real time.
 
 ---
+## ✅ Use Case 9: Baseline and Anomaly Detection Using Indexed Data in ElasticSearch
+
+- **Trigger**: Periodic baseline computation or real-time anomaly scoring on new events.
+
+- **Agentic AI Flow**:
+  1. **Identify Target Entities**:
+     - Select entities to baseline:
+       - User accounts
+       - Hostnames
+       - Applications
+       - IP addresses
+
+  2. **Index Baseline Behavior**:
+     - Create new indices in ElasticSearch (or rollup indices) that store historical behavior patterns:
+       - Login times per user per weekday
+       - Average number of processes per hour per host
+       - Average data upload volume per application per day
+       - USB activity per user/device per week
+     - Example:
+       ```json
+       {
+         "user": "jdoe",
+         "avg_login_hour": 9,
+         "avg_daily_upload_MB": 32,
+         "typical_dest_domains": ["corp.sharepoint.com", "api.dropbox.com"]
+       }
+       ```
+
+  3. **Compare Incoming Events Against Baselines**:
+     - When new logs arrive, agent compares them to indexed baselines:
+       - Is user logging in at 2AM instead of usual 9AM?
+       - Is a host uploading 10x more than its weekly average?
+       - Is a new, unapproved domain being accessed?
+     - Use statistical thresholds (e.g., z-score > 3) or clustering (e.g., DBSCAN) to define outliers.
+
+  4. **Enrich and Score**:
+     - Apply severity scoring based on:
+       - Deviation from baseline
+       - Sensitivity of asset involved
+       - Presence of multiple anomalies in short span
+     - Enrich event with context from baseline index (e.g., "First time accessing this domain in 90 days").
+
+  5. **Store Detected Anomalies**:
+     - Write anomalies into a dedicated index:
+       - `anomaly_events-*`
+       - Includes raw event, baseline reference, anomaly score, risk level
+     - Optionally, visualize using Kibana lens or dashboards.
+
+  6. **Trigger Next Action**:
+     - If anomaly is high risk:
+       - Open a case in SOAR platform
+       - Notify analyst via Slack/Teams
+       - Auto-isolate device or block outbound traffic (optional)
+
+- **Outcome**:
+  - Dynamically creates and maintains entity-level behavior profiles.
+  - Enables low-latency detection of subtle and complex anomalies.
+  - Reduces false positives by anchoring on real historical context.
+
+- **Data Sources**:
+  - Elastic indexes: `winlogbeat-*`, `auditbeat-*`, `sysmon-*`, `network-*`, `proxy-*`, `cloudtrail-*`
+  - Baseline index: `baselines-*`
+  - Anomaly index: `anomaly-events-*`
+
+---
 
 ## 🔍 Data Sources Typically Used
 
