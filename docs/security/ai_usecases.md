@@ -186,6 +186,58 @@ A set of practical, real-world examples for leveraging agentic AI capabilities o
 
 ---
 
+## ✅ Use Case 11: Agentic AI Response to Credential Dumping Alert (Notebook-Style Threat Hunt)
+
+- **Trigger**: Credential dumping alert is received (e.g., use of `procdump.exe` targeting `lsass.exe`).
+
+---
+
+### 🧠 Agentic AI Workflow (Conceptual)
+
+1. **Alert Ingestion**
+   - The AI receives an alert with details:
+     - User, Host, Timestamp
+     - Command executed (e.g., credential dumping attempt)
+     - Source of alert (Elastic rule, EDR, etc.)
+
+2. **Context Expansion**
+   - Dynamically expands investigation scope using related data across indexes:
+     - Process execution before and after the alert
+     - Other users or hosts showing similar behavior
+     - User’s recent logon history
+     - Any outbound connections made after dump
+     - Indicators of lateral movement or privilege escalation
+     - Known toolkits or malware behavior patterns
+     - Threat intel correlation for destination IPs/domains or binaries
+
+3. **Notebook-Style SOC Report Generation**
+   - Produces a structured report in natural language, mimicking what an L3 SOC analyst would manually prepare:
+
+     ---
+     #### 📝 Credential Dumping Investigation Report
+
+     **Alert Summary**  
+     - A potential credential dumping attempt was detected on `host123` by user `jdoe`.  
+     - The command used involved `procdump.exe` targeting `lsass.exe`.
+
+     **Behavioral Timeline**  
+     - `02:55 AM`: User logged into `host123` via RDP from `10.0.1.7`.  
+     - `03:22 AM`: `procdump.exe -ma lsass.exe` executed.  
+     - `03:24 AM`: Outbound HTTPS connection to `103.25.33.44` established.  
+     - `03:26 AM`: `rundll32.exe` launched from a temporary directory.  
+
+     **User Behavior Analysis**  
+     - This user has **no prior history** of executing admin tools.  
+     - Typical login time for this user is 9 AM–6 PM; this session was at 3 AM.  
+     - The destination IP is not part of any approved business services.
+
+     **Host Forensics Summary**  
+     - Multiple child processes were launched after the credential dumping attempt.  
+     - No antivirus or EDR alert was generated during execution.  
+     - USB activity was detec
+
+---
+
 ## 🔍 Data Sources Typically Used
 
 - **Identity**: Active Directory, LDAP, Okta
