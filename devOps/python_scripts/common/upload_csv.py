@@ -4,6 +4,7 @@ import json
 import pathlib
 import sys
 import splunk_common
+from splunk_common
 
 LOOKUP_ENDPOINT = "/services/data/lookup_edit/lookup_contents"
 
@@ -18,7 +19,7 @@ def read_csv_content(filepath, log):
         splunk_common.log_json(log, 'error', f"Error reading file {filepath}: {e}", status='failed')
         sys.exit(1)
 
-def upload_lookup(file_path, app, dry_run, log, headers, base_url):
+def upload_lookup(file_path, app, dry_run, log, headers, base_url, verify):
     filename = pathlib.Path(file_path).name
     lookup_data = read_csv_content(file_path, log)
 
@@ -35,7 +36,7 @@ def upload_lookup(file_path, app, dry_run, log, headers, base_url):
         return
 
     try:
-        r = splunk_common.splunk_request('POST', url, headers, data=payload)
+        r = splunk_common.splunk_request('POST', url, headers, data=payload, verify=verify)
         if r.status_code == 200:
             splunk_common.log_json(log, 'info', f"Uploaded lookup file: {filename} to app: {app}")
         else:
@@ -52,9 +53,10 @@ def main():
     app, dry_run, log_level, token, base_url = splunk_common.extract_common_args(args)
     log = splunk_common.init_logger(log_level)
     headers = {'Authorization': f'Bearer {token}'}
+    verify = CERT_PATH if args.use_cert else True
 
     splunk_common.log_json(log, 'info', f"Uploading lookup: {args.file_path} | App: {app} | DryRun: {dry_run}")
-    upload_lookup(args.file_path, app, dry_run, log, headers, base_url)
+    upload_lookup(args.file_path, app, dry_run, log, headers, base_url, verify)
 
 if __name__ == '__main__':
     main()
