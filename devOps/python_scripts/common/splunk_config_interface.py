@@ -1,5 +1,30 @@
 import argparse
-from splunk_common import CERT_PATH, add_common_args, extract_common_args, init_logger, load_app_config, parse_splunk_conf, splunk_request, log_json
+from splunk_common import (
+    CERT_PATH,
+    add_common_args,
+    extract_common_args,
+    init_logger,
+    load_app_config,
+    parse_splunk_conf,
+    splunk_request,
+    log_json
+)
+
+
+def log_result(log, r, name, action_flag, obj_type):
+    """
+    Logs response for a Splunk object (macro/savedsearch) with clean INFO and full DEBUG.
+    """
+    action = action_flag.upper()
+    status = 'success' if r.ok else 'failed'
+    base_msg = f"{action.title()} {obj_type}: {name}"
+
+    if r.ok:
+        log.info(f"{base_msg} - {status}")
+        log.debug(f"{base_msg} - Response: {r.text}")
+    else:
+        log.error(f"{base_msg} - Failed: {r.text}")
+
 
 def handle_macros(file_path, action_flag, dry_run, log, headers, baseUrl, owner, app, verify):
     conf_data = parse_splunk_conf(file_path)
@@ -12,30 +37,24 @@ def handle_macros(file_path, action_flag, dry_run, log, headers, baseUrl, owner,
         log_json(log, 'info', f"Macro: {name} | Exists: {exists} | Action: {action_flag} | DryRun: {dry_run}")
 
         if action_flag == 'DELETE' and exists:
-            log_json(log, 'info', f"Deleting macro: {name}")
+            log.info(f"Deleting macro: {name}")
             if not dry_run:
                 r = splunk_request('DELETE', url, headers, verify=verify)
-                log_json(log, 'info' if r.ok else 'error',
-                         f"{'Deleted' if r.ok else 'Failed to delete'} macro {name}: {r.text}",
-                         status='success' if r.ok else 'failed')
+                log_result(log, r, name, action_flag, "macro")
 
         elif action_flag == 'UPDATE':
             if exists:
-                log_json(log, 'info', f"Updating macro: {name}")
+                log.info(f"Updating macro: {name}")
                 if not dry_run:
                     r = splunk_request('POST', url, headers, data=payload, verify=verify)
-                    log_json(log, 'info' if r.ok else 'error',
-                             f"{'Updated' if r.ok else 'Failed to update'} macro {name}: {r.text}",
-                             status='success' if r.ok else 'failed')
+                    log_result(log, r, name, action_flag, "macro")
             else:
-                log_json(log, 'info', f"Creating macro: {name}")
+                log.info(f"Creating macro: {name}")
                 if not dry_run:
                     payload['name'] = name
                     create_url = f"{baseUrl}/servicesNS/{owner}/{app}/configs/conf-macros"
                     r = splunk_request('POST', create_url, headers, data=payload, verify=verify)
-                    log_json(log, 'info' if r.ok else 'error',
-                             f"{'Created' if r.ok else 'Failed to create'} macro {name}: {r.text}",
-                             status='success' if r.ok else 'failed')
+                    log_result(log, r, name, action_flag, "macro")
 
 
 def handle_savedsearches(file_path, action_flag, dry_run, log, headers, baseUrl, owner, app, verify):
@@ -48,30 +67,24 @@ def handle_savedsearches(file_path, action_flag, dry_run, log, headers, baseUrl,
         log_json(log, 'info', f"SavedSearch: {name} | Exists: {exists} | Action: {action_flag} | DryRun: {dry_run}")
 
         if action_flag == 'DELETE' and exists:
-            log_json(log, 'info', f"Deleting saved search: {name}")
+            log.info(f"Deleting saved search: {name}")
             if not dry_run:
                 r = splunk_request('DELETE', url, headers, verify=verify)
-                log_json(log, 'info' if r.ok else 'error',
-                         f"{'Deleted' if r.ok else 'Failed to delete'} saved search {name}: {r.text}",
-                         status='success' if r.ok else 'failed')
+                log_result(log, r, name, action_flag, "saved search")
 
         elif action_flag == 'UPDATE':
             if exists:
-                log_json(log, 'info', f"Updating saved search: {name}")
+                log.info(f"Updating saved search: {name}")
                 if not dry_run:
                     r = splunk_request('POST', url, headers, data=payload, verify=verify)
-                    log_json(log, 'info' if r.ok else 'error',
-                             f"{'Updated' if r.ok else 'Failed to update'} saved search {name}: {r.text}",
-                             status='success' if r.ok else 'failed')
+                    log_result(log, r, name, action_flag, "saved search")
             else:
-                log_json(log, 'info', f"Creating saved search: {name}")
+                log.info(f"Creating saved search: {name}")
                 if not dry_run:
                     payload['name'] = name
                     create_url = f"{baseUrl}/servicesNS/{owner}/{app}/saved/searches"
                     r = splunk_request('POST', create_url, headers, data=payload, verify=verify)
-                    log_json(log, 'info' if r.ok else 'error',
-                             f"{'Created' if r.ok else 'Failed to create'} saved search {name}: {r.text}",
-                             status='success' if r.ok else 'failed')
+                    log_result(log, r, name, action_flag, "saved search")
 
 
 def main():
