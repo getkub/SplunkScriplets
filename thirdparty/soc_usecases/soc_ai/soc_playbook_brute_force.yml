@@ -1,0 +1,85 @@
+playbook:
+  detection_rule: DET_123
+  detection_name: "Brute Force Detected"
+  severity: "high"
+  description: |
+    This playbook handles brute force detection alerts originating from Windows systems.
+    It outlines correlated data sources, investigation context, queries, and expected outputs.
+
+  indices:
+    detection:
+      - "windows_index"          # Primary index where the detection originated
+    correlation:
+      - "windows_index"          # Additional indices to correlate context
+      - "active_directory_index"
+      - "waf_index"
+
+  investigation:
+    context:
+      - "Alert triggered due to multiple failed logins from the same user or IP."
+      - "Potential brute force attack targeting Windows hosts."
+      - "Check if attempts originated from external networks (via WAF)."
+    steps:
+      - "Identify all unique users involved in the failed login attempts."
+      - "Determine source IP addresses associated with these login failures."
+      - "Check WAF logs to confirm if these attempts came from external sources."
+      - "Correlate with Active Directory events for password lockouts."
+
+  queries:
+    - id: query1
+      description: "Get failed login counts per user and host from Windows logs."
+      search: |
+        index=windows_index
+        user IN {{user_from_alert}}
+        | stats count by user, host
+      format: SPL
+
+    - id: query2
+      description: "Check if suspicious users attempted access through the WAF."
+      search: |
+        index=waf_index
+        user IN {{user_from_alert}}
+        | stats count by user, source_ip
+      format: SPL
+
+    - id: query3
+      description: "Correlate failed logins with AD lockouts."
+      search: |
+        index=active_directory_index
+        event_type="lockout"
+        user IN {{user_from_alert}}
+        | stats count by user, host
+      format: SPL
+
+  remediation:
+    actions:
+      - "Block suspicious source IPs if confirmed malicious."
+      - "Notify IT team to reset affected user accounts."
+      - "Enable account lockout policies for repeated login failures."
+
+  outputs:
+    report:
+      type: "markdown"
+      sections:
+        - "Alert Overview: summary of alert fields (rule, time, severity, affected users)"
+        - "Investigation Steps Taken: details of queries run and findings"
+        - "Suspicious Entities: list of IPs, hosts, and users involved"
+        - "Recommendations: next actions, remediation, or escalation needs"
+        - "References: links to MITRE ATT&CK or internal knowledge base"
+      deliver_to:
+        - "Slack (SOC channel)"
+        - "Confluence page update"
+    escalations:
+      - type: "pagerduty"
+        trigger_condition: "if suspicious IPs confirmed or >= 3 affected users"
+        message_template: |
+          Brute force attack suspected. 
+          Users: {{user_list}}
+          IPs: {{ip_list}}
+          Severity: {{severity}}
+      - type: "email"
+        recipients: ["soc_team@example.com"]
+        subject: "Brute Force Alert Escalation"
+        body_template: |
+          Alert DET_123 triggered. Investigation summary:
+          {{investigation_summary}}
