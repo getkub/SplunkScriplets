@@ -1,0 +1,74 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/25.0.2 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="25.0.2">
+  <diagram name="SOC MCP Workflow Grouped" id="Mi1HA5tV0T3s6UK38CCT">
+    <mxGraphModel dx="3438" dy="2410" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-58" value="Alert DET 123 from SIEM" style="rounded=1;fillColor=#DAE8FC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="250" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-59" value="n8n Orchestration" style="swimlane;fillColor=#E1D5E7;" vertex="1" parent="1">
+          <mxGeometry x="260" y="150" width="200" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-60" value="Webhook Trigger" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-59">
+          <mxGeometry x="20" y="60" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-61" value="Trigger OpenAI Agent" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-59">
+          <mxGeometry x="20" y="140" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-62" value="OpenAI Agent Reasoning" style="swimlane;fillColor=#D5E8D4;" vertex="1" parent="1">
+          <mxGeometry x="500" y="70" width="220" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-63" value="Step 1 Read Alert" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-62">
+          <mxGeometry x="20" y="40" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-64" value="Step 2 Fetch Playbook" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-62">
+          <mxGeometry x="20" y="120" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-65" value="Step 3 Generate Queries" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-62">
+          <mxGeometry x="20" y="200" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-66" value="Step 4 Execute Queries" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-62">
+          <mxGeometry x="20" y="280" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-67" value="Step 5 Analyze Results" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-62">
+          <mxGeometry x="20" y="360" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-68" value="Step 6 Generate Report" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-62">
+          <mxGeometry x="20" y="440" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-69" value="MCP Server Tools" style="swimlane;fillColor=#FFF2CC;" vertex="1" parent="1">
+          <mxGeometry x="760" y="150" width="200" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-70" value="get_playbook" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-69">
+          <mxGeometry x="20" y="40" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-71" value="elasticsearch_query" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-69">
+          <mxGeometry x="20" y="100" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-72" value="send_report" style="rounded=1;fillColor=#ffffff;" vertex="1" parent="hyp-imiM2HcQX2FG7CgG-69">
+          <mxGeometry x="20" y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-73" value="GitHub Playbooks" style="rounded=1;strokeColor=#000000;dashed=1;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-74" value="Elasticsearch Indices" style="rounded=1;strokeColor=#000000;dashed=1;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="220" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-75" style="edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-58" target="hyp-imiM2HcQX2FG7CgG-60" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-76" style="edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-60" target="hyp-imiM2HcQX2FG7CgG-61" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-61" target="hyp-imiM2HcQX2FG7CgG-63" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-63" target="hyp-imiM2HcQX2FG7CgG-64" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-64" target="hyp-imiM2HcQX2FG7CgG-65" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-80" style="edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-65" target="hyp-imiM2HcQX2FG7CgG-66" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-66" target="hyp-imiM2HcQX2FG7CgG-67" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-82" style="edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-67" target="hyp-imiM2HcQX2FG7CgG-68" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-83" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-64" target="hyp-imiM2HcQX2FG7CgG-70" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-84" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-70" target="hyp-imiM2HcQX2FG7CgG-73" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-85" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-66" target="hyp-imiM2HcQX2FG7CgG-71" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-86" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-71" target="hyp-imiM2HcQX2FG7CgG-74" />
+        <mxCell id="hyp-imiM2HcQX2FG7CgG-87" style="edgeStyle=orthogonalEdgeStyle;dashed=1;rounded=0;" edge="1" parent="1" source="hyp-imiM2HcQX2FG7CgG-68" target="hyp-imiM2HcQX2FG7CgG-72" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
