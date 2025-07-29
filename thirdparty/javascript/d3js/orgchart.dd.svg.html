@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  /* MATERIAL DESIGN NODE STYLE */
+  .node-card {
+    cursor: pointer;
+  }
+
+  .node-rect {
+    rx: 12;
+    ry: 12;
+    fill: url(#card-gradient);
+    stroke: #ddd;
+    stroke-width: 1.5px;
+    filter: url(#card-shadow);
+    transition: all 0.2s ease;
+  }
+  .node-card:hover .node-rect {
+    stroke: #4CAF50;
+    filter: url(#card-shadow-hover);
+  }
+
+  .node-title {
+    font: 14px "Roboto", "Segoe UI", sans-serif;
+    font-weight: 600;
+    fill: #333;
+    text-anchor: middle;
+    alignment-baseline: middle;
+    pointer-events: none;
+  }
+
+  /* Toggle circle */
+  .toggle-circle {
+    fill: #4CAF50;
+    stroke: white;
+    stroke-width: 1.5px;
+    cursor: pointer;
+  }
+  .toggle-text {
+    fill: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-anchor: middle;
+    alignment-baseline: middle;
+    pointer-events: none;
+  }
+
+  /* Links */
+  .link {
+    fill: none;
+    stroke: #bbb;
+    stroke-width: 2px;
+    opacity: 0.8;
+  }
+
+  body {
+    margin: 0;
+    background: #f2f2f2;
+    font-family: "Roboto", Arial, sans-serif;
+  }
+</style>
+<body>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+const flatData = [
+  {id: "1", name: "Parent Company", parentId: ""},
+  {id: "2", name: "Business Unit 1", parentId: "1"},
+  {id: "3", name: "Business Unit 2", parentId: "1"},
+  {id: "4", name: "Sub Unit 1", parentId: "2"},
+  {id: "5", name: "Sub Unit 2", parentId: "2"},
+  {id: "6", name: "Sub Unit 3", parentId: "3"},
+  {id: "7", name: "Sub Unit 4", parentId: "3"},
+  {id: "8", name: "Team A", parentId: "4"},
+  {id: "9", name: "Team B", parentId: "4"}
+];
+
+// Build hierarchy
+function buildHierarchy(flatData) {
+  const idToNodeMap = {};
+  let root = null;
+  flatData.forEach(item => { idToNodeMap[item.id] = { name: item.name }; });
+  flatData.forEach(item => {
+    if (item.parentId) {
+      const parent = idToNodeMap[item.parentId];
+      parent.children = parent.children || [];
+      parent.children.push(idToNodeMap[item.id]);
+    } else { root = idToNodeMap[item.id]; }
+  });
+  return root;
+}
+const data = buildHierarchy(flatData);
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+const treeLayout = d3.tree().size([height, width - 300]);
+const root = d3.hierarchy(data);
+root.x0 = height / 2;
+root.y0 = 0;
+
+let i = 0;
+if (root.children) root.children.forEach(collapse);
+
+function collapse(d) {
+  if (d.children) {
+    d._children = d.children;
+    d._children.forEach(collapse);
+    d.children = null;
+  }
+}
+
+// SVG + Zoom
+const svg = d3.select("body").append("svg")
+  .attr("width", width)
+  .attr("height", height)
+  .call(d3.zoom()
+    .scaleExtent([0.5, 3])
+    .on("zoom", (event) => g.attr("transform", event.transform))
+  );
+
+const defs = svg.append("defs");
+
+// Material-like gradient
+const gradient = defs.append("linearGradient")
+  .attr("id", "card-gradient")
+  .attr("x1", "0%")
+  .attr("y1", "0%")
+  .attr("x2", "0%")
+  .attr("y2", "100%");
+gradient.append("stop").attr("offset", "0%").attr("stop-color", "#ffffff");
+gradient.append("stop").attr("offset", "100%").attr("stop-color", "#f7f7f7");
+
+// Drop shadows for cards
+const shadow = defs.append("filter").attr("id", "card-shadow")
+  .attr("height", "150%");
+shadow.append("feGaussianBlur").attr("in", "SourceAlpha").attr("stdDeviation", 2).attr("result", "blur");
+shadow.append("feOffset").attr("in", "blur").attr("dx", 2).attr("dy", 2).attr("result", "offsetBlur");
+const feMerge1 = shadow.append("feMerge");
+feMerge1.append("feMergeNode").attr("in", "offsetBlur");
+feMerge1.append("feMergeNode").attr("in", "SourceGraphic");
+
+const hoverShadow = defs.append("filter").attr("id", "card-shadow-hover")
+  .attr("height", "150%");
+hoverShadow.append("feGaussianBlur").attr("in", "SourceAlpha").attr("stdDeviation", 3).attr("result", "blur");
+hoverShadow.append("feOffset").attr("in", "blur").attr("dx", 3).attr("dy", 3).attr("result", "offsetBlur");
+const feMerge2 = hoverShadow.append("feMerge");
+feMerge2.append("feMergeNode").attr("in", "offsetBlur");
+feMerge2.append("feMergeNode").attr("in", "SourceGraphic");
+
+const g = svg.append("g").attr("transform", "translate(150,0)");
+
+update(root);
+
+function update(source) {
+  const treeData = treeLayout(root);
+  const nodes = treeData.descendants();
+  const links = treeData.links();
+
+  nodes.forEach(d => { d.y = d.depth * 220; });
+
+  const node = g.selectAll('g.node-card')
+    .data(nodes, d => d.id || (d.id = ++i));
+
+  const nodeEnter = node.enter().append('g')
+    .attr('class', 'node-card')
+    .attr("transform", d => `translate(${source.y0},${source.x0})`);
+
+  // Node card
+  nodeEnter.append('rect')
+    .attr('class', 'node-rect')
+    .attr('x', -70)
+    .attr('y', -25)
+    .attr('width', 140)
+    .attr('height', 50)
+    .style('fill', d => cardColor(d.depth))
+    .on('click', (event, d) => toggleNode(d));
+
+  // Title text
+  nodeEnter.append('text')
+    .attr('class', 'node-title')
+    .attr("dy", "0.35em")
+    .text(d => d.data.name);
+
+  // Toggle icon
+  nodeEnter.append('circle')
+    .attr('class', 'toggle-circle')
+    .attr('r', 10)
+    .attr('cx', 70)
+    .attr('cy', 0)
+    .style('display', d => (d._children || d.children) ? 'block' : 'none')
+    .on('click', (event, d) => { event.stopPropagation(); toggleNode(d); });
+
+  nodeEnter.append('text')
+    .attr('class', 'toggle-text')
+    .attr('x', 70)
+    .attr('y', 1)
+    .text(d => d._children ? '+' : (d.children ? '−' : ''));
+
+  const nodeUpdate = nodeEnter.merge(node);
+  nodeUpdate.transition()
+    .duration(300)
+    .attr("transform", d => `translate(${d.y},${d.x})`);
+
+  nodeUpdate.select('circle.toggle-circle')
+    .style('display', d => (d._children || d.children) ? 'block' : 'none');
+  nodeUpdate.select('text.toggle-text')
+    .text(d => d._children ? '+' : (d.children ? '−' : ''));
+
+  const nodeExit = node.exit().transition()
+    .duration(300)
+    .attr("transform", d => `translate(${source.y},${source.x})`)
+    .remove();
+
+  const link = g.selectAll('path.link')
+    .data(links, d => d.target.id);
+
+  const linkEnter = link.enter().insert('path', "g")
+    .attr("class", "link")
+    .attr('d', d => {
+      const o = {x: source.x0, y: source.y0};
+      return diagonal(o, o);
+    });
+
+  linkEnter.merge(link)
+    .transition()
+    .duration(300)
+    .attr('d', d => diagonal(d.source, d.target));
+
+  link.exit().transition()
+    .duration(300)
+    .attr('d', d => {
+      const o = {x: source.x, y: source.y};
+      return diagonal(o, o);
+    })
+    .remove();
+
+  nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+
+  function diagonal(s, d) {
+    return `M${s.y},${s.x}
+            C${(s.y + d.y) / 2},${s.x}
+             ${(s.y + d.y) / 2},${d.x}
+             ${d.y},${d.x}`;
+  }
+}
+
+function toggleNode(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+  update(d);
+}
+
+function cardColor(depth) {
+  const palette = ["#FAFAFA", "#F1F8E9", "#E3F2FD", "#FCE4EC", "#FFF8E1"];
+  return palette[depth % palette.length];
+}
+</script>
+</body>

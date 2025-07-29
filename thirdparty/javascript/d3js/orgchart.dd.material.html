@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Material Design Org Chart</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #f4f6f9;
+      font-family: "Roboto", sans-serif;
+    }
+
+    .node-card {
+      width: 150px;
+      height: 60px; /* Fixed height to avoid layout shift */
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: #333;
+      border: 0px solid rgba(0,0,0,0.08); /* As requested */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .node-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .node-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .toggle-btn {
+      margin-top: 6px;
+      font-size: 12px;
+      background: #2196F3;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* Ripple effect */
+    .node-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.5);
+      top: 50%;
+      left: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.4s ease, opacity 0.8s ease;
+    }
+    .node-card.ripple::after {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+    }
+
+    .link {
+      fill: none;
+      stroke: #bbb;
+      stroke-width: 2px;
+    }
+
+    /* Depth-based colors */
+    .depth-0 {
+      background: linear-gradient(135deg, #FFE082, #FFD54F);
+    }
+    .depth-1 {
+      background: linear-gradient(135deg, #BBDEFB, #64B5F6);
+    }
+    .depth-2 {
+      background: linear-gradient(135deg, #C8E6C9, #81C784);
+    }
+    .depth-3 {
+      background: linear-gradient(135deg, #F8BBD0, #F48FB1);
+    }
+    .depth-4 {
+      background: linear-gradient(135deg, #E1BEE7, #BA68C8);
+    }
+  </style>
+</head>
+<body>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+const flatData = [
+  {id: "1", name: "Parent Company", parentId: ""},
+  {id: "2", name: "Business Unit 1", parentId: "1"},
+  {id: "3", name: "Business Unit 2", parentId: "1"},
+  {id: "4", name: "Sub Unit 1", parentId: "2"},
+  {id: "5", name: "Sub Unit 2", parentId: "2"},
+  {id: "6", name: "Sub Unit 3", parentId: "3"},
+  {id: "7", name: "Sub Unit 4", parentId: "3"},
+  {id: "8", name: "Team A", parentId: "4"},
+  {id: "9", name: "Team B", parentId: "4"}
+];
+
+// Build hierarchy
+function buildHierarchy(flatData) {
+  const idToNodeMap = {};
+  let root = null;
+  flatData.forEach(item => { idToNodeMap[item.id] = { name: item.name }; });
+  flatData.forEach(item => {
+    if (item.parentId) {
+      const parent = idToNodeMap[item.parentId];
+      parent.children = parent.children || [];
+      parent.children.push(idToNodeMap[item.id]);
+    } else { root = idToNodeMap[item.id]; }
+  });
+  return root;
+}
+const data = buildHierarchy(flatData);
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+const treeLayout = d3.tree().size([height, width - 200]);
+const root = d3.hierarchy(data);
+root.x0 = height / 2;
+root.y0 = 0;
+
+let i = 0;
+
+// Collapse all children initially
+root.children.forEach(collapse);
+function collapse(d) {
+  if (d.children) {
+    d._children = d.children;
+    d._children.forEach(collapse);
+    d.children = null;
+  }
+}
+
+const svg = d3.select("body").append("svg")
+  .attr("width", width)
+  .attr("height", height)
+  .call(d3.zoom()
+    .scaleExtent([0.5, 2])
+    .on("zoom", (event) => g.attr("transform", event.transform))
+  );
+
+const g = svg.append("g").attr("transform", "translate(100,0)");
+update(root);
+
+function update(source) {
+  const treeData = treeLayout(root);
+  const nodes = treeData.descendants();
+  const links = treeData.links();
+  nodes.forEach(d => { d.y = d.depth * 180; });
+
+  // Nodes
+  const node = g.selectAll('g.node')
+    .data(nodes, d => d.id || (d.id = ++i));
+
+  const nodeEnter = node.enter().append('g')
+    .attr('class', 'node')
+    .attr("transform", d => `translate(${source.y0},${source.x0})`);
+
+  nodeEnter.append('foreignObject')
+    .attr('x', -75)
+    .attr('y', -30)
+    .attr('width', 150)
+    .attr('height', 70)
+    .html(d => createCardHTML(d))
+    .on('click', (event, d) => {
+      event.stopPropagation();
+      addRipple(event.target);
+      toggleNode(d);
+    });
+
+  const nodeUpdate = nodeEnter.merge(node);
+  nodeUpdate.transition()
+    .duration(300)
+    .attr("transform", d => `translate(${d.y},${d.x})`);
+
+  nodeUpdate.select('foreignObject')
+    .html(d => createCardHTML(d));
+
+  node.exit().transition()
+    .duration(300)
+    .attr("transform", d => `translate(${source.y},${source.x})`)
+    .remove();
+
+  const link = g.selectAll('path.link')
+    .data(links, d => d.target.id);
+
+  const linkEnter = link.enter().insert('path', "g")
+    .attr("class", "link")
+    .attr('d', d => {
+      const o = {x: source.x0, y: source.y0};
+      return diagonal(o, o);
+    });
+
+  linkEnter.merge(link)
+    .transition()
+    .duration(300)
+    .attr('d', d => diagonal(d.source, d.target));
+
+  link.exit().transition()
+    .duration(300)
+    .attr('d', d => {
+      const o = {x: source.x, y: source.y};
+      return diagonal(o, o);
+    })
+    .remove();
+
+  nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+
+  function diagonal(s, d) {
+    return `M${s.y},${s.x}
+            C${(s.y + d.y) / 2},${s.x}
+             ${(s.y + d.y) / 2},${d.x}
+             ${d.y},${d.x}`;
+  }
+}
+
+function createCardHTML(d) {
+  const toggleSign = d._children ? '+' : (d.children ? '−' : '');
+  return `
+    <div class="node-card depth-${d.depth}">
+      <p class="node-title">${d.data.name}</p>
+      <span class="toggle-btn">${toggleSign}</span>
+    </div>
+  `;
+}
+
+function toggleNode(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+  update(d);
+}
+
+function addRipple(element) {
+  const card = element.closest(".node-card");
+  if (!card) return;
+  card.classList.add("ripple");
+  setTimeout(() => card.classList.remove("ripple"), 400);
+}
+</script>
+</body>
+</html>
