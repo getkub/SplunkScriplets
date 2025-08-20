@@ -115,3 +115,32 @@
 27. **How do you ensure knowledge continuity if your team members change?**
 
 ---
+Absolutely — it's essential to include questions about **test/staging environments** for mobile apps before production release. This ensures quality, avoids regressions, and allows for stakeholder review. Here’s how you can extend your list:
+
+---
+
+## 🧪 **Testing & Release Management**
+
+28. **How do you maintain a test/staging version of the app before it's released to the App Store or Play Store?**
+
+* Do you use internal testing (Google Play), TestFlight (iOS), or separate dev builds?
+* How is QA performed before pushing to production?
+
+29. **What environments do you use for development, staging, and production?**
+
+* Are they using separate Firebase projects for each environment?
+* How do they manage configuration (e.g., API keys, database instances)?
+
+30. **How do you handle feature flagging or toggling to test new features without impacting all users?**
+
+31. **What is your typical release process and checklist before submitting to app stores?**
+
+* QA, regression testing, changelogs, version control, manual vs automated testing.
+
+32. **Do you support automated testing (unit tests, integration tests, UI tests)?**
+
+33. **How do stakeholders or clients preview and approve builds before production release?**
+
+* Do you use tools like Firebase App Distribution, TestFlight, or other systems?
+
+---
