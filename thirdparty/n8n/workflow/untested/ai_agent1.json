@@ -1,0 +1,169 @@
+{
+  "name": "AI Support Agent Team",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Intercom Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [200, 200],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "intercom-incoming"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Get Conversation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [500, 200],
+      "parameters": {
+        "url": "https://api.intercom.io/conversations/{{$json[\"body\"][\"conversation_id\"]}}",
+        "authentication": "headerAuth",
+        "options": {
+          "responseFormat": "json"
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": "Intercom API"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Data Cleanup",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [800, 200],
+      "parameters": {
+        "functionCode": "return [{ json: { conversation: $json.body.conversation_parts } }];"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Needs Response?",
+      "type": "n8n-nodes-base.aiAgent",
+      "typeVersion": 1,
+      "position": [1100, 200],
+      "parameters": {
+        "model": "gpt-4.1",
+        "systemMessage": "You are a classifier that decides if a customer message requires a response. If message is just 'thanks' or acknowledgement, return NO. Otherwise return YES.",
+        "outputFormat": "json",
+        "structuredOutput": "{ \"needsResponse\": \"YES|NO\" }",
+        "input": "={{$json[\"conversation\"]}}"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Check Decision",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1400, 200],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"needsResponse\"]}}",
+              "operation": "equals",
+              "value2": "YES"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "6",
+      "name": "AI Router",
+      "type": "n8n-nodes-base.aiAgent",
+      "typeVersion": 1,
+      "position": [1700, 200],
+      "parameters": {
+        "model": "gpt-4.1",
+        "systemMessage": "You are a router that decides which agent should answer: 'General', 'Billing', or 'Technical'. General = product/help docs. Billing = Stripe. Technical = Betterstack logs.",
+        "outputFormat": "json",
+        "structuredOutput": "{ \"agent\": \"General|Billing|Technical\" }",
+        "input": "={{$json[\"conversation\"]}}"
+      }
+    },
+    {
+      "id": "7",
+      "name": "General Agent",
+      "type": "n8n-nodes-base.aiAgentTool",
+      "typeVersion": 1,
+      "position": [2000, 50],
+      "parameters": {
+        "model": "gpt-4.1",
+        "docsUrl": "https://yourdomain.com/helpdocs"
+      }
+    },
+    {
+      "id": "8",
+      "name": "Billing Agent (Stripe MCP)",
+      "type": "n8n-nodes-base.aiAgentTool",
+      "typeVersion": 1,
+      "position": [2000, 200],
+      "parameters": {
+        "model": "gpt-4.1",
+        "mcpTools": ["Stripe"]
+      }
+    },
+    {
+      "id": "9",
+      "name": "Technical Agent (Betterstack MCP)",
+      "type": "n8n-nodes-base.aiAgentTool",
+      "typeVersion": 1,
+      "position": [2000, 350],
+      "parameters": {
+        "model": "gpt-4.1",
+        "mcpTools": ["Betterstack"]
+      }
+    },
+    {
+      "id": "10",
+      "name": "Merge Agent Responses",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 1,
+      "position": [2300, 200],
+      "parameters": {
+        "mode": "passThrough"
+      }
+    },
+    {
+      "id": "11",
+      "name": "Reply to Intercom",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [2600, 200],
+      "parameters": {
+        "url": "https://api.intercom.io/messages",
+        "method": "POST",
+        "authentication": "headerAuth",
+        "options": {
+          "responseFormat": "json"
+        },
+        "bodyParametersJson": "={ \"message_type\": \"comment\", \"type\": \"user\", \"body\": $json[\"text\"] }"
+      },
+      "credentials": {
+        "httpHeaderAuth": "Intercom API"
+      }
+    }
+  ],
+  "connections": {
+    "Intercom Webhook": { "main": [[{ "node": "Get Conversation", "type": "main", "index": 0 }]] },
+    "Get Conversation": { "main": [[{ "node": "Data Cleanup", "type": "main", "index": 0 }]] },
+    "Data Cleanup": { "main": [[{ "node": "Needs Response?", "type": "main", "index": 0 }]] },
+    "Needs Response?": { "main": [[{ "node": "Check Decision", "type": "main", "index": 0 }]] },
+    "Check Decision": { "main": [[{ "node": "AI Router", "type": "main", "index": 0 }]] },
+    "AI Router": {
+      "main": [
+        [{ "node": "General Agent", "type": "main", "index": 0 }],
+        [{ "node": "Billing Agent (Stripe MCP)", "type": "main", "index": 0 }],
+        [{ "node": "Technical Agent (Betterstack MCP)", "type": "main", "index": 0 }]
+      ]
+    },
+    "General Agent": { "main": [[{ "node": "Merge Agent Responses", "type": "main", "index": 0 }]] },
+    "Billing Agent (Stripe MCP)": { "main": [[{ "node": "Merge Agent Responses", "type": "main", "index": 0 }]] },
+    "Technical Agent (Betterstack MCP)": { "main": [[{ "node": "Merge Agent Responses", "type": "main", "index": 0 }]] },
+    "Merge Agent Responses": { "main": [[{ "node": "Reply to Intercom", "type": "main", "index": 0 }]] }
+  }
+}
