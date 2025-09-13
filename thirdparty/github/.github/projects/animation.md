@@ -1,0 +1,4 @@
+- https://github.com/zengm-games/facesjs
+- https://github.com/gramener/comicgen
+- https://github.com/ikatyang/emoji-cheat-sheet
+- 
