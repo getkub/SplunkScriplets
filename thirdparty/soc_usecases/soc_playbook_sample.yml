@@ -1,0 +1,73 @@
+usecase_id: "<UC-001>"
+
+playbook_name: "<Playbook Name - e.g., 'Phishing Email Investigation'>"
+
+objective: |
+  <Describe the purpose of the playbook>
+  e.g., Validate and contain a reported phishing attempt to reduce impact 
+  and improve organizational resilience.
+
+trigger_event: |
+  <What initiates this playbook>
+  e.g., A user reports a suspicious email to the SOC via phishing alert button 
+  or email.
+
+stakeholders:
+  - team_name: "<IT Operations>"
+    team_email: "<it-ops@example.com>"
+  - team_name: "<Legal and Compliance>"
+    team_email: "<legal@example.com>"
+  - team_name: "<Corporate Communications>"
+    team_email: "<comms@example.com>"
+
+data_sources_required:
+  - "<Email Gateway Logs>"
+  - "<SIEM Alerts>"
+  - "<Endpoint Detection & Response (EDR)>"
+  - "<Firewall Logs>"
+  - "<Threat Intelligence Platform>"
+
+step_by_step_actions:
+  initial_triage: |
+    <Describe how the incident is initially reviewed and prioritized>
+    - Review alert details in SIEM
+    - Check user-reported email in phishing mailbox
+    - Determine alert severity and confidence
+
+  data_collection_and_validation: |
+    <Steps to collect and verify incident data>
+    - Extract email headers, URLs, and attachments
+    - Query EDR for host behavior
+    - Correlate findings with threat intel
+
+  containment: |
+    <Steps to isolate the threat and prevent spread>
+    - Quarantine affected email
+    - Isolate endpoints from the network
+    - Block malicious domains/IPs at the firewall and proxy
+
+  eradication: |
+    <Steps to remove the threat from the environment>
+    - Remove malicious files from infected systems
+    - Delete phishing emails from mailboxes
+    - Remove persistence mechanisms (e.g., registry keys, scheduled tasks)
+
+  recovery: |
+    <Steps to restore systems and validate integrity>
+    - Reconnect isolated hosts after cleanup
+    - Run full system scans
+    - Confirm no further indicators of compromise
+
+  communication_and_escalation: |
+    <Who gets notified, when, and how>
+    - Notify SOC manager and IR team
+    - Escalate to CISO if high severity
+    - Document timeline and response actions in ticketing system
+
+mitre_attack_mapping:
+  tactic: "<MITRE ATT&CK Tactic - e.g., 'Initial Access'>"
+  techniques:
+    - id: "<T1566.001>"
+      name: "<Spearphishing Attachment>"
+    - id: "<T1204.002>"
+      name: "<Malicious File Execution>"
