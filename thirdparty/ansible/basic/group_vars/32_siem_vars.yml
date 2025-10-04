@@ -33,7 +33,7 @@ mitre:
   base_technique_url: "https://attack.mitre.org/techniques"
 
 # Reference URL Template
-reference_url_base: "https://wiki/soc_playbooks"
+reference_url_base: "https://wiki/wikipage"
 reference_url_suffix: ".playbook"
 
 # Actions Configuration

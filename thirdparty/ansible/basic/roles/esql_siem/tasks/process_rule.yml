@@ -19,7 +19,7 @@
           to: "{{ to }}"
           language: "{{ language }}"
           interval: "{{ interval }}"
-          query: "{{ query }}"
+          rule_query: "{{ rule_query }}"
           actions: "{{ actions | default([]) }}"
           drilldown_queries: "{{ drilldown_queries | default([]) }}"
 

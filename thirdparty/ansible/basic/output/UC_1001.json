@@ -11,36 +11,7 @@
             "params": {
                 "to": ["soc@company.com", "security-team@company.com"],
                 "subject": "SIEM Alert: UC_1001 - LOGS_MISSING",
-                "message": "Alert: Missing logs from Key Devices\nSeverity: 8\nRule ID: UC_1001\nStatus: SOC_WARRANTY"
-            }
-        }        ,            {
-            "group": "default",
-            "id": "93ec3400-3485-11ef-a17f-47c5c7b19462",
-            "action_type_id": ".index",
-            "params": {
-                "documents": [
-                    {
-                        "rule.id": "{{rule.id}}",
-                        "rule.rule_id": "{{rule.rule_id}}",
-                        "rule.params.riskScore": "{{rule.params.riskScore}}",
-                        "rule.params.severity": "{{rule.params.severity}}",
-                        "rule.params.from": "{{rule.params.from}}",
-                        "rule.params.to": "{{rule.params.to}}",
-                        "rule.name": "{{rule.name}}",
-                        "@timestamp": "{{date}}",
-                        "context.results_link": "{{context.results_link}}",
-                        "agg": "{{#ParseHjson}}[ {{#context.alerts}}{{ag}},{{/context.alerts}} ]{{/ParseHjson}}",
-                        "uc_id": "UC_1001",
-                        "uc_type": "siem",
-                        "uc_status": "SOC_WARRANTY",
-                        "uc_short_name": "LOGS_MISSING",
-                        "uc_long_name": "Missing logs from Key Devices",
-                        "uc_severity": "8",
-                        "uc_tags": "ESQL|ABC|LOGS_MISSING",
-                        "uc_tactic_id": "TA0040",
-                        "uc_technique_ids": "T1489"
-                    }
-                ]
+                "message": "Alert: Missing logs from Key Devices\nSeverity: 8\nRule ID: UC_1001\nStatus: SOC_DEV"
             }
         }            ],
     "rule_id": "UC_1001",
@@ -51,7 +22,7 @@
     "type": "esql",
     "max_signals": 100,
     "name": "UC_1001 - LOGS_MISSING",
-    "references": ["https://wiki/soc_playbooks/UC_1001.playbook"],
+    "references": ["https://wiki/wikipage/UC_1001.playbook"],
     "risk_score": "{{context.risk_score}}",
     "risk_score_mapping": [
         {

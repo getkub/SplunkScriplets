@@ -2,7 +2,7 @@
     "from": "{{ rule.from }}",
     "to": "{{ rule.to }}",
     "interval": "{{ rule.interval }}",
-    "query": "{{ rule.query | replace('\n', '\\n') | replace('"', '\\"') }}",
+    "query": "{{ rule.rule_query | replace('\n', '\\n') | replace('"', '\\"') }}",
     "actions": [
 {% for action in rule.actions %}
     {% if action == 'email' %}

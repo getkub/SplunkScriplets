@@ -3,7 +3,7 @@ from: now-70m
 to: now-10m
 language: esql
 interval: 60m
-query: |
+rule_query: |
     FROM :index-name
     | WHERE host=="us-host1"
 actions:
