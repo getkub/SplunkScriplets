@@ -55,7 +55,7 @@
 
     - name: Build reference URL
       ansible.builtin.set_fact:
-        reference_url: "{{ reference_url_template | replace('{{ uc_id }}', current_uc_id) }}"
+        reference_url: "{{ reference_url_base }}/{{ current_uc_id }}{{ reference_url_suffix }}"
 
     - name: Generate rule JSON
       ansible.builtin.template:
