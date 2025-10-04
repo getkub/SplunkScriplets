@@ -1,0 +1,77 @@
+{
+    "from": "{{ rule.from }}",
+    "to": "{{ rule.to }}",
+    "interval": "{{ rule.interval }}",
+    "query": "{{ rule.query | string }}",
+    "actions": [
+        {
+            "group": "default",
+            "id": "93ec3400-3485-11ef-a17f-47c5c7b19462",
+            "params": {
+                "documents": [
+                    {
+                        "rule.id": "{{ '{{rule.id}}' }}",
+                        "rule.rule_id": "{{ '{{rule.rule_id}}' }}",
+                        "rule.params.riskScore": "{{ '{{rule.params.riskScore}}' }}",
+                        "rule.params.severity": "{{ '{{rule.params.severity}}' }}",
+                        "rule.params.from": "{{ '{{rule.params.from}}' }}",
+                        "rule.params.to": "{{ '{{rule.params.to}}' }}",
+                        "rule.name": "{{ '{{rule.name}}' }}",
+                        "@timestamp": "{{ '{{date}}' }}",
+                        "context.results_link": "{{ '{{context.results_link}}' }}",
+                        "agg": "{{ '{{#ParseHjson}}' }}[ {{ '{{#context.alerts}}' }}{{ '{{ag}}' }},{{ '{{/context.alerts}}' }} ]{{ '{{/ParseHjson}}' }}",
+                        "uc_id": "{{ meta.uc_id }}",
+                        "uc_type": "{{ meta.uc_type }}",
+                        "uc_status": "{{ meta.uc_status }}",
+                        "uc_short_name": "{{ meta.uc_short_name }}",
+                        "uc_long_name": "{{ meta.uc_long_name }}",
+                        "uc_severity": "{{ meta.uc_severity }}",
+                        "uc_tags": "{{ meta.uc_tags }}",
+                        "uc_tactic_id": "{{ meta.uc_mitre_tactic_id }}",
+                        "uc_technique_ids": "{{ meta.uc_mitre_technique_ids }}"
+                    }
+                ]
+            },
+            "action_type_id": ".index"
+        }
+    ],
+    "rule_id": "{{ meta.uc_id }}",
+    "description": "{{ meta.uc_long_name }}",
+    "enabled": true,
+    "false_positives": [],
+    "language": "{{ rule.language }}",
+    "type": "{{ rule.language }}",
+    "max_signals": 100,
+    "name": "{{ meta.uc_id }} - {{ meta.uc_short_name }}",
+    "references": ["https://wiki/soc_playbooks/{{ meta.uc_id }}.playbook"],
+    "risk_score": "{{ '{{context.risk_score}}' }}",
+    "risk_score_mapping": [
+        {
+            "field": "user.name",
+            "operator": "equals",
+            "value": "",
+            "risk_score": "{{ meta.uc_severity | int * 4 }}"
+        }
+    ],
+    "severity": "{% if (meta.uc_severity | int) <= 3 %}low{% elif (meta.uc_severity | int) <= 6 %}medium{% elif (meta.uc_severity | int) <= 8 %}high{% else %}critical{% endif %}",
+    "tags": {{ meta.uc_tags.split('|') | tojson }},
+    "threat": [
+        {
+            "framework": "MITRE ATT&CK",
+            "tactic": {
+                "id": "{{ meta.uc_mitre_tactic_id }}",
+                "name": "{{ meta.uc_mitre_tactic_id }}",
+                "reference": "https://attack.mitre.org/tactics/{{ meta.uc_mitre_tactic_id }}"
+            },
+            "technique": [
+                {% for technique_id in meta.uc_mitre_technique_ids.split(',') %}
+                {
+                    "id": "{{ technique_id.strip() }}",
+                    "name": "{{ technique_id.strip() }}",
+                    "reference": "https://attack.mitre.org/techniques/{{ technique_id.strip() }}"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    ]
+}

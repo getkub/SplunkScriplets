@@ -1,0 +1,9 @@
+---
+
+- name: "process_rule"
+  include_tasks: process_rule.yml
+  tags: [process_rule]
+
+- name: "build_siem_json"
+  include_tasks: build_siem_json.yml
+  tags: [build_siem_json]
