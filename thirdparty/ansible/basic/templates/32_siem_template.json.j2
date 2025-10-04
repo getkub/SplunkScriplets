@@ -4,36 +4,14 @@
     "interval": "{{ rule.interval }}",
     "query": "{{ rule.query | replace('\n', '\\n') | replace('"', '\\"') }}",
     "actions": [
-        {
-            "group": "{{ action_config.group }}",
-            "id": "{{ action_config.action_id }}",
-            "params": {
-                "documents": [
-                    {
-                        "rule.id": "{% raw %}{{rule.id}}{% endraw %}",
-                        "rule.rule_id": "{% raw %}{{rule.rule_id}}{% endraw %}",
-                        "rule.params.riskScore": "{% raw %}{{rule.params.riskScore}}{% endraw %}",
-                        "rule.params.severity": "{% raw %}{{rule.params.severity}}{% endraw %}",
-                        "rule.params.from": "{% raw %}{{rule.params.from}}{% endraw %}",
-                        "rule.params.to": "{% raw %}{{rule.params.to}}{% endraw %}",
-                        "rule.name": "{% raw %}{{rule.name}}{% endraw %}",
-                        "@timestamp": "{% raw %}{{date}}{% endraw %}",
-                        "context.results_link": "{% raw %}{{context.results_link}}{% endraw %}",
-                        "agg": "{% raw %}{{#ParseHjson}}[ {{#context.alerts}}{{ag}},{{/context.alerts}} ]{{/ParseHjson}}{% endraw %}",
-                        "uc_id": "{{ meta.uc_id }}",
-                        "uc_type": "{{ meta.uc_type }}",
-                        "uc_status": "{{ meta.uc_status }}",
-                        "uc_short_name": "{{ meta.uc_short_name }}",
-                        "uc_long_name": "{{ meta.uc_long_name }}",
-                        "uc_severity": "{{ meta.uc_severity }}",
-                        "uc_tags": "{{ meta.uc_tags }}",
-                        "uc_tactic_id": "{{ meta.uc_mitre_tactic_id }}",
-                        "uc_technique_ids": "{{ meta.uc_mitre_technique_ids }}"
-                    }
-                ]
-            },
-            "action_type_id": "{{ action_config.action_type_id }}"
-        }
+{% for action in rule.actions %}
+    {% if action == 'email' %}
+        {% include '32_actions/email.json.j2' %}
+    {% elif action == 'summary_index' %}
+        {% include '32_actions/summary_index.json.j2' %}
+    {% endif %}
+    {% if not loop.last %},{% endif %}
+{% endfor %}
     ],
     "rule_id": "{{ meta.uc_id }}",
     "description": "{{ meta.uc_long_name }}",

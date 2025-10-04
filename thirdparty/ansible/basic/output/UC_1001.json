@@ -4,9 +4,19 @@
     "interval": "60m",
     "query": "FROM :index-name\n| WHERE host==\"us-host1\"\n",
     "actions": [
-        {
+            {
+            "group": "default",
+            "id": "email-action-id-12345",
+            "action_type_id": ".email",
+            "params": {
+                "to": ["soc@company.com", "security-team@company.com"],
+                "subject": "SIEM Alert: UC_1001 - LOGS_MISSING",
+                "message": "Alert: Missing logs from Key Devices\nSeverity: 8\nRule ID: UC_1001\nStatus: SOC_WARRANTY"
+            }
+        }        ,            {
             "group": "default",
             "id": "93ec3400-3485-11ef-a17f-47c5c7b19462",
+            "action_type_id": ".index",
             "params": {
                 "documents": [
                     {
@@ -31,10 +41,8 @@
                         "uc_technique_ids": "T1489"
                     }
                 ]
-            },
-            "action_type_id": ".index"
-        }
-    ],
+            }
+        }            ],
     "rule_id": "UC_1001",
     "description": "Missing logs from Key Devices",
     "enabled": true,

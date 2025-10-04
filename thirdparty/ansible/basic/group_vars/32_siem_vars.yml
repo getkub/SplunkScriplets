@@ -36,11 +36,19 @@ mitre:
 reference_url_base: "https://wiki/soc_playbooks"
 reference_url_suffix: ".playbook"
 
-# Action Configuration
-action_config:
-  group: "default"
-  action_id: "93ec3400-3485-11ef-a17f-47c5c7b19462"
-  action_type_id: ".index"
+# Actions Configuration
+actions_config:
+  email:
+    group: "default"
+    id: "email-action-id-12345"
+    to: 
+      - "soc@company.com"
+      - "security-team@company.com"
+    subject_prefix: "SIEM Alert: "
+  
+  summary_index:
+    group: "default"
+    id: "93ec3400-3485-11ef-a17f-47c5c7b19462"
 
 # Rule Default Settings
 rule_defaults:
