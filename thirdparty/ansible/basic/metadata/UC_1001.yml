@@ -1,0 +1,20 @@
+uid: UC_1001
+from: now-70m
+to: now-10m
+language: esql
+interval: 60m
+rule_query: |
+    FROM :index-name
+    | WHERE host=="us-host1"
+actions:
+    - email
+    - summary_index
+drilldown_queries:
+    - name: "Investigate 1"
+      query: |
+          FROM :index-name
+          | WHERE host=="us-host*"
+    - name: "Investigate 2"
+      query: |
+          FROM :index-name
+          | WHERE host=="host*"

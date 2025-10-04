@@ -1,0 +1,11 @@
+---
+- name: Generate SIEM Rules with Dynamic Risk Scoring
+  hosts: localhost
+  gather_facts: false
+  vars:
+    current_uc_id: UC_1001
+  vars_files:
+    - group_vars/32_siem_vars.yml
+
+  roles:
+    - roles/esql_siem

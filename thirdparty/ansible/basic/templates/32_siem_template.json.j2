@@ -1,0 +1,55 @@
+{
+    "from": "{{ rule.from }}",
+    "to": "{{ rule.to }}",
+    "interval": "{{ rule.interval }}",
+    "query": "{{ rule.rule_query | replace('\n', '\\n') | replace('"', '\\"') }}",
+    "actions": [
+{% for action in rule.actions %}
+    {% if action == 'email' %}
+        {% include '32_actions/email.json.j2' %}
+    {% elif action == 'summary_index' %}
+        {% include '32_actions/summary_index.json.j2' %}
+    {% endif %}
+    {% if not loop.last %},{% endif %}
+{% endfor %}
+    ],
+    "rule_id": "{{ meta.uc_id }}",
+    "description": "{{ meta.uc_long_name }}",
+    "enabled": {{ rule_defaults.enabled | lower }},
+    "false_positives": {{ rule_defaults.false_positives | tojson }},
+    "language": "{{ rule.language }}",
+    "type": "{{ rule.language }}",
+    "max_signals": {{ rule_defaults.max_signals }},
+    "name": "{{ meta.uc_id }} - {{ meta.uc_short_name }}",
+    "references": ["{{ reference_url }}"],
+    "risk_score": "{% raw %}{{context.risk_score}}{% endraw %}",
+    "risk_score_mapping": [
+        {
+            "field": "user.name",
+            "operator": "equals",
+            "value": "",
+            "risk_score": "{{ base_risk_score }}"
+        }
+    ],
+    "severity": "{{ severity_string }}",
+    "tags": {{ parsed_tags | tojson }},
+    "threat": [
+        {
+            "framework": "{{ mitre.framework }}",
+            "tactic": {
+                "id": "{{ meta.uc_mitre_tactic_id }}",
+                "name": "{{ meta.uc_mitre_tactic_id }}",
+                "reference": "{{ mitre.base_tactic_url }}/{{ meta.uc_mitre_tactic_id }}"
+            },
+            "technique": [
+{% for technique_id in technique_ids %}
+                {
+                    "id": "{{ technique_id }}",
+                    "name": "{{ technique_id }}",
+                    "reference": "{{ mitre.base_technique_url }}/{{ technique_id }}"
+                }{% if not loop.last %},{% endif %}
+{% endfor %}
+            ]
+        }
+    ]
+}

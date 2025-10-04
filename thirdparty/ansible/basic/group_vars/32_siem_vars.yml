@@ -1,0 +1,57 @@
+---
+# Directory and File Paths
+meta_csv_file: "metadata/meta.rules.csv"
+priority_csv_file: "metadata/priority.csv"
+rules_dir: "metadata"
+output_dir: "output"
+template_file: "32_siem_template.json.j2"
+templates_dir: "templates"
+
+# Default Values
+default_priority: 4
+default_max_signals: 100
+
+# Severity to String Mapping
+severity_mapping:
+  low:
+    min: 1
+    max: 3
+  medium:
+    min: 4
+    max: 6
+  high:
+    min: 7
+    max: 8
+  critical:
+    min: 9
+    max: 10
+
+# MITRE ATT&CK Settings
+mitre:
+  framework: "MITRE ATT&CK"
+  base_tactic_url: "https://attack.mitre.org/tactics"
+  base_technique_url: "https://attack.mitre.org/techniques"
+
+# Reference URL Template
+reference_url_base: "https://wiki/wikipage"
+reference_url_suffix: ".playbook"
+
+# Actions Configuration
+actions_config:
+  email:
+    group: "default"
+    id: "email-action-id-12345"
+    to: 
+      - "soc@company.com"
+      - "security-team@company.com"
+    subject_prefix: "SIEM Alert: "
+  
+  summary_index:
+    group: "default"
+    id: "93ec3400-3485-11ef-a17f-47c5c7b19462"
+
+# Rule Default Settings
+rule_defaults:
+  enabled: true
+  false_positives: []
+  max_signals: 100

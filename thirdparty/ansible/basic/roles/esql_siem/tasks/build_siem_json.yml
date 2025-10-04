@@ -1,0 +1,4 @@
+---
+- name: Summary of generated rules
+  ansible.builtin.debug:
+    msg: "Completed processing {{ rule_ids | length }} rules"

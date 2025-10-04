@@ -1,0 +1,10 @@
+{
+            "group": "{{ actions_config.email.group }}",
+            "id": "{{ actions_config.email.id }}",
+            "action_type_id": ".email",
+            "params": {
+                "to": {{ actions_config.email.to | tojson }},
+                "subject": "{{ actions_config.email.subject_prefix }}{{ meta.uc_id }} - {{ meta.uc_short_name }}",
+                "message": "Alert: {{ meta.uc_long_name }}\nSeverity: {{ meta.uc_severity }}\nRule ID: {{ meta.uc_id }}\nStatus: {{ meta.uc_status }}"
+            }
+        }

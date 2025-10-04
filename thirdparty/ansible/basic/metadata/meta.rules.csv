@@ -1,0 +1,2 @@
+uc_id,uc_type,uc_status,uc_short_name,uc_long_name,uc_severity,uc_tags,uc_mitre_tactic_id,uc_mitre_technique_ids
+UC_1001,siem,SOC_DEV,LOGS_MISSING,Missing logs from Key Devices,8,"ESQL|ABC|LOGS_MISSING",TA0040,"T1489"
