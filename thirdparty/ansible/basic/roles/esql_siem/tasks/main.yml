@@ -7,8 +7,8 @@
   include_tasks: process_rule.yml
   loop: "{{ rule_ids }}"
   loop_control:
-    loop_var: current_uc_id
-    label: "{{ current_uc_id }}"
+    loop_var: uc_id_item
+    label: "{{ uc_id_item }}"
   tags: [process_rules]
 
 - name: "build_siem_json"
