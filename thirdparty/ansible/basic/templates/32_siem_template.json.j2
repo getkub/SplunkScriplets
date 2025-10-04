@@ -2,7 +2,7 @@
     "from": "{{ rule.from }}",
     "to": "{{ rule.to }}",
     "interval": "{{ rule.interval }}",
-    "query": {{ rule.query | tojson }},
+    "query": "{{ rule.query | replace('\n', '\\n') | replace('"', '\\"') }}",
     "actions": [
         {
             "group": "{{ action_config.group }}",
@@ -10,16 +10,16 @@
             "params": {
                 "documents": [
                     {
-                        "rule.id": "{{{{rule.id}}}}",
-                        "rule.rule_id": "{{{{rule.rule_id}}}}",
-                        "rule.params.riskScore": "{{{{rule.params.riskScore}}}}",
-                        "rule.params.severity": "{{{{rule.params.severity}}}}",
-                        "rule.params.from": "{{{{rule.params.from}}}}",
-                        "rule.params.to": "{{{{rule.params.to}}}}",
-                        "rule.name": "{{{{rule.name}}}}",
-                        "@timestamp": "{{{{date}}}}",
-                        "context.results_link": "{{{{context.results_link}}}}",
-                        "agg": "{{{{#ParseHjson}}}}[ {{{{#context.alerts}}}}{{{{ag}}}},{{{{/context.alerts}}}} ]{{{{/ParseHjson}}}}",
+                        "rule.id": "{% raw %}{{rule.id}}{% endraw %}",
+                        "rule.rule_id": "{% raw %}{{rule.rule_id}}{% endraw %}",
+                        "rule.params.riskScore": "{% raw %}{{rule.params.riskScore}}{% endraw %}",
+                        "rule.params.severity": "{% raw %}{{rule.params.severity}}{% endraw %}",
+                        "rule.params.from": "{% raw %}{{rule.params.from}}{% endraw %}",
+                        "rule.params.to": "{% raw %}{{rule.params.to}}{% endraw %}",
+                        "rule.name": "{% raw %}{{rule.name}}{% endraw %}",
+                        "@timestamp": "{% raw %}{{date}}{% endraw %}",
+                        "context.results_link": "{% raw %}{{context.results_link}}{% endraw %}",
+                        "agg": "{% raw %}{{#ParseHjson}}[ {{#context.alerts}}{{ag}},{{/context.alerts}} ]{{/ParseHjson}}{% endraw %}",
                         "uc_id": "{{ meta.uc_id }}",
                         "uc_type": "{{ meta.uc_type }}",
                         "uc_status": "{{ meta.uc_status }}",
@@ -44,13 +44,13 @@
     "max_signals": {{ rule_defaults.max_signals }},
     "name": "{{ meta.uc_id }} - {{ meta.uc_short_name }}",
     "references": ["{{ reference_url }}"],
-    "risk_score": "{{{{context.risk_score}}}}",
+    "risk_score": "{% raw %}{{context.risk_score}}{% endraw %}",
     "risk_score_mapping": [
         {
             "field": "user.name",
             "operator": "equals",
             "value": "",
-            "risk_score": {{ base_risk_score }}
+            "risk_score": "{{ base_risk_score }}"
         }
     ],
     "severity": "{{ severity_string }}",
@@ -64,13 +64,13 @@
                 "reference": "{{ mitre.base_tactic_url }}/{{ meta.uc_mitre_tactic_id }}"
             },
             "technique": [
-                {% for technique_id in technique_ids %}
+{% for technique_id in technique_ids %}
                 {
                     "id": "{{ technique_id }}",
                     "name": "{{ technique_id }}",
                     "reference": "{{ mitre.base_technique_url }}/{{ technique_id }}"
                 }{% if not loop.last %},{% endif %}
-                {% endfor %}
+{% endfor %}
             ]
         }
     ]

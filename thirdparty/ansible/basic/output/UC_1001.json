@@ -2,9 +2,7 @@
     "from": "now-70m",
     "to": "now-10m",
     "interval": "60m",
-    "query": "FROM :index-name
-| WHERE host=="us-host1"
-",
+    "query": "FROM :index-name\n| WHERE host==\"us-host1\"\n",
     "actions": [
         {
             "group": "default",
@@ -66,11 +64,11 @@
                 "reference": "https://attack.mitre.org/tactics/TA0040"
             },
             "technique": [
-                                {
+                {
                     "id": "T1489",
                     "name": "T1489",
                     "reference": "https://attack.mitre.org/techniques/T1489"
-                }                            ]
+                }            ]
         }
     ]
 }
