@@ -2,24 +2,24 @@
     "from": "{{ rule.from }}",
     "to": "{{ rule.to }}",
     "interval": "{{ rule.interval }}",
-    "query": "{{ rule.query | string }}",
+    "query": {{ rule.query | tojson }},
     "actions": [
         {
-            "group": "default",
-            "id": "93ec3400-3485-11ef-a17f-47c5c7b19462",
+            "group": "{{ action_config.group }}",
+            "id": "{{ action_config.action_id }}",
             "params": {
                 "documents": [
                     {
-                        "rule.id": "{{ '{{rule.id}}' }}",
-                        "rule.rule_id": "{{ '{{rule.rule_id}}' }}",
-                        "rule.params.riskScore": "{{ '{{rule.params.riskScore}}' }}",
-                        "rule.params.severity": "{{ '{{rule.params.severity}}' }}",
-                        "rule.params.from": "{{ '{{rule.params.from}}' }}",
-                        "rule.params.to": "{{ '{{rule.params.to}}' }}",
-                        "rule.name": "{{ '{{rule.name}}' }}",
-                        "@timestamp": "{{ '{{date}}' }}",
-                        "context.results_link": "{{ '{{context.results_link}}' }}",
-                        "agg": "{{ '{{#ParseHjson}}' }}[ {{ '{{#context.alerts}}' }}{{ '{{ag}}' }},{{ '{{/context.alerts}}' }} ]{{ '{{/ParseHjson}}' }}",
+                        "rule.id": "{{{{rule.id}}}}",
+                        "rule.rule_id": "{{{{rule.rule_id}}}}",
+                        "rule.params.riskScore": "{{{{rule.params.riskScore}}}}",
+                        "rule.params.severity": "{{{{rule.params.severity}}}}",
+                        "rule.params.from": "{{{{rule.params.from}}}}",
+                        "rule.params.to": "{{{{rule.params.to}}}}",
+                        "rule.name": "{{{{rule.name}}}}",
+                        "@timestamp": "{{{{date}}}}",
+                        "context.results_link": "{{{{context.results_link}}}}",
+                        "agg": "{{{{#ParseHjson}}}}[ {{{{#context.alerts}}}}{{{{ag}}}},{{{{/context.alerts}}}} ]{{{{/ParseHjson}}}}",
                         "uc_id": "{{ meta.uc_id }}",
                         "uc_type": "{{ meta.uc_type }}",
                         "uc_status": "{{ meta.uc_status }}",
@@ -32,43 +32,43 @@
                     }
                 ]
             },
-            "action_type_id": ".index"
+            "action_type_id": "{{ action_config.action_type_id }}"
         }
     ],
     "rule_id": "{{ meta.uc_id }}",
     "description": "{{ meta.uc_long_name }}",
-    "enabled": true,
-    "false_positives": [],
+    "enabled": {{ rule_defaults.enabled | lower }},
+    "false_positives": {{ rule_defaults.false_positives | tojson }},
     "language": "{{ rule.language }}",
     "type": "{{ rule.language }}",
-    "max_signals": 100,
+    "max_signals": {{ rule_defaults.max_signals }},
     "name": "{{ meta.uc_id }} - {{ meta.uc_short_name }}",
-    "references": ["https://wiki/soc_playbooks/{{ meta.uc_id }}.playbook"],
-    "risk_score": "{{ '{{context.risk_score}}' }}",
+    "references": ["{{ reference_url }}"],
+    "risk_score": "{{{{context.risk_score}}}}",
     "risk_score_mapping": [
         {
             "field": "user.name",
             "operator": "equals",
             "value": "",
-            "risk_score": "{{ meta.uc_severity | int * 4 }}"
+            "risk_score": {{ base_risk_score }}
         }
     ],
-    "severity": "{% if (meta.uc_severity | int) <= 3 %}low{% elif (meta.uc_severity | int) <= 6 %}medium{% elif (meta.uc_severity | int) <= 8 %}high{% else %}critical{% endif %}",
-    "tags": {{ meta.uc_tags.split('|') | tojson }},
+    "severity": "{{ severity_string }}",
+    "tags": {{ parsed_tags | tojson }},
     "threat": [
         {
-            "framework": "MITRE ATT&CK",
+            "framework": "{{ mitre.framework }}",
             "tactic": {
                 "id": "{{ meta.uc_mitre_tactic_id }}",
                 "name": "{{ meta.uc_mitre_tactic_id }}",
-                "reference": "https://attack.mitre.org/tactics/{{ meta.uc_mitre_tactic_id }}"
+                "reference": "{{ mitre.base_tactic_url }}/{{ meta.uc_mitre_tactic_id }}"
             },
             "technique": [
-                {% for technique_id in meta.uc_mitre_technique_ids.split(',') %}
+                {% for technique_id in technique_ids %}
                 {
-                    "id": "{{ technique_id.strip() }}",
-                    "name": "{{ technique_id.strip() }}",
-                    "reference": "https://attack.mitre.org/techniques/{{ technique_id.strip() }}"
+                    "id": "{{ technique_id }}",
+                    "name": "{{ technique_id }}",
+                    "reference": "{{ mitre.base_technique_url }}/{{ technique_id }}"
                 }{% if not loop.last %},{% endif %}
                 {% endfor %}
             ]
