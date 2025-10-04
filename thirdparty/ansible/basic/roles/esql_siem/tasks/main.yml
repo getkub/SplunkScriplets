@@ -1,8 +1,15 @@
 ---
+- name: "load_metadata"
+  include_tasks: load_metadata.yml
+  tags: [load_metadata]
 
-- name: "process_rule"
+- name: "process_rules"
   include_tasks: process_rule.yml
-  tags: [process_rule]
+  loop: "{{ rule_ids }}"
+  loop_control:
+    loop_var: current_uc_id
+    label: "{{ current_uc_id }}"
+  tags: [process_rules]
 
 - name: "build_siem_json"
   include_tasks: build_siem_json.yml

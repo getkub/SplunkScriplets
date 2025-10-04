@@ -1,0 +1,33 @@
+---
+- name: Create output directory
+  ansible.builtin.file:
+    path: "{{ output_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Load metadata CSV
+  community.general.read_csv:
+    path: "{{ meta_csv_file }}"
+    key: uc_id
+  register: meta_csv_data
+
+- name: Load priority mappings CSV (optional)
+  community.general.read_csv:
+    path: "{{ priority_csv_file }}"
+    key: object_name
+  register: priority_csv_data
+  ignore_errors: true
+
+- name: Set priority dictionary
+  ansible.builtin.set_fact:
+    priority_dict: "{{ priority_csv_data.dict | default({}) }}"
+    cacheable: yes
+
+- name: Set metadata dictionary as fact
+  ansible.builtin.set_fact:
+    meta_csv_dict: "{{ meta_csv_data.dict }}"
+    cacheable: yes
+
+- name: Get list of rule IDs to process
+  ansible.builtin.set_fact:
+    rule_ids: "{{ rule_ids_to_process | default(meta_csv_data.dict.keys() | list) }}"

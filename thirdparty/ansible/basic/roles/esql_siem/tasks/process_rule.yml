@@ -25,7 +25,7 @@
 
     - name: Set metadata facts
       ansible.builtin.set_fact:
-        meta: "{{ meta_csv_data.dict[current_uc_id] }}"
+        meta: "{{ meta_csv_dict[current_uc_id] }}"
 
     - name: Calculate severity string
       ansible.builtin.set_fact:
