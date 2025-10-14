@@ -1,0 +1,37 @@
+# Color definitions
+GREEN="\[\033[0;32m\]"
+YELLOW="\[\033[0;33m\]"
+RED="\[\033[0;31m\]"
+BLUE="\[\033[0;34m\]"
+RESET="\[\033[0m\]"
+
+# Function to get current git branch
+parse_git_branch() {
+  branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  if [ -n "$branch" ]; then
+    echo " ($branch)"
+  fi
+}
+
+# Function to set PS1 with dynamic color based on git status
+set_prompt() {
+  # Check for merge conflicts
+  if git diff --name-only --diff-filter=U 2>/dev/null | grep -q .; then
+    PS1="[\\W${RED}\$(parse_git_branch)⚠${RESET}]\\$ "
+  # Check for uncommitted changes
+  elif ! git diff-files --quiet 2>/dev/null || ! git diff-index --quiet --cached HEAD 2>/dev/null; then
+    PS1="[\\W${YELLOW}\$(parse_git_branch)●${RESET}]\\$ "
+  # Check for untracked files
+  elif [ -n "$(git ls-files --others --exclude-standard 2>/dev/null)" ]; then
+    PS1="[\\W${BLUE}\$(parse_git_branch)◌${RESET}]\\$ "
+  # Clean branch
+  else
+    PS1="[\\W${GREEN}\$(parse_git_branch)${RESET}]\\$ "
+  fi
+}
+
+# Run set_prompt before each prompt
+PROMPT_COMMAND=set_prompt
+
+# Enable vi editing mode
+set -o vi
