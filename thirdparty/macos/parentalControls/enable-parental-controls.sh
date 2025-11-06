@@ -47,12 +47,8 @@ echo "   Go to: System Settings → Privacy & Security"
 echo "   Set 'Allow applications downloaded from' to 'App Store'"
 
 echo ""
-echo "Step 4: Blocking execution from user folders..."
-# Remove execute permissions from Downloads, Desktop, Documents
-chmod -R -x "/Users/$CHILD_USER/Downloads" 2>/dev/null
-chmod -R -x "/Users/$CHILD_USER/Desktop" 2>/dev/null
-chmod -R -x "/Users/$CHILD_USER/Documents" 2>/dev/null
-echo "✅ Execute permissions removed from Downloads, Desktop, Documents"
+echo "Step 4: No folder restrictions needed..."
+echo "✅ Folders remain accessible (monitoring daemon handles app blocking)"
 
 echo ""
 echo "Step 5: Creating monitoring script..."
@@ -62,13 +58,18 @@ cat > /usr/local/bin/monitor-apps.sh << 'EOF'
 # Monitor and kill apps running from unauthorized locations
 
 while true; do
-    # Kill XVPN if running
+    # Kill XVPN if running (by process name)
     pkill -9 -i xvpn 2>/dev/null
     
-    # Kill any apps running from Downloads, Desktop, or mounted volumes
-    for pid in $(ps -ax -o pid,command | grep -E "(Downloads|Desktop|Volumes).*\.app" | grep -v grep | awk '{print $1}'); do
+    # Kill any apps running from /Volumes (mounted DMGs, USB drives, etc.)
+    for pid in $(ps -ax -o pid,command | grep "/Volumes/.*\.app" | grep -v grep | awk '{print $1}'); do
         kill -9 $pid 2>/dev/null
     done
+    
+    # Optional: Also block from Downloads/Desktop if desired
+    # for pid in $(ps -ax -o pid,command | grep -E "(Downloads|Desktop)/.*\.app" | grep -v grep | awk '{print $1}'); do
+    #     kill -9 $pid 2>/dev/null
+    # done
     
     sleep 5
 done
@@ -114,13 +115,17 @@ echo ""
 echo "Active protections:"
 echo "  • Configuration profile installed"
 echo "  • Gatekeeper enforcing App Store apps"
-echo "  • Execute permissions removed from user folders"
-echo "  • Background monitoring for unauthorized apps"
+echo "  • Background monitoring for apps from /Volumes"
 echo ""
 echo "The child will NOT be able to:"
-echo "  • Run apps from Downloads/Desktop"
+echo "  • Run apps from mounted DMGs (/Volumes)"
 echo "  • Install non-App Store apps"
 echo "  • Run XVPN (will be automatically killed)"
+echo ""
+echo "The child CAN still:"
+echo "  • Access Downloads/Desktop/Documents folders normally"
+echo "  • Download files"
+echo "  • Run apps installed in /Applications"
 echo ""
 echo "To disable: sudo ./disable-parental-controls.sh"
 echo ""

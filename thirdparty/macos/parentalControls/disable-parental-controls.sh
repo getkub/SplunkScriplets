@@ -54,12 +54,8 @@ else
 fi
 
 echo ""
-echo "Step 4: Restoring execute permissions..."
-# Restore execute permissions (be careful - only restore to user folders)
-chmod -R +x "/Users/$CHILD_USER/Downloads" 2>/dev/null
-chmod -R +x "/Users/$CHILD_USER/Desktop" 2>/dev/null
-chmod -R +x "/Users/$CHILD_USER/Documents" 2>/dev/null
-echo "✅ Execute permissions restored"
+echo "Step 4: No folder permissions to restore..."
+echo "✅ Folders were not modified"
 
 echo ""
 echo "Step 5: Gatekeeper settings..."
