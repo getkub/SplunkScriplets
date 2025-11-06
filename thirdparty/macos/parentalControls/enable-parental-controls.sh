@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# ============================================
+# BLOCKED APPS LIST - Edit this before running
+# ============================================
+BLOCKED_APPS="x-vpn roblox minecraft fortnite steam discord"
+# ============================================
+
 # Enable Parental Controls Script
 # Run this as admin: sudo ./enable-parental-controls.sh
 
@@ -53,26 +59,24 @@ echo "✅ Folders remain accessible (monitoring daemon handles app blocking)"
 echo ""
 echo "Step 5: Creating monitoring script..."
 # Create a script to monitor and kill unauthorized apps
-cat > /usr/local/bin/monitor-apps.sh << 'EOF'
+cat > /usr/local/bin/monitor-apps.sh << EOF
 #!/bin/bash
 # Monitor and kill apps running from unauthorized locations
 
+# Blocked apps list (passed from enable script)
+BLOCKED_APPS="$BLOCKED_APPS"
+
 while true; do
-    # Kill X-VPN and variations (case insensitive, with or without hyphen)
-    pkill -9 -if "x-vpn" 2>/dev/null
-    pkill -9 -if "xvpn" 2>/dev/null
-    pkill -9 -if "X-VPN" 2>/dev/null
+    # Kill blocked apps (case insensitive)
+    for app in \$BLOCKED_APPS; do
+        pkill -9 -if "\$app" 2>/dev/null
+    done
     
     # Kill any apps running from /Volumes (mounted DMGs, USB drives, etc.)
     ps -ax -o pid,command | grep "/Volumes/" | grep "\.app/Contents/MacOS" | grep -v grep | while read pid rest; do
-        echo "$(date): Killing process $pid from /Volumes: $rest" >> /var/log/parental-control.log
-        kill -9 $pid 2>/dev/null
+        echo "\$(date): Killing process \$pid from /Volumes: \$rest" >> /var/log/parental-control.log
+        kill -9 \$pid 2>/dev/null
     done
-    
-    # Optional: Also block from Downloads/Desktop if desired
-    # ps -ax -o pid,command | grep -E "(Downloads|Desktop)/" | grep "\.app/Contents/MacOS" | grep -v grep | while read pid rest; do
-    #     kill -9 $pid 2>/dev/null
-    # done
     
     sleep 3
 done
@@ -114,6 +118,8 @@ echo ""
 echo "=========================================="
 echo "✅ Parental Controls Enabled!"
 echo "=========================================="
+echo ""
+echo "Blocked apps: $BLOCKED_APPS"
 echo ""
 echo "Active protections:"
 echo "  • Configuration profile installed"
