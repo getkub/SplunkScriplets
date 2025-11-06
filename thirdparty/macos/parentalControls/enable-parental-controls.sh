@@ -58,20 +58,23 @@ cat > /usr/local/bin/monitor-apps.sh << 'EOF'
 # Monitor and kill apps running from unauthorized locations
 
 while true; do
-    # Kill XVPN if running (by process name)
-    pkill -9 -i xvpn 2>/dev/null
+    # Kill X-VPN and variations (case insensitive, with or without hyphen)
+    pkill -9 -if "x-vpn" 2>/dev/null
+    pkill -9 -if "xvpn" 2>/dev/null
+    pkill -9 -if "X-VPN" 2>/dev/null
     
     # Kill any apps running from /Volumes (mounted DMGs, USB drives, etc.)
-    for pid in $(ps -ax -o pid,command | grep "/Volumes/.*\.app" | grep -v grep | awk '{print $1}'); do
+    ps -ax -o pid,command | grep "/Volumes/" | grep "\.app/Contents/MacOS" | grep -v grep | while read pid rest; do
+        echo "$(date): Killing process $pid from /Volumes: $rest" >> /var/log/parental-control.log
         kill -9 $pid 2>/dev/null
     done
     
     # Optional: Also block from Downloads/Desktop if desired
-    # for pid in $(ps -ax -o pid,command | grep -E "(Downloads|Desktop)/.*\.app" | grep -v grep | awk '{print $1}'); do
+    # ps -ax -o pid,command | grep -E "(Downloads|Desktop)/" | grep "\.app/Contents/MacOS" | grep -v grep | while read pid rest; do
     #     kill -9 $pid 2>/dev/null
     # done
     
-    sleep 5
+    sleep 3
 done
 EOF
 
