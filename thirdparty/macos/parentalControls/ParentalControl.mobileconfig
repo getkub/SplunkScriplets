@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <!-- Gatekeeper Enforcement -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.systempolicy.control</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadIdentifier</key>
+            <string>com.parentalcontrol.gatekeeper</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D</string>
+            <key>PayloadEnabled</key>
+            <true/>
+            <key>AllowIdentifiedDevelopers</key>
+            <false/>
+            <key>EnableAssessment</key>
+            <true/>
+        </dict>
+        
+        <!-- Security & Privacy Restrictions -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.security.firewall</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadIdentifier</key>
+            <string>com.parentalcontrol.firewall</string>
+            <key>PayloadUUID</key>
+            <string>B2C3D4E5-F6A7-4B5C-9D0E-1F2A3B4C5D6E</string>
+            <key>PayloadEnabled</key>
+            <true/>
+            <key>EnableFirewall</key>
+            <true/>
+            <key>BlockAllIncoming</key>
+            <false/>
+            <key>EnableStealthMode</key>
+            <true/>
+        </dict>
+        
+        <!-- Restrictions -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.applicationaccess</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadIdentifier</key>
+            <string>com.parentalcontrol.restrictions</string>
+            <key>PayloadUUID</key>
+            <string>C3D4E5F6-A7B8-4C5D-0E1F-2A3B4C5D6E7F</string>
+            <key>PayloadEnabled</key>
+            <true/>
+            <key>allowUIAppInstallation</key>
+            <false/>
+            <key>allowCloudDocumentSync</key>
+            <true/>
+            <key>allowDiagnosticSubmission</key>
+            <true/>
+        </dict>
+    </array>
+    
+    <key>PayloadDescription</key>
+    <string>Parental Control Profile - Restricts app installation and enforces security settings</string>
+    <key>PayloadDisplayName</key>
+    <string>Parental Controls</string>
+    <key>PayloadIdentifier</key>
+    <string>com.parentalcontrol.profile</string>
+    <key>PayloadOrganization</key>
+    <string>Home</string>
+    <key>PayloadRemovalDisallowed</key>
+    <true/>
+    <key>PayloadScope</key>
+    <string>System</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>D4E5F6A7-B8C9-4D5E-1F2A-3B4C5D6E7F8A</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
