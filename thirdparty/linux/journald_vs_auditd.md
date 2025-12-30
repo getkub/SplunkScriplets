@@ -47,6 +47,88 @@
 
 ---
 
-If you want, I can make a **visual flow diagram** showing how **kernel → daemon → Elastic Agent → ELK** for both journald and auditd. That really helps make the difference obvious.
+## Elastic Agent
 
-Do you want me to make that diagram?
+```mermaid
+flowchart LR
+    subgraph Kernel
+        K[Linux Kernel]
+    end
+
+    subgraph Journald_Daemon
+        J[systemd-journald]
+    end
+
+    subgraph Auditd_Daemon
+        A[auditd]
+    end
+
+    subgraph Elastic_Agent
+        EA[Elastic Agent]
+    end
+
+    subgraph Storage
+        ELK[Elasticsearch / Kibana]
+    end
+
+    %% Flow for journald
+    K -->|kernel messages| J
+    ServiceLogs[systemd service stdout/stderr] --> J
+    SyslogLogs[syslog messages] --> J
+    J -->|journal API / files| EA
+    EA --> ELK
+
+    %% Flow for auditd
+    K -->|audit events| A
+    A -->|audit netlink socket or audit.log| EA
+    EA --> ELK
+
+    %% Styling
+    style Journald_Daemon fill:#f9f,stroke:#333,stroke-width:2px
+    style Auditd_Daemon fill:#9f9,stroke:#333,stroke-width:2px
+    style Elastic_Agent fill:#ff9,stroke:#333,stroke-width:2px
+```
+
+---
+
+## Splunk UF
+
+```mermaid
+flowchart LR
+    subgraph Kernel
+        K[Linux Kernel]
+    end
+
+    subgraph Journald_Daemon
+        J[systemd-journald]
+    end
+
+    subgraph Auditd_Daemon
+        A[auditd]
+    end
+
+    subgraph Splunk_UF
+        UF[Splunk Universal Forwarder]
+    end
+
+    subgraph Storage
+        SPLK[Splunk Indexer / Splunk Cloud]
+    end
+
+    %% Flow for journald logs (via files)
+    J -->|/var/log/messages, /var/log/auth.log| UF
+    ServiceLogs[systemd service stdout/stderr] -->|via journald → syslog| /var/log/messages
+    SyslogLogs[syslog messages] -->|via journald → syslog| /var/log/messages
+
+    %% Flow for auditd logs (via audit.log)
+    A -->|/var/log/audit/audit.log| UF
+
+    %% Forward to Splunk
+    UF --> SPLK
+
+    %% Styling
+    style Journald_Daemon fill:#f9f,stroke:#333,stroke-width:2px
+    style Auditd_Daemon fill:#9f9,stroke:#333,stroke-width:2px
+    style Splunk_UF fill:#ff9,stroke:#333,stroke-width:2px
+
+```
