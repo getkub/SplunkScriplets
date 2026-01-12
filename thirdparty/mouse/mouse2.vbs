@@ -1,19 +1,32 @@
-' cscript "<scriptname>"
+Option Explicit
 
-Set fso = CreateObject ("Scripting.FileSystemObject")
-Set stdout = fso.GetStandardStream (1)
-Set stderr = fso.GetStandardStream (2)
+Dim hours, maxMinutes, Counter
+Dim WshShell
 
-Dim Counter: Counter = 1
+' Default to 6 hours
+hours = 6
+
+' If parameter is passed, use it
+If WScript.Arguments.Count > 0 Then
+    If IsNumeric(WScript.Arguments(0)) Then
+        hours = CDbl(WScript.Arguments(0))
+    End If
+End If
+
+maxMinutes = hours * 60
+Counter = 0
+
 Set WshShell = WScript.CreateObject("WScript.Shell")
 
-stdout.WriteLine "Starting for counter: 120mins"
+WScript.StdOut.WriteLine "Starting script for " & hours & " hours (" & maxMinutes & " minutes)"
 
-While Counter < 120
-  Counter = Counter + 1
-  WScript.Sleep 6000
-  WshShell.SendKeys "{SCROLLLOCK 2}"
-  'stdout.WriteLine "Entry: " & Counter
+While Counter < maxMinutes
+    Counter = Counter + 1
+    WScript.Sleep 60000    ' 1 minute
+    WshShell.SendKeys "{SCROLLLOCK}"
+    'WScript.StdOut.WriteLine "Minute: " & Counter
 Wend
+
+WScript.StdOut.WriteLine "Completed " & hours & " hours"
 
 Set WshShell = Nothing
