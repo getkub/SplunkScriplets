@@ -9,3 +9,15 @@
 # With no acceleration
 |datamodel Network_Traffic All_Traffic search | search sourcetype="cisco:asa" | stats count by All_Traffic.dest
 ```
+
+
+- List Models and Datasets
+
+```
+| datamodel
+| spath output=model path=modelName
+| spath output=datasets path=objects{}.objectName
+| mvexpand datasets
+| where datasets!="BaseEvent" AND datasets!="BaseSearch" AND datasets!="BaseTransaction"
+| table model datasets
+```
