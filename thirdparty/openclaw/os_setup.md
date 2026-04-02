@@ -1,5 +1,3 @@
----
-
 # 🧾 Goal Architecture
 
 ```text
