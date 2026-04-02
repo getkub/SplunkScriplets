@@ -1,189 +1,189 @@
-# 🧾 Goal Architecture
+# Goal
 
-```text
-macOS (host)
- ├── Ollama (0.0.0.0:11434)
- └── SSH / browser → Arch VM
+- Host (macOS)
+  - Runs Ollama on fixed IP + port
+  - Can SSH into VM
+  - Can access optional OpenClaw UI
 
-Arch Linux (UTM guest)
- ├── OpenClaw
- ├── (optional) web UI
- └── Firewall:
-      ❌ block all outbound
-      ✅ allow ONLY → host:11434
-```
+- Guest (Arch Linux in UTM)
+  - Runs OpenClaw
+  - Outbound network:
+    - ONLY allowed → host Ollama API
+  - Inbound:
+    - SSH from host
+    - Optional UI port
 
 ---
 
-# ⚙️ 1. Prepare Arch VM (base setup)
+# 1. UTM Network (Host ↔ Guest only, fixed IP)
 
-Update system:
+## Create isolated network (no router / no internet)
+
+In UTM:
+
+1. Open VM → Edit
+2. Network:
+   - Mode: **Shared Network**
+   - Enable: **Isolate from host network** (important)
+
+This creates a private subnet like:
+- Host: `192.168.64.1`
+- Guest: `192.168.64.x`
+
+---
+
+## Set static IP inside Arch
+
+Edit network config:
 
 ```bash
-sudo pacman -Syu
+sudo nano /etc/systemd/network/20-wired.network
+````
+
+```ini
+[Match]
+Name=enp0s1
+
+[Network]
+Address=192.168.64.2/24
+Gateway=192.168.64.1
+DNS=192.168.64.1
 ```
 
-Install essentials:
+Enable systemd-networkd:
 
 ```bash
-sudo pacman -S git python python-pip nodejs npm openssh ufw
+sudo systemctl enable systemd-networkd
+sudo systemctl restart systemd-networkd
 ```
 
-Enable SSH (so host → guest works):
-
-```bash
-sudo systemctl enable sshd
-sudo systemctl start sshd
-```
-
-Find VM IP:
+Verify:
 
 ```bash
 ip a
 ```
 
-👉 From macOS:
+---
+
+# 2. Enable SSH (host → guest)
+
+Install + enable:
 
 ```bash
-ssh user@<vm-ip>
+sudo pacman -S openssh
+sudo systemctl enable sshd
+sudo systemctl start sshd
+```
+
+From macOS:
+
+```bash
+ssh user@192.168.64.2
 ```
 
 ---
 
-# 🌐 2. Make Ollama accessible from host
+# 3. Configure Ollama on macOS host
 
-On macOS:
+Run Ollama bound to all interfaces:
 
 ```bash
 export OLLAMA_HOST=0.0.0.0
 ollama serve
 ```
 
-Find host IP:
-
-```bash
-ipconfig getifaddr en0
-```
-
-Example:
+Host IP in this network:
 
 ```text
-192.168.1.10
+192.168.64.1
 ```
 
----
-
-# 🔌 3. Test VM → host connectivity
-
-Inside Arch VM:
+Test from VM:
 
 ```bash
-curl http://192.168.1.10:11434/api/tags
+curl http://192.168.64.1:11434/api/tags
 ```
-
-✅ If this works → networking is correct
 
 ---
 
-# 🤖 4. Install OpenClaw (generic setup)
+# 4. Install OpenClaw
 
-> (Exact repo may vary depending on which OpenClaw fork you're using)
+```bash
+sudo pacman -S git python python-pip nodejs npm
+```
 
 ```bash
 git clone https://github.com/<openclaw-repo>.git
 cd openclaw
 ```
 
-Create Python env:
-
 ```bash
 python -m venv venv
 source venv/bin/activate
-```
-
-Install deps:
-
-```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-# 🔗 5. Configure OpenClaw → Ollama
-
-Set environment variables:
+# 5. Configure OpenClaw → Ollama
 
 ```bash
-export OPENAI_BASE_URL=http://192.168.1.10:11434/v1
+export OPENAI_BASE_URL=http://192.168.64.1:11434/v1
 export OPENAI_API_KEY=ollama
 export MODEL=gemma4
 ```
 
-👉 This makes OpenClaw talk to:
-**Ollama** on host
-
 ---
 
-# 🖥️ 6. (Optional) Enable Web UI
-
-If OpenClaw has a UI:
+# 6. Optional Web UI
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then from macOS browser:
+Access from macOS:
 
 ```text
-http://<vm-ip>:3000
+http://192.168.64.2:3000
 ```
 
 ---
 
-# 🔒 7. LOCK DOWN NETWORK (critical step)
+# 7. Firewall (strict isolation)
 
-Now we enforce:
+Install UFW:
 
-> Guest → ONLY Ollama API
-> Everything else blocked
+```bash
+sudo pacman -S ufw
+```
 
----
-
-## Enable firewall
+Default deny:
 
 ```bash
 sudo ufw default deny outgoing
 sudo ufw default deny incoming
 ```
 
----
-
-## Allow outbound → Ollama ONLY
+Allow outbound → Ollama only:
 
 ```bash
-sudo ufw allow out to 192.168.1.10 port 11434 proto tcp
+sudo ufw allow out to 192.168.64.1 port 11434 proto tcp
 ```
 
----
-
-## Allow inbound SSH (host → VM)
+Allow inbound SSH:
 
 ```bash
 sudo ufw allow in 22/tcp
 ```
 
----
-
-## (Optional) Allow Web UI
+Allow UI (optional):
 
 ```bash
 sudo ufw allow in 3000/tcp
 ```
 
----
-
-## Enable firewall
+Enable firewall:
 
 ```bash
 sudo ufw enable
@@ -191,15 +191,15 @@ sudo ufw enable
 
 ---
 
-# 🧪 8. Verify isolation
+# 8. Verification
 
-### Should work:
+Should work:
 
 ```bash
-curl http://192.168.1.10:11434/api/tags
+curl http://192.168.64.1:11434/api/tags
 ```
 
-### Should FAIL:
+Should fail:
 
 ```bash
 curl https://google.com
@@ -207,56 +207,22 @@ curl https://google.com
 
 ---
 
-# 🔐 9. Extra hardening (recommended)
+# 9. Optional Hardening
 
-Run OpenClaw as non-root:
+Create restricted user:
 
 ```bash
-useradd -m claw
-passwd claw
+sudo useradd -m claw
+sudo passwd claw
 su - claw
 ```
 
-Limit filesystem scope:
+Limit working directory:
 
-* only give it project directory
-* avoid mounting host root
+```bash
+mkdir ~/workspace
+cd ~/workspace
+```
 
----
+Run OpenClaw only inside this directory.
 
-# 🧠 Notes on model choice
-
-You’re using:
-
-* **Gemma**
-
-👉 It works, but for agents:
-
-* weaker tool use
-* worse planning
-
-If things feel flaky, switch later.
-
----
-
-# 🧾 Final Result
-
-You now have:
-
-* ✅ Host runs model (fast)
-* ✅ VM runs agent (isolated)
-* ✅ Host → VM access (SSH / UI)
-* ✅ VM → ONLY Ollama API
-* ❌ No internet from agent
-
----
-
-# 💡 If you want next upgrades
-
-I can help you:
-
-* add a **proxy layer (stabilizes tool calling a LOT)**
-* swap in a **better coding model for Ollama**
-* or make a **one-command resettable VM snapshot workflow**
-
-Just say 👍
