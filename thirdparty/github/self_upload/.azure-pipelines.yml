@@ -1,0 +1,46 @@
+trigger:
+  branches:
+    include:
+      - "*"
+    exclude:
+      - main
+      - release/*
+      - pipeline
+      - pipeline/*
+  paths:
+    include:
+      - content/**/*.md
+      - config/build.yml
+      - config/metadata.csv
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - content/**/*.md
+      - config/build.yml
+      - config/metadata.csv
+
+variables:
+  - name: vmPool
+    value: generic-linux-pool
+
+parameters:
+  - name: action
+    type: string
+    default: build_content
+    values:
+      - build_content
+
+  - name: triggerPath
+    type: string
+    default: config/build.yml
+
+stages:
+  - ${{ if eq(parameters.action, 'build_content') }}:
+    - template: templates/build_content.yml
+      parameters:
+        vmPool: ${{ variables.vmPool }}
+        triggerPath: ${{ parameters.triggerPath }}

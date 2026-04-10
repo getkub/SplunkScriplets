@@ -1,0 +1,69 @@
+parameters:
+  - name: vmPool
+    type: string
+
+  - name: triggerPath
+    type: string
+
+stages:
+  - stage: build_content
+    displayName: Build Content
+    jobs:
+      - job: compile
+        displayName: Compile and commit generated content
+        pool:
+          name: ${{ parameters.vmPool }}
+
+        steps:
+          - checkout: self
+            persistCredentials: true
+            clean: true
+
+          # Step 1: Run compiler
+          - bash: |
+              set -euo pipefail
+              bash .pipeline/scripts/compile_content.sh "${{ parameters.triggerPath }}"
+            displayName: Compile content
+
+          # Step 2: Commit results back to branch
+          - bash: |
+              set -euo pipefail
+
+              echo "Build reason: $(Build.Reason)"
+              echo "Source branch: $(Build.SourceBranch)"
+
+              # 🚫 Never push from PR validation
+              if [[ "$(Build.Reason)" == "PullRequest" ]]; then
+                echo "Skipping push (PR validation build)"
+                exit 0
+              fi
+
+              source_ref="$(Build.SourceBranch)"
+
+              # 🚫 Protect important branches
+              if [[ "$source_ref" == "refs/heads/main" || \
+                    "$source_ref" == refs/heads/release/* || \
+                    "$source_ref" == "refs/heads/pipeline" || \
+                    "$source_ref" == refs/heads/pipeline/* ]]; then
+                echo "Skipping push on protected branch: $source_ref"
+                exit 0
+              fi
+
+              # ✅ Only commit if something changed
+              if git diff --quiet; then
+                echo "No changes to commit"
+                exit 0
+              fi
+
+              echo "Changes detected. Preparing commit..."
+
+              # 🤖 Bot identity
+              git config user.name "ci-bot"
+              git config user.email "ci-bot@local"
+
+              git add -A
+              git commit -m "chore: auto-build content [skip ci]"
+
+              echo "Pushing changes back to branch..."
+              git push origin "HEAD:$(Build.SourceBranchName)"
+            displayName: Commit generated content
