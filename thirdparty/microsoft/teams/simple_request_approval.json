@@ -1,0 +1,51 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${title}",
+      "weight": "Bolder",
+      "size": "Large"
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Request ID:",
+          "value": "${requestId}"
+        },
+        {
+          "title": "Requested User:",
+          "value": "${requestedUser}"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Approve",
+      "style": "positive",
+      "data": {
+        "decision": "approve"
+      }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Reject",
+      "style": "destructive",
+      "data": {
+        "decision": "reject"
+      }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Request Further Details",
+      "data": {
+        "decision": "more_info"
+      }
+    }
+  ]
+}
