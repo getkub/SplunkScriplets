@@ -1,0 +1,10 @@
+rule_active_times:
+  - cron: "0 9 * * 1-3"
+    exclude_calendars:
+      - country: GB
+        type: bank-holidays
+
+  - cron: "0 8 * * 4-7"
+    exclude_calendars:
+      - country: GB
+        type: bank-holidays
