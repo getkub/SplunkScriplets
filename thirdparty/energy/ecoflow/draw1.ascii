@@ -1,4 +1,5 @@
-                         2 x 500W Solar
+```
+                        2 x 500W Solar
                               |
                               | DC
                               v
@@ -19,3 +20,30 @@ Mains 230V ----------->|    DELTA 3    |
                     |          |          |
                     v          v          v
                 Computer    Monitor     Other
+```
+
+```
+                         2 x 500W Solar
+                              |
+                              | DC
+                              v
+                       +---------------+
+                       |               |
+Mains 230V --[Meross]--|   DELTA PRO   |
+                       |   3600 Wh     |
+                       |               |
+                       +-------+-------+
+                               |
+                             AC OUT
+                               |
+                               v
+                    Existing special
+                    inverter socket
+                               |
+                    +----------+----------+
+                    |          |          |
+                    v          v          v
+                Computer    Monitor     Other
+
+
+```
