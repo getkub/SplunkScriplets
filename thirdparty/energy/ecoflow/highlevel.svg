@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#333"/>
+    </marker>
+
+    <marker id="greenArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#16803c"/>
+    </marker>
+
+    <marker id="orangeArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#d97706"/>
+    </marker>
+
+    <style>
+      .box {
+        fill: white;
+        stroke: #333;
+        stroke-width: 2;
+        rx: 12;
+      }
+
+      .title {
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        fill: #222;
+      }
+
+      .label {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        fill: #333;
+      }
+
+      .small {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        fill: #666;
+      }
+
+      .solar {
+        stroke: #16803c;
+        stroke-width: 3;
+        fill: none;
+        marker-end: url(#greenArrow);
+      }
+
+      .mains {
+        stroke: #d97706;
+        stroke-width: 3;
+        fill: none;
+        marker-end: url(#orangeArrow);
+      }
+
+      .output {
+        stroke: #333;
+        stroke-width: 3;
+        fill: none;
+        marker-end: url(#arrow);
+      }
+
+      .alert {
+        stroke: #9b59b6;
+        stroke-width: 2;
+        stroke-dasharray: 7 5;
+        fill: none;
+        marker-end: url(#arrow);
+      }
+    </style>
+  </defs>
+
+  <!-- TITLE -->
+  <text x="600" y="40" text-anchor="middle" class="title"
+        font-size="26">
+    EcoFlow DELTA Pro — Solar Buffer / Backup System
+  </text>
+
+  <!-- SOLAR PANELS -->
+  <rect x="70" y="110" width="250" height="120" class="box"
+        fill="#f0fdf4"/>
+
+  <text x="195" y="145" text-anchor="middle" class="title">
+    ☀️ Solar Array
+  </text>
+
+  <text x="195" y="175" text-anchor="middle" class="label">
+    3 × 500 W
+  </text>
+
+  <text x="195" y="200" text-anchor="middle" class="small">
+    1,500 W nominal
+  </text>
+
+  <!-- DELTA PRO -->
+  <rect x="450" y="250" width="300" height="190" class="box"
+        fill="#f8fafc" stroke-width="3"/>
+
+  <text x="600" y="295" text-anchor="middle" class="title">
+    🔋 EcoFlow DELTA Pro
+  </text>
+
+  <text x="600" y="330" text-anchor="middle" class="label">
+    3,600 Wh
+  </text>
+
+  <text x="600" y="360" text-anchor="middle" class="small">
+    Solar + Battery + AC Charging
+  </text>
+
+  <text x="600" y="390" text-anchor="middle" class="small">
+    Battery reserve target: 20%
+  </text>
+
+  <!-- MAINS -->
+  <rect x="70" y="390" width="250" height="120" class="box"
+        fill="#fff7ed"/>
+
+  <text x="195" y="425" text-anchor="middle" class="title">
+    🏠 Mains 230 V
+  </text>
+
+  <text x="195" y="455" text-anchor="middle" class="label">
+    Emergency / recharge
+  </text>
+
+  <text x="195" y="480" text-anchor="middle" class="small">
+    Controlled manually
+  </text>
+
+  <!-- MEROSS -->
+  <rect x="350" y="515" width="190" height="90" class="box"
+        fill="#fff7ed"/>
+
+  <text x="445" y="550" text-anchor="middle" class="title">
+    🔌 Meross
+  </text>
+
+  <text x="445" y="578" text-anchor="middle" class="small">
+    Smart Switch
+  </text>
+
+  <!-- EXISTING SOCKET -->
+  <rect x="850" y="250" width="260" height="120" class="box"
+        fill="#f8fafc"/>
+
+  <text x="980" y="290" text-anchor="middle" class="title">
+    🔌 Existing Special
+  </text>
+
+  <text x="980" y="320" text-anchor="middle" class="label">
+    Inverter Socket
+  </text>
+
+  <text x="980" y="345" text-anchor="middle" class="small">
+    Existing house circuit
+  </text>
+
+  <!-- LOADS -->
+  <rect x="850" y="450" width="115" height="80" class="box"/>
+  <text x="907" y="485" text-anchor="middle" class="label">🖥️ Computer</text>
+  <text x="907" y="510" text-anchor="middle" class="small">400–1200 W</text>
+
+  <rect x="990" y="450" width="115" height="80" class="box"/>
+  <text x="1047" y="485" text-anchor="middle" class="label">🖥️ Monitor</text>
+
+  <rect x="920" y="565" width="115" height="80" class="box"/>
+  <text x="977" y="600" text-anchor="middle" class="label">💡 Other</text>
+  <text x="977" y="625" text-anchor="middle" class="small">House loads</text>
+
+  <!-- SOLAR FLOW -->
+  <path d="M320 170 C390 170 390 280 450 300"
+        class="solar"/>
+
+  <text x="355" y="205" class="small" fill="#16803c">
+    DC solar
+  </text>
+
+  <!-- MAINS TO MEROSS -->
+  <path d="M195 510 L195 560 L350 560"
+        class="mains"/>
+
+  <text x="210" y="545" class="small" fill="#d97706">
+    AC
+  </text>
+
+  <!-- MEROSS TO DELTA -->
+  <path d="M540 560 C600 560 600 500 600 440"
+        class="mains"/>
+
+  <text x="610" y="515" class="small" fill="#d97706">
+    AC charging
+  </text>
+
+  <!-- DELTA TO SOCKET -->
+  <path d="M750 345 L850 310"
+        class="output"/>
+
+  <text x="775" y="315" class="small">
+    AC OUT
+  </text>
+
+  <!-- SOCKET TO LOADS -->
+  <path d="M980 370 L907 450"
+        class="output"/>
+
+  <path d="M980 370 L1047 450"
+        class="output"/>
+
+  <path d="M980 370 L977 565"
+        class="output"/>
+
+  <!-- ALERT -->
+  <rect x="350" y="80" width="190" height="65" class="box"
+        fill="#faf5ff" stroke="#9b59b6"/>
+
+  <text x="445" y="108" text-anchor="middle" class="title"
+        font-size="16">
+    📱 EcoFlow Alert
+  </text>
+
+  <text x="445" y="130" text-anchor="middle" class="small">
+    Battery &lt; 20%
+  </text>
+
+  <path d="M540 110 C650 110 720 180 700 250"
+        class="alert"/>
+
+  <!-- LEGEND -->
+  <text x="70" y="680" class="small">
+    Green = Solar DC
+  </text>
+
+  <text x="250" y="680" class="small">
+    Orange = Mains / AC charging
+  </text>
+
+  <text x="500" y="680" class="small">
+    Black = DELTA Pro AC output
+  </text>
+
+  <text x="780" y="680" class="small">
+    Purple = Alert / manual action
+  </text>
+
+</svg>
