@@ -1,0 +1,21 @@
+                         2 x 500W Solar
+                              |
+                              | DC
+                              v
+                       +---------------+
+                       |               |
+Mains 230V ----------->|    DELTA 3    |
+       AC              |    1024 Wh    |
+                       |               |
+                       +-------+-------+
+                               |
+                             AC OUT
+                               |
+                               v
+                    Existing special
+                    inverter socket
+                               |
+                    +----------+----------+
+                    |          |          |
+                    v          v          v
+                Computer    Monitor     Other
