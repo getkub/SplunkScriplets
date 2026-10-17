@@ -65,7 +65,7 @@ Happy learning!
 * [Feodo Tracker](https://feodotracker.abuse.ch/) - List of Feodo botnet C&C servers
 * [Ransomware Tracker](https://ransomwaretracker.abuse.ch/blocklist/) - Ransomware Tracker offers various types of blocklists that allows you to block Ransomware botnet C&C traffic.
 * [URLhaus](https://urlhaus.abuse.ch/api/) - URLhaus is a project from abuse.ch with the goal of sharing malicious URLs that are being used for malware distribution.
-* [Alexa Top 1 Million](http://s3.amazonaws.com/alexa-static/top-1m.csv.zip) - CSV dataset with the most popular sites by Alexa.
+* [NetAPI Top 1 Million](https://netapi.com/top-1-mln-websites/) - Free daily CSV of the one million most popular sites (rank,domain), CC BY 4.0.
 * [OpenDNS Top Domains List](https://github.com/opendns/public-domain-lists) - The OpenDNS Top Domains List is the top 10,000 domain names our resolvers all over the globe are receiving queries for, sorted by popularity.
 * [The Majestic Million](https://majestic.com/reports/majestic-million) - The million domains we find with the most referring subnets.
 * [StopForumSpam](https://www.stopforumspam.com/downloads) - The data provided here represents what we believe will only ever ben used to abuse. IP Addresses, domains and usernames listed here will be returned in API results as "blacklisted".
